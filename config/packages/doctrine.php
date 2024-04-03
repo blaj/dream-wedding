@@ -7,9 +7,24 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('doctrine', [
         'dbal' => [
-            'url' => '%env(resolve:DATABASE_URL)%',
-            'profiling_collect_backtrace' => '%kernel.debug%',
-            'use_savepoints' => true,
+            'connections' => [
+                'default' => [
+                    'url' => '%env(resolve:DATABASE_URL)%',
+                    'profiling_collect_backtrace' => '%kernel.debug%',
+                    'driver' => 'pdo_pgsql',
+                    'server_version' => '16',
+                    'charset' => 'UTF8',
+                    'use_savepoints' => true,
+                ],
+                'migrations' => [
+                    'url' => '%env(resolve:DATABASE_MIGRATIONS_URL)%',
+                    'profiling_collect_backtrace' => '%kernel.debug%',
+                    'driver' => 'pdo_pgsql',
+                    'server_version' => '16',
+                    'charset' => 'UTF8',
+                    'use_savepoints' => true,
+                ],
+            ],
         ],
         'orm' => [
             'auto_generate_proxy_classes' => true,
