@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ 'sign-in'|trans }}
+{% endblock %}
+
+{% block body %}
+  <main class="form-signin w-100 m-auto text-center">
+    <form action="{{ path('security_login') }}" method="post">
+      <input type="hidden" name="_target_path" value="/" />
+
+      <h1 class="mb-4">
+        Dream-Wedding
+      </h1>
+
+      <h1 class="h3 mb-3 fw-normal">
+        {{ 'please-sign-in'|trans }}
+      </h1>
+
+      {% if error %}
+        <div class="alert alert-danger">
+          {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+      {% endif %}
+
+      <div class="form-floating">
+        <input
+            type="text"
+            class="form-control"
+            id="username"
+            placeholder="{{ 'username'|trans }}"
+            name="_username"
+            value="{{ lastUsername }}">
+
+        <label for="username">
+          {{ 'username'|trans }}
+        </label>
+      </div>
+
+      <div class="form-floating">
+        <input type="password" class="form-control" id="password" placeholder="{{ 'password'|trans }}" name="_password">
+
+        <label for="password">
+          {{ 'password'|trans }}
+        </label>
+      </div>
+
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me" name="_remember_me">
+
+          {{ 'remember-me'|trans }}
+        </label>
+      </div>
+
+      <button class="w-100 btn btn-lg btn-primary mb-1" type="submit">
+        {{ 'sign-in'|trans }}
+      </button>
+
+      <a href="{{ path('user_register') }}" class="w-100 btn btn-sm btn-secondary">
+        {{ 'sign-up'|trans }}
+      </a>
+
+      <p class="mt-5 mb-3 text-muted">
+        &copy; 2017–2022
+      </p>
+    </form>
+  </main>
+{% endblock %}

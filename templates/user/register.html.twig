@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ 'sign-up'|trans }}
+{% endblock %}
+
+{% block body %}
+  <main class="form-signin w-100 m-auto text-center">
+    {{ form(form) }}
+
+    <a href="{{ path('security_login') }}" class="btn btn-sm btn-secondary">
+      {{ 'sign-in'|trans }}
+    </a>
+  </main>
+{% endblock %}

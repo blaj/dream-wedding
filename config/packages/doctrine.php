@@ -1,85 +1,109 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
+use App\Common\Doctrine\Filter\SoftDeleteFilter;
+use App\Common\Doctrine\Function\CastFunction;
+use App\Common\Doctrine\Type\BigIntType;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function(ContainerConfigurator $containerConfigurator): void {
+  $containerConfigurator->extension('doctrine', [
+      'dbal' => [
+          'connections' => [
+              'default' => [
+                  'url' => '%env(resolve:DATABASE_URL)%',
+                  'profiling_collect_backtrace' => '%kernel.debug%',
+                  'driver' => 'pdo_pgsql',
+                  'server_version' => '16',
+                  'charset' => 'UTF8',
+                  'use_savepoints' => true,
+              ],
+              'migrations' => [
+                  'url' => '%env(resolve:DATABASE_MIGRATIONS_URL)%',
+                  'profiling_collect_backtrace' => '%kernel.debug%',
+                  'driver' => 'pdo_pgsql',
+                  'server_version' => '16',
+                  'charset' => 'UTF8',
+                  'use_savepoints' => true,
+              ],
+          ],
+          'types' => [
+              'bigint' => BigIntType::class
+          ],
+      ],
+      'orm' => [
+          'auto_generate_proxy_classes' => true,
+          'enable_lazy_ghost_objects' => true,
+          'report_fields_where_declared' => true,
+          'validate_xml_mapping' => true,
+          'naming_strategy' => 'doctrine.orm.naming_strategy.underscore_number_aware',
+          'auto_mapping' => true,
+          'filters' => [
+              'soft_delete' => [
+                  'class' => SoftDeleteFilter::class,
+                  'enabled' => true
+              ]
+          ],
+          'mappings' => [
+              'Common' => [
+                  'type' => 'attribute',
+                  'is_bundle' => false,
+                  'dir' => '%kernel.project_dir%/src/Common/Entity',
+                  'prefix' => 'App\Common\Entity',
+                  'alias' => 'Common',
+              ],
+              'User' => [
+                  'type' => 'attribute',
+                  'is_bundle' => false,
+                  'dir' => '%kernel.project_dir%/src/User/Entity',
+                  'prefix' => 'App\User\Entity',
+                  'alias' => 'User',
+              ],
+          ],
+          'controller_resolver' => [
+              'auto_mapping' => false,
+          ],
+          'dql' => [
+              'string_functions' => [
+                  'CAST' => CastFunction::class
+              ]
+          ]
+      ],
+  ]);
+  if ($containerConfigurator->env() === 'test') {
     $containerConfigurator->extension('doctrine', [
         'dbal' => [
-            'connections' => [
-                'default' => [
-                    'url' => '%env(resolve:DATABASE_URL)%',
-                    'profiling_collect_backtrace' => '%kernel.debug%',
-                    'driver' => 'pdo_pgsql',
-                    'server_version' => '16',
-                    'charset' => 'UTF8',
-                    'use_savepoints' => true,
-                ],
-                'migrations' => [
-                    'url' => '%env(resolve:DATABASE_MIGRATIONS_URL)%',
-                    'profiling_collect_backtrace' => '%kernel.debug%',
-                    'driver' => 'pdo_pgsql',
-                    'server_version' => '16',
-                    'charset' => 'UTF8',
-                    'use_savepoints' => true,
-                ],
-            ],
+            'dbname_suffix' => '_test%env(default::TEST_TOKEN)%',
         ],
+    ]);
+  }
+  if ($containerConfigurator->env() === 'prod') {
+    $containerConfigurator->extension('doctrine', [
         'orm' => [
-            'auto_generate_proxy_classes' => true,
-            'enable_lazy_ghost_objects' => true,
-            'report_fields_where_declared' => true,
-            'validate_xml_mapping' => true,
-            'naming_strategy' => 'doctrine.orm.naming_strategy.underscore_number_aware',
-            'auto_mapping' => true,
-            'mappings' => [
-                'App' => [
-                    'type' => 'attribute',
-                    'is_bundle' => false,
-                    'dir' => '%kernel.project_dir%/src/Entity',
-                    'prefix' => 'App\Entity',
-                    'alias' => 'App',
-                ],
+            'auto_generate_proxy_classes' => false,
+            'proxy_dir' => '%kernel.build_dir%/doctrine/orm/Proxies',
+            'query_cache_driver' => [
+                'type' => 'pool',
+                'pool' => 'doctrine.system_cache_pool',
             ],
-            'controller_resolver' => [
-                'auto_mapping' => false,
+            'result_cache_driver' => [
+                'type' => 'pool',
+                'pool' => 'doctrine.result_cache_pool',
             ],
         ],
     ]);
-    if ($containerConfigurator->env() === 'test') {
-        $containerConfigurator->extension('doctrine', [
-            'dbal' => [
-                'dbname_suffix' => '_test%env(default::TEST_TOKEN)%',
-            ],
-        ]);
-    }
-    if ($containerConfigurator->env() === 'prod') {
-        $containerConfigurator->extension('doctrine', [
-            'orm' => [
-                'auto_generate_proxy_classes' => false,
-                'proxy_dir' => '%kernel.build_dir%/doctrine/orm/Proxies',
-                'query_cache_driver' => [
-                    'type' => 'pool',
-                    'pool' => 'doctrine.system_cache_pool',
+    $containerConfigurator->extension('framework', [
+        'cache' => [
+            'pools' => [
+                'doctrine.result_cache_pool' => [
+                    'adapter' => 'cache.app',
                 ],
-                'result_cache_driver' => [
-                    'type' => 'pool',
-                    'pool' => 'doctrine.result_cache_pool',
+                'doctrine.system_cache_pool' => [
+                    'adapter' => 'cache.system',
                 ],
             ],
-        ]);
-        $containerConfigurator->extension('framework', [
-            'cache' => [
-                'pools' => [
-                    'doctrine.result_cache_pool' => [
-                        'adapter' => 'cache.app',
-                    ],
-                    'doctrine.system_cache_pool' => [
-                        'adapter' => 'cache.system',
-                    ],
-                ],
-            ],
-        ]);
-    }
+        ],
+    ]);
+  }
 };
