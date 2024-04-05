@@ -47,9 +47,9 @@ final class Version20240403124818 extends AbstractMigration {
     $this->addSql(
         'GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA users TO dream_wedding_app_user;');
 
-    $this->addSql('CREATE INDEX idx_created_by_id ON users.users(created_by_id);');
-    $this->addSql('CREATE INDEX idx_updated_by_id ON users.users(updated_by_id);');
-    $this->addSql('CREATE INDEX idx_deleted_by_id ON users.users(deleted_by_id);');
+    $this->addSql('CREATE INDEX idx_users_users_created_by_id ON users.users(created_by_id);');
+    $this->addSql('CREATE INDEX idx_users_users_updated_by_id ON users.users(updated_by_id);');
+    $this->addSql('CREATE INDEX idx_users_users_deleted_by_id ON users.users(deleted_by_id);');
 
     // admin/admin
     $this->addSql(
