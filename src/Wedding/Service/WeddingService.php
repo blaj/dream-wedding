@@ -8,7 +8,7 @@ class WeddingService {
 
   public function __construct(private readonly WeddingRepository $weddingRepository) {}
 
-  public function getList(): array {
+  public function getList(int $userId): array {
     return [];
   }
 }
