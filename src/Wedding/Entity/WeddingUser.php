@@ -14,14 +14,14 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: WeddingUserRepository::class)]
-#[Table(name: 'wedding', schema: 'wedding_user')]
+#[Table(name: 'wedding_user', schema: 'wedding')]
 class WeddingUser extends AuditingEntity {
 
-  #[ManyToOne(targetEntity: Wedding::class, fetch: 'LAZY')]
+  #[ManyToOne(targetEntity: Wedding::class, fetch: 'LAZY', inversedBy: 'weddingUsers')]
   #[JoinColumn(name: 'wedding_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]
   private Wedding $wedding;
 
-  #[ManyToOne(targetEntity: User::class, fetch: 'LAZY')]
+  #[ManyToOne(targetEntity: User::class, fetch: 'LAZY', inversedBy: 'weddingUsers')]
   #[JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]
   private User $user;
 

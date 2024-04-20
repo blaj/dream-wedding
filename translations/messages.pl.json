@@ -10,5 +10,8 @@
   "dashboard": "Dashboard",
   "settings": "Ustawienia",
   "sign-out": "Wyloguj się",
-  "wedding-list": "Lista ślubów"
+  "wedding-list": "Lista ślubów",
+  "wedding-details": "Szczegóły ślubu o nazwie",
+  "name": "Nazwa",
+  "actions": "Akcje"
 }

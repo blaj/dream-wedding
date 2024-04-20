@@ -42,4 +42,21 @@ abstract class AbstractAuditingEntityRepository extends ServiceEntityRepository 
         ->setParameter('id', $id, Types::INTEGER)
         ->getOneOrNullResult(AbstractQuery::HYDRATE_OBJECT);
   }
+
+  /**
+   * @return array<T>
+   */
+  public function findAll(): array {
+    /** @phpstan-ignore-next-line */
+    return $this->getEntityManager()
+        ->createQuery(
+            '
+            SELECT 
+              entity 
+            FROM 
+              ' . $this->getClassName() . ' entity 
+            WHERE 
+              entity.deleted = false ')
+        ->getResult();
+  }
 }

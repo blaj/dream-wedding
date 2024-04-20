@@ -10,5 +10,8 @@
   "dashboard": "Dashboard",
   "settings": "Settings",
   "sign-out": "Sign out",
-  "wedding-list": "Wedding list"
+  "wedding-list": "Wedding list",
+  "wedding-details": "Wedding details named",
+  "name": "Name",
+  "actions": "Actions"
 }

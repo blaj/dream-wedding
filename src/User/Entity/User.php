@@ -4,9 +4,13 @@ namespace App\User\Entity;
 
 use App\Common\Entity\AuditingEntity;
 use App\User\Repository\UserRepository;
+use App\Wedding\Entity\WeddingUser;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -22,6 +26,16 @@ class User extends AuditingEntity implements PasswordAuthenticatedUserInterface 
 
   #[Column(name: 'email', type: Types::STRING, length: 200, nullable: false)]
   private string $email;
+
+  /**
+   * @var Collection<int, WeddingUser>
+   */
+  #[OneToMany(targetEntity: WeddingUser::class, mappedBy: 'user', fetch: 'LAZY')]
+  private Collection $weddingUsers;
+
+  public function __construct() {
+    $this->weddingUsers = new ArrayCollection();
+  }
 
   public function getUsername(): string {
     return $this->username;
@@ -49,6 +63,36 @@ class User extends AuditingEntity implements PasswordAuthenticatedUserInterface 
 
   public function setEmail(string $email): self {
     $this->email = $email;
+
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, WeddingUser>
+   */
+  public function getWeddingUsers(): Collection {
+    return $this->weddingUsers;
+  }
+
+  /**
+   * @param Collection<int, WeddingUser> $weddingUsers
+   */
+  public function setWeddingUsers(Collection $weddingUsers): self {
+    $this->weddingUsers = $weddingUsers;
+
+    return $this;
+  }
+
+  public function addWeddingUser(WeddingUser $weddingUser): self {
+    if (!$this->weddingUsers->contains($weddingUser)) {
+      $this->weddingUsers->add($weddingUser);
+    }
+
+    return $this;
+  }
+
+  public function removeWeddingUser(WeddingUser $weddingUser): self {
+    $this->weddingUsers->removeElement($weddingUser);
 
     return $this;
   }
