@@ -43,6 +43,7 @@ class WeddingRepository extends AbstractAuditingEntityRepository {
               INNER JOIN wedding.weddingUsers weddingUsers 
             WHERE 
               wedding.deleted = false 
+              AND weddingUsers.deleted = false 
               AND weddingUsers.user = :userId')
         ->setParameter('userId', $userId, Types::INTEGER)
         ->getResult();
