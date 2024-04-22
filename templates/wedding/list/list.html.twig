@@ -4,8 +4,18 @@
   {{ 'wedding-list'|trans }}
 {% endblock %}
 
-{% block page_title %}
-  {{ 'wedding-list'|trans }}
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'wedding-list'|trans }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_create') }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'add'|trans }}">
+    <i class="bi bi-plus-circle"></i>
+  </a>
 {% endblock %}
 
 {% block page_content %}
@@ -14,6 +24,10 @@
       <tr>
         <th>
           {{ 'name'|trans }}
+        </th>
+
+        <th>
+          {{ 'on-date'|trans }}
         </th>
 
         <th>
@@ -30,8 +44,24 @@
           </td>
 
           <td>
-            <a href="{{ path('wedding_details', { id: weddingDto.id }) }}" class="btn btn-primary btn-sm">
+            {{ weddingDto.onDate|dateFormat }}
+          </td>
+
+          <td>
+            <a
+                href="{{ path('wedding_details', { id: weddingDto.id }) }}"
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="tooltip"
+                data-bs-title="{{ 'details'|trans }}">
               <i class="bi bi-eye"></i>
+            </a>
+
+            <a
+                href="{{ path('wedding_update', { id: weddingDto.id }) }}"
+                class="btn btn-secondary btn-sm"
+                data-bs-toggle="tooltip"
+                data-bs-title="{{ 'edit'|trans }}">
+              <i class="bi bi-pencil"></i>
             </a>
           </td>
         </tr>

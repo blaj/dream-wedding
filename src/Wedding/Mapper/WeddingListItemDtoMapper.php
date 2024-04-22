@@ -12,6 +12,6 @@ class WeddingListItemDtoMapper {
       return null;
     }
 
-    return new WeddingListItemDto($wedding->getId(), $wedding->getName());
+    return new WeddingListItemDto($wedding->getId(), $wedding->getName(), $wedding->getOnDate());
   }
 }

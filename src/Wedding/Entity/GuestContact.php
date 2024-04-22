@@ -22,7 +22,7 @@ class GuestContact extends AuditingEntity {
   #[Column(name: 'type', type: Types::STRING, length: 20, nullable: false, enumType: ContactType::class)]
   private ContactType $type;
 
-  #[ManyToOne(targetEntity: Guest::class, fetch: 'LAZY')]
+  #[ManyToOne(targetEntity: Guest::class, fetch: 'LAZY', inversedBy: 'contacts')]
   #[JoinColumn(name: 'wedding_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]
   private Guest $guest;
 

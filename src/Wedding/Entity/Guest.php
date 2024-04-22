@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: GuestRepository::class)]
-#[Table(name: 'wedding', schema: 'guest')]
+#[Table(name: 'guest', schema: 'wedding')]
 class Guest extends AuditingEntity {
 
   #[Column(name: 'first_name', type: Types::STRING, length: 100, nullable: false)]
@@ -24,7 +24,7 @@ class Guest extends AuditingEntity {
   #[Column(name: 'last_name', type: Types::STRING, length: 100, nullable: false)]
   private string $lastName;
 
-  #[ManyToOne(targetEntity: Wedding::class, fetch: 'LAZY')]
+  #[ManyToOne(targetEntity: Wedding::class, fetch: 'LAZY', inversedBy: 'guests')]
   #[JoinColumn(name: 'wedding_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]
   private Wedding $wedding;
 

@@ -13,5 +13,14 @@
   "wedding-list": "Lista ślubów",
   "wedding-details": "Szczegóły ślubu o nazwie",
   "name": "Nazwa",
-  "actions": "Akcje"
+  "actions": "Akcje",
+  "on-date": "W dniu",
+  "save": "Zapisz",
+  "guest-list": "Lista gości",
+  "details": "Szczegóły",
+  "first-name": "Imię",
+  "last-name": "Nazwisko",
+  "edit": "Edycja",
+  "delete": "Usuń",
+  "add": "Dodaj"
 }

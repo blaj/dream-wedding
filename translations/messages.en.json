@@ -13,5 +13,14 @@
   "wedding-list": "Wedding list",
   "wedding-details": "Wedding details named",
   "name": "Name",
-  "actions": "Actions"
+  "actions": "Actions",
+  "on-date": "On date",
+  "save": "Save",
+  "guest-list": "Guest list",
+  "details": "Details",
+  "first-name": "Firstname",
+  "last-name": "Lastname",
+  "edit": "Edit",
+  "delete": "Delete",
+  "add": "Add"
 }

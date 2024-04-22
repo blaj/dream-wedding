@@ -25,7 +25,7 @@ class WeddingUser extends AuditingEntity {
   #[JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]
   private User $user;
 
-  #[Column(name: 'type', type: Types::STRING, length: 20, nullable: false, enumType: RoleType::class)]
+  #[Column(name: 'role', type: Types::STRING, length: 20, nullable: false, enumType: RoleType::class)]
   private RoleType $role;
 
   public function getWedding(): Wedding {
