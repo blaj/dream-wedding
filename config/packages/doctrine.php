@@ -53,6 +53,13 @@ return static function(ContainerConfigurator $containerConfigurator): void {
                   'prefix' => 'App\Common\Entity',
                   'alias' => 'Common',
               ],
+              'Wedding' => [
+                  'type' => 'attribute',
+                  'is_bundle' => false,
+                  'dir' => '%kernel.project_dir%/src/Wedding/Entity',
+                  'prefix' => 'App\Wedding\Entity',
+                  'alias' => 'Common',
+              ],
               'User' => [
                   'type' => 'attribute',
                   'is_bundle' => false,

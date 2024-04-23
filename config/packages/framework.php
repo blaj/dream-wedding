@@ -1,20 +1,21 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function(ContainerConfigurator $containerConfigurator): void {
+  $containerConfigurator->extension('framework', [
+      'secret' => '%env(APP_SECRET)%',
+      'session' => true,
+      'http_method_override' => true
+  ]);
+  if ($containerConfigurator->env() === 'test') {
     $containerConfigurator->extension('framework', [
-        'secret' => '%env(APP_SECRET)%',
-        'session' => true,
+        'test' => true,
+        'session' => [
+            'storage_factory_id' => 'session.storage.factory.mock_file',
+        ],
     ]);
-    if ($containerConfigurator->env() === 'test') {
-        $containerConfigurator->extension('framework', [
-            'test' => true,
-            'session' => [
-                'storage_factory_id' => 'session.storage.factory.mock_file',
-            ],
-        ]);
-    }
+  }
 };

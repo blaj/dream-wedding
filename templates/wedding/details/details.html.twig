@@ -1,0 +1,43 @@
+{% extends 'wedding/wedding-base.html.twig' %}
+
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'wedding-details'|trans }}
+
+    {{ weddingDetailsDto.name }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_update', { id: weddingDetailsDto.id }) }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'edit'|trans }}">
+    <i class="bi bi-pencil"></i>
+  </a>
+{% endblock %}
+
+{% block tab_content %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          {{ 'name'|trans }}
+        </td>
+
+        <td>
+          {{ weddingDetailsDto.name }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'on-date'|trans }}
+        </td>
+
+        <td>
+          {{ weddingDetailsDto.onDate|dateFormat }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}

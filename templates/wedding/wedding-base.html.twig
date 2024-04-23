@@ -1,0 +1,33 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% block title %}
+  {{ 'wedding-list'|trans }}
+{% endblock %}
+
+{% block page_content %}
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a
+          class="nav-link {{ getActualRouteName()|activeRouteName('wedding_details', 'active') }}"
+          href="{{ path('wedding_details', { id: weddingDetailsDto.id }) }}">
+        {{ 'details'|trans }}
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+          class="nav-link {{ getActualRouteName()|activeRouteName('wedding_guest_list', 'active') }}"
+          href="{{ path('wedding_guest_list', { weddingId: weddingDetailsDto.id }) }}">
+        {{ 'guest-list'|trans }}
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    {% block tab_content %}{% endblock %}
+
+    <a href="{{ path('wedding_list') }}">
+      {{ 'back-to-list'|trans }}
+    </a>
+  </div>
+{% endblock %}
