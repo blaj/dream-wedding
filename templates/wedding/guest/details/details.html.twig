@@ -1,0 +1,43 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% block title %}
+  {{ 'guest-details'|trans }}
+{% endblock %}
+
+{% block page_title %}
+  {{ 'guest-details'|trans }}
+
+  {{ guestDetailsDto.firstName }}
+
+  {{ guestDetailsDto.lastName }}
+{% endblock %}
+
+{% block page_content %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          {{ 'first-name'|trans }}
+        </td>
+
+        <td>
+          {{ guestDetailsDto.firstName }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'last-name'|trans }}
+        </td>
+
+        <td>
+          {{ guestDetailsDto.lastName }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="{{ path('wedding_guest_list', { weddingId: weddingId }) }}">
+    {{ 'back-to-list'|trans }}
+  </a>
+{% endblock %}

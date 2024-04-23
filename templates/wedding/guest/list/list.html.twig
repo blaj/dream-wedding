@@ -1,7 +1,23 @@
 {% extends 'wedding/wedding-base.html.twig' %}
 
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'wedding-details'|trans }}
+
+    {{ weddingDetailsDto.name }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_guest_create', { weddingId: weddingDetailsDto.id }) }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'add'|trans }}">
+    <i class="bi bi-plus-circle"></i>
+  </a>
+{% endblock %}
+
 {% block tab_content %}
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>
@@ -37,30 +53,33 @@
             {{ guestDto.lastName }}
           </td>
 
-          <td>
+          <td class="d-flex">
             <a
-                href="{{ path('wedding_details', { id: 1 }) }}"
-                class="btn btn-primary btn-sm"
+                href="{{ path('wedding_guest_details', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                class="btn btn-primary btn-sm me-1"
                 data-bs-toggle="tooltip"
                 data-bs-title="{{ 'details'|trans }}">
               <i class="bi bi-eye"></i>
             </a>
 
             <a
-                href="{{ path('wedding_details', { id: 1 }) }}"
-                class="btn btn-secondary btn-sm"
+                href="{{ path('wedding_guest_update', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                class="btn btn-secondary btn-sm me-1"
                 data-bs-toggle="tooltip"
                 data-bs-title="{{ 'edit'|trans }}">
               <i class="bi bi-pencil"></i>
             </a>
 
-            <a
-                href="{{ path('wedding_details', { id: 1 }) }}"
-                class="btn btn-danger btn-sm"
-                data-bs-toggle="tooltip"
-                data-bs-title="{{ 'delete'|trans }}">
-              <i class="bi bi-trash3"></i>
-            </a>
+            <form action="{{ path('wedding_guest_delete', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}" method="post">
+              <button
+                  type="submit" class="btn btn-danger btn-sm"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'delete'|trans }}">
+                <i class="bi bi-trash3"></i>
+              </button>
+
+              <input type="hidden" name="_method" value="DELETE">
+            </form>
           </td>
         </tr>
       {% endfor %}

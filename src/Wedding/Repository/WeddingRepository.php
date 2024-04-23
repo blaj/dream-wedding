@@ -5,6 +5,7 @@ namespace App\Wedding\Repository;
 use App\Common\Repository\AbstractAuditingEntityRepository;
 use App\Wedding\Entity\Wedding;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -27,11 +28,16 @@ class WeddingRepository extends AbstractAuditingEntityRepository {
               INNER JOIN wedding.weddingUsers weddingUsers 
             WHERE 
               wedding.deleted = false 
+              AND wedding.id = :id 
               AND weddingUsers.user = :userId')
+        ->setParameter('id', $id, Types::INTEGER)
         ->setParameter('userId', $userId, Types::INTEGER)
-        ->getOneOrNullResult();
+        ->getOneOrNullResult(AbstractQuery::HYDRATE_OBJECT);
   }
 
+  /**
+   * @return array<Wedding>
+   */
   public function findAllByUserId(int $userId): array {
     return $this->getEntityManager()
         ->createQuery(

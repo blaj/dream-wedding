@@ -1,17 +1,17 @@
 {% extends 'dashboard-base.html.twig' %}
 
 {% block title %}
-  {{ 'wedding-create'|trans }}
+  {{ 'guest-create'|trans }}
 {% endblock %}
 
 {% block page_title %}
-  {{ 'wedding-create'|trans }}
+  {{ 'guest-create'|trans }}
 {% endblock %}
 
 {% block page_content %}
   {{ form(form) }}
 
-  <a href="{{ path('wedding_list') }}">
+  <a href="{{ path('wedding_guest_list', { weddingId: weddingId }) }}">
     {{ 'back-to-list'|trans }}
   </a>
 {% endblock %}

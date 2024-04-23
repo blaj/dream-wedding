@@ -31,6 +31,6 @@ class WeddingUserRepository extends AbstractAuditingEntityRepository {
               weddingUser.deleted = false 
               AND weddingUser.user = :userId')
         ->setParameter('userId', $userId, Types::INTEGER)
-        ->getArrayResult();
+        ->getResult();
   }
 }

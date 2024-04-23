@@ -3,9 +3,11 @@
 namespace App\Wedding\Controller;
 
 use App\Common\Const\FlashMessageConst;
+use App\Common\Utils\FormUtils;
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\WeddingCreateRequest;
 use App\Wedding\Form\Type\WeddingCreateFormType;
+use App\Wedding\Form\Type\WeddingUpdateFormType;
 use App\Wedding\Service\WeddingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
@@ -57,7 +59,10 @@ class WeddingController extends AbstractController {
           FlashMessageConst::$success,
           new TranslatableMessage('wedding-created-successfully'));
 
-      return $this->redirectToRoute('wedding_list');
+      return FormUtils::getRedirectResponse(
+          $form,
+          $this->redirectToRoute('wedding_list'),
+          $this->redirectToRoute('wedding_create'));
     }
 
     return $this->render('wedding/create/create.html.twig', ['form' => $form]);
@@ -68,7 +73,38 @@ class WeddingController extends AbstractController {
       name: 'update',
       requirements: ['id' => '\d+'],
       methods: ['GET', 'PUT'])]
-  public function update(int $id): Response {
-    return $this->render('wedding/update/update.html.twig');
+  public function update(int $id, UserData $userData, Request $request): Response {
+    $weddingUpdateRequest = $this->weddingService->getUpdateRequest($id, $userData->getUserId());
+
+    if ($weddingUpdateRequest === null) {
+      throw new NotFoundHttpException();
+    }
+
+    $form =
+        $this->createForm(WeddingUpdateFormType::class, $weddingUpdateRequest, ['method' => 'PUT']);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $this->weddingService->update($id, $weddingUpdateRequest, $userData->getUserId());
+
+      $this->addFlash(
+          FlashMessageConst::$success,
+          new TranslatableMessage('wedding-updated-successfully'));
+
+      return $this->redirectToRoute('wedding_details', ['id' => $id]);
+    }
+
+    return $this->render('wedding/update/update.html.twig', ['form' => $form]);
+  }
+
+  #[Route(path: '/{id}/delete', name: 'delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
+  public function delete(int $id, UserData $userData): Response {
+    $this->weddingService->delete($id, $userData->getUserId());
+
+    $this->addFlash(
+        FlashMessageConst::$success,
+        new TranslatableMessage('wedding-deleted-successfully'));
+
+    return $this->redirectToRoute('wedding_list');
   }
 }

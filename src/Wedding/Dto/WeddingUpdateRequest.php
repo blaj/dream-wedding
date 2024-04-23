@@ -3,13 +3,9 @@
 namespace App\Wedding\Dto;
 
 use DateTimeImmutable;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
-class WeddingCreateRequest {
+class WeddingUpdateRequest {
 
-  #[NotBlank]
-  #[Length(max: 100)]
   private string $name;
 
   private DateTimeImmutable $onDate;
