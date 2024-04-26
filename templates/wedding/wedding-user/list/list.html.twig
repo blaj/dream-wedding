@@ -1,0 +1,174 @@
+{% extends 'wedding/wedding-base.html.twig' %}
+
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'wedding-details'|trans }}
+
+    {{ weddingDetailsDto.name }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_user_invite', { weddingId: weddingDetailsDto.id }) }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'invite'|trans }}">
+    <i class="bi bi-envelope-arrow-up"></i>
+  </a>
+{% endblock %}
+
+{% block tab_content %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>
+          #
+        </th>
+
+        <th>
+          {{ 'username'|trans }}
+        </th>
+
+        <th>
+          {{ 'email'|trans }}
+        </th>
+
+        <th>
+          {{ 'role'|trans }}
+        </th>
+
+        <th>
+          {{ 'actions'|trans }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for weddingUserDto in weddingUsersListItemDto %}
+        <tr>
+          <td>
+            {{ loop.index }}
+          </td>
+
+          <td>
+            {{ weddingUserDto.username }}
+          </td>
+
+          <td>
+            {{ weddingUserDto.email }}
+          </td>
+
+          <td>
+            {{ weddingUserDto.role|trans }}
+          </td>
+
+          <td class="d-flex">
+            <a
+                href="{{ path('wedding_user_details', { weddingId: weddingDetailsDto.id, id: weddingUserDto.id }) }}"
+                class="btn btn-primary btn-sm me-1"
+                data-bs-toggle="tooltip"
+                data-bs-title="{{ 'details'|trans }}">
+              <i class="bi bi-eye"></i>
+            </a>
+
+            <a
+                href="{{ path('wedding_user_update', { weddingId: weddingDetailsDto.id, id: weddingUserDto.id }) }}"
+                class="btn btn-secondary btn-sm me-1"
+                data-bs-toggle="tooltip"
+                data-bs-title="{{ 'edit'|trans }}">
+              <i class="bi bi-pencil"></i>
+            </a>
+
+            <form
+                action="{{ path('wedding_user_delete', { weddingId: weddingDetailsDto.id, id: weddingUserDto.id }) }}"
+                method="post">
+              <button
+                  {{ weddingUserDto.canDelete ? '' : 'disabled' }}
+                  type="submit"
+                  class="btn btn-danger btn-sm"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'delete'|trans }}">
+                <i class="bi bi-trash3"></i>
+              </button>
+
+              <input type="hidden" name="_method" value="DELETE">
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <hr />
+
+  <h5>
+    {{ 'invitations-sent'|trans }}
+  </h5>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>
+          #
+        </th>
+
+        <th>
+          {{ 'email'|trans }}
+        </th>
+
+        <th>
+          {{ 'send-date'|trans }}
+        </th>
+
+        <th>
+          {{ 'actions'|trans }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for weddingUserInviteDto in weddingUserInvitesListItemDto %}
+        <tr>
+          <td>
+            {{ loop.index }}
+          </td>
+
+          <td>
+            {{ weddingUserInviteDto.userEmail }}
+          </td>
+
+          <td>
+            {{ weddingUserInviteDto.createdAt|dateFormat('Y-m-d H:i') }}
+          </td>
+
+          <td>
+            {{ weddingUserInviteDto.role|trans }}
+          </td>
+
+          <td class="d-flex">
+            <a
+                href="{{ path('wedding_user_resend_invite_email', { weddingId: weddingDetailsDto.id, id: weddingUserInviteDto.id }) }}"
+                class="btn btn-primary btn-sm me-1 {{ weddingUserInviteDto.canResend ? '' : 'disabled' }}"
+                data-bs-toggle="tooltip"
+                data-bs-title="{{ 'send-again'|trans }}">
+              <i class="bi bi-envelope-at"></i>
+            </a>
+
+            <form
+                action="{{ path('wedding_user_delete_invite', { weddingId: weddingDetailsDto.id, id: weddingUserInviteDto.id }) }}"
+                method="post">
+              <button
+                  type="submit"
+                  class="btn btn-danger btn-sm"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'delete'|trans }}">
+                <i class="bi bi-trash3"></i>
+              </button>
+
+              <input type="hidden" name="_method" value="DELETE">
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
