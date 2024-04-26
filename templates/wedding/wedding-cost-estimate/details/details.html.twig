@@ -4,10 +4,20 @@
   {{ 'wedding-cost-estimate-details'|trans }}
 {% endblock %}
 
-{% block page_title %}
-  {{ 'wedding-cost-estimate-details'|trans }}
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'wedding-cost-estimate-details'|trans }}
 
-  {{ weddingCostEstimateDetailsDto.name }}
+    {{ weddingCostEstimateDetailsDto.name }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_cost_estimate_update', { weddingId: weddingId, id: weddingCostEstimateDetailsDto.id }) }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'edit'|trans }}">
+    <i class="bi bi-pencil"></i>
+  </a>
 {% endblock %}
 
 {% block page_content %}

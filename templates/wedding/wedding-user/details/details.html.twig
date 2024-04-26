@@ -4,10 +4,20 @@
   {{ 'wedding-user-details'|trans }}
 {% endblock %}
 
-{% block page_title %}
-  {{ 'wedding-user-details'|trans }}
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'wedding-user-details'|trans }}
 
-  {{ weddingUserDetailsDto.username }}
+    {{ weddingUserDetailsDto.username }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_user_update', { weddingId: weddingId, id: weddingUserDetailsDto.id }) }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'edit'|trans }}">
+    <i class="bi bi-pencil"></i>
+  </a>
 {% endblock %}
 
 {% block page_content %}

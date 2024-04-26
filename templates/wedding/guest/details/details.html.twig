@@ -4,12 +4,22 @@
   {{ 'guest-details'|trans }}
 {% endblock %}
 
-{% block page_title %}
-  {{ 'guest-details'|trans }}
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'guest-details'|trans }}
 
-  {{ guestDetailsDto.firstName }}
+    {{ guestDetailsDto.firstName }}
 
-  {{ guestDetailsDto.lastName }}
+    {{ guestDetailsDto.lastName }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_guest_update', { weddingId: weddingId, id: guestDetailsDto.id }) }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'edit'|trans }}">
+    <i class="bi bi-pencil"></i>
+  </a>
 {% endblock %}
 
 {% block page_content %}
