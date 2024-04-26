@@ -21,6 +21,14 @@
         {{ 'guest-list'|trans }}
       </a>
     </li>
+
+    <li class="nav-item">
+      <a
+          class="nav-link {{ getActualRouteName()|activeRouteName('wedding_user_list', 'active') }}"
+          href="{{ path('wedding_user_list', { weddingId: weddingDetailsDto.id }) }}">
+        {{ 'wedding-user-list'|trans }}
+      </a>
+    </li>
   </ul>
 
   <div class="tab-content">

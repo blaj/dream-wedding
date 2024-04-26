@@ -35,9 +35,16 @@ class Wedding extends AuditingEntity {
   #[OneToMany(targetEntity: WeddingUser::class, mappedBy: 'wedding', fetch: 'LAZY')]
   private Collection $weddingUsers;
 
+  /**
+   * @var Collection<int, WeddingUserInvite>
+   */
+  #[OneToMany(targetEntity: WeddingUserInvite::class, mappedBy: 'wedding', fetch: 'LAZY')]
+  private Collection $weddingUserInvites;
+
   public function __construct() {
     $this->guests = new ArrayCollection();
     $this->weddingUsers = new ArrayCollection();
+    $this->weddingUserInvites = new ArrayCollection();
   }
 
   public function getName(): string {
@@ -116,6 +123,36 @@ class Wedding extends AuditingEntity {
 
   public function removeWeddingUser(WeddingUser $weddingUser): self {
     $this->weddingUsers->removeElement($weddingUser);
+
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, WeddingUserInvite>
+   */
+  public function getWeddingUserInvites(): Collection {
+    return $this->weddingUserInvites;
+  }
+
+  /**
+   * @param Collection<int, WeddingUserInvite> $weddingUserInvites
+   */
+  public function setWeddingUserInvites(Collection $weddingUserInvites): self {
+    $this->weddingUserInvites = $weddingUserInvites;
+
+    return $this;
+  }
+
+  public function addWeddingUserInvite(WeddingUserInvite $weddingUserInvite): self {
+    if (!$this->weddingUserInvites->contains($weddingUserInvite)) {
+      $this->weddingUserInvites->add($weddingUserInvite);
+    }
+
+    return $this;
+  }
+
+  public function removeWeddingUserInvite(WeddingUserInvite $weddingUserInvite): self {
+    $this->weddingUserInvites->removeElement($weddingUserInvite);
 
     return $this;
   }
