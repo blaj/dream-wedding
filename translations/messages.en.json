@@ -56,5 +56,15 @@
   "dream-wedding": "Dream-Wedding",
   "invitation-to-wedding-management": "Invitation to wedding management",
   "invitation-to-wedding-management-text": "You have been invited to manage a wedding by %fromEmail%. Your role in this wedding is %role%. Click the button below to accept the invitation.",
-  "accept-the-invitation": "Accept the invitation"
+  "accept-the-invitation": "Accept the invitation",
+  "wedding-cost-estimate-list": "Estimate",
+  "wedding-cost-estimate-details": "Cost details",
+  "wedding-cost-estimate-create": "Add new cost",
+  "wedding-cost-estimate-update": "Editing cost",
+  "wedding-cost-estimate-created-successfully": "The cost has been added successfully",
+  "wedding-cost-estimate-updated-successfully": "The cost was updated successfully",
+  "wedding-cost-estimate-deleted-successfully": "The cost has deleted successfully",
+  "estimate-cost": "Assumed cost",
+  "real-cost": "Real cost",
+  "description": "Description"
 }
