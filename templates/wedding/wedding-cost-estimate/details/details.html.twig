@@ -1,0 +1,61 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% block title %}
+  {{ 'wedding-cost-estimate-details'|trans }}
+{% endblock %}
+
+{% block page_title %}
+  {{ 'wedding-cost-estimate-details'|trans }}
+
+  {{ weddingCostEstimateDetailsDto.name }}
+{% endblock %}
+
+{% block page_content %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          {{ 'name'|trans }}
+        </td>
+
+        <td>
+          {{ weddingCostEstimateDetailsDto.name }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'description'|trans }}
+        </td>
+
+        <td>
+          {{ weddingCostEstimateDetailsDto.description }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'estimate-cost'|trans }}
+        </td>
+
+        <td>
+          {{ weddingCostEstimateDetailsDto.estimate|money_format }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'real-cost'|trans }}
+        </td>
+
+        <td>
+          {{ weddingCostEstimateDetailsDto.real|money_format }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="{{ path('wedding_cost_estimate_list', { weddingId: weddingId }) }}">
+    {{ 'back-to-list'|trans }}
+  </a>
+{% endblock %}

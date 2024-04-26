@@ -6,6 +6,7 @@ use App\Common\Doctrine\Filter\SoftDeleteFilter;
 use App\Common\Doctrine\Function\CastFunction;
 use App\Common\Doctrine\Type\BigIntType;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Tbbc\MoneyBundle\Type\MoneyType;
 
 return static function(ContainerConfigurator $containerConfigurator): void {
   $containerConfigurator->extension('doctrine', [
@@ -29,7 +30,8 @@ return static function(ContainerConfigurator $containerConfigurator): void {
               ],
           ],
           'types' => [
-              'bigint' => BigIntType::class
+              'bigint' => BigIntType::class,
+              'money' => MoneyType::class
           ],
       ],
       'orm' => [
