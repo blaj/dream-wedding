@@ -83,6 +83,9 @@ jobs:
           retention-days: 3
 
   build_assets:
+    needs:
+      - composer
+      - npm
     runs-on: ubuntu-latest
 
     steps:
