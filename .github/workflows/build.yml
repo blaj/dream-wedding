@@ -49,7 +49,7 @@ jobs:
           retention-days: 3
 
   npm:
-    needs: build
+    needs: composer
     runs-on: ubuntu-latest
 
     steps:
