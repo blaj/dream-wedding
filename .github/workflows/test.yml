@@ -2,8 +2,7 @@ name: Symfony tests
 
 on:
   workflow_run:
-    workflows:
-      - Build
+    workflows: [Build]
     types:
       - completed
 
