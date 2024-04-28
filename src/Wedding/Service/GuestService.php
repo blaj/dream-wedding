@@ -47,16 +47,38 @@ class GuestService {
     $guest = (new Guest())
         ->setFirstName($guestCreateRequest->getFirstName())
         ->setLastName($guestCreateRequest->getLastName())
-        ->setWedding($wedding);
+        ->setWedding($wedding)
+        ->setType($guestCreateRequest->getType())
+        ->setInvited($guestCreateRequest->isInvited())
+        ->setConfirmed($guestCreateRequest->isConfirmed())
+        ->setAccommodation($guestCreateRequest->isAccommodation())
+        ->setTransport($guestCreateRequest->isTransport())
+        ->setDietType($guestCreateRequest->getDietType())
+        ->setNote($guestCreateRequest->getNote())
+        ->setTelephone($guestCreateRequest->getTelephone())
+        ->setEmail($guestCreateRequest->getEmail())
+        ->setPayment($guestCreateRequest->getPayment());
 
     $this->guestRepository->save($guest);
   }
 
   public function update(int $id, GuestUpdateRequest $guestUpdateRequest, int $userId): void {
     $guest = $this->guestFetchService->fetchGuest($id, $userId);
+
     $guest
         ->setFirstName($guestUpdateRequest->getFirstName())
-        ->setLastName($guestUpdateRequest->getLastName());
+        ->setLastName($guestUpdateRequest->getLastName())
+        ->setType($guestUpdateRequest->getType())
+        ->setInvited($guestUpdateRequest->isInvited())
+        ->setConfirmed($guestUpdateRequest->isConfirmed())
+        ->setAccommodation($guestUpdateRequest->isAccommodation())
+        ->setTransport($guestUpdateRequest->isTransport())
+        ->setDietType($guestUpdateRequest->getDietType())
+        ->setNote($guestUpdateRequest->getNote())
+        ->setTelephone($guestUpdateRequest->getTelephone())
+        ->setEmail($guestUpdateRequest->getEmail())
+        ->setPayment($guestUpdateRequest->getPayment());
+
     $this->guestRepository->save($guest);
   }
 

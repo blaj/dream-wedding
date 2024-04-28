@@ -11,7 +11,7 @@ class GetActualRouteNameExtension extends AbstractExtension {
   public function __construct(private readonly RequestStack $requestStack) {}
 
   public function getFunctions(): array {
-    return[
+    return [
         new TwigFunction('getActualRouteName', [$this, 'getActualRouteName'])
     ];
   }

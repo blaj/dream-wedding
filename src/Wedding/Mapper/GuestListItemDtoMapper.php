@@ -12,6 +12,19 @@ class GuestListItemDtoMapper {
       return null;
     }
 
-    return new GuestlistItemDto($guest->getId(), $guest->getFirstName(), $guest->getLastName());
+    return new GuestlistItemDto(
+        $guest->getId(),
+        $guest->getFirstName(),
+        $guest->getLastName(),
+        $guest->getType(),
+        $guest->isInvited(),
+        $guest->isConfirmed(),
+        $guest->isAccommodation(),
+        $guest->isTransport(),
+        $guest->getDietType(),
+        $guest->getNote(),
+        $guest->getTelephone(),
+        $guest->getEmail(),
+        $guest->getPayment());
   }
 }
