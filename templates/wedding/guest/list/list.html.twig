@@ -17,72 +17,156 @@
 {% endblock %}
 
 {% block tab_content %}
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>
-          #
-        </th>
-
-        <th>
-          {{ 'first-name'|trans }}
-        </th>
-
-        <th>
-          {{ 'last-name'|trans }}
-        </th>
-
-        <th>
-          {{ 'actions'|trans }}
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      {% for guestDto in guestsListItemDto %}
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
         <tr>
-          <td>
-            {{ loop.index }}
-          </td>
+          <th>
+            #
+          </th>
 
-          <td>
-            {{ guestDto.firstName }}
-          </td>
+          <th>
+            {{ 'first-name'|trans }}
+          </th>
 
-          <td>
-            {{ guestDto.lastName }}
-          </td>
+          <th>
+            {{ 'last-name'|trans }}
+          </th>
 
-          <td class="d-flex">
-            <a
-                href="{{ path('wedding_guest_details', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
-                class="btn btn-primary btn-sm me-1"
-                data-bs-toggle="tooltip"
-                data-bs-title="{{ 'details'|trans }}">
-              <i class="bi bi-eye"></i>
-            </a>
+          <th>
+            {{ 'guest-type'|trans }}
+          </th>
 
-            <a
-                href="{{ path('wedding_guest_update', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
-                class="btn btn-secondary btn-sm me-1"
-                data-bs-toggle="tooltip"
-                data-bs-title="{{ 'edit'|trans }}">
-              <i class="bi bi-pencil"></i>
-            </a>
+          <th>
+            {{ 'invited'|trans }}
+          </th>
 
-            <form action="{{ path('wedding_guest_delete', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}" method="post">
-              <button
-                  type="submit" class="btn btn-danger btn-sm"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{{ 'delete'|trans }}">
-                <i class="bi bi-trash3"></i>
-              </button>
+          <th>
+            {{ 'confirmed'|trans }}
+          </th>
 
-              <input type="hidden" name="_method" value="DELETE">
-            </form>
-          </td>
+          <th>
+            {{ 'accommodation'|trans }}
+          </th>
+
+          <th>
+            {{ 'transport'|trans }}
+          </th>
+
+          <th>
+            {{ 'diet-type'|trans }}
+          </th>
+
+          <th>
+            {{ 'note'|trans }}
+          </th>
+
+          <th>
+            {{ 'telephone'|trans }}
+          </th>
+
+          <th>
+            {{ 'email'|trans }}
+          </th>
+
+          <th>
+            {{ 'payment'|trans }}
+          </th>
+
+          <th>
+            {{ 'actions'|trans }}
+          </th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        {% for guestDto in guestsListItemDto %}
+          <tr>
+            <td>
+              {{ loop.index }}
+            </td>
+
+            <td>
+              {{ guestDto.firstName }}
+            </td>
+
+            <td>
+              {{ guestDto.lastName }}
+            </td>
+
+            <td>
+              {{ guestDto.type|trans }}
+            </td>
+
+            <td>
+              {{ guestDto.invited|yesOrNo }}
+            </td>
+
+            <td>
+              {{ guestDto.confirmed|yesOrNo }}
+            </td>
+
+            <td>
+              {{ guestDto.accommodation|yesOrNo }}
+            </td>
+
+            <td>
+              {{ guestDto.transport|yesOrNo }}
+            </td>
+
+            <td>
+              {{ guestDto.dietType|trans }}
+            </td>
+
+            <td>
+              {{ guestDto.note }}
+            </td>
+
+            <td>
+              {{ guestDto.telephone }}
+            </td>
+
+            <td>
+              {{ guestDto.email }}
+            </td>
+
+            <td>
+              {{ guestDto.payment }}
+            </td>
+
+            <td class="d-flex">
+              <a
+                  href="{{ path('wedding_guest_details', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                  class="btn btn-primary btn-sm me-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'details'|trans }}">
+                <i class="bi bi-eye"></i>
+              </a>
+
+              <a
+                  href="{{ path('wedding_guest_update', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                  class="btn btn-secondary btn-sm me-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'edit'|trans }}">
+                <i class="bi bi-pencil"></i>
+              </a>
+
+              <form
+                  action="{{ path('wedding_guest_delete', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                  method="post">
+                <button
+                    type="submit" class="btn btn-danger btn-sm"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{{ 'delete'|trans }}">
+                  <i class="bi bi-trash3"></i>
+                </button>
+
+                <input type="hidden" name="_method" value="DELETE">
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}
