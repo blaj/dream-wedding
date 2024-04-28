@@ -42,9 +42,15 @@ jobs:
         with:
           name: composer
 
+      - name: Download public artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: public
+
       - name: Unpack artifacts
         run: |
           tar xvfz node_modules.tgz
+          tar xvfz public.tgz
           tar xvfz composer.tgz
 
       - name: Create Database

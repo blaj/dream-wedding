@@ -72,7 +72,7 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - name: 'Compress node_modules folder'
+      - name: Compress node_modules folder
         run: tar -czvf node_modules.tgz node_modules/
 
       - name: Upload node_modules assets
@@ -80,4 +80,39 @@ jobs:
         with:
           name: node_modules
           path: node_modules.tgz
+          retention-days: 3
+
+  build_assets:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download npm artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: node_modules
+
+      - name: Download composer artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: composer
+
+      - name: Unpack artifacts
+        run: |
+          tar xvfz node_modules.tgz
+          tar xvfz composer.tgz
+
+      - name: Yarn build
+        run: yarn build
+
+      - name: Compress public folder
+        run: tar -czvf public.tgz public/
+
+      - name: Upload public assets
+        uses: actions/upload-artifact@v2
+        with:
+          name: public
+          path: public.tgz
           retention-days: 3
