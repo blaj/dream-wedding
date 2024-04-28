@@ -30,6 +30,12 @@ class Wedding extends AuditingEntity {
   private Collection $guests;
 
   /**
+   * @var Collection<int, GuestGroup>
+   */
+  #[OneToMany(targetEntity: GuestGroup::class, mappedBy: 'wedding', fetch: 'LAZY')]
+  private Collection $guestGroups;
+
+  /**
    * @var Collection<int, WeddingUser>
    */
   #[OneToMany(targetEntity: WeddingUser::class, mappedBy: 'wedding', fetch: 'LAZY')]
@@ -49,6 +55,7 @@ class Wedding extends AuditingEntity {
 
   public function __construct() {
     $this->guests = new ArrayCollection();
+    $this->guestGroups = new ArrayCollection();
     $this->weddingUsers = new ArrayCollection();
     $this->weddingUserInvites = new ArrayCollection();
     $this->weddingCostEstimates = new ArrayCollection();
@@ -100,6 +107,36 @@ class Wedding extends AuditingEntity {
 
   public function removeGuest(Guest $guest): self {
     $this->guests->removeElement($guest);
+
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, GuestGroup>
+   */
+  public function getGuestGroups(): Collection {
+    return $this->guestGroups;
+  }
+
+  /**
+   * @param Collection<int, GuestGroup> $guestGroups
+   */
+  public function setGuestGroups(Collection $guestGroups): self {
+    $this->guestGroups = $guestGroups;
+
+    return $this;
+  }
+
+  public function addGuestGroup(GuestGroup $guestGroup): self {
+    if (!$this->guestGroups->contains($guestGroup)) {
+      $this->guestGroups->add($guestGroup);
+    }
+
+    return $this;
+  }
+  
+  public function removeGuestGroup(GuestGroup $guestGroup): self {
+    $this->guestGroups->removeElement($guestGroup);
 
     return $this;
   }

@@ -10,6 +10,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
@@ -34,8 +36,16 @@ class Guest extends AuditingEntity {
   #[OneToMany(targetEntity: GuestContact::class, mappedBy: 'guest', fetch: 'LAZY')]
   private Collection $contacts;
 
+  /**
+   * @var Collection<int, GuestGroup>
+   */
+  #[ManyToMany(targetEntity: GuestGroup::class, inversedBy: 'guests', fetch: 'LAZY')]
+  #[JoinTable(name: 'guests_groups', schema: 'wedding')]
+  private Collection $groups;
+
   public function __construct() {
     $this->contacts = new ArrayCollection();
+    $this->groups = new ArrayCollection();
   }
 
   public function getFirstName(): string {
@@ -94,6 +104,36 @@ class Guest extends AuditingEntity {
 
   public function removeContact(GuestContact $contact): self {
     $this->contacts->removeElement($contact);
+
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, GuestGroup>
+   */
+  public function getGroups(): Collection {
+    return $this->groups;
+  }
+
+  /**
+   * @param Collection<int, GuestGroup> $groups
+   */
+  public function setGroups(Collection $groups): self {
+    $this->groups = $groups;
+
+    return $this;
+  }
+
+  public function addGroup(GuestGroup $group): self {
+    if (!$this->groups->contains($group)) {
+      $this->groups->add($group);
+    }
+
+    return $this;
+  }
+
+  public function removeGroup(GuestGroup $group): self {
+    $this->groups->removeElement($group);
 
     return $this;
   }
