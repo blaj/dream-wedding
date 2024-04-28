@@ -49,6 +49,7 @@ jobs:
           retention-days: 3
 
   npm:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
