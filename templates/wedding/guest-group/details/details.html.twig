@@ -1,0 +1,51 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% block title %}
+  {{ 'guest-group-details'|trans }}
+{% endblock %}
+
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'guest-group-details'|trans }}
+
+    {{ guestGroupDetailsDto.name }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_guest_group_update', { weddingId: weddingId, id: guestGroupDetailsDto.id }) }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'edit'|trans }}">
+    <i class="bi bi-pencil"></i>
+  </a>
+{% endblock %}
+
+{% block page_content %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          {{ 'name'|trans }}
+        </td>
+
+        <td>
+          {{ guestGroupDetailsDto.name }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'description'|trans }}
+        </td>
+
+        <td>
+          {{ guestGroupDetailsDto.description }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="{{ path('wedding_guest_group_list', { weddingId: weddingId }) }}">
+    {{ 'back-to-list'|trans }}
+  </a>
+{% endblock %}

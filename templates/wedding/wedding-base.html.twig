@@ -24,6 +24,14 @@
 
     <li class="nav-item">
       <a
+          class="nav-link {{ getActualRouteName()|activeRouteName('wedding_guest_group_list', 'active') }}"
+          href="{{ path('wedding_guest_group_list', { weddingId: weddingDetailsDto.id }) }}">
+        {{ 'guest-group-list'|trans }}
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
           class="nav-link {{ getActualRouteName()|activeRouteName('wedding_cost_estimate_list', 'active') }}"
           href="{{ path('wedding_cost_estimate_list', { weddingId: weddingDetailsDto.id }) }}">
         {{ 'wedding-cost-estimate-list'|trans }}
