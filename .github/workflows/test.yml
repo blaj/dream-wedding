@@ -36,16 +36,19 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node_modules
+          run_id: ${{ github.event.workflow_run.id }}
 
       - name: Download composer artifacts
         uses: actions/download-artifact@v2
         with:
           name: composer
+          run_id: ${{ github.event.workflow_run.id }}
 
       - name: Download public artifacts
         uses: actions/download-artifact@v2
         with:
           name: public
+          run_id: ${{ github.event.workflow_run.id }}
 
       - name: Unpack artifacts
         run: |
