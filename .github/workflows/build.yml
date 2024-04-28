@@ -56,6 +56,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Download composer artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: composer
+
+      - name: Unpack artifacts
+        run: tar xvfz composer.tgz
+
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
