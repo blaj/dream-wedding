@@ -91,5 +91,7 @@
   "child": "Child",
   "omnivorous": "Omnivorous",
   "vegetarianism": "Vegetarianism",
-  "veganism": "Veganism"
+  "veganism": "Veganism",
+  "guest-groups": "Guest groups",
+  "guests": "Guests"
 }

@@ -86,6 +86,7 @@ class GuestGroup extends AuditingEntity {
 
   public function addGuest(Guest $guest): self {
     if (!$this->guests->contains($guest)) {
+      $guest->addGroup($this);
       $this->guests->add($guest);
     }
 
@@ -93,6 +94,7 @@ class GuestGroup extends AuditingEntity {
   }
 
   public function removeGuest(Guest $guest): self {
+    $guest->removeGroup($this);
     $this->guests->removeElement($guest);
 
     return $this;

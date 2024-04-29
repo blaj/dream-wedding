@@ -20,4 +20,13 @@ class FormUtils {
         ? $saveAndAddRouteRedirectResponse
         : $saveRedirectResponse;
   }
+
+  /**
+   * @param array<mixed> $options
+   */
+  public static function isMultiple(array $options): bool {
+    return array_key_exists('multiple', $options)
+        && is_bool($options['multiple'])
+        && $options['multiple'];
+  }
 }

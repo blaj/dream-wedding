@@ -7,6 +7,7 @@ use App\Wedding\Dto\GuestDetailsDto;
 use App\Wedding\Dto\GuestListItemDto;
 use App\Wedding\Dto\GuestUpdateRequest;
 use App\Wedding\Entity\Guest;
+use App\Wedding\Entity\GuestGroup;
 use App\Wedding\Mapper\GuestDetailsDtoMapper;
 use App\Wedding\Mapper\GuestListItemDtoMapper;
 use App\Wedding\Mapper\GuestUpdateRequestMapper;
@@ -17,6 +18,7 @@ class GuestService {
   public function __construct(
       private readonly GuestFetchService $guestFetchService,
       private readonly WeddingFetchService $weddingFetchService,
+      private readonly GuestGroupFetchService $guestGroupFetchService,
       private readonly GuestRepository $guestRepository) {}
 
   /**
@@ -43,6 +45,9 @@ class GuestService {
       GuestCreateRequest $guestCreateRequest,
       int $userId): void {
     $wedding = $this->weddingFetchService->fetchWedding($weddingId, $userId);
+    $groups =
+        array_map(fn (int $id) => $this->guestGroupFetchService->fetchGuestGroup($id, $userId),
+            $guestCreateRequest->getGroups());
 
     $guest = (new Guest())
         ->setFirstName($guestCreateRequest->getFirstName())
@@ -59,11 +64,30 @@ class GuestService {
         ->setEmail($guestCreateRequest->getEmail())
         ->setPayment($guestCreateRequest->getPayment());
 
+    array_walk($groups, fn (GuestGroup $guestGroup) => $guest->addGroup($guestGroup));
+
     $this->guestRepository->save($guest);
   }
 
   public function update(int $id, GuestUpdateRequest $guestUpdateRequest, int $userId): void {
     $guest = $this->guestFetchService->fetchGuest($id, $userId);
+    $addedGroups =
+        array_map(
+            fn (int $groupId) => $this->guestGroupFetchService->fetchGuestGroup($groupId, $userId),
+            array_filter(
+                $guestUpdateRequest->getGroups(),
+                fn (int $groupId) => !in_array(
+                    $groupId,
+                    array_map(fn (GuestGroup $guestGroup) => $guestGroup->getId(),
+                        $guest->getGroups()->toArray()),
+                    true)));
+    $removedGroups =
+        array_filter(
+            $guest->getGroups()->toArray(),
+            fn (GuestGroup $guestGroup) => !in_array(
+                $guestGroup->getId(),
+                $guestUpdateRequest->getGroups(),
+                true));
 
     $guest
         ->setFirstName($guestUpdateRequest->getFirstName())
@@ -78,6 +102,9 @@ class GuestService {
         ->setTelephone($guestUpdateRequest->getTelephone())
         ->setEmail($guestUpdateRequest->getEmail())
         ->setPayment($guestUpdateRequest->getPayment());
+
+    array_walk($addedGroups, fn (GuestGroup $guestGroup) => $guest->addGroup($guestGroup));
+    array_walk($removedGroups, fn (GuestGroup $guestGroup) => $guest->removeGroup($guestGroup));
 
     $this->guestRepository->save($guest);
   }

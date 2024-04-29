@@ -33,6 +33,11 @@ class GuestCreateRequest {
 
   private ?string $note = null;
 
+  /**
+   * @var array<int>
+   */
+  private array $groups = [];
+
   #[Length(min: 9, max: 9)]
   private ?string $telephone = null;
 
@@ -158,6 +163,22 @@ class GuestCreateRequest {
 
   public function setPayment(int $payment): self {
     $this->payment = $payment;
+
+    return $this;
+  }
+
+  /**
+   * @return array<int>
+   */
+  public function getGroups(): array {
+    return $this->groups;
+  }
+
+  /**
+   * @param array<int> $groups
+   */
+  public function setGroups(array $groups): self {
+    $this->groups = $groups;
 
     return $this;
   }

@@ -4,5 +4,12 @@ namespace App\Wedding\Dto;
 
 readonly class GuestGroupDetailsDto {
 
-  public function __construct(public int $id, public string $name, public ?string $description) {}
+  /**
+   * @param array<string> $guestNames
+   */
+  public function __construct(
+      public int $id,
+      public string $name,
+      public ?string $description,
+      public array $guestNames) {}
 }
