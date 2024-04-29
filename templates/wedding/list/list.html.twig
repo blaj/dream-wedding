@@ -37,6 +37,10 @@
     </thead>
 
     <tbody>
+      {% if weddingsListItemDto|length == 0 %}
+        {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 3 } only %}
+      {% endif %}
+
       {% for weddingDto in weddingsListItemDto %}
         <tr>
           <td>

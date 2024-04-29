@@ -109,5 +109,6 @@
   "invited-amount": "Ilość zaproszonych gości",
   "confirmed-amount": "Ilość potwierdzonych gości",
   "accommodation-amount": "Ilość noclegu",
-  "transport-amount": "Ilość transportu"
+  "transport-amount": "Ilość transportu",
+  "empty-list": "Lista jest pusta"
 }

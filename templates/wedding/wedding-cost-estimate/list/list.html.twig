@@ -56,6 +56,10 @@
       </thead>
 
       <tbody>
+        {% if weddingCostEstimatesListItemDto|length == 0 %}
+          {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 8 } only %}
+        {% endif %}
+
         {% for weddingCostEstimateDto in weddingCostEstimatesListItemDto %}
           <tr>
             <td>
