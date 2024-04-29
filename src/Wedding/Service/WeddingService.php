@@ -50,7 +50,8 @@ class WeddingService {
     $wedding =
         (new Wedding())
             ->setName($weddingCreateRequest->getName())
-            ->setOnDate($weddingCreateRequest->getOnDate());
+            ->setOnDate($weddingCreateRequest->getOnDate())
+            ->setBudget($weddingCreateRequest->getBudget());
 
     $weddingUser =
         (new WeddingUser())
@@ -67,9 +68,12 @@ class WeddingService {
 
   public function update(int $id, WeddingUpdateRequest $weddingUpdateRequest, int $userId): void {
     $wedding = $this->weddingFetchService->fetchWedding($id, $userId);
+
     $wedding
         ->setName($weddingUpdateRequest->getName())
-        ->setOnDate($weddingUpdateRequest->getOnDate());
+        ->setOnDate($weddingUpdateRequest->getOnDate())
+        ->setBudget($weddingUpdateRequest->getBudget());
+
     $this->weddingRepository->save($wedding);
   }
 

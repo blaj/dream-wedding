@@ -17,6 +17,79 @@ class WeddingCostEstimateRepository extends AbstractAuditingEntityRepository {
     parent::__construct($registry, WeddingCostEstimate::class);
   }
 
+  /**
+   * @return array<WeddingCostEstimate>
+   */
+  public function findAllDependsOnGuestsByWeddingIdAndUserId(int $weddingId, int $userId): array {
+    return $this->getEntityManager()
+        ->createQuery(
+            '
+            SELECT 
+              weddingCostEstimate 
+            FROM 
+              App\Wedding\Entity\WeddingCostEstimate weddingCostEstimate 
+              INNER JOIN weddingCostEstimate.wedding wedding 
+              INNER JOIN wedding.weddingUsers weddingUsers 
+            WHERE 
+              weddingCostEstimate.deleted = false 
+              AND weddingCostEstimate.dependsOnGuests = true 
+              AND wedding.deleted = false 
+              AND weddingUsers.deleted = false 
+              AND weddingCostEstimate.wedding = :weddingId 
+              AND weddingUsers.user = :userId')
+        ->setParameter('weddingId', $weddingId, Types::INTEGER)
+        ->setParameter('userId', $userId, Types::INTEGER)
+        ->getResult();
+  }
+
+  public function findRealCostByWeddingIdAndUserIdExcludeDependsOnGuests(
+      int $weddingId,
+      int $userId): int {
+    return (int) $this->getEntityManager()
+        ->createQuery(
+            '
+            SELECT 
+              SUM(weddingCostEstimate.real * weddingCostEstimate.quantity) as _realCost
+            FROM 
+              App\Wedding\Entity\WeddingCostEstimate weddingCostEstimate 
+              INNER JOIN weddingCostEstimate.wedding wedding 
+              INNER JOIN wedding.weddingUsers weddingUsers 
+            WHERE 
+              weddingCostEstimate.deleted = false 
+              AND weddingCostEstimate.dependsOnGuests = false 
+              AND wedding.deleted = false 
+              AND weddingUsers.deleted = false 
+              AND weddingCostEstimate.wedding = :weddingId 
+              AND weddingUsers.user = :userId')
+        ->setParameter('weddingId', $weddingId, Types::INTEGER)
+        ->setParameter('userId', $userId, Types::INTEGER)
+        ->getSingleScalarResult();
+  }
+
+  public function findEstimateCostByWeddingIdAndUserIdExcludeDependsOnGuests(
+      int $weddingId,
+      int $userId): int {
+    return (int) $this->getEntityManager()
+        ->createQuery(
+            '
+            SELECT 
+              SUM(weddingCostEstimate.estimate * weddingCostEstimate.quantity) as _estimateCost
+            FROM 
+              App\Wedding\Entity\WeddingCostEstimate weddingCostEstimate 
+              INNER JOIN weddingCostEstimate.wedding wedding 
+              INNER JOIN wedding.weddingUsers weddingUsers 
+            WHERE 
+              weddingCostEstimate.deleted = false 
+              AND weddingCostEstimate.dependsOnGuests = false 
+              AND wedding.deleted = false 
+              AND weddingUsers.deleted = false 
+              AND weddingCostEstimate.wedding = :weddingId 
+              AND weddingUsers.user = :userId')
+        ->setParameter('weddingId', $weddingId, Types::INTEGER)
+        ->setParameter('userId', $userId, Types::INTEGER)
+        ->getSingleScalarResult();
+  }
+
   public function findOneByIdAndUserId(int $id, int $userId): ?WeddingCostEstimate {
     return $this->getEntityManager()
         ->createQuery(

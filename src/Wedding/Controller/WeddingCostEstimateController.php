@@ -8,6 +8,7 @@ use App\Security\Dto\UserData;
 use App\Wedding\Dto\WeddingCostEstimateCreateRequest;
 use App\Wedding\Form\Type\WeddingCostEstimateCreateFormType;
 use App\Wedding\Form\Type\WeddingCostEstimateUpdateFormType;
+use App\Wedding\Service\WeddingCostEstimateCalculationService;
 use App\Wedding\Service\WeddingCostEstimateService;
 use App\Wedding\Service\WeddingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,6 +26,7 @@ class WeddingCostEstimateController extends AbstractController {
 
   public function __construct(
       private readonly WeddingCostEstimateService $weddingCostEstimateService,
+      private readonly WeddingCostEstimateCalculationService $weddingCostEstimateCalculationService,
       private readonly WeddingService $weddingService) {}
 
   #[Route(path: '/', name: 'list', methods: ['GET'])]
@@ -40,6 +42,9 @@ class WeddingCostEstimateController extends AbstractController {
         [
             'weddingDetailsDto' => $weddingDetailsDto,
             'weddingCostEstimatesListItemDto' => $this->weddingCostEstimateService->getList(
+                $weddingId,
+                $userData->getUserId()),
+            'weddingCostEstimateCalculatedDto' => $this->weddingCostEstimateCalculationService->calculate(
                 $weddingId,
                 $userData->getUserId())]);
   }

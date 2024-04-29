@@ -38,6 +38,16 @@
           {{ weddingDetailsDto.onDate|dateFormat }}
         </td>
       </tr>
+
+      <tr>
+        <td>
+          {{ 'budget'|trans }}
+        </td>
+
+        <td>
+          {{ weddingDetailsDto.budget|money_format }}
+        </td>
+      </tr>
     </tbody>
   </table>
 {% endblock %}

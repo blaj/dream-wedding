@@ -99,5 +99,7 @@
   "depends-on-guests": "Depends on guests",
   "piece": "Piece",
   "service": "Service",
-  "other": "other"
+  "other": "other",
+  "to-pay": "To pay",
+  "budget": "Budget"
 }

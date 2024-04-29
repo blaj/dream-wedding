@@ -14,6 +14,7 @@ class WeddingUpdateRequestMapper {
 
     return (new WeddingUpdateRequest())
         ->setName($wedding->getName())
-        ->setOnDate($wedding->getOnDate());
+        ->setOnDate($wedding->getOnDate())
+        ->setBudget($wedding->getBudget());
   }
 }
