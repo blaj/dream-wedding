@@ -58,6 +58,15 @@ class GuestGroupBuilderService {
 
     $guestsCount = count($guests);
 
+    $invitedPercentage =
+        $invitedAmount > 0 && $guestsCount > 0
+            ? (int) round($invitedAmount / $guestsCount * 100)
+            : 0;
+    $confirmedPercentage =
+        $confirmedAmount > 0 && $guestsCount > 0
+            ? (int) round($confirmedAmount / $guestsCount * 100)
+            : 0;
+
     return new GuestGroupBuildDto(
         $guestsGroupsBuildDto,
         $guestsCount,
@@ -65,7 +74,7 @@ class GuestGroupBuilderService {
         $confirmedAmount,
         $accommodationAmount,
         $transportAmount,
-        (int) round($invitedAmount / $guestsCount * 100),
-        (int) round($confirmedAmount / $guestsCount * 100));
+        $invitedPercentage,
+        $confirmedPercentage);
   }
 }

@@ -43,6 +43,10 @@
     </thead>
 
     <tbody>
+      {% if weddingUsersListItemDto|length == 0 %}
+        {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 5 } only %}
+      {% endif %}
+
       {% for weddingUserDto in weddingUsersListItemDto %}
         <tr>
           <td>
@@ -126,6 +130,10 @@
     </thead>
 
     <tbody>
+      {% if weddingUserInvitesListItemDto|length == 0 %}
+        {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 4 } only %}
+      {% endif %}
+
       {% for weddingUserInviteDto in weddingUserInvitesListItemDto %}
         <tr>
           <td>

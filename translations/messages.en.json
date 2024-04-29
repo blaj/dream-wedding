@@ -109,5 +109,6 @@
   "invited-amount": "Invited guests amount",
   "confirmed-amount": "Confirmed guests amount",
   "accommodation-amount": "Accommodation amount",
-  "transport-amount": "Transport amount"
+  "transport-amount": "Transport amount",
+  "empty-list": "Empty list"
 }

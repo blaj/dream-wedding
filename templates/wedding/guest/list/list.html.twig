@@ -80,6 +80,10 @@
       </thead>
 
       <tbody>
+        {% if guestGroupBuildDto.guestsGroupsBuildRowDto|length == 0 %}
+          {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 14 } only %}
+        {% endif %}
+
         {% for guestGroupBuildRowDto in guestGroupBuildDto.guestsGroupsBuildRowDto %}
           <tr class="table-info table-group-divider">
             <th colspan="14" scope="row">

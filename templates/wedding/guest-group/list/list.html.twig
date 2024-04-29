@@ -35,6 +35,10 @@
     </thead>
 
     <tbody>
+      {% if guestGroupsListItemDto|length == 0 %}
+        {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 3 } only %}
+      {% endif %}
+
       {% for guestGroupDto in guestGroupsListItemDto %}
         <tr>
           <td>

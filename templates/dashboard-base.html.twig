@@ -62,6 +62,8 @@
               <ul class="nav flex-column">
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'guest-list'|trans, iconClass: 'bi bi-people-fill', path: path('wedding_guest_list', { weddingId: weddingDto.id }) } only %}
 
+                {% include 'partial/_sidebar-item.html.twig' with { name: 'guest-group-list'|trans, iconClass: 'bi bi-person-vcard', path: path('wedding_guest_group_list', { weddingId: weddingDto.id }) } only %}
+
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-cost-estimate-list'|trans, iconClass: 'bi bi-cash', path: path('wedding_cost_estimate_list', { weddingId: weddingDto.id }) } only %}
 
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-user-list'|trans, iconClass: 'bi bi-universal-access-circle', path: path('wedding_user_list', { weddingId: weddingDto.id }) } only %}
