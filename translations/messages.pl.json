@@ -101,5 +101,13 @@
   "service": "Usługa",
   "other": "Inna",
   "to-pay": "Do zapłaty",
-  "budget": "Budżet"
+  "budget": "Budżet",
+  "invited-guests": "Zaproszonych gości",
+  "confirmed-guests": "Potwierdzonych gości",
+  "additional-information": "Dodatkowe informacje",
+  "guests-amount": "Ilość gości",
+  "invited-amount": "Ilość zaproszonych gości",
+  "confirmed-amount": "Ilość potwierdzonych gości",
+  "accommodation-amount": "Ilość noclegu",
+  "transport-amount": "Ilość transportu"
 }

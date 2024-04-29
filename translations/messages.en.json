@@ -101,5 +101,13 @@
   "service": "Service",
   "other": "other",
   "to-pay": "To pay",
-  "budget": "Budget"
+  "budget": "Budget",
+  "invited-guests": "Invited guests",
+  "confirmed-guests": "Confirmed guests",
+  "additional-information": "Additional information",
+  "guests-amount": "Guests amount",
+  "invited-amount": "Invited guests amount",
+  "confirmed-amount": "Confirmed guests amount",
+  "accommodation-amount": "Accommodation amount",
+  "transport-amount": "Transport amount"
 }
