@@ -62,7 +62,8 @@ class GuestController extends AbstractController {
     $form =
         $this->createForm(
             GuestCreateFormType::class,
-            $guestCreateRequest = new GuestCreateRequest());
+            $guestCreateRequest = new GuestCreateRequest(),
+            ['weddingId' => $weddingId, 'userId' => $userData->getUserId()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -95,7 +96,11 @@ class GuestController extends AbstractController {
       throw new NotFoundHttpException();
     }
 
-    $form = $this->createForm(GuestUpdateFormType::class, $guestUpdateRequest, ['method' => 'PUT']);
+    $form =
+        $this->createForm(
+            GuestUpdateFormType::class,
+            $guestUpdateRequest,
+            ['method' => 'PUT', 'weddingId' => $weddingId, 'userId' => $userData->getUserId()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

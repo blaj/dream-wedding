@@ -13,6 +13,11 @@ class GuestGroupCreateRequest {
 
   private ?string $description = null;
 
+  /**
+   * @var array<int>
+   */
+  private array $guests = [];
+
   public function getName(): string {
     return $this->name;
   }
@@ -29,6 +34,22 @@ class GuestGroupCreateRequest {
 
   public function setDescription(?string $description): self {
     $this->description = $description;
+
+    return $this;
+  }
+
+  /**
+   * @return array<int>
+   */
+  public function getGuests(): array {
+    return $this->guests;
+  }
+
+  /**
+   * @param array<int> $guests
+   */
+  public function setGuests(array $guests): self {
+    $this->guests = $guests;
 
     return $this;
   }

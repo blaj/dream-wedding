@@ -42,6 +42,20 @@
           {{ guestGroupDetailsDto.description }}
         </td>
       </tr>
+
+      <tr>
+        <td>
+          {{ 'guests'|trans }}
+        </td>
+
+        <td>
+          {% for guestName in guestGroupDetailsDto.guestNames %}
+            <span class="badge text-bg-primary">
+              {{ guestName }}
+            </span>
+          {% endfor %}
+        </td>
+      </tr>
     </tbody>
   </table>
 

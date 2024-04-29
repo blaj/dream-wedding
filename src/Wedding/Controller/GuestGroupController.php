@@ -62,7 +62,8 @@ class GuestGroupController extends AbstractController {
     $form =
         $this->createForm(
             GuestGroupCreateFormType::class,
-            $guestGroupCreateRequest = new GuestGroupCreateRequest());
+            $guestGroupCreateRequest = new GuestGroupCreateRequest(),
+            ['weddingId' => $weddingId, 'userId' => $userData->getUserId()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -103,7 +104,7 @@ class GuestGroupController extends AbstractController {
         $this->createForm(
             GuestGroupUpdateFormType::class,
             $guestGroupUpdateRequest,
-            ['method' => 'PUT']);
+            ['method' => 'PUT', 'weddingId' => $weddingId, 'userId' => $userData->getUserId()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

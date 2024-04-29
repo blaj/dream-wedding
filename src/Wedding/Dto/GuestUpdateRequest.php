@@ -42,6 +42,11 @@ class GuestUpdateRequest {
   #[Range(min: 0)]
   private int $payment = 100;
 
+  /**
+   * @var array<int>
+   */
+  private array $groups = [];
+
   public function getFirstName(): string {
     return $this->firstName;
   }
@@ -158,6 +163,22 @@ class GuestUpdateRequest {
 
   public function setPayment(int $payment): self {
     $this->payment = $payment;
+
+    return $this;
+  }
+
+  /**
+   * @return array<int>
+   */
+  public function getGroups(): array {
+    return $this->groups;
+  }
+
+  /**
+   * @param array<int> $groups
+   */
+  public function setGroups(array $groups): self {
+    $this->groups = $groups;
 
     return $this;
   }

@@ -144,6 +144,20 @@
           {{ guestDetailsDto.payment }}%
         </td>
       </tr>
+
+      <tr>
+        <td>
+          {{ 'guest-groups'|trans }}
+        </td>
+
+        <td>
+          {% for groupName in guestDetailsDto.groupNames %}
+            <span class="badge text-bg-primary">
+              {{ groupName }}
+            </span>
+          {% endfor %}
+        </td>
+      </tr>
     </tbody>
   </table>
 

@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\InverseJoinColumn;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
@@ -73,6 +74,8 @@ class Guest extends AuditingEntity {
    */
   #[ManyToMany(targetEntity: GuestGroup::class, inversedBy: 'guests', fetch: 'LAZY')]
   #[JoinTable(name: 'guests_groups', schema: 'wedding')]
+  #[JoinColumn(name: 'guest_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]
+  #[InverseJoinColumn(name: 'group_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]
   private Collection $groups;
 
   public function __construct() {
