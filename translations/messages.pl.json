@@ -99,5 +99,7 @@
   "depends-on-guests": "Zależy od ilości gości",
   "piece": "Sztuka",
   "service": "Usługa",
-  "other": "Inna"
+  "other": "Inna",
+  "to-pay": "Do zapłaty",
+  "budget": "Budżet"
 }

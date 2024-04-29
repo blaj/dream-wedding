@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Tbbc\MoneyBundle\Form\Type\MoneyType;
 
 class WeddingUpdateFormType extends AbstractType {
 
@@ -16,6 +17,7 @@ class WeddingUpdateFormType extends AbstractType {
         ->setMethod('PUT')
         ->add('name', TextType::class, ['label' => 'name'])
         ->add('onDate', DateType::class, ['label' => 'on-date'])
+        ->add('budget', MoneyType::class, ['label' => 'budget'])
         ->add(FormConst::$save, SaveButtonType::class);
   }
 }

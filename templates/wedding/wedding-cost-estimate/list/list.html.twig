@@ -121,4 +121,78 @@
       </tbody>
     </table>
   </div>
+
+  <div class="row text-center">
+    <div class="col-12 col-md-3 mb-3 mb-md-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="bi bi-currency-dollar"></i>
+          </h5>
+
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ 'budget'|trans }}
+          </h6>
+
+          <p class="card-text">
+            {{ weddingDetailsDto.budget|money_format }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3 mb-3 mb-md-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="bi bi-currency-dollar"></i>
+          </h5>
+
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ 'estimate-cost'|trans }}
+          </h6>
+
+          <p class="card-text">
+            {{ weddingCostEstimateCalculatedDto.estimateCost|money_format }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3 mb-3 mb-md-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="bi bi-currency-dollar"></i>
+          </h5>
+
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ 'real-cost'|trans }}
+          </h6>
+
+          <p class="card-text">
+            {{ weddingCostEstimateCalculatedDto.realCost|money_format }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="bi bi-currency-dollar"></i>
+          </h5>
+
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ 'to-pay'|trans }}
+          </h6>
+
+          <p class="card-text">
+            {{ weddingCostEstimateCalculatedDto.toPay|money_format }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

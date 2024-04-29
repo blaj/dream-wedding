@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
+use Money\Money;
 
 #[Entity(repositoryClass: WeddingRepository::class)]
 #[Table(name: 'wedding', schema: 'wedding')]
@@ -22,6 +23,9 @@ class Wedding extends AuditingEntity {
 
   #[Column(name: 'on_date', type: Types::DATE_IMMUTABLE, nullable: false)]
   private DateTimeImmutable $onDate;
+
+  #[Column(name: 'budget', type: Types::BIGINT, nullable: false)]
+  private int $budget = 0;
 
   /**
    * @var Collection<int, Guest>
@@ -81,6 +85,16 @@ class Wedding extends AuditingEntity {
     return $this;
   }
 
+  public function getBudget(): Money {
+    return Money::PLN($this->budget);
+  }
+
+  public function setBudget(Money $money): self {
+    $this->budget = (int) $money->getAmount();
+
+    return $this;
+  }
+
   /**
    * @return Collection<int, Guest>
    */
@@ -134,7 +148,7 @@ class Wedding extends AuditingEntity {
 
     return $this;
   }
-  
+
   public function removeGuestGroup(GuestGroup $guestGroup): self {
     $this->guestGroups->removeElement($guestGroup);
 

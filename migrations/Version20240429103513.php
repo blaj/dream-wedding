@@ -25,7 +25,7 @@ final class Version20240429103513 extends AbstractMigration {
   public function down(Schema $schema): void {
     $this->addSql(
         '
-            ALTER TABLE wedding.guest 
+            ALTER TABLE wedding.wedding_cost_estimate 
               DROP COLUMN quantity, 
               DROP COLUMN unit_type, 
               DROP COLUMN depends_on_guests;');
