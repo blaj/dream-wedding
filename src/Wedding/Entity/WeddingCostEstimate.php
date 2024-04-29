@@ -3,6 +3,7 @@
 namespace App\Wedding\Entity;
 
 use App\Common\Entity\AuditingEntity;
+use App\Wedding\Entity\Enum\UnitType;
 use App\Wedding\Repository\WeddingCostEstimateRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
@@ -35,6 +36,15 @@ class WeddingCostEstimate extends AuditingEntity {
 
   #[Column(name: 'currency', type: Types::STRING, length: 3, nullable: false)]
   private string $currency = 'PLN';
+
+  #[Column(name: 'quantity', type: Types::INTEGER, nullable: false, options: ['default' => 1])]
+  private int $quantity = 1;
+
+  #[Column(name: 'unit_type', type: Types::STRING, length: 20, nullable: false, enumType: UnitType::class)]
+  private UnitType $unitType;
+
+  #[Column(name: 'depends_on_guests', type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
+  private bool $dependsOnGuests = false;
 
   public function getWedding(): Wedding {
     return $this->wedding;
@@ -93,6 +103,36 @@ class WeddingCostEstimate extends AuditingEntity {
 
   public function setCurrency(Currency $currency): self {
     $this->currency = $currency->getCode();
+
+    return $this;
+  }
+
+  public function getQuantity(): int {
+    return $this->quantity;
+  }
+
+  public function setQuantity(int $quantity): self {
+    $this->quantity = $quantity;
+
+    return $this;
+  }
+
+  public function getUnitType(): UnitType {
+    return $this->unitType;
+  }
+
+  public function setUnitType(UnitType $unitType): self {
+    $this->unitType = $unitType;
+
+    return $this;
+  }
+
+  public function isDependsOnGuests(): bool {
+    return $this->dependsOnGuests;
+  }
+
+  public function setDependsOnGuests(bool $dependsOnGuests): self {
+    $this->dependsOnGuests = $dependsOnGuests;
 
     return $this;
   }

@@ -54,7 +54,10 @@ class WeddingCostEstimateService {
         ->setDescription($weddingCostEstimateCreateRequest->getDescription())
         ->setEstimate($weddingCostEstimateCreateRequest->getEstimate())
         ->setReal($weddingCostEstimateCreateRequest->getReal())
-        ->setCurrency($weddingCostEstimateCreateRequest->getReal()->getCurrency());
+        ->setCurrency($weddingCostEstimateCreateRequest->getReal()->getCurrency())
+        ->setQuantity($weddingCostEstimateCreateRequest->getQuantity())
+        ->setUnitType($weddingCostEstimateCreateRequest->getUnitType())
+        ->setDependsOnGuests($weddingCostEstimateCreateRequest->isDependsOnGuests());
 
     $this->weddingCostEstimateRepository->save($weddingCostEstimate);
   }
@@ -65,11 +68,16 @@ class WeddingCostEstimateService {
       int $userId): void {
     $weddingCostEstimate =
         $this->weddingCostEstimateFetchService->fetchWeddingCostEstimate($id, $userId);
+
     $weddingCostEstimate
         ->setName($weddingCostEstimateUpdateRequest->getName())
         ->setDescription($weddingCostEstimateUpdateRequest->getDescription())
         ->setEstimate($weddingCostEstimateUpdateRequest->getEstimate())
-        ->setReal($weddingCostEstimateUpdateRequest->getReal());
+        ->setReal($weddingCostEstimateUpdateRequest->getReal())
+        ->setQuantity($weddingCostEstimateUpdateRequest->getQuantity())
+        ->setUnitType($weddingCostEstimateUpdateRequest->getUnitType())
+        ->setDependsOnGuests($weddingCostEstimateUpdateRequest->isDependsOnGuests());
+
     $this->weddingCostEstimateRepository->save($weddingCostEstimate);
   }
 

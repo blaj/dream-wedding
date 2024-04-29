@@ -62,6 +62,36 @@
           {{ weddingCostEstimateDetailsDto.real|money_format }}
         </td>
       </tr>
+
+      <tr>
+        <td>
+          {{ 'quantity'|trans }}
+        </td>
+
+        <td>
+          {{ weddingCostEstimateDetailsDto.quantity }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'unit-type'|trans }}
+        </td>
+
+        <td>
+          {{ weddingCostEstimateDetailsDto.unitType|trans }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'depends-on-guests'|trans }}
+        </td>
+
+        <td>
+          {{ weddingCostEstimateDetailsDto.dependsOnGuests|yesOrNo }}
+        </td>
+      </tr>
     </tbody>
   </table>
 

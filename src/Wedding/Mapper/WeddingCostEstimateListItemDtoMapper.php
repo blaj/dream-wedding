@@ -17,6 +17,9 @@ class WeddingCostEstimateListItemDtoMapper {
         $weddingCostEstimate->getId(),
         $weddingCostEstimate->getName(),
         $weddingCostEstimate->getEstimate(),
-        $weddingCostEstimate->getReal());
+        $weddingCostEstimate->getReal(),
+        $weddingCostEstimate->getQuantity(),
+        $weddingCostEstimate->getUnitType(),
+        $weddingCostEstimate->isDependsOnGuests());
   }
 }

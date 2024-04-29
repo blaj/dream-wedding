@@ -93,5 +93,11 @@
   "vegetarianism": "Wegetarianizm",
   "veganism": "Weganizm",
   "guest-groups": "Grupy",
-  "guests": "Goście"
+  "guests": "Goście",
+  "quantity": "Ilość",
+  "unit-type": "Jednostka miary",
+  "depends-on-guests": "Zależy od ilości gości",
+  "piece": "Sztuka",
+  "service": "Usługa",
+  "other": "Inna"
 }
