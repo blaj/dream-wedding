@@ -8,6 +8,7 @@ use App\Security\Dto\UserData;
 use App\Wedding\Dto\GuestCreateRequest;
 use App\Wedding\Form\Type\GuestCreateFormType;
 use App\Wedding\Form\Type\GuestUpdateFormType;
+use App\Wedding\Service\GuestGroupBuilderService;
 use App\Wedding\Service\GuestService;
 use App\Wedding\Service\WeddingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +26,8 @@ class GuestController extends AbstractController {
 
   public function __construct(
       private readonly WeddingService $weddingService,
-      private readonly GuestService $guestService) {}
+      private readonly GuestService $guestService,
+      private readonly GuestGroupBuilderService $guestGroupBuilderService) {}
 
   #[Route(path: '/', name: 'list', methods: ['GET'])]
   public function list(int $weddingId, UserData $userData): Response {
@@ -39,7 +41,7 @@ class GuestController extends AbstractController {
         'wedding/guest/list/list.html.twig',
         [
             'weddingDetailsDto' => $weddingDetailsDto,
-            'guestsListItemDto' => $this->guestService->getList(
+            'guestGroupBuildDto' => $this->guestGroupBuilderService->build(
                 $weddingId,
                 $userData->getUserId())]);
   }

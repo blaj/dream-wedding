@@ -17,8 +17,8 @@
 {% endblock %}
 
 {% block tab_content %}
-  <div class="table-responsive">
-    <table class="table table-striped">
+  <div class="table-responsive mb-3">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
           <th>
@@ -80,93 +80,219 @@
       </thead>
 
       <tbody>
-        {% for guestDto in guestsListItemDto %}
-          <tr>
-            <td>
-              {{ loop.index }}
-            </td>
-
-            <td>
-              {{ guestDto.firstName }}
-            </td>
-
-            <td>
-              {{ guestDto.lastName }}
-            </td>
-
-            <td>
-              {{ guestDto.type|trans }}
-            </td>
-
-            <td>
-              {{ guestDto.invited|yesOrNo }}
-            </td>
-
-            <td>
-              {{ guestDto.confirmed|yesOrNo }}
-            </td>
-
-            <td>
-              {{ guestDto.accommodation|yesOrNo }}
-            </td>
-
-            <td>
-              {{ guestDto.transport|yesOrNo }}
-            </td>
-
-            <td>
-              {{ guestDto.dietType|trans }}
-            </td>
-
-            <td>
-              {{ guestDto.note }}
-            </td>
-
-            <td>
-              {{ guestDto.telephone }}
-            </td>
-
-            <td>
-              {{ guestDto.email }}
-            </td>
-
-            <td>
-              {{ guestDto.payment }}
-            </td>
-
-            <td class="d-flex">
-              <a
-                  href="{{ path('wedding_guest_details', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
-                  class="btn btn-primary btn-sm me-1"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{{ 'details'|trans }}">
-                <i class="bi bi-eye"></i>
-              </a>
-
-              <a
-                  href="{{ path('wedding_guest_update', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
-                  class="btn btn-secondary btn-sm me-1"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{{ 'edit'|trans }}">
-                <i class="bi bi-pencil"></i>
-              </a>
-
-              <form
-                  action="{{ path('wedding_guest_delete', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
-                  method="post">
-                <button
-                    type="submit" class="btn btn-danger btn-sm"
-                    data-bs-toggle="tooltip"
-                    data-bs-title="{{ 'delete'|trans }}">
-                  <i class="bi bi-trash3"></i>
-                </button>
-
-                <input type="hidden" name="_method" value="DELETE">
-              </form>
-            </td>
+        {% for guestGroupBuildRowDto in guestGroupBuildDto.guestsGroupsBuildRowDto %}
+          <tr class="table-info table-group-divider">
+            <th colspan="14" scope="row">
+              {{ guestGroupBuildRowDto.guestGroupListItemDto.name }}
+            </th>
           </tr>
+
+          {% for guestDto in guestGroupBuildRowDto.guestsListItemDto %}
+            <tr>
+              <td>
+                {{ loop.index }}
+              </td>
+
+              <td>
+                {{ guestDto.firstName }}
+              </td>
+
+              <td>
+                {{ guestDto.lastName }}
+              </td>
+
+              <td>
+                {{ guestDto.type|trans }}
+              </td>
+
+              <td>
+                {{ guestDto.invited|yesOrNo }}
+              </td>
+
+              <td>
+                {{ guestDto.confirmed|yesOrNo }}
+              </td>
+
+              <td>
+                {{ guestDto.accommodation|yesOrNo }}
+              </td>
+
+              <td>
+                {{ guestDto.transport|yesOrNo }}
+              </td>
+
+              <td>
+                {{ guestDto.dietType|trans }}
+              </td>
+
+              <td>
+                {{ guestDto.note }}
+              </td>
+
+              <td>
+                {{ guestDto.telephone }}
+              </td>
+
+              <td>
+                {{ guestDto.email }}
+              </td>
+
+              <td>
+                {{ guestDto.payment }}
+              </td>
+
+              <td class="d-flex">
+                <a
+                    href="{{ path('wedding_guest_details', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                    class="btn btn-primary btn-sm me-1"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{{ 'details'|trans }}">
+                  <i class="bi bi-eye"></i>
+                </a>
+
+                <a
+                    href="{{ path('wedding_guest_update', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                    class="btn btn-secondary btn-sm me-1"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{{ 'edit'|trans }}">
+                  <i class="bi bi-pencil"></i>
+                </a>
+
+                <form
+                    action="{{ path('wedding_guest_delete', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                    method="post">
+                  <button
+                      type="submit" class="btn btn-danger btn-sm"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="{{ 'delete'|trans }}">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+
+                  <input type="hidden" name="_method" value="DELETE">
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
         {% endfor %}
       </tbody>
     </table>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-12 col-md-3 mb-3 mb-md-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="bi bi-envelope-check"></i>
+          </h5>
+
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ 'invited-guests'|trans }}
+          </h6>
+
+          <p class="card-text">
+            {{ guestGroupBuildDto.invitedAmount }}/{{ guestGroupBuildDto.guestsAmount }}
+          </p>
+
+          <div class="progress" style="height: 25px;">
+            <div class="progress-bar progress-bar-striped" style="width: {{ guestGroupBuildDto.invitedPercentage }}%;">
+              {{ guestGroupBuildDto.invitedPercentage }}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3 mb-3 mb-md-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="bi bi-person-check"></i>
+          </h5>
+
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ 'confirmed-guests'|trans }}
+          </h6>
+
+          <p class="card-text">
+            {{ guestGroupBuildDto.confirmedAmount }}/{{ guestGroupBuildDto.guestsAmount }}
+          </p>
+
+          <div class="progress" style="height: 25px;">
+            <div
+                class="progress-bar progress-bar-striped"
+                style="width: {{ guestGroupBuildDto.confirmedPercentage }}%;">
+              {{ guestGroupBuildDto.confirmedPercentage }}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="bi bi-info-circle"></i>
+          </h5>
+
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ 'additional-information'|trans }}
+          </h6>
+
+          <table class="table table-sm table-borderless text-start">
+            <tr>
+              <td>
+                {{ 'guests-amount'|trans }}
+              </td>
+
+              <td>
+                {{ guestGroupBuildDto.guestsAmount }}
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                {{ 'invited-amount'|trans }}
+              </td>
+
+              <td>
+                {{ guestGroupBuildDto.invitedAmount }}
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                {{ 'confirmed-amount'|trans }}
+              </td>
+
+              <td>
+                {{ guestGroupBuildDto.confirmedAmount }}
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                {{ 'accommodation-amount'|trans }}
+              </td>
+
+              <td>
+                {{ guestGroupBuildDto.accommodationAmount }}
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                {{ 'transport-amount'|trans }}
+              </td>
+
+              <td>
+                {{ guestGroupBuildDto.transportAmount }}
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}
