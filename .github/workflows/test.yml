@@ -71,3 +71,6 @@ jobs:
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit
+
+      - name: Run PHPStan analyse
+        run: vendor/bin/phpstan analyse --memory-limit 2G -c ./phpstan/phpstan.neon
