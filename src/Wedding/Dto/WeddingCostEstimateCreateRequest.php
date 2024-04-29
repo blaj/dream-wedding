@@ -2,7 +2,9 @@
 
 namespace App\Wedding\Dto;
 
+use App\Wedding\Entity\Enum\UnitType;
 use Money\Money;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -17,6 +19,13 @@ class WeddingCostEstimateCreateRequest {
   private Money $estimate;
 
   private Money $real;
+
+  #[GreaterThanOrEqual(1)]
+  private int $quantity = 1;
+
+  private UnitType $unitType = UnitType::PIECE;
+
+  private bool $dependsOnGuests = false;
 
   public function __construct() {
     $this->estimate = Money::PLN(0);
@@ -59,6 +68,36 @@ class WeddingCostEstimateCreateRequest {
 
   public function setReal(Money $real): self {
     $this->real = $real;
+
+    return $this;
+  }
+
+  public function getQuantity(): int {
+    return $this->quantity;
+  }
+
+  public function setQuantity(int $quantity): self {
+    $this->quantity = $quantity;
+
+    return $this;
+  }
+
+  public function getUnitType(): UnitType {
+    return $this->unitType;
+  }
+
+  public function setUnitType(UnitType $unitType): self {
+    $this->unitType = $unitType;
+
+    return $this;
+  }
+
+  public function isDependsOnGuests(): bool {
+    return $this->dependsOnGuests;
+  }
+
+  public function setDependsOnGuests(bool $dependsOnGuests): self {
+    $this->dependsOnGuests = $dependsOnGuests;
 
     return $this;
   }

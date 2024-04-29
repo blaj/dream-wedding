@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Dto;
 
+use App\Wedding\Entity\Enum\UnitType;
 use Money\Money;
 
 readonly class WeddingCostEstimateListItemDto {
@@ -10,5 +11,8 @@ readonly class WeddingCostEstimateListItemDto {
       public int $id,
       public string $name,
       public Money $estimate,
-      public Money $real) {}
+      public Money $real,
+      public int $quantity,
+      public UnitType $unitType,
+      public bool $dependsOnGuests) {}
 }

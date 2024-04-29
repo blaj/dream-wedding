@@ -5,7 +5,11 @@ namespace App\Wedding\Form\Type;
 use App\Common\Const\FormConst;
 use App\Common\Form\Type\SaveAndAddButtonType;
 use App\Common\Form\Type\SaveButtonType;
+use App\Wedding\Entity\Enum\UnitType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +24,12 @@ class WeddingCostEstimateCreateFormType extends AbstractType {
         ->add('description', TextareaType::class, ['label' => 'description', 'required' => false])
         ->add('estimate', MoneyType::class, ['label' => 'estimate-cost'])
         ->add('real', MoneyType::class, ['label' => 'real-cost'])
+        ->add('quantity', IntegerType::class, ['label' => 'quantity'])
+        ->add('unitType', EnumType::class, ['class' => UnitType::class, 'label' => 'unit-type'])
+        ->add(
+            'dependsOnGuests',
+            CheckboxType::class,
+            ['label' => 'depends-on-guests', 'required' => false])
         ->add(FormConst::$save, SaveButtonType::class)
         ->add(FormConst::$saveAndAdd, SaveAndAddButtonType::class);
   }

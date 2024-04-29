@@ -93,5 +93,11 @@
   "vegetarianism": "Vegetarianism",
   "veganism": "Veganism",
   "guest-groups": "Guest groups",
-  "guests": "Guests"
+  "guests": "Guests",
+  "quantity": "Quantity",
+  "unit-type": "Unit type",
+  "depends-on-guests": "Depends on guests",
+  "piece": "Piece",
+  "service": "Service",
+  "other": "other"
 }

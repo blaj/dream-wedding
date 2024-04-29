@@ -17,80 +17,108 @@
 {% endblock %}
 
 {% block tab_content %}
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>
-          #
-        </th>
-
-        <th>
-          {{ 'name'|trans }}
-        </th>
-
-        <th>
-          {{ 'estimate-cost'|trans }}
-        </th>
-
-        <th>
-          {{ 'real-cost'|trans }}
-        </th>
-
-        <th>
-          {{ 'actions'|trans }}
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      {% for weddingCostEstimateDto in weddingCostEstimatesListItemDto %}
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
         <tr>
-          <td>
-            {{ loop.index }}
-          </td>
+          <th>
+            #
+          </th>
 
-          <td>
-            {{ weddingCostEstimateDto.name }}
-          </td>
+          <th>
+            {{ 'name'|trans }}
+          </th>
 
-          <td>
-            {{ weddingCostEstimateDto.estimate|money_format }}
-          </td>
+          <th>
+            {{ 'estimate-cost'|trans }}
+          </th>
 
-          <td>
-            {{ weddingCostEstimateDto.real|money_format }}
-          </td>
+          <th>
+            {{ 'real-cost'|trans }}
+          </th>
 
-          <td class="d-flex">
-            <a
-                href="{{ path('wedding_cost_estimate_details', { weddingId: weddingDetailsDto.id, id: weddingCostEstimateDto.id }) }}"
-                class="btn btn-primary btn-sm me-1"
-                data-bs-toggle="tooltip"
-                data-bs-title="{{ 'details'|trans }}">
-              <i class="bi bi-eye"></i>
-            </a>
+          <th>
+            {{ 'quantity'|trans }}
+          </th>
 
-            <a
-                href="{{ path('wedding_cost_estimate_update', { weddingId: weddingDetailsDto.id, id: weddingCostEstimateDto.id }) }}"
-                class="btn btn-secondary btn-sm me-1"
-                data-bs-toggle="tooltip"
-                data-bs-title="{{ 'edit'|trans }}">
-              <i class="bi bi-pencil"></i>
-            </a>
+          <th>
+            {{ 'unit-type'|trans }}
+          </th>
 
-            <form action="{{ path('wedding_cost_estimate_delete', { weddingId: weddingDetailsDto.id, id: weddingCostEstimateDto.id }) }}" method="post">
-              <button
-                  type="submit" class="btn btn-danger btn-sm"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{{ 'delete'|trans }}">
-                <i class="bi bi-trash3"></i>
-              </button>
+          <th>
+            {{ 'depends-on-guests'|trans }}
+          </th>
 
-              <input type="hidden" name="_method" value="DELETE">
-            </form>
-          </td>
+          <th>
+            {{ 'actions'|trans }}
+          </th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        {% for weddingCostEstimateDto in weddingCostEstimatesListItemDto %}
+          <tr>
+            <td>
+              {{ loop.index }}
+            </td>
+
+            <td>
+              {{ weddingCostEstimateDto.name }}
+            </td>
+
+            <td>
+              {{ weddingCostEstimateDto.estimate|money_format }}
+            </td>
+
+            <td>
+              {{ weddingCostEstimateDto.real|money_format }}
+            </td>
+
+            <td>
+              {{ weddingCostEstimateDto.quantity }}
+            </td>
+
+            <td>
+              {{ weddingCostEstimateDto.unitType|trans }}
+            </td>
+
+            <td>
+              {{ weddingCostEstimateDto.dependsOnGuests|yesOrNo }}
+            </td>
+
+            <td class="d-flex">
+              <a
+                  href="{{ path('wedding_cost_estimate_details', { weddingId: weddingDetailsDto.id, id: weddingCostEstimateDto.id }) }}"
+                  class="btn btn-primary btn-sm me-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'details'|trans }}">
+                <i class="bi bi-eye"></i>
+              </a>
+
+              <a
+                  href="{{ path('wedding_cost_estimate_update', { weddingId: weddingDetailsDto.id, id: weddingCostEstimateDto.id }) }}"
+                  class="btn btn-secondary btn-sm me-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'edit'|trans }}">
+                <i class="bi bi-pencil"></i>
+              </a>
+
+              <form
+                  action="{{ path('wedding_cost_estimate_delete', { weddingId: weddingDetailsDto.id, id: weddingCostEstimateDto.id }) }}"
+                  method="post">
+                <button
+                    type="submit" class="btn btn-danger btn-sm"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{{ 'delete'|trans }}">
+                  <i class="bi bi-trash3"></i>
+                </button>
+
+                <input type="hidden" name="_method" value="DELETE">
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}
