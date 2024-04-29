@@ -58,6 +58,13 @@ jobs:
           tar xvfz public.tgz
           tar xvfz composer.tgz
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, iconv, json, mbstring, pdo
+          coverage: xdebug
+
       - name: Create Database
         run: |
           PGPASSWORD=db psql -U db -h localhost -a -f ci-database-init.sql
