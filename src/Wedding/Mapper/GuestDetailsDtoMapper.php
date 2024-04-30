@@ -27,7 +27,8 @@ class GuestDetailsDtoMapper {
         $guest->getTelephone(),
         $guest->getEmail(),
         $guest->getPayment(),
-        self::groupNames($guest->getGroups()->toArray()));
+        self::groupNames($guest->getGroups()->toArray()),
+        $guest->getTable()?->getName());
   }
 
   /**

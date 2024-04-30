@@ -26,7 +26,8 @@ class GuestUpdateRequestMapper {
         ->setTelephone($guest->getTelephone())
         ->setEmail($guest->getEmail())
         ->setPayment($guest->getPayment())
-        ->setGroups(self::groups($guest->getGroups()->toArray()));
+        ->setGroups(self::groups($guest->getGroups()->toArray()))
+        ->setTable($guest->getTable()?->getId());
   }
 
   /**

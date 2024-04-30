@@ -19,6 +19,7 @@ class GuestService {
       private readonly GuestFetchService $guestFetchService,
       private readonly WeddingFetchService $weddingFetchService,
       private readonly GuestGroupFetchService $guestGroupFetchService,
+      private readonly TableFetchService $tableFetchService,
       private readonly GuestRepository $guestRepository) {}
 
   /**
@@ -45,9 +46,15 @@ class GuestService {
       GuestCreateRequest $guestCreateRequest,
       int $userId): void {
     $wedding = $this->weddingFetchService->fetchWedding($weddingId, $userId);
+
     $groups =
         array_map(fn (int $id) => $this->guestGroupFetchService->fetchGuestGroup($id, $userId),
             $guestCreateRequest->getGroups());
+
+    $table =
+        $guestCreateRequest->getTable() !== null
+            ? $this->tableFetchService->fetchTable($guestCreateRequest->getTable(), $userId)
+            : null;
 
     $guest = (new Guest())
         ->setFirstName($guestCreateRequest->getFirstName())
@@ -62,7 +69,8 @@ class GuestService {
         ->setNote($guestCreateRequest->getNote())
         ->setTelephone($guestCreateRequest->getTelephone())
         ->setEmail($guestCreateRequest->getEmail())
-        ->setPayment($guestCreateRequest->getPayment());
+        ->setPayment($guestCreateRequest->getPayment())
+        ->setTable($table);
 
     array_walk($groups, fn (GuestGroup $guestGroup) => $guest->addGroup($guestGroup));
 
@@ -89,6 +97,11 @@ class GuestService {
                 $guestUpdateRequest->getGroups(),
                 true));
 
+    $table =
+        $guestUpdateRequest->getTable() !== null
+            ? $this->tableFetchService->fetchTable($guestUpdateRequest->getTable(), $userId)
+            : null;
+
     $guest
         ->setFirstName($guestUpdateRequest->getFirstName())
         ->setLastName($guestUpdateRequest->getLastName())
@@ -101,7 +114,8 @@ class GuestService {
         ->setNote($guestUpdateRequest->getNote())
         ->setTelephone($guestUpdateRequest->getTelephone())
         ->setEmail($guestUpdateRequest->getEmail())
-        ->setPayment($guestUpdateRequest->getPayment());
+        ->setPayment($guestUpdateRequest->getPayment())
+        ->setTable($table);
 
     array_walk($addedGroups, fn (GuestGroup $guestGroup) => $guest->addGroup($guestGroup));
     array_walk($removedGroups, fn (GuestGroup $guestGroup) => $guest->removeGroup($guestGroup));

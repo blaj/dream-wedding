@@ -17,10 +17,9 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: GuestRepository::class)]
-#[Table(name: 'guest', schema: 'wedding')]
+#[\Doctrine\ORM\Mapping\Table(name: 'guest', schema: 'wedding')]
 class Guest extends AuditingEntity {
 
   #[Column(name: 'first_name', type: Types::STRING, length: 100, nullable: false)]
@@ -62,6 +61,10 @@ class Guest extends AuditingEntity {
 
   #[Column(name: 'payment', type: Types::SMALLINT, nullable: false, options: ['default' => 100])]
   private int $payment = 100;
+
+  #[ManyToOne(targetEntity: Table::class, fetch: 'LAZY', inversedBy: 'guests')]
+  #[JoinColumn(name: 'tables_id', referencedColumnName: 'id', nullable: true, columnDefinition: 'BIGINT')]
+  private ?Table $table = null;
 
   /**
    * @var Collection<int, GuestContact>
@@ -209,6 +212,16 @@ class Guest extends AuditingEntity {
 
   public function setPayment(int $payment): self {
     $this->payment = $payment;
+
+    return $this;
+  }
+
+  public function getTable(): ?Table {
+    return $this->table;
+  }
+
+  public function setTable(?Table $table): self {
+    $this->table = $table;
 
     return $this;
   }

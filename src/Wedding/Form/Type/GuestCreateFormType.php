@@ -33,19 +33,29 @@ class GuestCreateFormType extends AbstractType {
         ->add('type', EnumType::class, ['class' => GuestType::class, 'label' => 'guest-type'])
         ->add('invited', CheckboxType::class, ['label' => 'invited', 'required' => false])
         ->add('confirmed', CheckboxType::class, ['label' => 'confirmed', 'required' => false])
-        ->add('accommodation', CheckboxType::class, ['label' => 'accommodation', 'required' => false])
+        ->add(
+            'accommodation',
+            CheckboxType::class,
+            ['label' => 'accommodation', 'required' => false])
         ->add('transport', CheckboxType::class, ['label' => 'transport', 'required' => false])
         ->add('dietType', EnumType::class, ['class' => DietType::class, 'label' => 'diet-type'])
         ->add('note', TextareaType::class, ['label' => 'note', 'required' => false])
         ->add('telephone', TextType::class, ['label' => 'telephone', 'required' => false])
         ->add('email', EmailType::class, ['label' => 'email', 'required' => false])
         ->add('payment', IntegerType::class, ['label' => 'payment'])
-        ->add('groups', GuestGroupChoiceFormType::class,
+        ->add(
+            'groups',
+            GuestGroupChoiceFormType::class,
             [
                 'label' => 'guest-groups',
                 'multiple' => true,
                 'weddingId' => $options['weddingId'],
                 'userId' => $options['userId']])
+        ->add('table', TableChoiceFormType::class, [
+            'label' => 'table',
+            'required' => false,
+            'weddingId' => $options['weddingId'],
+            'userId' => $options['userId']])
         ->add(FormConst::$save, SaveButtonType::class)
         ->add(FormConst::$saveAndAdd, SaveAndAddButtonType::class);
   }

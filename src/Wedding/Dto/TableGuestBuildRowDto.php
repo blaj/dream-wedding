@@ -2,22 +2,21 @@
 
 namespace App\Wedding\Dto;
 
-class GuestGroupBuildRowDto {
+class TableGuestBuildRowDto {
 
-  private GuestGroupListItemDto $guestGroupListItemDto;
+  private TableListItemDto $tableListItemDto;
 
   /**
    * @var array<GuestListItemDto>
    */
   private array $guestsListItemDto = [];
 
-  public function getGuestGroupListItemDto(): GuestGroupListItemDto {
-    return $this->guestGroupListItemDto;
+  public function getTableListItemDto(): TableListItemDto {
+    return $this->tableListItemDto;
   }
 
-  public function setGuestGroupListItemDto(
-      GuestGroupListItemDto $guestGroupListItemDto): self {
-    $this->guestGroupListItemDto = $guestGroupListItemDto;
+  public function setTableListItemDto(TableListItemDto $tableListItemDto): self {
+    $this->tableListItemDto = $tableListItemDto;
 
     return $this;
   }

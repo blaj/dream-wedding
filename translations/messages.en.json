@@ -93,6 +93,7 @@
   "vegetarianism": "Vegetarianism",
   "veganism": "Veganism",
   "guest-groups": "Guest groups",
+  "table": "Table",
   "guests": "Guests",
   "quantity": "Quantity",
   "unit-type": "Unit type",
@@ -110,5 +111,15 @@
   "confirmed-amount": "Confirmed guests amount",
   "accommodation-amount": "Accommodation amount",
   "transport-amount": "Transport amount",
-  "empty-list": "Empty list"
+  "empty-list": "Empty list",
+  "table-list": "Tables",
+  "table-details": "Table details",
+  "table-create": "Add new table",
+  "table-update": "Editing table",
+  "table-type": "Table type",
+  "square": "Square",
+  "round": "Round",
+  "table-created-successfully": "The table has been added successfully",
+  "table-updated-successfully": "The table was updated successfully",
+  "table-deleted-successfully": "The table has deleted successfully"
 }

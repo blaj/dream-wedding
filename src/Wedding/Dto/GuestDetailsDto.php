@@ -24,5 +24,6 @@ readonly class GuestDetailsDto {
       public ?string $telephone,
       public ?string $email,
       public int $payment,
-      public array $groupNames) {}
+      public array $groupNames,
+      public ?string $tableName) {}
 }

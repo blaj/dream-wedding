@@ -66,6 +66,8 @@
 
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-cost-estimate-list'|trans, iconClass: 'bi bi-cash', path: path('wedding_cost_estimate_list', { weddingId: weddingDto.id }) } only %}
 
+                {% include 'partial/_sidebar-item.html.twig' with { name: 'table-list'|trans, iconClass: 'bi bi-tag', path: path('wedding_table_list', { weddingId: weddingDto.id }) } only %}
+
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-user-list'|trans, iconClass: 'bi bi-universal-access-circle', path: path('wedding_user_list', { weddingId: weddingDto.id }) } only %}
               </ul>
             {% endfor %}
