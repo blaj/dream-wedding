@@ -15,6 +15,7 @@ class TableUpdateRequestMapper {
     return (new TableUpdateRequest())
         ->setName($table->getName())
         ->setDescription($table->getDescription())
-        ->setType($table->getType());
+        ->setType($table->getType())
+        ->setNumberOfSeats($table->getNumberOfSeats());
   }
 }

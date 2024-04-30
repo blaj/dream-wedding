@@ -17,82 +17,114 @@
 {% endblock %}
 
 {% block tab_content %}
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>
-          #
-        </th>
-
-        <th>
-          {{ 'first-name'|trans }}
-        </th>
-
-        <th>
-          {{ 'last-name'|trans }}
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      {% if tableGuestBuildDto.tablesGuestsBuildRowDto|length == 0 %}
-        {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 3 } only %}
-      {% endif %}
-
-      {% for tableGuestBuildRowDto in tableGuestBuildDto.tablesGuestsBuildRowDto %}
-        <tr class="table-info table-group-divider">
-          <th colspan="2" scope="row">
-            {{ tableGuestBuildRowDto.tableListItemDto.name }}
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>
+            #
           </th>
 
-          <td class="d-flex">
-            <a
-                href="{{ path('wedding_table_details', { weddingId: weddingDetailsDto.id, id: tableGuestBuildRowDto.tableListItemDto.id }) }}"
-                class="btn btn-primary btn-sm me-1"
-                data-bs-toggle="tooltip"
-                data-bs-title="{{ 'details'|trans }}">
-              <i class="bi bi-eye"></i>
-            </a>
+          <th>
+            {{ 'first-name'|trans }}
+          </th>
 
-            <a
-                href="{{ path('wedding_table_update', { weddingId: weddingDetailsDto.id, id: tableGuestBuildRowDto.tableListItemDto.id }) }}"
-                class="btn btn-secondary btn-sm me-1"
-                data-bs-toggle="tooltip"
-                data-bs-title="{{ 'edit'|trans }}">
-              <i class="bi bi-pencil"></i>
-            </a>
-
-            <form
-                action="{{ path('wedding_table_delete', { weddingId: weddingDetailsDto.id, id: tableGuestBuildRowDto.tableListItemDto.id }) }}"
-                method="post">
-              <button
-                  type="submit" class="btn btn-danger btn-sm"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{{ 'delete'|trans }}">
-                <i class="bi bi-trash3"></i>
-              </button>
-
-              <input type="hidden" name="_method" value="DELETE">
-            </form>
-          </td>
+          <th>
+            {{ 'last-name'|trans }}
+          </th>
         </tr>
+      </thead>
 
-        {% for guestDto in tableGuestBuildRowDto.guestsListItemDto %}
-          <tr>
-            <td>
-              {{ loop.index }}
-            </td>
+      <tbody>
+        {% if tableGuestBuildDto.tablesGuestsBuildRowDto|length == 0 %}
+          {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 3 } only %}
+        {% endif %}
 
-            <td>
-              {{ guestDto.firstName }}
-            </td>
+        {% for tableGuestBuildRowDto in tableGuestBuildDto.tablesGuestsBuildRowDto %}
+          <tr class="table-info table-group-divider">
+            <th colspan="2" scope="row">
+              {{ tableGuestBuildRowDto.tableListItemDto.name }}
 
-            <td>
-              {{ guestDto.lastName }}
+              ({{ tableGuestBuildRowDto.guestsListItemDto|length }}
+              |
+              {{ tableGuestBuildRowDto.tableListItemDto.numberOfSeats }})
+            </th>
+
+            <td class="d-flex">
+              <a
+                  href="{{ path('wedding_table_details', { weddingId: weddingDetailsDto.id, id: tableGuestBuildRowDto.tableListItemDto.id }) }}"
+                  class="btn btn-primary btn-sm me-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'details'|trans }}">
+                <i class="bi bi-eye"></i>
+              </a>
+
+              <a
+                  href="{{ path('wedding_table_update', { weddingId: weddingDetailsDto.id, id: tableGuestBuildRowDto.tableListItemDto.id }) }}"
+                  class="btn btn-secondary btn-sm me-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'edit'|trans }}">
+                <i class="bi bi-pencil"></i>
+              </a>
+
+              <form
+                  action="{{ path('wedding_table_delete', { weddingId: weddingDetailsDto.id, id: tableGuestBuildRowDto.tableListItemDto.id }) }}"
+                  method="post">
+                <button
+                    type="submit" class="btn btn-danger btn-sm"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{{ 'delete'|trans }}">
+                  <i class="bi bi-trash3"></i>
+                </button>
+
+                <input type="hidden" name="_method" value="DELETE">
+              </form>
             </td>
           </tr>
+
+          {% for guestDto in tableGuestBuildRowDto.guestsListItemDto %}
+            <tr>
+              <td>
+                {{ loop.index }}
+              </td>
+
+              <td>
+                {{ guestDto.firstName }}
+              </td>
+
+              <td>
+                {{ guestDto.lastName }}
+              </td>
+            </tr>
+          {% endfor %}
         {% endfor %}
-      {% endfor %}
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-12 col-md-3 mb-3 mb-md-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="bi bi-person-lines-fill"></i>
+          </h5>
+
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ 'number-of-seats'|trans }}
+          </h6>
+
+          <p class="card-text">
+            {{ tableGuestBuildDto.numberOfSeats }}
+          </p>
+
+          <div class="progress" style="height: 25px;">
+            <div class="progress-bar progress-bar-striped" style="width: {{ tableGuestBuildDto.numberOfSeatsPercentage }}%;">
+              {{ tableGuestBuildDto.numberOfSeatsPercentage }}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Wedding\Dto;
 
 use App\Wedding\Entity\Enum\TableType;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -15,6 +16,9 @@ class TableCreateRequest {
   private ?string $description = null;
 
   private TableType $type;
+
+  #[GreaterThanOrEqual(1)]
+  private int $numberOfSeats = 1;
 
   public function getName(): string {
     return $this->name;
@@ -42,6 +46,16 @@ class TableCreateRequest {
 
   public function setType(TableType $type): self {
     $this->type = $type;
+
+    return $this;
+  }
+
+  public function getNumberOfSeats(): int {
+    return $this->numberOfSeats;
+  }
+
+  public function setNumberOfSeats(int $numberOfSeats): self {
+    $this->numberOfSeats = $numberOfSeats;
 
     return $this;
   }
