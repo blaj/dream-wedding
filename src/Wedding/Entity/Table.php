@@ -31,6 +31,9 @@ class Table extends AuditingEntity {
   #[Column(name: 'type', type: Types::STRING, length: 20, nullable: false, enumType: TableType::class)]
   private TableType $type = TableType::SQUARE;
 
+  #[Column(name: 'number_of_seats', type: Types::SMALLINT, nullable: false, columnDefinition: 'BIGINT NOT NULL')]
+  private int $numberOfSeats = 1;
+
   /**
    * @var Collection<int, Guest>
    */
@@ -77,6 +80,16 @@ class Table extends AuditingEntity {
 
   public function setType(TableType $type): self {
     $this->type = $type;
+
+    return $this;
+  }
+
+  public function getNumberOfSeats(): int {
+    return $this->numberOfSeats;
+  }
+
+  public function setNumberOfSeats(int $numberOfSeats): self {
+    $this->numberOfSeats = $numberOfSeats;
 
     return $this;
   }

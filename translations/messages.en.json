@@ -117,8 +117,10 @@
   "table-create": "Add new table",
   "table-update": "Editing table",
   "table-type": "Table type",
+  "number-of-seats": "Number of seats",
   "square": "Square",
   "round": "Round",
+  "rectangular": "Rectangular",
   "table-created-successfully": "The table has been added successfully",
   "table-updated-successfully": "The table was updated successfully",
   "table-deleted-successfully": "The table has deleted successfully"

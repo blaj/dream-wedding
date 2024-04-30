@@ -16,15 +16,23 @@ class TableGuestBuilderService {
     $tablesGuestsBuildRowDto = [];
 
     $tables = $this->tableRepository->findAllByWeddingIdAndUserId($weddingId, $userId);
+    $guestsAmount = 0;
 
     foreach ($tables as $table) {
       if (!array_key_exists($table->getId(), $tablesGuestsBuildRowDto)) {
         $tablesGuestsBuildRowDto[$table->getId()] =
             (new TableGuestBuildRowDto())
-                ->setTableListItemDto(new TableListItemDto($table->getId(), $table->getName()));
+                ->setTableListItemDto(
+                    new TableListItemDto(
+                        $table->getId(),
+                        $table->getName(),
+                        $table->getNumberOfSeats()));
       }
 
-      foreach ($table->getGuests() as $guest) {
+      $guests = $table->getGuests();
+      $guestsAmount += count($guests);
+
+      foreach ($guests as $guest) {
         $guestListItemDto = GuestListItemDtoMapper::map($guest);
 
         if ($guestListItemDto === null) {
@@ -35,6 +43,17 @@ class TableGuestBuilderService {
       }
     }
 
-    return new TableGuestBuildDto($tablesGuestsBuildRowDto);
+    $numberOfSeats =
+        $this->tableRepository->findSumNumberOfSeatsByWeddingIdAndUserId($weddingId, $userId);
+
+    $numberOfSeatsPercentage =
+        $guestsAmount > 0
+            ? (int) round($guestsAmount / $numberOfSeats * 100)
+            : 0;
+
+    return new TableGuestBuildDto(
+        $tablesGuestsBuildRowDto,
+        $numberOfSeats,
+        $numberOfSeatsPercentage);
   }
 }

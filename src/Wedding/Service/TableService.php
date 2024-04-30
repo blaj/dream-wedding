@@ -48,6 +48,7 @@ class TableService {
         ->setName($tableCreateRequest->getName())
         ->setDescription($tableCreateRequest->getDescription())
         ->setType($tableCreateRequest->getType())
+        ->setNumberOfSeats($tableCreateRequest->getNumberOfSeats())
         ->setWedding($wedding);
 
     $this->tableRepository->save($table);
@@ -59,7 +60,8 @@ class TableService {
     $table
         ->setName($tableUpdateRequest->getName())
         ->setDescription($tableUpdateRequest->getDescription())
-        ->setType($tableUpdateRequest->getType());
+        ->setType($tableUpdateRequest->getType())
+        ->setNumberOfSeats($tableUpdateRequest->getNumberOfSeats());
 
     $this->tableRepository->save($table);
   }

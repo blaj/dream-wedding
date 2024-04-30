@@ -117,8 +117,10 @@
   "table-create": "Dodawanie stołu",
   "table-update": "Edycja stołu",
   "table-type": "Typ stołu",
+  "number-of-seats": "Ilość miejsc",
   "square": "Kwadratowy",
   "round": "Okrągły",
+  "rectangular": "Prostokątny",
   "table-created-successfully": "Stół został dodany pomyślnie",
   "table-updated-successfully": "Stół został zaktualizowany pomyślnie",
   "table-deleted-successfully": "Stół został usunięty pomyślnie"

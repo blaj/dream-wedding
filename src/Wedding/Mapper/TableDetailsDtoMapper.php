@@ -12,6 +12,10 @@ class TableDetailsDtoMapper {
       return null;
     }
 
-    return new TableDetailsDto($table->getId(), $table->getName(), $table->getDescription());
+    return new TableDetailsDto(
+        $table->getId(),
+        $table->getName(),
+        $table->getDescription(),
+        $table->getNumberOfSeats());
   }
 }
