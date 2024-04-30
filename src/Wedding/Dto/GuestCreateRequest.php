@@ -38,6 +38,8 @@ class GuestCreateRequest {
    */
   private array $groups = [];
 
+  private ?int $table = null;
+
   #[Length(min: 9, max: 9)]
   private ?string $telephone = null;
 
@@ -179,6 +181,16 @@ class GuestCreateRequest {
    */
   public function setGroups(array $groups): self {
     $this->groups = $groups;
+
+    return $this;
+  }
+
+  public function getTable(): ?int {
+    return $this->table;
+  }
+
+  public function setTable(?int $table): self {
+    $this->table = $table;
 
     return $this;
   }

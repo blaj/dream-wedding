@@ -13,7 +13,7 @@ class GuestGroupBuilderService {
   public function __construct(private readonly GuestRepository $guestRepository) {}
 
   public function build(int $weddingId, int $userId): GuestGroupBuildDto {
-    $guestsGroupsBuildDto = [];
+    $guestsGroupsBuildRowDto = [];
 
     $invitedAmount = 0;
     $confirmedAmount = 0;
@@ -24,10 +24,11 @@ class GuestGroupBuilderService {
 
     foreach ($guests as $guest) {
       foreach ($guest->getGroups() as $group) {
-        if (!array_key_exists($group->getId(), $guestsGroupsBuildDto)) {
-          $guestsGroupsBuildDto[$group->getId()] =
-              (new GuestGroupBuildRowDto())->setGuestGroupListItemDto(
-                  new GuestGroupListItemDto($group->getId(), $group->getName()));
+        if (!array_key_exists($group->getId(), $guestsGroupsBuildRowDto)) {
+          $guestsGroupsBuildRowDto[$group->getId()] =
+              (new GuestGroupBuildRowDto())
+                  ->setGuestGroupListItemDto(
+                      new GuestGroupListItemDto($group->getId(), $group->getName()));
         }
 
         if ($guest->isInvited()) {
@@ -52,7 +53,7 @@ class GuestGroupBuilderService {
           continue;
         }
 
-        $guestsGroupsBuildDto[$group->getId()]->addGuestListItemDto($guestListItemDto);
+        $guestsGroupsBuildRowDto[$group->getId()]->addGuestListItemDto($guestListItemDto);
       }
     }
 
@@ -68,7 +69,7 @@ class GuestGroupBuilderService {
             : 0;
 
     return new GuestGroupBuildDto(
-        $guestsGroupsBuildDto,
+        $guestsGroupsBuildRowDto,
         $guestsCount,
         $invitedAmount,
         $confirmedAmount,

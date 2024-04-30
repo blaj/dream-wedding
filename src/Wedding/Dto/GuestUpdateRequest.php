@@ -47,6 +47,8 @@ class GuestUpdateRequest {
    */
   private array $groups = [];
 
+  private ?int $table = null;
+
   public function getFirstName(): string {
     return $this->firstName;
   }
@@ -179,6 +181,16 @@ class GuestUpdateRequest {
    */
   public function setGroups(array $groups): self {
     $this->groups = $groups;
+
+    return $this;
+  }
+
+  public function getTable(): ?int {
+    return $this->table;
+  }
+
+  public function setTable(?int $table): self {
+    $this->table = $table;
 
     return $this;
   }

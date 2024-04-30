@@ -50,6 +50,11 @@ class GuestUpdateFormType extends AbstractType {
                 'multiple' => true,
                 'weddingId' => $options['weddingId'],
                 'userId' => $options['userId']])
+        ->add('table', TableChoiceFormType::class, [
+            'label' => 'table',
+            'required' => false,
+            'weddingId' => $options['weddingId'],
+            'userId' => $options['userId']])
         ->add(FormConst::$save, SaveButtonType::class);
   }
 }

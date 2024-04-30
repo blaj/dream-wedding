@@ -93,6 +93,7 @@
   "vegetarianism": "Wegetarianizm",
   "veganism": "Weganizm",
   "guest-groups": "Grupy",
+  "table": "Stół",
   "guests": "Goście",
   "quantity": "Ilość",
   "unit-type": "Jednostka miary",
@@ -110,5 +111,15 @@
   "confirmed-amount": "Ilość potwierdzonych gości",
   "accommodation-amount": "Ilość noclegu",
   "transport-amount": "Ilość transportu",
-  "empty-list": "Lista jest pusta"
+  "empty-list": "Lista jest pusta",
+  "table-list": "Stoły",
+  "table-details": "Szczegóły stołu",
+  "table-create": "Dodawanie stołu",
+  "table-update": "Edycja stołu",
+  "table-type": "Typ stołu",
+  "square": "Kwadratowy",
+  "round": "Okrągły",
+  "table-created-successfully": "Stół został dodany pomyślnie",
+  "table-updated-successfully": "Stół został zaktualizowany pomyślnie",
+  "table-deleted-successfully": "Stół został usunięty pomyślnie"
 }
