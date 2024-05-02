@@ -1,0 +1,17 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% block title %}
+  {{ 'task-create'|trans }}
+{% endblock %}
+
+{% block page_title %}
+  {{ 'task-create'|trans }}
+{% endblock %}
+
+{% block page_content %}
+  {{ form(form) }}
+
+  <a href="{{ path('wedding_task_list', { weddingId: weddingId }) }}">
+    {{ 'back-to-list'|trans }}
+  </a>
+{% endblock %}

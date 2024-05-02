@@ -123,5 +123,12 @@
   "rectangular": "Rectangular",
   "table-created-successfully": "The table has been added successfully",
   "table-updated-successfully": "The table was updated successfully",
-  "table-deleted-successfully": "The table has deleted successfully"
+  "table-deleted-successfully": "The table has deleted successfully",
+  "task-list": "Tasks",
+  "task-details": "Task details",
+  "task-create": "Add new task",
+  "task-update": "Editing task",
+  "task-created-successfully": "The task has been added successfully",
+  "task-updated-successfully": "The task was updated successfully",
+  "task-deleted-successfully": "The task has deleted successfully"
 }

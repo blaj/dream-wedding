@@ -68,6 +68,8 @@
 
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'table-list'|trans, iconClass: 'bi bi-tag', path: path('wedding_table_list', { weddingId: weddingDto.id }) } only %}
 
+                {% include 'partial/_sidebar-item.html.twig' with { name: 'task-list'|trans, iconClass: 'bi bi-list-task', path: path('wedding_task_list', { weddingId: weddingDto.id }) } only %}
+
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-user-list'|trans, iconClass: 'bi bi-universal-access-circle', path: path('wedding_user_list', { weddingId: weddingDto.id }) } only %}
               </ul>
             {% endfor %}
