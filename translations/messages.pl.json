@@ -123,5 +123,12 @@
   "rectangular": "Prostokątny",
   "table-created-successfully": "Stół został dodany pomyślnie",
   "table-updated-successfully": "Stół został zaktualizowany pomyślnie",
-  "table-deleted-successfully": "Stół został usunięty pomyślnie"
+  "table-deleted-successfully": "Stół został usunięty pomyślnie",
+  "task-list": "Zadania",
+  "task-details": "Szczegóły zadania",
+  "task-create": "Dodawanie zadania",
+  "task-update": "Edycja zadania",
+  "task-created-successfully": "Zadanie zostało dodane pomyślnie",
+  "task-updated-successfully": "Zadanie zostało zaktualizowane pomyślnie",
+  "task-deleted-successfully": "Zadanie zostało usunięte pomyślnie"
 }

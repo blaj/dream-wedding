@@ -1,0 +1,61 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% block title %}
+  {{ 'task-details'|trans }}
+{% endblock %}
+
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'task-details'|trans }}
+
+    {{ taskDetailsDto.name }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_task_update', { weddingId: weddingId, id: taskDetailsDto.id }) }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'edit'|trans }}">
+    <i class="bi bi-pencil"></i>
+  </a>
+{% endblock %}
+
+{% block page_content %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          {{ 'name'|trans }}
+        </td>
+
+        <td>
+          {{ taskDetailsDto.name }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'description'|trans }}
+        </td>
+
+        <td>
+          {{ taskDetailsDto.description }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'on-date'|trans }}
+        </td>
+
+        <td>
+          {{ taskDetailsDto.onDate|dateFormat('Y-m-d H:i') }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="{{ path('wedding_task_list', { weddingId: weddingId }) }}">
+    {{ 'back-to-list'|trans }}
+  </a>
+{% endblock %}
