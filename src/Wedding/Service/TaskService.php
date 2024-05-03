@@ -2,6 +2,8 @@
 
 namespace App\Wedding\Service;
 
+use App\Common\Dto\FullCalendarEventDto;
+use App\Common\Dto\FullCalendarQueryDto;
 use App\Wedding\Dto\TaskCreateRequest;
 use App\Wedding\Dto\TaskDetailsDto;
 use App\Wedding\Dto\TaskListItemDto;
@@ -11,13 +13,15 @@ use App\Wedding\Mapper\TaskDetailsDtoMapper;
 use App\Wedding\Mapper\TaskListItemDtoMapper;
 use App\Wedding\Mapper\TaskUpdateRequestMapper;
 use App\Wedding\Repository\TaskRepository;
+use Symfony\Component\Routing\RouterInterface;
 
 class TaskService {
 
   public function __construct(
       private readonly WeddingFetchService $weddingFetchService,
       private readonly TaskFetchService $taskFetchService,
-      private readonly TaskRepository $taskRepository) {}
+      private readonly TaskRepository $taskRepository,
+      private readonly RouterInterface $router) {}
 
   /**
    * @return array<TaskListItemDto>
@@ -27,6 +31,29 @@ class TaskService {
         array_map(fn (Task $task) => TaskListItemDtoMapper::map($task),
             $this->taskRepository->findAllByWeddingIdAndUserId($weddingId, $userId)),
         fn (?TaskListItemDto $dto) => $dto !== null);
+  }
+
+  /**
+   * @return array<FullCalendarEventDto>
+   */
+  public function getFullCalendarList(
+      int $weddingId,
+      FullCalendarQueryDto $fullCalendarQueryDto,
+      int $userId): array {
+    return array_map(
+        fn (Task $task) => new FullCalendarEventDto(
+            $task->getId(),
+            $task->getOnDate(),
+            $task->getOnDate(),
+            $this->router->generate(
+                'wedding_task_details',
+                ['weddingId' => $weddingId, 'id' => $task->getId()]),
+            $task->getName(),
+            $task->getDescription()),
+        $this->taskRepository->findAllByWeddingIdAndQueryAndUserId(
+            $weddingId,
+            $fullCalendarQueryDto,
+            $userId));
   }
 
   public function getOne(int $id, int $userId): ?TaskDetailsDto {

@@ -9,5 +9,44 @@
 {% endblock %}
 
 {% block page_content %}
-  test
+  <div class="row">
+    <div class="col-12 col-md-3">
+      <div class="card text-center">
+        {% if weddingNearestDto is null %}
+          <div class="card-body">
+            <h5 class="card-title">
+              Brak ślubu
+            </h5>
+          </div>
+        {% else %}
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ weddingNearestDto.name }}
+
+              <i class="bi bi-balloon-heart"></i>
+            </h5>
+
+            <h6 class="card-subtitle text-secondary">
+              {{ weddingNearestDto.onDate|dateFormat }}
+            </h6>
+
+            <p class="card-text">
+              {{ 'wedding-days-left'|trans({ '%daysLeft%': weddingNearestDto.daysLeft }) }}
+            </p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-9">
+      <div class="card">
+        <div class="card-body">
+          <div
+              data-controller="dashboard-calendar"
+              data-dashboard-calendar-wedding-id-value="{{ weddingNearestDto is not null ? weddingNearestDto.id : -1 }}"
+              data-dashboard-calendar-locale-value="{{ app.locale() }}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

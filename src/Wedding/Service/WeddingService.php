@@ -6,12 +6,14 @@ use App\User\Service\UserFetchService;
 use App\Wedding\Dto\WeddingCreateRequest;
 use App\Wedding\Dto\WeddingDetailsDto;
 use App\Wedding\Dto\WeddingListItemDto;
+use App\Wedding\Dto\WeddingNearestDto;
 use App\Wedding\Dto\WeddingUpdateRequest;
 use App\Wedding\Entity\Enum\RoleType;
 use App\Wedding\Entity\Wedding;
 use App\Wedding\Entity\WeddingUser;
 use App\Wedding\Mapper\WeddingDetailsDtoMapper;
 use App\Wedding\Mapper\WeddingListItemDtoMapper;
+use App\Wedding\Mapper\WeddingNearestDtoMapper;
 use App\Wedding\Mapper\WeddingUpdateRequestMapper;
 use App\Wedding\Repository\WeddingRepository;
 use App\Wedding\Repository\WeddingUserRepository;
@@ -39,6 +41,10 @@ class WeddingService {
   public function getOne(int $id, int $userId): ?WeddingDetailsDto {
     return WeddingDetailsDtoMapper::map(
         $this->weddingRepository->findOneByIdAndUserId($id, $userId));
+  }
+
+  public function getOneNearest(int $userId): ?WeddingNearestDto {
+    return WeddingNearestDtoMapper::map($this->weddingRepository->findOneNearestByUserId($userId));
   }
 
   public function getUpdateRequest(int $id, int $userId): ?WeddingUpdateRequest {
