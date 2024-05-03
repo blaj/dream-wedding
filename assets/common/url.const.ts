@@ -1,0 +1,1 @@
+export const nullValue = -1;

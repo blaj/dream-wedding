@@ -130,5 +130,6 @@
   "task-update": "Editing task",
   "task-created-successfully": "The task has been added successfully",
   "task-updated-successfully": "The task was updated successfully",
-  "task-deleted-successfully": "The task has deleted successfully"
+  "task-deleted-successfully": "The task has deleted successfully",
+  "wedding-days-left": "There are %daysLeft% days left until the wedding \uD83C\uDF89"
 }

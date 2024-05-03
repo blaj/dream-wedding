@@ -130,5 +130,6 @@
   "task-update": "Edycja zadania",
   "task-created-successfully": "Zadanie zostało dodane pomyślnie",
   "task-updated-successfully": "Zadanie zostało zaktualizowane pomyślnie",
-  "task-deleted-successfully": "Zadanie zostało usunięte pomyślnie"
+  "task-deleted-successfully": "Zadanie zostało usunięte pomyślnie",
+  "wedding-days-left": "Do wesela pozostało %daysLeft% dni \uD83C\uDF89"
 }

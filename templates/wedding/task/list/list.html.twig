@@ -17,80 +17,91 @@
 {% endblock %}
 
 {% block tab_content %}
-  <div class="table-responsive mb-3">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>
-            #
-          </th>
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <div class="table-responsive mb-3">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>
+                #
+              </th>
 
-          <th>
-            {{ 'name'|trans }}
-          </th>
+              <th>
+                {{ 'name'|trans }}
+              </th>
 
-          <th>
-            {{ 'on-date'|trans }}
-          </th>
+              <th>
+                {{ 'on-date'|trans }}
+              </th>
 
-          <th>
-            {{ 'actions'|trans }}
-          </th>
-        </tr>
-      </thead>
+              <th>
+                {{ 'actions'|trans }}
+              </th>
+            </tr>
+          </thead>
 
-      <tbody>
-        {% if tasksListItemDto|length == 0 %}
-          {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 8 } only %}
-        {% endif %}
+          <tbody>
+            {% if tasksListItemDto|length == 0 %}
+              {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 8 } only %}
+            {% endif %}
 
-        {% for taskDto in tasksListItemDto %}
-          <tr>
-            <td>
-              {{ loop.index }}
-            </td>
+            {% for taskDto in tasksListItemDto %}
+              <tr>
+                <td>
+                  {{ loop.index }}
+                </td>
 
-            <td>
-              {{ taskDto.name }}
-            </td>
+                <td>
+                  {{ taskDto.name }}
+                </td>
 
-            <td>
-              {{ taskDto.onDate|dateFormat('Y-m-d H:i') }}
-            </td>
+                <td>
+                  {{ taskDto.onDate|dateFormat('Y-m-d H:i') }}
+                </td>
 
-            <td class="d-flex">
-              <a
-                  href="{{ path('wedding_task_details', { weddingId: weddingDetailsDto.id, id: taskDto.id }) }}"
-                  class="btn btn-primary btn-sm me-1"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{{ 'details'|trans }}">
-                <i class="bi bi-eye"></i>
-              </a>
+                <td class="d-flex">
+                  <a
+                      href="{{ path('wedding_task_details', { weddingId: weddingDetailsDto.id, id: taskDto.id }) }}"
+                      class="btn btn-primary btn-sm me-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="{{ 'details'|trans }}">
+                    <i class="bi bi-eye"></i>
+                  </a>
 
-              <a
-                  href="{{ path('wedding_task_update', { weddingId: weddingDetailsDto.id, id: taskDto.id }) }}"
-                  class="btn btn-secondary btn-sm me-1"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{{ 'edit'|trans }}">
-                <i class="bi bi-pencil"></i>
-              </a>
+                  <a
+                      href="{{ path('wedding_task_update', { weddingId: weddingDetailsDto.id, id: taskDto.id }) }}"
+                      class="btn btn-secondary btn-sm me-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="{{ 'edit'|trans }}">
+                    <i class="bi bi-pencil"></i>
+                  </a>
 
-              <form
-                  action="{{ path('wedding_task_delete', { weddingId: weddingDetailsDto.id, id: taskDto.id }) }}"
-                  method="post">
-                <button
-                    type="submit" class="btn btn-danger btn-sm"
-                    data-bs-toggle="tooltip"
-                    data-bs-title="{{ 'delete'|trans }}">
-                  <i class="bi bi-trash3"></i>
-                </button>
+                  <form
+                      action="{{ path('wedding_task_delete', { weddingId: weddingDetailsDto.id, id: taskDto.id }) }}"
+                      method="post">
+                    <button
+                        type="submit" class="btn btn-danger btn-sm"
+                        data-bs-toggle="tooltip"
+                        data-bs-title="{{ 'delete'|trans }}">
+                      <i class="bi bi-trash3"></i>
+                    </button>
 
-                <input type="hidden" name="_method" value="DELETE">
-              </form>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+                    <input type="hidden" name="_method" value="DELETE">
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div
+          data-controller="task-calendar"
+          data-task-calendar-wedding-id-value="{{ weddingDetailsDto.id }}"
+          data-task-calendar-locale-value="{{ app.locale() }}"></div>
+    </div>
   </div>
 {% endblock %}
