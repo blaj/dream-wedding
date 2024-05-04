@@ -56,6 +56,14 @@
 
     <li class="nav-item">
       <a
+          class="nav-link {{ getActualRouteName()|activeRouteName('wedding_task_group_list', 'active') }}"
+          href="{{ path('wedding_task_group_list', { weddingId: weddingDetailsDto.id }) }}">
+        {{ 'task-group-list'|trans }}
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
           class="nav-link {{ getActualRouteName()|activeRouteName('wedding_user_list', 'active') }}"
           href="{{ path('wedding_user_list', { weddingId: weddingDetailsDto.id }) }}">
         {{ 'wedding-user-list'|trans }}

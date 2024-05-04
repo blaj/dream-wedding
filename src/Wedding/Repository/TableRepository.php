@@ -2,16 +2,15 @@
 
 namespace App\Wedding\Repository;
 
-use App\Common\Repository\AbstractAuditingEntityRepository;
+use App\Common\Repository\AbstractWeddingContextRepository;
 use App\Wedding\Entity\Table;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends AbstractAuditingEntityRepository<Table>
+ * @extends AbstractWeddingContextRepository<Table>
  */
-class TableRepository extends AbstractAuditingEntityRepository {
+class TableRepository extends AbstractWeddingContextRepository {
 
   public function __construct(ManagerRegistry $registry) {
     parent::__construct($registry, Table::class);
@@ -36,50 +35,5 @@ class TableRepository extends AbstractAuditingEntityRepository {
         ->setParameter('weddingId', $weddingId, Types::INTEGER)
         ->setParameter('userId', $userId, Types::INTEGER)
         ->getSingleScalarResult();
-  }
-
-  public function findOneByIdAndUserId(int $id, int $userId): ?Table {
-    return $this->getEntityManager()
-        ->createQuery(
-            '
-            SELECT 
-              table 
-            FROM 
-              App\Wedding\Entity\Table table 
-              INNER JOIN table.wedding wedding 
-              INNER JOIN wedding.weddingUsers weddingUsers 
-            WHERE 
-              table.deleted = false 
-              AND wedding.deleted = false 
-              AND weddingUsers.deleted = false 
-              AND table.id = :id 
-              AND weddingUsers.user = :userId')
-        ->setParameter('id', $id, Types::INTEGER)
-        ->setParameter('userId', $userId, Types::INTEGER)
-        ->getOneOrNullResult(AbstractQuery::HYDRATE_OBJECT);
-  }
-
-  /**
-   * @return array<Table>
-   */
-  public function findAllByWeddingIdAndUserId(int $weddingId, int $userId): array {
-    return $this->getEntityManager()
-        ->createQuery(
-            '
-            SELECT 
-              table 
-            FROM 
-              App\Wedding\Entity\Table table 
-              INNER JOIN table.wedding wedding 
-              INNER JOIN wedding.weddingUsers weddingUsers 
-            WHERE 
-              table.deleted = false 
-              AND wedding.deleted = false 
-              AND weddingUsers.deleted = false 
-              AND table.wedding = :weddingId 
-              AND weddingUsers.user = :userId')
-        ->setParameter('weddingId', $weddingId, Types::INTEGER)
-        ->setParameter('userId', $userId, Types::INTEGER)
-        ->getResult();
   }
 }

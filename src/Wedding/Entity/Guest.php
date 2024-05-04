@@ -3,6 +3,7 @@
 namespace App\Wedding\Entity;
 
 use App\Common\Entity\AuditingEntity;
+use App\Common\Entity\WeddingContextInterface;
 use App\Wedding\Entity\Enum\DietType;
 use App\Wedding\Entity\Enum\GuestType;
 use App\Wedding\Repository\GuestRepository;
@@ -20,7 +21,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 
 #[Entity(repositoryClass: GuestRepository::class)]
 #[\Doctrine\ORM\Mapping\Table(name: 'guest', schema: 'wedding')]
-class Guest extends AuditingEntity {
+class Guest extends AuditingEntity implements WeddingContextInterface {
 
   #[Column(name: 'first_name', type: Types::STRING, length: 100, nullable: false)]
   private string $firstName;

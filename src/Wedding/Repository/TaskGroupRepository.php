@@ -3,15 +3,15 @@
 namespace App\Wedding\Repository;
 
 use App\Common\Repository\AbstractWeddingContextRepository;
-use App\Wedding\Entity\GuestGroup;
+use App\Wedding\Entity\TaskGroup;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends AbstractWeddingContextRepository<GuestGroup>
+ * @extends AbstractWeddingContextRepository<TaskGroup>
  */
-class GuestGroupRepository extends AbstractWeddingContextRepository {
+class TaskGroupRepository extends AbstractWeddingContextRepository {
 
   public function __construct(ManagerRegistry $registry) {
-    parent::__construct($registry, GuestGroup::class);
+    parent::__construct($registry, TaskGroup::class);
   }
 }

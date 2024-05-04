@@ -70,6 +70,8 @@
 
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'task-list'|trans, iconClass: 'bi bi-list-task', path: path('wedding_task_list', { weddingId: weddingDto.id }) } only %}
 
+                {% include 'partial/_sidebar-item.html.twig' with { name: 'task-group-list'|trans, iconClass: 'bi bi-collection', path: path('wedding_task_group_list', { weddingId: weddingDto.id }) } only %}
+
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-user-list'|trans, iconClass: 'bi bi-universal-access-circle', path: path('wedding_user_list', { weddingId: weddingDto.id }) } only %}
               </ul>
             {% endfor %}

@@ -63,6 +63,12 @@ class Wedding extends AuditingEntity {
   #[OneToMany(targetEntity: Task::class, mappedBy: 'wedding', fetch: 'LAZY')]
   private Collection $tasks;
 
+  /**
+   * @var Collection<int, TaskGroup>
+   */
+  #[OneToMany(targetEntity: TaskGroup::class, mappedBy: 'wedding', fetch: 'LAZY')]
+  private Collection $taskGroups;
+
   public function __construct() {
     $this->guests = new ArrayCollection();
     $this->guestGroups = new ArrayCollection();
@@ -70,6 +76,7 @@ class Wedding extends AuditingEntity {
     $this->weddingUserInvites = new ArrayCollection();
     $this->weddingCostEstimates = new ArrayCollection();
     $this->tasks = new ArrayCollection();
+    $this->taskGroups = new ArrayCollection();
   }
 
   public function getName(): string {
@@ -278,6 +285,36 @@ class Wedding extends AuditingEntity {
 
   public function removeTask(Task $task): self {
     $this->tasks->removeElement($task);
+
+    return $this;
+  }
+
+  /**
+   * @return Collection<int, TaskGroup>
+   */
+  public function getTaskGroups(): Collection {
+    return $this->taskGroups;
+  }
+
+  /**
+   * @param Collection<int, TaskGroup> $taskGroups
+   */
+  public function setTaskGroups(Collection $taskGroups): self {
+    $this->taskGroups = $taskGroups;
+
+    return $this;
+  }
+
+  public function addTaskGroup(TaskGroup $taskGroup): self {
+    if (!$this->taskGroups->contains($taskGroup)) {
+      $this->taskGroups->add($taskGroup);
+    }
+
+    return $this;
+  }
+
+  public function removeTaskGroup(TaskGroup $taskGroup): self {
+    $this->taskGroups->removeElement($taskGroup);
 
     return $this;
   }

@@ -3,6 +3,7 @@
 namespace App\Wedding\Entity;
 
 use App\Common\Entity\AuditingEntity;
+use App\Common\Entity\WeddingContextInterface;
 use App\Wedding\Repository\GuestGroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,7 +17,7 @@ use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: GuestGroupRepository::class)]
 #[Table(name: 'guest_group', schema: 'wedding')]
-class GuestGroup extends AuditingEntity {
+class GuestGroup extends AuditingEntity implements WeddingContextInterface {
 
   #[Column(name: 'name', type: Types::STRING, length: 200, nullable: false)]
   private string $name;

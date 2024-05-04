@@ -3,6 +3,7 @@
 namespace App\Wedding\Entity;
 
 use App\Common\Entity\AuditingEntity;
+use App\Common\Entity\WeddingContextInterface;
 use App\Wedding\Repository\TableRepository;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: TableRepository::class)]
 #[Table(name: 'task', schema: 'wedding')]
-class Task extends AuditingEntity {
+class Task extends AuditingEntity implements WeddingContextInterface {
 
   #[ManyToOne(targetEntity: Wedding::class, fetch: 'LAZY', inversedBy: 'tasks')]
   #[JoinColumn(name: 'wedding_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]
@@ -28,6 +29,11 @@ class Task extends AuditingEntity {
 
   #[Column(name: 'on_date', type: Types::DATETIME_IMMUTABLE, nullable: true)]
   private ?DateTimeImmutable $onDate = null;
+
+
+  #[ManyToOne(targetEntity: TaskGroup::class, fetch: 'LAZY', inversedBy: 'tasks')]
+  #[JoinColumn(name: 'group_id', referencedColumnName: 'id', nullable: true, columnDefinition: 'BIGINT')]
+  private ?TaskGroup $group;
 
   public function getWedding(): Wedding {
     return $this->wedding;
@@ -65,6 +71,16 @@ class Task extends AuditingEntity {
 
   public function setOnDate(?DateTimeImmutable $onDate): self {
     $this->onDate = $onDate;
+
+    return $this;
+  }
+
+  public function getGroup(): ?TaskGroup {
+    return $this->group;
+  }
+
+  public function setGroup(?TaskGroup $group): self {
+    $this->group = $group;
 
     return $this;
   }

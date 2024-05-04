@@ -131,5 +131,13 @@
   "task-created-successfully": "Zadanie zostało dodane pomyślnie",
   "task-updated-successfully": "Zadanie zostało zaktualizowane pomyślnie",
   "task-deleted-successfully": "Zadanie zostało usunięte pomyślnie",
-  "wedding-days-left": "Do wesela pozostało %daysLeft% dni \uD83C\uDF89"
+  "wedding-days-left": "Do wesela pozostało %daysLeft% dni \uD83C\uDF89",
+  "task-group-list": "Grupy zadań",
+  "task-group-details": "Szczegóły grupy zadań",
+  "task-group-create": "Dodawanie grupy zadań",
+  "task-group-update": "Edycja grupy zadań",
+  "task-group-created-successfully": "Grupa zadania została dodana pomyślnie",
+  "task-group-updated-successfully": "Grupa zadania została zaktualizowana pomyślnie",
+  "task-group-deleted-successfully": "Grupa zadania została usunięta pomyślnie",
+  "tasks": "Zadania"
 }

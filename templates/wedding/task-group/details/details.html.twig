@@ -1,0 +1,55 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% block title %}
+  {{ 'task-group-details'|trans }}
+{% endblock %}
+
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'task-group-details'|trans }}
+
+    {{ taskGroupDetailsDto.name }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_task_group_update', { weddingId: weddingId, id: taskGroupDetailsDto.id }) }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'edit'|trans }}">
+    <i class="bi bi-pencil"></i>
+  </a>
+{% endblock %}
+
+{% block page_content %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          {{ 'name'|trans }}
+        </td>
+
+        <td>
+          {{ taskGroupDetailsDto.name }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'tasks'|trans }}
+        </td>
+
+        <td>
+          {% for taskName in taskGroupDetailsDto.taskNames %}
+            <span class="badge text-bg-primary">
+              {{ taskName }}
+            </span>
+          {% endfor %}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="{{ path('wedding_task_group_list', { weddingId: weddingId }) }}">
+    {{ 'back-to-list'|trans }}
+  </a>
+{% endblock %}
