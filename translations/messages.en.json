@@ -139,5 +139,6 @@
   "task-group-created-successfully": "The task group has been added successfully",
   "task-group-updated-successfully": "The task group was updated successfully",
   "task-group-deleted-successfully": "The task group has deleted successfully",
-  "tasks": "Tasks"
+  "tasks": "Tasks",
+  "ungrouped": "Ungrouped"
 }

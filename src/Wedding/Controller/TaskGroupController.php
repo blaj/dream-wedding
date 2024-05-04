@@ -39,7 +39,7 @@ class TaskGroupController extends AbstractController {
         'wedding/task-group/list/list.html.twig',
         [
             'weddingDetailsDto' => $weddingDetailsDto,
-            'tasksListItemDto' => $this->taskGroupService->getList(
+            'taskGroupsListItemDto' => $this->taskGroupService->getList(
                 $weddingId,
                 $userData->getUserId())]);
   }

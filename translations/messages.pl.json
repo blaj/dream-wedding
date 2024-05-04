@@ -139,5 +139,6 @@
   "task-group-created-successfully": "Grupa zadania została dodana pomyślnie",
   "task-group-updated-successfully": "Grupa zadania została zaktualizowana pomyślnie",
   "task-group-deleted-successfully": "Grupa zadania została usunięta pomyślnie",
-  "tasks": "Zadania"
+  "tasks": "Zadania",
+  "ungrouped": "Niepogrupowane"
 }
