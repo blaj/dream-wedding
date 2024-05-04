@@ -3,6 +3,7 @@
 namespace App\Wedding\Entity;
 
 use App\Common\Entity\AuditingEntity;
+use App\Common\Entity\WeddingContextInterface;
 use App\Wedding\Entity\Enum\TableType;
 use App\Wedding\Repository\TableRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,7 +17,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 
 #[Entity(repositoryClass: TableRepository::class)]
 #[\Doctrine\ORM\Mapping\Table(name: 'tables', schema: 'wedding')]
-class Table extends AuditingEntity {
+class Table extends AuditingEntity implements WeddingContextInterface {
 
   #[ManyToOne(targetEntity: Wedding::class, fetch: 'LAZY', inversedBy: 'guests')]
   #[JoinColumn(name: 'wedding_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]

@@ -3,6 +3,7 @@
 namespace App\Wedding\Entity;
 
 use App\Common\Entity\AuditingEntity;
+use App\Common\Entity\WeddingContextInterface;
 use App\Wedding\Entity\Enum\UnitType;
 use App\Wedding\Repository\WeddingCostEstimateRepository;
 use Doctrine\DBAL\Types\Types;
@@ -16,7 +17,7 @@ use Money\Money;
 
 #[Entity(repositoryClass: WeddingCostEstimateRepository::class)]
 #[Table(name: 'wedding_cost_estimate', schema: 'wedding')]
-class WeddingCostEstimate extends AuditingEntity {
+class WeddingCostEstimate extends AuditingEntity implements WeddingContextInterface {
 
   #[ManyToOne(targetEntity: Wedding::class, fetch: 'LAZY', inversedBy: 'weddingCostEstimates')]
   #[JoinColumn(name: 'wedding_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]

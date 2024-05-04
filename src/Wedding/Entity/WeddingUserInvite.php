@@ -3,6 +3,7 @@
 namespace App\Wedding\Entity;
 
 use App\Common\Entity\AuditingEntity;
+use App\Common\Entity\WeddingContextInterface;
 use App\Wedding\Entity\Enum\RoleType;
 use App\Wedding\Repository\WeddingUserInviteRepository;
 use Doctrine\DBAL\Types\Types;
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: WeddingUserInviteRepository::class)]
 #[Table(name: 'wedding_user_invite', schema: 'wedding')]
-class WeddingUserInvite extends AuditingEntity {
+class WeddingUserInvite extends AuditingEntity implements WeddingContextInterface {
 
   #[ManyToOne(targetEntity: Wedding::class, fetch: 'LAZY', inversedBy: 'weddingUserInvites')]
   #[JoinColumn(name: 'wedding_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]

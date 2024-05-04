@@ -131,5 +131,13 @@
   "task-created-successfully": "The task has been added successfully",
   "task-updated-successfully": "The task was updated successfully",
   "task-deleted-successfully": "The task has deleted successfully",
-  "wedding-days-left": "There are %daysLeft% days left until the wedding \uD83C\uDF89"
+  "wedding-days-left": "There are %daysLeft% days left until the wedding \uD83C\uDF89",
+  "task-group-list": "Task groups",
+  "task-group-details": "Task group details",
+  "task-group-create": "Add new task group",
+  "task-group-update": "Editing task group",
+  "task-group-created-successfully": "The task group has been added successfully",
+  "task-group-updated-successfully": "The task group was updated successfully",
+  "task-group-deleted-successfully": "The task group has deleted successfully",
+  "tasks": "Tasks"
 }

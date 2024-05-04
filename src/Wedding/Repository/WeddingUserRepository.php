@@ -2,36 +2,18 @@
 
 namespace App\Wedding\Repository;
 
-use App\Common\Repository\AbstractAuditingEntityRepository;
+use App\Common\Repository\AbstractWeddingContextRepository;
 use App\Wedding\Entity\WeddingUser;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends AbstractAuditingEntityRepository<WeddingUser>
+ * @extends AbstractWeddingContextRepository<WeddingUser>
  */
-class WeddingUserRepository extends AbstractAuditingEntityRepository {
+class WeddingUserRepository extends AbstractWeddingContextRepository {
 
   public function __construct(ManagerRegistry $registry) {
     parent::__construct($registry, WeddingUser::class);
-  }
-
-  public function findOneByIdAndUserId(int $id, int $userId): ?WeddingUser {
-    return $this->getEntityManager()
-        ->createQuery(
-            '
-            SELECT 
-              weddingUser 
-            FROM 
-              App\Wedding\Entity\WeddingUser weddingUser 
-            WHERE 
-              weddingUser.deleted = false 
-              AND weddingUser.id = :id 
-              AND weddingUser.user = :userId')
-        ->setParameter('id', $id, Types::INTEGER)
-        ->setParameter('userId', $userId, Types::INTEGER)
-        ->getOneOrNullResult(AbstractQuery::HYDRATE_OBJECT);
   }
 
   /**
