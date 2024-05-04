@@ -2,7 +2,7 @@
 
 namespace App\Wedding\Dto;
 
-class TableGuestBuildDto {
+readonly class TableGuestBuildDto {
 
   /**
    * @param array<TableGuestBuildRowDto> $tablesGuestsBuildRowDto

@@ -20,6 +20,31 @@ class TaskRepository extends AbstractWeddingContextRepository {
   /**
    * @return array<Task>
    */
+  public function findAllByWeddingIdAndUserIdAndGroupIsNull(int $weddingId, int $userId): array {
+    return $this->getEntityManager()
+        ->createQuery(
+            '
+            SELECT 
+              task 
+            FROM 
+              App\Wedding\Entity\Task task 
+              INNER JOIN task.wedding wedding 
+              INNER JOIN wedding.weddingUsers weddingUsers 
+            WHERE 
+              task.deleted = false 
+              AND task.group IS NULL 
+              AND wedding.deleted = false 
+              AND weddingUsers.deleted = false 
+              AND task.wedding = :weddingId 
+              AND weddingUsers.user = :userId')
+        ->setParameter('weddingId', $weddingId, Types::INTEGER)
+        ->setParameter('userId', $userId, Types::INTEGER)
+        ->getResult();
+  }
+
+  /**
+   * @return array<Task>
+   */
   public function findAllByWeddingIdAndQueryAndUserId(
       int $weddingId,
       FullCalendarQueryDto $fullCalendarQueryDto,

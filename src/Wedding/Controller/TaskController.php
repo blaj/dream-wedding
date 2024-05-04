@@ -8,6 +8,7 @@ use App\Security\Dto\UserData;
 use App\Wedding\Dto\TaskCreateRequest;
 use App\Wedding\Form\Type\TaskCreateFormType;
 use App\Wedding\Form\Type\TaskUpdateFormType;
+use App\Wedding\Service\TaskGroupBuilderService;
 use App\Wedding\Service\TaskService;
 use App\Wedding\Service\WeddingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +26,8 @@ class TaskController extends AbstractController {
 
   public function __construct(
       private readonly WeddingService $weddingService,
-      private readonly TaskService $taskService) {}
+      private readonly TaskService $taskService,
+      private readonly TaskGroupBuilderService $taskGroupBuilderService) {}
 
   #[Route(path: '/', name: 'list', methods: ['GET'])]
   public function list(int $weddingId, UserData $userData): Response {
@@ -39,7 +41,10 @@ class TaskController extends AbstractController {
         'wedding/task/list/list.html.twig',
         [
             'weddingDetailsDto' => $weddingDetailsDto,
-            'tasksListItemDto' => $this->taskService->getList(
+            'ungroupedTasksListItemDto' => $this->taskService->getUngroupedList(
+                $weddingId,
+                $userData->getUserId()),
+            'taskGroupBuildDto' => $this->taskGroupBuilderService->build(
                 $weddingId,
                 $userData->getUserId())]);
   }

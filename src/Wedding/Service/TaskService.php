@@ -34,6 +34,16 @@ class TaskService {
   }
 
   /**
+   * @return array<TaskListItemDto>
+   */
+  public function getUngroupedList(int $weddingId, int $userId): array {
+    return array_filter(
+        array_map(fn (Task $task) => TaskListItemDtoMapper::map($task),
+            $this->taskRepository->findAllByWeddingIdAndUserIdAndGroupIsNull($weddingId, $userId)),
+        fn (?TaskListItemDto $dto) => $dto !== null);
+  }
+
+  /**
    * @return array<FullCalendarEventDto>
    */
   public function getFullCalendarList(

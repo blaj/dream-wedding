@@ -6,6 +6,7 @@ use App\Wedding\Dto\TableGuestBuildDto;
 use App\Wedding\Dto\TableGuestBuildRowDto;
 use App\Wedding\Dto\TableListItemDto;
 use App\Wedding\Mapper\GuestListItemDtoMapper;
+use App\Wedding\Mapper\TableListItemDtoMapper;
 use App\Wedding\Repository\TableRepository;
 
 class TableGuestBuilderService {
@@ -20,13 +21,14 @@ class TableGuestBuilderService {
 
     foreach ($tables as $table) {
       if (!array_key_exists($table->getId(), $tablesGuestsBuildRowDto)) {
+        $tableListItemDto = TableListItemDtoMapper::map($table);
+
+        if ($tableListItemDto === null) {
+          continue;
+        }
+
         $tablesGuestsBuildRowDto[$table->getId()] =
-            (new TableGuestBuildRowDto())
-                ->setTableListItemDto(
-                    new TableListItemDto(
-                        $table->getId(),
-                        $table->getName(),
-                        $table->getNumberOfSeats()));
+            (new TableGuestBuildRowDto())->setTableListItemDto($tableListItemDto);
       }
 
       $guests = $table->getGuests();
