@@ -41,6 +41,9 @@ class GuestController extends AbstractController {
         'wedding/guest/list/list.html.twig',
         [
             'weddingDetailsDto' => $weddingDetailsDto,
+            'ungroupedGuestsListItemDto' => $this->guestService->getUngroupedList(
+                $weddingId,
+                $userData->getUserId()),
             'guestGroupBuildDto' => $this->guestGroupBuilderService->build(
                 $weddingId,
                 $userData->getUserId())]);

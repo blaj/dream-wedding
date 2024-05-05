@@ -15,11 +15,6 @@ class GuestGroupBuilderService {
   public function build(int $weddingId, int $userId): GuestGroupBuildDto {
     $guestsGroupsBuildRowDto = [];
 
-    $invitedAmount = 0;
-    $confirmedAmount = 0;
-    $accommodationAmount = 0;
-    $transportAmount = 0;
-
     $guests = $this->guestRepository->findAllByWeddingIdAndUserId($weddingId, $userId);
 
     foreach ($guests as $guest) {
@@ -29,22 +24,6 @@ class GuestGroupBuilderService {
               (new GuestGroupBuildRowDto())
                   ->setGuestGroupListItemDto(
                       new GuestGroupListItemDto($group->getId(), $group->getName()));
-        }
-
-        if ($guest->isInvited()) {
-          $invitedAmount++;
-        }
-
-        if ($guest->isConfirmed()) {
-          $confirmedAmount++;
-        }
-
-        if ($guest->isAccommodation()) {
-          $accommodationAmount++;
-        }
-
-        if ($guest->isTransport()) {
-          $transportAmount++;
         }
 
         $guestListItemDto = GuestListItemDtoMapper::map($guest);
@@ -58,6 +37,14 @@ class GuestGroupBuilderService {
     }
 
     $guestsCount = count($guests);
+
+    $invitedAmount = $this->guestRepository->countInvitedByWeddingIdAndUserId($weddingId, $userId);
+    $confirmedAmount =
+        $this->guestRepository->countConfirmedByWeddingIdAndUserId($weddingId, $userId);
+    $accommodationAmount =
+        $this->guestRepository->countAccommodationByWeddingIdAndUserId($weddingId, $userId);
+    $transportAmount =
+        $this->guestRepository->countTransportByWeddingIdAndUserId($weddingId, $userId);
 
     $invitedPercentage =
         $invitedAmount > 0 && $guestsCount > 0
