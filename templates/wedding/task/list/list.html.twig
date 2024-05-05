@@ -36,6 +36,10 @@
               </th>
 
               <th>
+                {{ 'completed'|trans }}
+              </th>
+
+              <th>
                 {{ 'actions'|trans }}
               </th>
             </tr>
@@ -48,7 +52,7 @@
 
             {% for taskGroupBuildRowDto in taskGroupBuildDto.tasksGroupsBuildRowDto %}
               <tr class="table-info table-group-divider">
-                <th colspan="4" scope="row">
+                <th colspan="5" scope="row">
                   {{ taskGroupBuildRowDto.taskGroupListItemDto.name }}
                 </th>
               </tr>
@@ -65,6 +69,22 @@
 
                   <td>
                     {{ taskDto.onDate|dateFormat('Y-m-d H:i') }}
+                  </td>
+
+                  <td>
+                    <label for="task-update-completed-{{ taskDto.id }}" class="visually-hidden">
+                      {{ 'completed'|trans }}
+                    </label>
+
+                    <input
+                        data-controller="task-update-completed"
+                        data-action="task-update-completed#updateCompleted"
+                        data-task-update-completed-id-value="{{ taskDto.id }}"
+                        data-task-update-completed-wedding-id-value="{{ weddingDetailsDto.id }}"
+                        id="task-update-completed-{{ taskDto.id }}"
+                        type="checkbox"
+                        value="1"
+                        name="updateCompleted" {{ taskDto.completed ? 'checked' : '' }}>
                   </td>
 
                   <td class="d-flex">
@@ -102,7 +122,7 @@
             {% endfor %}
 
             <tr class="table-secondary table-group-divider">
-              <th colspan="4" scope="row">
+              <th colspan="5" scope="row">
                 {{ 'ungrouped'|trans }}
               </th>
             </tr>
@@ -119,6 +139,22 @@
 
                 <td>
                   {{ taskDto.onDate|dateFormat('Y-m-d H:i') }}
+                </td>
+
+                <td>
+                  <label for="task-update-completed-{{ taskDto.id }}" class="visually-hidden">
+                    {{ 'completed'|trans }}
+                  </label>
+
+                  <input
+                      data-controller="task-update-completed"
+                      data-action="task-update-completed#updateCompleted"
+                      data-task-update-completed-id-value="{{ taskDto.id }}"
+                      data-task-update-completed-wedding-id-value="{{ weddingDetailsDto.id }}"
+                      id="task-update-completed-{{ taskDto.id }}"
+                      type="checkbox"
+                      value="1"
+                      name="updateCompleted" {{ taskDto.completed ? 'checked' : '' }}>
                 </td>
 
                 <td class="d-flex">

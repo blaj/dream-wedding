@@ -38,6 +38,9 @@ class Task extends AuditingEntity implements WeddingContextInterface {
   #[Column(name: 'color', type: Types::STRING, length: 20, nullable: true)]
   private ?string $color;
 
+  #[Column(name: 'completed', type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
+  private bool $completed = false;
+
   public function getWedding(): Wedding {
     return $this->wedding;
   }
@@ -94,6 +97,16 @@ class Task extends AuditingEntity implements WeddingContextInterface {
 
   public function setColor(?string $color): self {
     $this->color = $color;
+
+    return $this;
+  }
+
+  public function isCompleted(): bool {
+    return $this->completed;
+  }
+
+  public function setCompleted(bool $completed): self {
+    $this->completed = $completed;
 
     return $this;
   }

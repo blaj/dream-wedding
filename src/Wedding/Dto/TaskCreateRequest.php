@@ -22,6 +22,8 @@ class TaskCreateRequest {
   #[CssColor]
   private ?string $color = '#ffffff';
 
+  private bool $completed = false;
+
   public function getName(): string {
     return $this->name;
   }
@@ -68,6 +70,16 @@ class TaskCreateRequest {
 
   public function setColor(?string $color): self {
     $this->color = $color;
+
+    return $this;
+  }
+
+  public function isCompleted(): bool {
+    return $this->completed;
+  }
+
+  public function setCompleted(bool $completed): self {
+    $this->completed = $completed;
 
     return $this;
   }

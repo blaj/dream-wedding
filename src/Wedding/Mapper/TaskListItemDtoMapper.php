@@ -12,6 +12,10 @@ class TaskListItemDtoMapper {
       return null;
     }
 
-    return new TaskListItemDto($task->getId(), $task->getName(), $task->getOnDate());
+    return new TaskListItemDto(
+        $task->getId(),
+        $task->getName(),
+        $task->getOnDate(),
+        $task->isCompleted());
   }
 }
