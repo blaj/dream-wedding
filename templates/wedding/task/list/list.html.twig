@@ -201,4 +201,48 @@
           data-task-calendar-locale-value="{{ app.locale() }}"></div>
     </div>
   </div>
+
+  <div class="row text-center">
+    <div class="col-12 col-md-3 mb-3 mb-md-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="bi bi-check2-circle"></i>
+          </h5>
+
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ 'completed'|trans }}
+          </h6>
+
+          <p class="card-text">
+            {{ taskGroupBuildDto.completedAmount }}/{{ taskGroupBuildDto.tasksAmount }}
+          </p>
+
+          <div class="progress" style="height: 25px;">
+            <div class="progress-bar progress-bar-striped" style="width: {{ taskGroupBuildDto.completedPercentage }}%;">
+              {{ taskGroupBuildDto.completedPercentage }}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="bi bi-clock-history"></i>
+          </h5>
+
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ 'expired'|trans }}
+          </h6>
+
+          <p class="card-text">
+            {{ taskGroupBuildDto.expiredAmount }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
