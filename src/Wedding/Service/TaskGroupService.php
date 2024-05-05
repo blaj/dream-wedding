@@ -52,7 +52,9 @@ class TaskGroupService {
 
     $taskGroup = (new TaskGroup())
         ->setName($taskGroupCreateRequest->getName())
-        ->setWedding($wedding);
+        ->setWedding($wedding)
+        ->setColor(
+            $taskGroupCreateRequest->isSetColor() ? $taskGroupCreateRequest->getColor() : null);
 
     array_walk($tasks, fn (Task $task) => $taskGroup->addTask($task));
 
@@ -81,7 +83,10 @@ class TaskGroupService {
                 $taskGroupUpdateRequest->getTasks(),
                 true));
 
-    $taskGroup->setName($taskGroupUpdateRequest->getName());
+    $taskGroup
+        ->setName($taskGroupUpdateRequest->getName())
+        ->setColor(
+            $taskGroupUpdateRequest->isSetColor() ? $taskGroupUpdateRequest->getColor() : null);
 
     array_walk($addedTasks, fn (Task $task) => $taskGroup->addTask($task));
     array_walk($removedTasks, fn (Task $task) => $taskGroup->removeTask($task));

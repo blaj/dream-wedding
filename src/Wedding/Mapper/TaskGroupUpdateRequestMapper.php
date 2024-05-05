@@ -13,9 +13,16 @@ class TaskGroupUpdateRequestMapper {
       return null;
     }
 
-    return (new TaskGroupUpdateRequest())
+    $taskGroupUpdateRequest = (new TaskGroupUpdateRequest())
         ->setName($taskGroup->getName())
-        ->setTasks(self::tasks($taskGroup->getTasks()->toArray()));
+        ->setTasks(self::tasks($taskGroup->getTasks()->toArray()))
+        ->setSetColor($taskGroup->getColor() !== null);
+
+    if ($taskGroup->getColor() !== null) {
+      $taskGroupUpdateRequest->setColor($taskGroup->getColor());
+    }
+
+    return $taskGroupUpdateRequest;
   }
 
   /**

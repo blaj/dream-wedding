@@ -16,6 +16,7 @@ class TaskDetailsDtoMapper {
         $task->getId(),
         $task->getName(),
         $task->getDescription(),
-        $task->getOnDate());
+        $task->getOnDate(),
+        $task->getColor());
   }
 }

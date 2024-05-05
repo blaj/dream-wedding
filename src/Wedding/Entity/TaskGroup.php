@@ -26,6 +26,9 @@ class TaskGroup extends AuditingEntity implements WeddingContextInterface {
   #[Column(name: 'name', type: Types::STRING, length: 100, nullable: false)]
   private string $name;
 
+  #[Column(name: 'color', type: Types::STRING, length: 20, nullable: true)]
+  private ?string $color;
+
   /**
    * @var Collection<int, Task>
    */
@@ -52,6 +55,16 @@ class TaskGroup extends AuditingEntity implements WeddingContextInterface {
 
   public function setName(string $name): self {
     $this->name = $name;
+
+    return $this;
+  }
+
+  public function getColor(): ?string {
+    return $this->color;
+  }
+
+  public function setColor(?string $color): self {
+    $this->color = $color;
 
     return $this;
   }

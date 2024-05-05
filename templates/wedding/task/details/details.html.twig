@@ -52,6 +52,18 @@
           {{ taskDetailsDto.onDate|dateFormat('Y-m-d H:i') }}
         </td>
       </tr>
+
+      <tr>
+        <td>
+          {{ 'color'|trans }}
+        </td>
+
+        <td>
+          {% if taskDetailsDto.color is not null %}
+            <span class="badge d-block" style="background-color: {{ taskDetailsDto.color }}"></span>
+          {% endif %}
+        </td>
+      </tr>
     </tbody>
   </table>
 

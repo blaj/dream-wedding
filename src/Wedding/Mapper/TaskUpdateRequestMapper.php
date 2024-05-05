@@ -12,9 +12,16 @@ class TaskUpdateRequestMapper {
       return null;
     }
 
-    return (new TaskUpdateRequest())
+    $taskUpdateRequest = (new TaskUpdateRequest())
         ->setName($task->getName())
         ->setDescription($task->getDescription())
-        ->setOnDate($task->getOnDate());
+        ->setOnDate($task->getOnDate())
+        ->setSetColor($task->getColor() !== null);
+
+    if ($task->getColor() !== null) {
+      $taskUpdateRequest->setColor($task->getColor());
+    }
+
+    return $taskUpdateRequest;
   }
 }

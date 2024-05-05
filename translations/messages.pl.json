@@ -140,5 +140,7 @@
   "task-group-updated-successfully": "Grupa zadania została zaktualizowana pomyślnie",
   "task-group-deleted-successfully": "Grupa zadania została usunięta pomyślnie",
   "tasks": "Zadania",
-  "ungrouped": "Niepogrupowane"
+  "ungrouped": "Niepogrupowane",
+  "set-color": "Ustaw kolor?",
+  "color": "Kolor"
 }

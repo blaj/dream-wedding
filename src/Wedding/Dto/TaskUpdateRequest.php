@@ -3,6 +3,7 @@
 namespace App\Wedding\Dto;
 
 use DateTimeImmutable;
+use Symfony\Component\Validator\Constraints\CssColor;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -15,6 +16,11 @@ class TaskUpdateRequest {
   private ?string $description = null;
 
   private ?DateTimeImmutable $onDate;
+
+  private bool $setColor = false;
+
+  #[CssColor]
+  private ?string $color = '#ffffff';
 
   public function getName(): string {
     return $this->name;
@@ -42,6 +48,26 @@ class TaskUpdateRequest {
 
   public function setOnDate(?DateTimeImmutable $onDate): self {
     $this->onDate = $onDate;
+
+    return $this;
+  }
+
+  public function isSetColor(): bool {
+    return $this->setColor;
+  }
+
+  public function setSetColor(bool $setColor): self {
+    $this->setColor = $setColor;
+
+    return $this;
+  }
+
+  public function getColor(): ?string {
+    return $this->color;
+  }
+
+  public function setColor(?string $color): self {
+    $this->color = $color;
 
     return $this;
   }

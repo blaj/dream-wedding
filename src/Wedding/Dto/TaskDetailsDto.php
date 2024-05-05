@@ -10,5 +10,6 @@ readonly class TaskDetailsDto {
       public int $id,
       public string $name,
       public ?string $description,
-      public ?DateTimeImmutable $onDate) {}
+      public ?DateTimeImmutable $onDate,
+      public ?string $color) {}
 }

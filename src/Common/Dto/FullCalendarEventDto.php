@@ -14,13 +14,14 @@ readonly class FullCalendarEventDto implements JsonSerializable {
       public ?DateTimeImmutable $end,
       public string $url,
       public string $title,
-      public ?string $description) {}
+      public ?string $description,
+      public ?string $backgroundColor) {}
 
   /**
    * @return array<string, null|int|string>
    */
   public function jsonSerialize(): array {
-    return [
+    $serialized = [
         'id' => $this->id,
         'start' => $this->start?->format(DateTimeImmutableUtils::$dateTimeFormat),
         'end' => $this->end?->format(DateTimeImmutableUtils::$dateTimeFormat),
@@ -28,5 +29,11 @@ readonly class FullCalendarEventDto implements JsonSerializable {
         'title' => $this->title,
         'description' => $this->description
     ];
+
+    if ($this->backgroundColor !== null) {
+      $serialized['backgroundColor'] = $this->backgroundColor;
+    }
+
+    return $serialized;
   }
 }

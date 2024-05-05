@@ -35,6 +35,9 @@ class Task extends AuditingEntity implements WeddingContextInterface {
   #[JoinColumn(name: 'group_id', referencedColumnName: 'id', nullable: true, columnDefinition: 'BIGINT')]
   private ?TaskGroup $group;
 
+  #[Column(name: 'color', type: Types::STRING, length: 20, nullable: true)]
+  private ?string $color;
+
   public function getWedding(): Wedding {
     return $this->wedding;
   }
@@ -81,6 +84,16 @@ class Task extends AuditingEntity implements WeddingContextInterface {
 
   public function setGroup(?TaskGroup $group): self {
     $this->group = $group;
+
+    return $this;
+  }
+
+  public function getColor(): ?string {
+    return $this->color;
+  }
+
+  public function setColor(?string $color): self {
+    $this->color = $color;
 
     return $this;
   }
