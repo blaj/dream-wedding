@@ -142,5 +142,6 @@
   "tasks": "Tasks",
   "ungrouped": "Ungrouped",
   "set-color": "Set color?",
-  "color": "Color"
+  "color": "Color",
+  "completed": "Completed"
 }

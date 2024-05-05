@@ -23,6 +23,7 @@ class TaskUpdateFormType extends AbstractType {
         ->add('onDate', DateTimeType::class, ['label' => 'on-date', 'required' => false])
         ->add('setColor', CheckboxType::class, ['label' => 'set-color', 'required' => false])
         ->add('color', ColorType::class, ['label' => 'color', 'required' => false])
+        ->add('completed', CheckboxType::class, ['label' => 'completed', 'required' => false])
         ->add(FormConst::$save, SaveButtonType::class);
   }
 }

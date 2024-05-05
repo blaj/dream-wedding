@@ -142,5 +142,6 @@
   "tasks": "Zadania",
   "ungrouped": "Niepogrupowane",
   "set-color": "Ustaw kolor?",
-  "color": "Kolor"
+  "color": "Kolor",
+  "completed": "Ukończone"
 }

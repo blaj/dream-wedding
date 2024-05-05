@@ -64,6 +64,16 @@
           {% endif %}
         </td>
       </tr>
+
+      <tr>
+        <td>
+          {{ 'completed'|trans }}
+        </td>
+
+        <td>
+          {{ taskDetailsDto.completed|yesOrNo }}
+        </td>
+      </tr>
     </tbody>
   </table>
 

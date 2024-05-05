@@ -60,7 +60,7 @@ class TaskService {
                 ['weddingId' => $weddingId, 'id' => $task->getId()]),
             $task->getName(),
             $task->getDescription(),
-            $task->getColor() ?: $task->getGroup()?->getColor()),
+            $task->getColor() !== null ? $task->getColor() : $task->getGroup()?->getColor()),
         $this->taskRepository->findAllByWeddingIdAndQueryAndUserId(
             $weddingId,
             $fullCalendarQueryDto,
@@ -83,7 +83,8 @@ class TaskService {
         ->setDescription($taskCreateRequest->getDescription())
         ->setOnDate($taskCreateRequest->getOnDate())
         ->setWedding($wedding)
-        ->setColor($taskCreateRequest->isSetColor() ? $taskCreateRequest->getColor() : null);
+        ->setColor($taskCreateRequest->isSetColor() ? $taskCreateRequest->getColor() : null)
+        ->setCompleted($taskCreateRequest->isCompleted());
 
     $this->taskRepository->save($task);
   }
@@ -95,7 +96,16 @@ class TaskService {
         ->setName($taskUpdateRequest->getName())
         ->setDescription($taskUpdateRequest->getDescription())
         ->setOnDate($taskUpdateRequest->getOnDate())
-        ->setColor($taskUpdateRequest->isSetColor() ? $taskUpdateRequest->getColor() : null);
+        ->setColor($taskUpdateRequest->isSetColor() ? $taskUpdateRequest->getColor() : null)
+        ->setCompleted($taskUpdateRequest->isCompleted());
+
+    $this->taskRepository->save($task);
+  }
+
+  public function updateCompleted(int $id, bool $completed, int $userId): void {
+    $task = $this->taskFetchService->fetchTask($id, $userId);
+
+    $task->setCompleted($completed);
 
     $this->taskRepository->save($task);
   }

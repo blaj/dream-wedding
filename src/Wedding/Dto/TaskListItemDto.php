@@ -9,5 +9,6 @@ readonly class TaskListItemDto {
   public function __construct(
       public int $id,
       public string $name,
-      public ?DateTimeImmutable $onDate) {}
+      public ?DateTimeImmutable $onDate,
+      public bool $completed) {}
 }
