@@ -32,6 +32,16 @@ class GuestService {
         fn (?GuestListItemDto $dto) => $dto !== null);
   }
 
+  /**
+   * @return array<GuestListItemDto>
+   */
+  public function getUngroupedList(int $weddingId, int $userId): array {
+    return array_filter(
+        array_map(fn (Guest $guest) => GuestListItemDtoMapper::map($guest),
+            $this->guestRepository->findAllByWeddingIdAndUserIdAndGroupsIsEmpty($weddingId, $userId)),
+        fn (?GuestListItemDto $dto) => $dto !== null);
+  }
+
   public function getOne(int $id, int $userId): ?GuestDetailsDto {
     return GuestDetailsDtoMapper::map($this->guestRepository->findOneByIdAndUserId($id, $userId));
   }

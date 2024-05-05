@@ -178,6 +178,99 @@
             </tr>
           {% endfor %}
         {% endfor %}
+
+        <tr class="table-secondary table-group-divider">
+          <th colspan="14" scope="row">
+            {{ 'ungrouped'|trans }}
+          </th>
+        </tr>
+
+        {% for guestDto in ungroupedGuestsListItemDto %}
+          <tr>
+            <td>
+              {{ loop.index }}
+            </td>
+
+            <td>
+              {{ guestDto.firstName }}
+            </td>
+
+            <td>
+              {{ guestDto.lastName }}
+            </td>
+
+            <td>
+              {{ guestDto.type|trans }}
+            </td>
+
+            <td>
+              {{ guestDto.invited|yesOrNo }}
+            </td>
+
+            <td>
+              {{ guestDto.confirmed|yesOrNo }}
+            </td>
+
+            <td>
+              {{ guestDto.accommodation|yesOrNo }}
+            </td>
+
+            <td>
+              {{ guestDto.transport|yesOrNo }}
+            </td>
+
+            <td>
+              {{ guestDto.dietType|trans }}
+            </td>
+
+            <td>
+              {{ guestDto.note }}
+            </td>
+
+            <td>
+              {{ guestDto.telephone }}
+            </td>
+
+            <td>
+              {{ guestDto.email }}
+            </td>
+
+            <td>
+              {{ guestDto.payment }}
+            </td>
+
+            <td class="d-flex">
+              <a
+                  href="{{ path('wedding_guest_details', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                  class="btn btn-primary btn-sm me-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'details'|trans }}">
+                <i class="bi bi-eye"></i>
+              </a>
+
+              <a
+                  href="{{ path('wedding_guest_update', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                  class="btn btn-secondary btn-sm me-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{{ 'edit'|trans }}">
+                <i class="bi bi-pencil"></i>
+              </a>
+
+              <form
+                  action="{{ path('wedding_guest_delete', { weddingId: weddingDetailsDto.id, id: guestDto.id }) }}"
+                  method="post">
+                <button
+                    type="submit" class="btn btn-danger btn-sm"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{{ 'delete'|trans }}">
+                  <i class="bi bi-trash3"></i>
+                </button>
+
+                <input type="hidden" name="_method" value="DELETE">
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>

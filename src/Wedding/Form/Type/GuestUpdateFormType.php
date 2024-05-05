@@ -48,6 +48,7 @@ class GuestUpdateFormType extends AbstractType {
             [
                 'label' => 'guest-groups',
                 'multiple' => true,
+                'required' => false,
                 'weddingId' => $options['weddingId'],
                 'userId' => $options['userId']])
         ->add('table', TableChoiceFormType::class, [
