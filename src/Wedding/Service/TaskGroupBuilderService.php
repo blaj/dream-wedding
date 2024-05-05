@@ -7,10 +7,13 @@ use App\Wedding\Dto\TaskGroupBuildRowDto;
 use App\Wedding\Mapper\TaskGroupListItemDtoMapper;
 use App\Wedding\Mapper\TaskListItemDtoMapper;
 use App\Wedding\Repository\TaskGroupRepository;
+use App\Wedding\Repository\TaskRepository;
 
 class TaskGroupBuilderService {
 
-  public function __construct(private readonly TaskGroupRepository $taskGroupRepository) {}
+  public function __construct(
+      private readonly TaskGroupRepository $taskGroupRepository,
+      private readonly TaskRepository $taskRepository) {}
 
   public function build(int $weddingId, int $userId): TaskGroupBuildDto {
     $tasksGroupsBuildRowDto = [];
@@ -40,6 +43,22 @@ class TaskGroupBuilderService {
       }
     }
 
-    return new TaskGroupBuildDto($tasksGroupsBuildRowDto);
+    $tasksAmount = $this->taskRepository->countByWeddingIdAndUserId($weddingId, $userId);
+    $completedAmount =
+        $this->taskRepository->countCompletedByWeddingIdAndUserId($weddingId, $userId);
+    $expiredAmount =
+        $this->taskRepository->countExpiredByWeddingIdAndUserId($weddingId, $userId);
+
+    $completedPercentage =
+        $completedAmount > 0 && $tasksAmount > 0
+            ? (int) round($completedAmount / $tasksAmount * 100)
+            : 0;
+
+    return new TaskGroupBuildDto(
+        $tasksGroupsBuildRowDto,
+        $tasksAmount,
+        $completedAmount,
+        $expiredAmount,
+        $completedPercentage);
   }
 }

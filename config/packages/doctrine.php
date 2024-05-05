@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use App\Common\Doctrine\Filter\SoftDeleteFilter;
 use App\Common\Doctrine\Function\CastFunction;
+use App\Common\Doctrine\Function\ToCharFunction;
 use App\Common\Doctrine\Type\BigIntType;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Tbbc\MoneyBundle\Type\MoneyType;
@@ -75,7 +76,8 @@ return static function(ContainerConfigurator $containerConfigurator): void {
           ],
           'dql' => [
               'string_functions' => [
-                  'CAST' => CastFunction::class
+                  'CAST' => CastFunction::class,
+                  'TO_CHAR' => ToCharFunction::class
               ]
           ]
       ],

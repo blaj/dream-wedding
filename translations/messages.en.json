@@ -143,5 +143,6 @@
   "ungrouped": "Ungrouped",
   "set-color": "Set color?",
   "color": "Color",
-  "completed": "Completed"
+  "completed": "Completed",
+  "expired": "Expired"
 }
