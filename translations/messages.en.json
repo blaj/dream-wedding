@@ -140,5 +140,7 @@
   "task-group-updated-successfully": "The task group was updated successfully",
   "task-group-deleted-successfully": "The task group has deleted successfully",
   "tasks": "Tasks",
-  "ungrouped": "Ungrouped"
+  "ungrouped": "Ungrouped",
+  "set-color": "Set color?",
+  "color": "Color"
 }

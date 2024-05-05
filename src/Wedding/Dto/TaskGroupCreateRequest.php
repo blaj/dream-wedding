@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Dto;
 
+use Symfony\Component\Validator\Constraints\CssColor;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -15,6 +16,11 @@ class TaskGroupCreateRequest {
    * @var array<int>
    */
   private array $tasks = [];
+
+  private bool $setColor = false;
+
+  #[CssColor]
+  private ?string $color = '#ffffff';
 
   public function getName(): string {
     return $this->name;
@@ -38,6 +44,26 @@ class TaskGroupCreateRequest {
    */
   public function setTasks(array $tasks): self {
     $this->tasks = $tasks;
+
+    return $this;
+  }
+
+  public function isSetColor(): bool {
+    return $this->setColor;
+  }
+
+  public function setSetColor(bool $setColor): self {
+    $this->setColor = $setColor;
+
+    return $this;
+  }
+
+  public function getColor(): ?string {
+    return $this->color;
+  }
+
+  public function setColor(?string $color): self {
+    $this->color = $color;
 
     return $this;
   }

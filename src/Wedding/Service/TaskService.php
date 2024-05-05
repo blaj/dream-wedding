@@ -59,7 +59,8 @@ class TaskService {
                 'wedding_task_details',
                 ['weddingId' => $weddingId, 'id' => $task->getId()]),
             $task->getName(),
-            $task->getDescription()),
+            $task->getDescription(),
+            $task->getColor() ?: $task->getGroup()?->getColor()),
         $this->taskRepository->findAllByWeddingIdAndQueryAndUserId(
             $weddingId,
             $fullCalendarQueryDto,
@@ -81,7 +82,8 @@ class TaskService {
         ->setName($taskCreateRequest->getName())
         ->setDescription($taskCreateRequest->getDescription())
         ->setOnDate($taskCreateRequest->getOnDate())
-        ->setWedding($wedding);
+        ->setWedding($wedding)
+        ->setColor($taskCreateRequest->isSetColor() ? $taskCreateRequest->getColor() : null);
 
     $this->taskRepository->save($task);
   }
@@ -92,7 +94,8 @@ class TaskService {
     $task
         ->setName($taskUpdateRequest->getName())
         ->setDescription($taskUpdateRequest->getDescription())
-        ->setOnDate($taskUpdateRequest->getOnDate());
+        ->setOnDate($taskUpdateRequest->getOnDate())
+        ->setColor($taskUpdateRequest->isSetColor() ? $taskUpdateRequest->getColor() : null);
 
     $this->taskRepository->save($task);
   }

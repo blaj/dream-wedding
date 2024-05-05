@@ -46,6 +46,18 @@
           {% endfor %}
         </td>
       </tr>
+
+      <tr>
+        <td>
+          {{ 'color'|trans }}
+        </td>
+
+        <td>
+          {% if taskGroupDetailsDto.color is not null %}
+            <span class="badge d-block" style="background-color: {{ taskGroupDetailsDto.color }}"></span>
+          {% endif %}
+        </td>
+      </tr>
     </tbody>
   </table>
 

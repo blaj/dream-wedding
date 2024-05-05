@@ -16,7 +16,8 @@ class TaskGroupDetailsDtoMapper {
     return new TaskGroupDetailsDto(
         $taskGroup->getId(),
         $taskGroup->getName(),
-        self::taskNames($taskGroup->getTasks()->toArray()));
+        self::taskNames($taskGroup->getTasks()->toArray()),
+        $taskGroup->getColor());
   }
 
   /**
