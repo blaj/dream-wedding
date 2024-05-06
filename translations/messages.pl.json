@@ -153,4 +153,6 @@
   "current-password": "Aktualne hasło",
   "new-password": "Nowe hasło",
   "re-new-password": "Powtórz nowe hasło",
-  "user-settings-updated-successfully": "Ustawienia użytkownika zostały zaktualizowane pomyślnie"}
+  "user-settings-updated-successfully": "Ustawienia użytkownika zostały zaktualizowane pomyślnie",
+  "group": "Grupa"
+}

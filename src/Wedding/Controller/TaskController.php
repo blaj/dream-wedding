@@ -67,7 +67,8 @@ class TaskController extends AbstractController {
     $form =
         $this->createForm(
             TaskCreateFormType::class,
-            $taskCreateRequest = new TaskCreateRequest());
+            $taskCreateRequest = new TaskCreateRequest(),
+            ['weddingId' => $weddingId, 'userId' => $userData->getUserId()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -104,7 +105,7 @@ class TaskController extends AbstractController {
         $this->createForm(
             TaskUpdateFormType::class,
             $taskUpdateRequest,
-            ['method' => 'PUT']);
+            ['method' => 'PUT', 'weddingId' => $weddingId, 'userId' => $userData->getUserId()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
