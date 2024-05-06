@@ -18,15 +18,15 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 COPY --from=composer /composer /usr/bin/composer
 
 COPY --from=php_extension_installer /usr/bin/install-php-extensions /usr/local/bin/
-COPY ./config/php/docker.conf /usr/local/etc/php-fpm.d/docker.conf
+COPY ./docker/php/docker.conf /usr/local/etc/php-fpm.d/docker.conf
 
 RUN apk update
 RUN apk add --no-cache \
-		acl \
-		fcgi \
-		file \
-		gettext \
-		git \
+	acl \
+	fcgi \
+	file \
+	gettext \
+	git \
         curl \
         nano \
         icu-dev \
@@ -44,7 +44,7 @@ RUN set -eux; \
     	intl \
     	zip \
     	apcu \
-		opcache \
+	opcache \
         zip \
         sodium \
         gd \
