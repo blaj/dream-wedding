@@ -63,9 +63,6 @@ COPY docker/php/conf.d/app.prod.ini $PHP_INI_DIR/conf.d/
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
-COPY docker/php/run-fixtures.sh /usr/local/bin/run-fixtures
-RUN chmod +x /usr/local/bin/run-fixtures
-
 RUN addgroup -g ${GID} --system dreamwedding
 RUN adduser -G dreamwedding --system -D -s /bin/sh -u ${UID} dreamwedding
 
