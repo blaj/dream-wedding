@@ -1,5 +1,6 @@
 {
   "username-is-already-taken": "The username is already taken",
   "email-is-already-taken": "Email is already taken",
-  "wedding-user-email-is-exists": "The invitation to this email has already been sent"
+  "wedding-user-email-is-exists": "The invitation to this email has already been sent",
+  "not-match-current-password": "The current password field does not match the password of the logged in user"
 }
