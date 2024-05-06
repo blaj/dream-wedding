@@ -60,6 +60,9 @@ jobs:
         with:
           push: true
           target: php
+          build-args: |
+            UID=${{ vars.UID }}
+            GID=${{ vars.GID }}
           tags: blaj/dream-wedding-php-fpm:latest
 
       - name: Build and push Nginx
@@ -67,4 +70,7 @@ jobs:
         with:
           push: true
           target: nginx
+          build-args: |
+            UID=${{ vars.UID }}
+            GID=${{ vars.GID }}
           tags: blaj/dream-wedding-nginx:latest
