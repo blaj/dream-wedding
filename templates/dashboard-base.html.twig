@@ -79,21 +79,9 @@
             <hr class="my-3">
 
             <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="#">
-                  <i class="bi bi-gear-wide-connected"></i>
+              {% include 'partial/_sidebar-item.html.twig' with { name: 'settings'|trans, iconClass: 'bi bi-gear-wide-connected', path: path('user_update_settings') } only %}
 
-                  {{ 'settings'|trans }}
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="{{ path('security_logout') }}">
-                  <i class="bi bi-door-closed"></i>
-
-                  {{ 'sign-out'|trans }}
-                </a>
-              </li>
+              {% include 'partial/_sidebar-item.html.twig' with { name: 'sign-out'|trans, iconClass: 'bi bi-door-closed', path: path('security_logout') } only %}
             </ul>
           </div>
         </div>

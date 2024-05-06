@@ -149,5 +149,8 @@
   "street": "Ulica",
   "postcode": "Kod pocztowy",
   "wedding-address": "Adres ślubu",
-  "party-address": "Adres przyjęcia"
-}
+  "party-address": "Adres przyjęcia",
+  "current-password": "Aktualne hasło",
+  "new-password": "Nowe hasło",
+  "re-new-password": "Powtórz nowe hasło",
+  "user-settings-updated-successfully": "Ustawienia użytkownika zostały zaktualizowane pomyślnie"}

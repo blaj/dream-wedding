@@ -1,5 +1,6 @@
 {
   "username-is-already-taken": "Nazwa użytkownika jest już zajęta",
   "email-is-already-taken": "Email jest już zajęty",
-  "wedding-user-email-is-exists": "Zaproszenie na taki email zostało już wysłane"
+  "wedding-user-email-is-exists": "Zaproszenie na taki email zostało już wysłane",
+  "not-match-current-password": "Pole aktualne hasło nie zgadza się z hasłem zalogowanego użytkownika"
 }

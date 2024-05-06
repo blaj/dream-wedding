@@ -149,5 +149,9 @@
   "street": "Street",
   "postcode": "Postcode",
   "wedding-address": "Wedding address",
-  "party-address": "Party address"
+  "party-address": "Party address",
+  "current-password": "Current password",
+  "new-password": "New password",
+  "re-new-password": "Repeat new password",
+  "user-settings-updated-successfully": "The user settings was updated successfully"
 }
