@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Entity;
 
+use App\Common\Entity\Address;
 use App\Common\Entity\AuditingEntity;
 use App\Wedding\Repository\WeddingRepository;
 use DateTimeImmutable;
@@ -9,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Embedded;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
@@ -26,6 +28,12 @@ class Wedding extends AuditingEntity {
 
   #[Column(name: 'budget', type: Types::BIGINT, nullable: false)]
   private int $budget = 0;
+
+  #[Embedded(class: Address::class, columnPrefix: 'wedding_address_')]
+  private Address $weddingAddress;
+
+  #[Embedded(class: Address::class, columnPrefix: 'party_address_')]
+  private Address $partyAddress;
 
   /**
    * @var Collection<int, Guest>
@@ -70,6 +78,8 @@ class Wedding extends AuditingEntity {
   private Collection $taskGroups;
 
   public function __construct() {
+    $this->weddingAddress = new Address();
+    $this->partyAddress = new Address();
     $this->guests = new ArrayCollection();
     $this->guestGroups = new ArrayCollection();
     $this->weddingUsers = new ArrayCollection();
@@ -105,6 +115,26 @@ class Wedding extends AuditingEntity {
 
   public function setBudget(Money $money): self {
     $this->budget = (int) $money->getAmount();
+
+    return $this;
+  }
+
+  public function getWeddingAddress(): Address {
+    return $this->weddingAddress;
+  }
+
+  public function setWeddingAddress(Address $weddingAddress): self {
+    $this->weddingAddress = $weddingAddress;
+
+    return $this;
+  }
+
+  public function getPartyAddress(): Address {
+    return $this->partyAddress;
+  }
+
+  public function setPartyAddress(Address $partyAddress): self {
+    $this->partyAddress = $partyAddress;
 
     return $this;
   }

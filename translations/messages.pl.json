@@ -144,5 +144,10 @@
   "set-color": "Ustaw kolor?",
   "color": "Kolor",
   "completed": "Ukończone",
-  "expired": "Przedawnione"
+  "expired": "Przedawnione",
+  "city": "Miasto",
+  "street": "Ulica",
+  "postcode": "Kod pocztowy",
+  "wedding-address": "Adres ślubu",
+  "party-address": "Adres przyjęcia"
 }

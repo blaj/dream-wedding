@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Service;
 
+use App\Common\Entity\Address;
 use App\User\Service\UserFetchService;
 use App\Wedding\Dto\WeddingCreateRequest;
 use App\Wedding\Dto\WeddingDetailsDto;
@@ -57,7 +58,17 @@ class WeddingService {
         (new Wedding())
             ->setName($weddingCreateRequest->getName())
             ->setOnDate($weddingCreateRequest->getOnDate())
-            ->setBudget($weddingCreateRequest->getBudget());
+            ->setBudget($weddingCreateRequest->getBudget())
+            ->setWeddingAddress(
+                (new Address())
+                    ->setCity($weddingCreateRequest->getWeddingAddress()->getCity())
+                    ->setStreet($weddingCreateRequest->getWeddingAddress()->getStreet())
+                    ->setPostcode($weddingCreateRequest->getWeddingAddress()->getPostcode()))
+            ->setPartyAddress(
+                (new Address())
+                    ->setCity($weddingCreateRequest->getPartyAddress()->getCity())
+                    ->setStreet($weddingCreateRequest->getPartyAddress()->getStreet())
+                    ->setPostcode($weddingCreateRequest->getPartyAddress()->getPostcode()));
 
     $weddingUser =
         (new WeddingUser())
@@ -78,7 +89,17 @@ class WeddingService {
     $wedding
         ->setName($weddingUpdateRequest->getName())
         ->setOnDate($weddingUpdateRequest->getOnDate())
-        ->setBudget($weddingUpdateRequest->getBudget());
+        ->setBudget($weddingUpdateRequest->getBudget())
+        ->setWeddingAddress(
+            (new Address())
+                ->setCity($weddingUpdateRequest->getWeddingAddress()->getCity())
+                ->setStreet($weddingUpdateRequest->getWeddingAddress()->getStreet())
+                ->setPostcode($weddingUpdateRequest->getWeddingAddress()->getPostcode()))
+        ->setPartyAddress(
+            (new Address())
+                ->setCity($weddingUpdateRequest->getPartyAddress()->getCity())
+                ->setStreet($weddingUpdateRequest->getPartyAddress()->getStreet())
+                ->setPostcode($weddingUpdateRequest->getPartyAddress()->getPostcode()));
 
     $this->weddingRepository->save($wedding);
   }
