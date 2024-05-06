@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Mapper;
 
+use App\Common\Mapper\AddressDetailsDtoMapper;
 use App\Wedding\Dto\WeddingDetailsDto;
 use App\Wedding\Entity\Wedding;
 
@@ -16,6 +17,8 @@ class WeddingDetailsDtoMapper {
         $wedding->getId(),
         $wedding->getName(),
         $wedding->getOnDate(),
-        $wedding->getBudget());
+        $wedding->getBudget(),
+        AddressDetailsDtoMapper::map($wedding->getWeddingAddress()),
+        AddressDetailsDtoMapper::map($wedding->getPartyAddress()));
   }
 }

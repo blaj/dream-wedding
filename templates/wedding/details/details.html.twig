@@ -48,6 +48,78 @@
           {{ weddingDetailsDto.budget|money_format }}
         </td>
       </tr>
+
+      <tr>
+        <td colspan="2" class="table-group-divider">
+          {{ 'wedding-address'|trans }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'city'|trans }}
+        </td>
+
+        <td>
+          {{ weddingDetailsDto.weddingAddress.city }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'street'|trans }}
+        </td>
+
+        <td>
+          {{ weddingDetailsDto.weddingAddress.street }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'postcode'|trans }}
+        </td>
+
+        <td>
+          {{ weddingDetailsDto.weddingAddress.postcode }}
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="table-group-divider">
+          {{ 'party-address'|trans }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'city'|trans }}
+        </td>
+
+        <td>
+          {{ weddingDetailsDto.partyAddress.city }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'street'|trans }}
+        </td>
+
+        <td>
+          {{ weddingDetailsDto.partyAddress.street }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'postcode'|trans }}
+        </td>
+
+        <td>
+          {{ weddingDetailsDto.partyAddress.postcode }}
+        </td>
+      </tr>
     </tbody>
   </table>
 {% endblock %}
