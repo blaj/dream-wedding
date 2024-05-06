@@ -24,6 +24,8 @@ class TaskUpdateRequest {
 
   private bool $completed;
 
+  private ?int $group = null;
+
   public function getName(): string {
     return $this->name;
   }
@@ -80,6 +82,16 @@ class TaskUpdateRequest {
 
   public function setCompleted(bool $completed): self {
     $this->completed = $completed;
+
+    return $this;
+  }
+
+  public function getGroup(): ?int {
+    return $this->group;
+  }
+
+  public function setGroup(?int $group): self {
+    $this->group = $group;
 
     return $this;
   }

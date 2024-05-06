@@ -20,6 +20,7 @@ class TaskService {
   public function __construct(
       private readonly WeddingFetchService $weddingFetchService,
       private readonly TaskFetchService $taskFetchService,
+      private readonly TaskGroupFetchService $taskGroupFetchService,
       private readonly TaskRepository $taskRepository,
       private readonly RouterInterface $router) {}
 
@@ -77,6 +78,10 @@ class TaskService {
 
   public function create(int $weddingId, TaskCreateRequest $taskCreateRequest, int $userId): void {
     $wedding = $this->weddingFetchService->fetchWedding($weddingId, $userId);
+    $group =
+        $taskCreateRequest->getGroup() !== null
+            ? $this->taskGroupFetchService->fetchTaskGroup($taskCreateRequest->getGroup(), $userId)
+            : null;
 
     $task = (new Task())
         ->setName($taskCreateRequest->getName())
@@ -84,20 +89,26 @@ class TaskService {
         ->setOnDate($taskCreateRequest->getOnDate())
         ->setWedding($wedding)
         ->setColor($taskCreateRequest->isSetColor() ? $taskCreateRequest->getColor() : null)
-        ->setCompleted($taskCreateRequest->isCompleted());
+        ->setCompleted($taskCreateRequest->isCompleted())
+        ->setGroup($group);
 
     $this->taskRepository->save($task);
   }
 
   public function update(int $id, TaskUpdateRequest $taskUpdateRequest, int $userId): void {
     $task = $this->taskFetchService->fetchTask($id, $userId);
+    $group =
+        $taskUpdateRequest->getGroup() !== null
+            ? $this->taskGroupFetchService->fetchTaskGroup($taskUpdateRequest->getGroup(), $userId)
+            : null;
 
     $task
         ->setName($taskUpdateRequest->getName())
         ->setDescription($taskUpdateRequest->getDescription())
         ->setOnDate($taskUpdateRequest->getOnDate())
         ->setColor($taskUpdateRequest->isSetColor() ? $taskUpdateRequest->getColor() : null)
-        ->setCompleted($taskUpdateRequest->isCompleted());
+        ->setCompleted($taskUpdateRequest->isCompleted())
+        ->setGroup($group);
 
     $this->taskRepository->save($task);
   }
