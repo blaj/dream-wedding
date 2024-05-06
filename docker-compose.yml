@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+  database:
+    image: postgres:14
+    restart: always
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: yNqQsQR8JJtY
+      POSTGRES_DB: postgres
+
+  php:
+    image: blaj/dream-wedding-php-fpm:develop
+    restart: always
+    volumes:
+      - ./uploads:/var/www/html/public/uploads
+      - ./.env:/var/www/html/.env
+      - ./logs/php:/var/log/php
+    depends_on:
+      - database
+      - rabbitmq
+
+  nginx:
+    image: blaj/dream-wedding-nginx:develop
+    restart: always
+    ports:
+      - "8452:443"
+    volumes:
+      - ./uploads:/var/www/html/public/uploads
+      - ./.env:/var/www/html/.env
+      - ./certs/certificate.pem:/etc/ssl/certs/nginx-selfsigned.crt
+      - ./certs/certificate.key:/etc/ssl/private/nginx-selfsigned.key
+      - ./logs/nginx:/var/log/nginx
+    depends_on:
+      - php
