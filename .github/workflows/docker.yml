@@ -55,8 +55,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push PHP
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: blaj/dream-wedding:latest
+          target: php
+          tags: blaj/dream-wedding-php-fpm:latest
+
+      - name: Build and push Nginx
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          target: nginx
+          tags: blaj/dream-wedding-nginx:latest
