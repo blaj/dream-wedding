@@ -5,6 +5,8 @@ namespace App\Wedding\Controller;
 use App\Common\Dto\FullCalendarQueryDto;
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\TaskUpdateCompletedRequest;
+use App\Wedding\Dto\TaskUpdateGroupRequest;
+use App\Wedding\Dto\TaskUpdateOrderNoRequest;
 use App\Wedding\Service\TaskService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
@@ -45,7 +47,45 @@ class TaskAjaxController extends AbstractController {
       UserData $userData): Response {
     $this->taskService->updateCompleted(
         $id,
-        $taskUpdateCompletedRequest->isCompleted(),
+        $taskUpdateCompletedRequest->completed,
+        $userData->getUserId());
+
+    return $this->json([]);
+  }
+
+  #[Route(
+      path: '/{id}/update-group',
+      name: 'update_group',
+      requirements: ['id' => '\d+'],
+      options: ['expose' => true],
+      methods: ['PUT'])]
+  public function updateGroup(
+      int $weddingId,
+      int $id,
+      #[MapRequestPayload] TaskUpdateGroupRequest $taskUpdateGroupRequest,
+      UserData $userData): Response {
+    $this->taskService->updateGroup(
+        $id,
+        $taskUpdateGroupRequest->groupId,
+        $userData->getUserId());
+
+    return $this->json([]);
+  }
+
+  #[Route(
+      path: '/{id}/update-order-no',
+      name: 'update_order_no',
+      requirements: ['id' => '\d+'],
+      options: ['expose' => true],
+      methods: ['PUT'])]
+  public function updateOrderNo(
+      int $weddingId,
+      int $id,
+      #[MapRequestPayload] TaskUpdateOrderNoRequest $taskUpdateOrderNoRequest,
+      UserData $userData): Response {
+    $this->taskService->updateOrderNo(
+        $id,
+        $taskUpdateOrderNoRequest->orderNo,
         $userData->getUserId());
 
     return $this->json([]);

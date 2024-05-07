@@ -1,4 +1,5 @@
 import * as UrlConst from './url.const';
 import * as FileUtils from './file.utils';
+import * as TemplateUtils from './template.utils';
 
-export { UrlConst, FileUtils };
+export { UrlConst, FileUtils, TemplateUtils };

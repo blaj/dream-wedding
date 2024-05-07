@@ -2,17 +2,7 @@
 
 namespace App\Wedding\Dto;
 
-class TaskUpdateCompletedRequest {
+readonly class TaskUpdateCompletedRequest {
 
-  private bool $completed;
-
-  public function isCompleted(): bool {
-    return $this->completed;
-  }
-
-  public function setCompleted(bool $completed): self {
-    $this->completed = $completed;
-
-    return $this;
-  }
+  public function __construct(public bool $completed) {}
 }

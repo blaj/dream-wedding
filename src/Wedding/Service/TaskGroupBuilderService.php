@@ -4,6 +4,7 @@ namespace App\Wedding\Service;
 
 use App\Wedding\Dto\TaskGroupBuildDto;
 use App\Wedding\Dto\TaskGroupBuildRowDto;
+use App\Wedding\Dto\TaskListItemDto;
 use App\Wedding\Mapper\TaskGroupListItemDtoMapper;
 use App\Wedding\Mapper\TaskListItemDtoMapper;
 use App\Wedding\Repository\TaskGroupRepository;
@@ -41,6 +42,18 @@ class TaskGroupBuilderService {
 
         $tasksGroupsBuildRowDto[$taskGroup->getId()]->addTaskListItemDto($taskListItemDto);
       }
+
+      $tasksListItemDto = $tasksGroupsBuildRowDto[$taskGroup->getId()]->getTasksListItemDto();
+
+      usort($tasksListItemDto, function(TaskListItemDto $task1, TaskListItemDto $task2) {
+        if ($task1->orderNo === $task2->orderNo) {
+          return 0;
+        }
+
+        return $task1->orderNo < $task2->orderNo ? -1 : 1;
+      });
+
+      $tasksGroupsBuildRowDto[$taskGroup->getId()]->setTasksListItemDto($tasksListItemDto);
     }
 
     $tasksAmount = $this->taskRepository->countByWeddingIdAndUserId($weddingId, $userId);

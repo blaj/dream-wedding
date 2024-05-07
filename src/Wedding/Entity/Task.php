@@ -41,6 +41,9 @@ class Task extends AuditingEntity implements WeddingContextInterface {
   #[Column(name: 'completed', type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
   private bool $completed = false;
 
+  #[Column(name: 'order_no', type: Types::SMALLINT, nullable: false, options: ['default' => 0])]
+  private int $orderNo = 0;
+
   public function getWedding(): Wedding {
     return $this->wedding;
   }
@@ -107,6 +110,16 @@ class Task extends AuditingEntity implements WeddingContextInterface {
 
   public function setCompleted(bool $completed): self {
     $this->completed = $completed;
+
+    return $this;
+  }
+
+  public function getOrderNo(): int {
+    return $this->orderNo;
+  }
+
+  public function setOrderNo(int $orderNo): self {
+    $this->orderNo = $orderNo;
 
     return $this;
   }

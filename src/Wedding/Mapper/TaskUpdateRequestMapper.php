@@ -18,7 +18,8 @@ class TaskUpdateRequestMapper {
         ->setOnDate($task->getOnDate())
         ->setSetColor($task->getColor() !== null)
         ->setCompleted($task->isCompleted())
-        ->setGroup($task->getGroup()?->getId());
+        ->setGroup($task->getGroup()?->getId())
+        ->setOrderNo($task->getOrderNo());
 
     if ($task->getColor() !== null) {
       $taskUpdateRequest->setColor($task->getColor());

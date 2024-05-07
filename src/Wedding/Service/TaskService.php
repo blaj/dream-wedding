@@ -90,7 +90,8 @@ class TaskService {
         ->setWedding($wedding)
         ->setColor($taskCreateRequest->isSetColor() ? $taskCreateRequest->getColor() : null)
         ->setCompleted($taskCreateRequest->isCompleted())
-        ->setGroup($group);
+        ->setGroup($group)
+        ->setOrderNo($taskCreateRequest->getOrderNo());
 
     $this->taskRepository->save($task);
   }
@@ -108,7 +109,8 @@ class TaskService {
         ->setOnDate($taskUpdateRequest->getOnDate())
         ->setColor($taskUpdateRequest->isSetColor() ? $taskUpdateRequest->getColor() : null)
         ->setCompleted($taskUpdateRequest->isCompleted())
-        ->setGroup($group);
+        ->setGroup($group)
+        ->setOrderNo($taskUpdateRequest->getOrderNo());
 
     $this->taskRepository->save($task);
   }
@@ -117,6 +119,26 @@ class TaskService {
     $task = $this->taskFetchService->fetchTask($id, $userId);
 
     $task->setCompleted($completed);
+
+    $this->taskRepository->save($task);
+  }
+
+  public function updateGroup(int $id, ?int $groupId, int $userId): void {
+    $task = $this->taskFetchService->fetchTask($id, $userId);
+    $group =
+        $groupId !== null
+            ? $this->taskGroupFetchService->fetchTaskGroup($groupId, $userId)
+            : null;
+
+    $task->setGroup($group);
+
+    $this->taskRepository->save($task);
+  }
+
+  public function updateOrderNo(int $id, int $orderNo, int $userId): void {
+    $task = $this->taskFetchService->fetchTask($id, $userId);
+
+    $task->setOrderNo($orderNo);
 
     $this->taskRepository->save($task);
   }

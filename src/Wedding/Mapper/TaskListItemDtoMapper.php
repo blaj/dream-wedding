@@ -16,6 +16,7 @@ class TaskListItemDtoMapper {
         $task->getId(),
         $task->getName(),
         $task->getOnDate(),
-        $task->isCompleted());
+        $task->isCompleted(),
+        $task->getOrderNo());
   }
 }
