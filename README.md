@@ -13,7 +13,7 @@
 
 ### How to start
 * Install DDEV
-* Clone this repo
+* Clone this repo into your wsl2 distrubtion (ex. ```/home/admin/projects```)
 * Open directory containing repo in terminal
 * Install composer dependencies via ```ddev composer install``` command
 * Install node dependencies ```ddev yarn install```
