@@ -26,6 +26,8 @@ class TaskUpdateRequest {
 
   private ?int $group = null;
 
+  private int $orderNo = 0;
+
   public function getName(): string {
     return $this->name;
   }
@@ -92,6 +94,16 @@ class TaskUpdateRequest {
 
   public function setGroup(?int $group): self {
     $this->group = $group;
+
+    return $this;
+  }
+
+  public function getOrderNo(): int {
+    return $this->orderNo;
+  }
+
+  public function setOrderNo(int $orderNo): self {
+    $this->orderNo = $orderNo;
 
     return $this;
   }

@@ -7,11 +7,13 @@
         "@symfony/stimulus-bridge": "^3.2.0",
         "@symfony/stimulus-bridge-types": "^1.0.0",
         "@symfony/stimulus-bundle": "file:vendor/symfony/stimulus-bundle/assets",
+        "@symfony/ux-translator": "file:vendor/symfony/ux-translator/assets",
         "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
         "@symfony/webpack-encore": "^4.0.0",
         "core-js": "^3.23.0",
         "file-loader": "^6.2.0",
         "fos-router": "file:vendor/friendsofsymfony/jsrouting-bundle/Resources",
+        "intl-messageformat": "^10.5.11",
         "prettier": "^3.2.5",
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.72.0",
@@ -38,9 +40,11 @@
         "@fullcalendar/interaction": "^6.1.11",
         "@fullcalendar/list": "^6.1.11",
         "@popperjs/core": "^2.11.8",
+        "@types/sortablejs": "^1.15.8",
         "axios": "^1.6.8",
         "bootstrap": "5.2.3",
         "bootstrap-icons": "^1.11.3",
-        "jquery": "^3.7.1"
+        "jquery": "^3.7.1",
+        "sortablejs": "^1.15.2"
     }
 }
