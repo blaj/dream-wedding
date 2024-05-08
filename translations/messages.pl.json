@@ -155,5 +155,7 @@
   "re-new-password": "Powtórz nowe hasło",
   "user-settings-updated-successfully": "Ustawienia użytkownika zostały zaktualizowane pomyślnie",
   "group": "Grupa",
-  "order-no": "Kolejność na liście"
+  "order-no": "Kolejność na liście",
+  "group-order-no": "Kolejność w grupie",
+  "table-order-no": "Kolejność w stole"
 }

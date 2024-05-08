@@ -6,14 +6,14 @@ export default class extends DragAndDropController {
   }
 
   get updateGroupRoute(): string {
-    return 'wedding_guest_ajax_update_group';
+    return 'wedding_guest_ajax_update_table';
   }
 
   get updateOrderNoRoute(): string {
-    return 'wedding_guest_ajax_update_group_order_no';
+    return 'wedding_guest_ajax_update_table_order_no';
   }
 
   get emptyRowColspan(): number {
-    return 14;
+    return 3;
   }
 }

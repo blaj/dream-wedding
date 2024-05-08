@@ -155,5 +155,7 @@
   "re-new-password": "Repeat new password",
   "user-settings-updated-successfully": "The user settings was updated successfully",
   "group": "Group",
-  "order-no": "List order"
+  "order-no": "List order",
+  "group-order-no": "Group order",
+  "table-order-no": "Table order"
 }

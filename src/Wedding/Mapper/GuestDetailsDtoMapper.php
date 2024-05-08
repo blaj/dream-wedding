@@ -29,6 +29,7 @@ class GuestDetailsDtoMapper {
         $guest->getPayment(),
         $guest->getGroup()?->getName(),
         $guest->getTable()?->getName(),
-        $guest->getOrderNo());
+        $guest->getGroupOrderNo(),
+        $guest->getTableOrderNo());
   }
 }

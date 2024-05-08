@@ -55,7 +55,8 @@ class GuestUpdateFormType extends AbstractType {
             'required' => false,
             'weddingId' => $options['weddingId'],
             'userId' => $options['userId']])
-        ->add('orderNo', IntegerType::class, ['label' => 'order-no'])
+        ->add('groupOrderNo', IntegerType::class, ['label' => 'group-order-no'])
+        ->add('tableOrderNo', IntegerType::class, ['label' => 'table-order-no'])
         ->add(FormConst::$save, SaveButtonType::class);
   }
 }

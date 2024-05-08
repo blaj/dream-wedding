@@ -23,5 +23,6 @@ readonly class GuestDetailsDto {
       public int $payment,
       public ?string $groupName,
       public ?string $tableName,
-      public int $orderNo) {}
+      public int $groupOrderNo,
+      public int $tableOrderNo) {}
 }
