@@ -43,11 +43,10 @@ class GuestUpdateFormType extends AbstractType {
         ->add('email', EmailType::class, ['label' => 'email', 'required' => false])
         ->add('payment', IntegerType::class, ['label' => 'payment'])
         ->add(
-            'groups',
+            'group',
             GuestGroupChoiceFormType::class,
             [
-                'label' => 'guest-groups',
-                'multiple' => true,
+                'label' => 'guest-group',
                 'required' => false,
                 'weddingId' => $options['weddingId'],
                 'userId' => $options['userId']])
@@ -56,6 +55,7 @@ class GuestUpdateFormType extends AbstractType {
             'required' => false,
             'weddingId' => $options['weddingId'],
             'userId' => $options['userId']])
+        ->add('orderNo', IntegerType::class, ['label' => 'order-no'])
         ->add(FormConst::$save, SaveButtonType::class);
   }
 }

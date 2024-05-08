@@ -1,4 +1,4 @@
 import CalendarController from './calendar-controller';
-import DragAndDropController from './drag-and-drop-controller';
 
-export { CalendarController, DragAndDropController };
+export { DragAndDropController } from './drag-and-drop-controller';
+export { CalendarController };

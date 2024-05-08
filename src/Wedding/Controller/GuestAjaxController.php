@@ -2,56 +2,22 @@
 
 namespace App\Wedding\Controller;
 
-use App\Common\Dto\FullCalendarQueryDto;
 use App\Common\Dto\UpdateGroupRequest;
 use App\Common\Dto\UpdateOrderNoRequest;
 use App\Security\Dto\UserData;
-use App\Wedding\Dto\TaskUpdateCompletedRequest;
-use App\Wedding\Service\TaskService;
+use App\Wedding\Service\GuestService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/wedding/{weddingId}/task-ajax', name: 'wedding_task_ajax_', requirements: ['weddingId' => '\d+'])]
-class TaskAjaxController extends AbstractController {
+#[Route(path: '/wedding/{weddingId}/guest-ajax', name: 'wedding_guest_ajax_', requirements: ['weddingId' => '\d+'])]
+class GuestAjaxController extends AbstractController {
 
-  public function __construct(private readonly TaskService $taskService) {}
-
-  #[Route(path: '/', name: 'list', options: ['expose' => true], methods: ['GET'])]
-  public function list(
-      #[MapQueryString] FullCalendarQueryDto $fullCalendarQueryDto,
-      int $weddingId,
-      UserData $userData): Response {
-    return $this->json(
-        $this->taskService->getFullCalendarList(
-            $weddingId,
-            $fullCalendarQueryDto,
-            $userData->getUserId()));
-  }
-
-  #[Route(
-      path: '/{id}/update-completed',
-      name: 'update_completed',
-      requirements: ['id' => '\d+'],
-      options: ['expose' => true],
-      methods: ['PUT'])]
-  public function updateCompleted(
-      int $weddingId,
-      int $id,
-      #[MapRequestPayload] TaskUpdateCompletedRequest $taskUpdateCompletedRequest,
-      UserData $userData): Response {
-    $this->taskService->updateCompleted(
-        $id,
-        $taskUpdateCompletedRequest->completed,
-        $userData->getUserId());
-
-    return $this->json([]);
-  }
+  public function __construct(private readonly GuestService $guestService) {}
 
   #[Route(
       path: '/{id}/update-group',
@@ -64,7 +30,7 @@ class TaskAjaxController extends AbstractController {
       int $id,
       #[MapRequestPayload] UpdateGroupRequest $updateGroupRequest,
       UserData $userData): Response {
-    $this->taskService->updateGroup(
+    $this->guestService->updateGroup(
         $id,
         $updateGroupRequest->groupId,
         $userData->getUserId());
@@ -83,7 +49,7 @@ class TaskAjaxController extends AbstractController {
       int $id,
       #[MapRequestPayload] UpdateOrderNoRequest $updateOrderNoRequest,
       UserData $userData): Response {
-    $this->taskService->updateOrderNo(
+    $this->guestService->updateOrderNo(
         $id,
         $updateOrderNoRequest->orderNo,
         $userData->getUserId());

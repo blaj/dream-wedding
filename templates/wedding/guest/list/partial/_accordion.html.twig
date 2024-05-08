@@ -1,0 +1,175 @@
+<div class="accordion">
+  <div class="accordion-item mb-3">
+    <h2 class="accordion-header">
+      <button
+          class="accordion-button fw-bold"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#task-group-{{ accordionItemId }}"
+          aria-expanded="true"
+          aria-controls="panelsStayOpen-collapseOne">
+        {{ accordionItemName }}
+      </button>
+    </h2>
+
+    <div id="task-group-{{ accordionItemId }}" class="accordion-collapse collapse show">
+      <div class="accordion-body table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th></th>
+
+              <th>
+                {{ 'first-name'|trans }}
+              </th>
+
+              <th>
+                {{ 'last-name'|trans }}
+              </th>
+
+              <th>
+                {{ 'guest-type'|trans }}
+              </th>
+
+              <th>
+                {{ 'invited'|trans }}
+              </th>
+
+              <th>
+                {{ 'confirmed'|trans }}
+              </th>
+
+              <th>
+                {{ 'accommodation'|trans }}
+              </th>
+
+              <th>
+                {{ 'transport'|trans }}
+              </th>
+
+              <th>
+                {{ 'diet-type'|trans }}
+              </th>
+
+              <th>
+                {{ 'note'|trans }}
+              </th>
+
+              <th>
+                {{ 'telephone'|trans }}
+              </th>
+
+              <th>
+                {{ 'email'|trans }}
+              </th>
+
+              <th>
+                {{ 'payment'|trans }}
+              </th>
+
+              <th>
+                {{ 'actions'|trans }}
+              </th>
+            </tr>
+          </thead>
+
+          <tbody
+              data-controller="guest-drag-and-drop"
+              data-guest-drag-and-drop-wedding-id-value="{{ weddingId }}"
+              data-group-id="{{ groupId }}">
+            {% if guestsListItemDto|length == 0 %}
+              {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 14 } only %}
+            {% endif %}
+
+            {% for guestDto in guestsListItemDto %}
+              <tr data-guest-id="{{ guestDto.id }}">
+                <td>
+                  <i class="bi bi-list handle"></i>
+                </td>
+
+                <td>
+                  {{ guestDto.firstName }}
+                </td>
+
+                <td>
+                  {{ guestDto.lastName }}
+                </td>
+
+                <td>
+                  {{ guestDto.type|trans }}
+                </td>
+
+                <td>
+                  {{ guestDto.invited|yesOrNo }}
+                </td>
+
+                <td>
+                  {{ guestDto.confirmed|yesOrNo }}
+                </td>
+
+                <td>
+                  {{ guestDto.accommodation|yesOrNo }}
+                </td>
+
+                <td>
+                  {{ guestDto.transport|yesOrNo }}
+                </td>
+
+                <td>
+                  {{ guestDto.dietType|trans }}
+                </td>
+
+                <td>
+                  {{ guestDto.note }}
+                </td>
+
+                <td>
+                  {{ guestDto.telephone }}
+                </td>
+
+                <td>
+                  {{ guestDto.email }}
+                </td>
+
+                <td>
+                  {{ guestDto.payment }}
+                </td>
+
+                <td class="d-flex">
+                  <a
+                      href="{{ path('wedding_guest_details', { weddingId: weddingId, id: guestDto.id }) }}"
+                      class="btn btn-primary btn-sm me-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="{{ 'details'|trans }}">
+                    <i class="bi bi-eye"></i>
+                  </a>
+
+                  <a
+                      href="{{ path('wedding_guest_update', { weddingId: weddingId, id: guestDto.id }) }}"
+                      class="btn btn-secondary btn-sm me-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="{{ 'edit'|trans }}">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+
+                  <form
+                      action="{{ path('wedding_guest_delete', { weddingId: weddingId, id: guestDto.id }) }}"
+                      method="post">
+                    <button
+                        type="submit" class="btn btn-danger btn-sm"
+                        data-bs-toggle="tooltip"
+                        data-bs-title="{{ 'delete'|trans }}">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+
+                    <input type="hidden" name="_method" value="DELETE">
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

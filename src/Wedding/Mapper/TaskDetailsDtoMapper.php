@@ -18,6 +18,7 @@ class TaskDetailsDtoMapper {
         $task->getDescription(),
         $task->getOnDate(),
         $task->getColor(),
-        $task->isCompleted());
+        $task->isCompleted(),
+        $task->getOrderNo());
   }
 }
