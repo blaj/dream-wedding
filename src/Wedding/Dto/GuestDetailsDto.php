@@ -7,9 +7,6 @@ use App\Wedding\Entity\Enum\GuestType;
 
 readonly class GuestDetailsDto {
 
-  /**
-   * @param array<string> $groupNames
-   */
   public function __construct(
       public int $id,
       public string $firstName,
@@ -24,6 +21,7 @@ readonly class GuestDetailsDto {
       public ?string $telephone,
       public ?string $email,
       public int $payment,
-      public array $groupNames,
-      public ?string $tableName) {}
+      public ?string $groupName,
+      public ?string $tableName,
+      public int $orderNo) {}
 }

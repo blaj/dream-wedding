@@ -5,39 +5,46 @@ namespace App\Wedding\Service;
 use App\Wedding\Dto\GuestGroupBuildDto;
 use App\Wedding\Dto\GuestGroupBuildRowDto;
 use App\Wedding\Dto\GuestGroupListItemDto;
+use App\Wedding\Mapper\GuestGroupListItemDtoMapper;
 use App\Wedding\Mapper\GuestListItemDtoMapper;
+use App\Wedding\Repository\GuestGroupRepository;
 use App\Wedding\Repository\GuestRepository;
 
 class GuestGroupBuilderService {
 
-  public function __construct(private readonly GuestRepository $guestRepository) {}
+  public function __construct(
+      private readonly GuestRepository $guestRepository,
+      private readonly GuestGroupRepository $guestGroupRepository) {}
 
   public function build(int $weddingId, int $userId): GuestGroupBuildDto {
     $guestsGroupsBuildRowDto = [];
 
-    $guests = $this->guestRepository->findAllByWeddingIdAndUserId($weddingId, $userId);
+    $guestGroups = $this->guestGroupRepository->findAllByWeddingIdAndUserId($weddingId, $userId);
 
-    foreach ($guests as $guest) {
-      foreach ($guest->getGroups() as $group) {
-        if (!array_key_exists($group->getId(), $guestsGroupsBuildRowDto)) {
-          $guestsGroupsBuildRowDto[$group->getId()] =
-              (new GuestGroupBuildRowDto())
-                  ->setGuestGroupListItemDto(
-                      new GuestGroupListItemDto($group->getId(), $group->getName()));
+    foreach ($guestGroups as $guestGroup) {
+      if (!array_key_exists($guestGroup->getId(), $guestsGroupsBuildRowDto)) {
+        $guestGroupListItemDto = GuestGroupListItemDtoMapper::map($guestGroup);
+
+        if ($guestGroupListItemDto === null) {
+          continue;
         }
 
+        $guestsGroupsBuildRowDto[$guestGroup->getId()] =
+            (new GuestGroupBuildRowDto())->setGuestGroupListItemDto($guestGroupListItemDto);
+      }
+
+      foreach ($guestGroup->getGuests() as $guest) {
         $guestListItemDto = GuestListItemDtoMapper::map($guest);
 
         if ($guestListItemDto === null) {
           continue;
         }
 
-        $guestsGroupsBuildRowDto[$group->getId()]->addGuestListItemDto($guestListItemDto);
+        $guestsGroupsBuildRowDto[$guestGroup->getId()]->addGuestListItemDto($guestListItemDto);
       }
     }
 
-    $guestsCount = count($guests);
-
+    $guestsCount = $this->guestRepository->countByWeddingIdAndUserId($weddingId, $userId);
     $invitedAmount = $this->guestRepository->countInvitedByWeddingIdAndUserId($weddingId, $userId);
     $confirmedAmount =
         $this->guestRepository->countConfirmedByWeddingIdAndUserId($weddingId, $userId);

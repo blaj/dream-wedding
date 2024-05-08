@@ -16,6 +16,27 @@ class GuestRepository extends AbstractWeddingContextRepository {
     parent::__construct($registry, Guest::class);
   }
 
+  public function countByWeddingIdAndUserId(int $weddingId, int $userId): int {
+    return (int) $this->getEntityManager()
+        ->createQuery(
+            '
+            SELECT 
+              COUNT(guest) 
+            FROM 
+              App\Wedding\Entity\Guest guest 
+              INNER JOIN guest.wedding wedding 
+              INNER JOIN wedding.weddingUsers weddingUsers 
+            WHERE 
+              guest.deleted = false 
+              AND wedding.deleted = false 
+              AND weddingUsers.deleted = false 
+              AND guest.wedding = :weddingId 
+              AND weddingUsers.user = :userId')
+        ->setParameter('weddingId', $weddingId, Types::INTEGER)
+        ->setParameter('userId', $userId, Types::INTEGER)
+        ->getSingleScalarResult();
+  }
+
   public function countInvitedByWeddingIdAndUserId(int $weddingId, int $userId): int {
     return (int) $this->getEntityManager()
         ->createQuery(
@@ -107,7 +128,7 @@ class GuestRepository extends AbstractWeddingContextRepository {
   /**
    * @return array<Guest>
    */
-  public function findAllByWeddingIdAndUserIdAndGroupsIsEmpty(int $weddingId, int $userId): array {
+  public function findAllByWeddingIdAndUserIdAndGroupIsNull(int $weddingId, int $userId): array {
     return $this->getEntityManager()
         ->createQuery(
             '
@@ -123,7 +144,7 @@ class GuestRepository extends AbstractWeddingContextRepository {
               AND weddingUsers.deleted = false 
               AND guest.wedding = :weddingId 
               AND weddingUsers.user = :userId 
-              AND guest.groups IS EMPTY')
+              AND guest.group IS NULL')
         ->setParameter('weddingId', $weddingId, Types::INTEGER)
         ->setParameter('userId', $userId, Types::INTEGER)
         ->getResult();

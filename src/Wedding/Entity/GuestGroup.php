@@ -11,8 +11,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: GuestGroupRepository::class)]
@@ -32,7 +32,7 @@ class GuestGroup extends AuditingEntity implements WeddingContextInterface {
   /**
    * @var Collection<int, Guest>
    */
-  #[ManyToMany(targetEntity: Guest::class, mappedBy: 'groups', fetch: 'LAZY')]
+  #[OneToMany(targetEntity: Guest::class, mappedBy: 'group', fetch: 'LAZY')]
   private Collection $guests;
 
   public function __construct() {
@@ -87,7 +87,7 @@ class GuestGroup extends AuditingEntity implements WeddingContextInterface {
 
   public function addGuest(Guest $guest): self {
     if (!$this->guests->contains($guest)) {
-      $guest->addGroup($this);
+      $guest->setGroup($this);
       $this->guests->add($guest);
     }
 
@@ -95,7 +95,7 @@ class GuestGroup extends AuditingEntity implements WeddingContextInterface {
   }
 
   public function removeGuest(Guest $guest): self {
-    $guest->removeGroup($this);
+    $guest->setGroup(null);
     $this->guests->removeElement($guest);
 
     return $this;

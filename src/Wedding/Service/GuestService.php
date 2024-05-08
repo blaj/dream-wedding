@@ -38,7 +38,9 @@ class GuestService {
   public function getUngroupedList(int $weddingId, int $userId): array {
     return array_filter(
         array_map(fn (Guest $guest) => GuestListItemDtoMapper::map($guest),
-            $this->guestRepository->findAllByWeddingIdAndUserIdAndGroupsIsEmpty($weddingId, $userId)),
+            $this->guestRepository->findAllByWeddingIdAndUserIdAndGroupIsNull(
+                $weddingId,
+                $userId)),
         fn (?GuestListItemDto $dto) => $dto !== null);
   }
 
@@ -57,10 +59,10 @@ class GuestService {
       int $userId): void {
     $wedding = $this->weddingFetchService->fetchWedding($weddingId, $userId);
 
-    $groups =
-        array_map(fn (int $id) => $this->guestGroupFetchService->fetchGuestGroup($id, $userId),
-            $guestCreateRequest->getGroups());
-
+    $group =
+        $guestCreateRequest->getGroup() !== null ? $this->guestGroupFetchService->fetchGuestGroup(
+            $guestCreateRequest->getGroup(),
+            $userId) : null;
     $table =
         $guestCreateRequest->getTable() !== null
             ? $this->tableFetchService->fetchTable($guestCreateRequest->getTable(), $userId)
@@ -80,33 +82,20 @@ class GuestService {
         ->setTelephone($guestCreateRequest->getTelephone())
         ->setEmail($guestCreateRequest->getEmail())
         ->setPayment($guestCreateRequest->getPayment())
-        ->setTable($table);
-
-    array_walk($groups, fn (GuestGroup $guestGroup) => $guest->addGroup($guestGroup));
+        ->setGroup($group)
+        ->setTable($table)
+        ->setOrderNo($guestCreateRequest->getOrderNo());
 
     $this->guestRepository->save($guest);
   }
 
   public function update(int $id, GuestUpdateRequest $guestUpdateRequest, int $userId): void {
     $guest = $this->guestFetchService->fetchGuest($id, $userId);
-    $addedGroups =
-        array_map(
-            fn (int $groupId) => $this->guestGroupFetchService->fetchGuestGroup($groupId, $userId),
-            array_filter(
-                $guestUpdateRequest->getGroups(),
-                fn (int $groupId) => !in_array(
-                    $groupId,
-                    array_map(fn (GuestGroup $guestGroup) => $guestGroup->getId(),
-                        $guest->getGroups()->toArray()),
-                    true)));
-    $removedGroups =
-        array_filter(
-            $guest->getGroups()->toArray(),
-            fn (GuestGroup $guestGroup) => !in_array(
-                $guestGroup->getId(),
-                $guestUpdateRequest->getGroups(),
-                true));
 
+    $group =
+        $guestUpdateRequest->getGroup() !== null ? $this->guestGroupFetchService->fetchGuestGroup(
+            $guestUpdateRequest->getGroup(),
+            $userId) : null;
     $table =
         $guestUpdateRequest->getTable() !== null
             ? $this->tableFetchService->fetchTable($guestUpdateRequest->getTable(), $userId)
@@ -125,10 +114,29 @@ class GuestService {
         ->setTelephone($guestUpdateRequest->getTelephone())
         ->setEmail($guestUpdateRequest->getEmail())
         ->setPayment($guestUpdateRequest->getPayment())
-        ->setTable($table);
+        ->setGroup($group)
+        ->setTable($table)
+        ->setOrderNo($guestUpdateRequest->getOrderNo());
 
-    array_walk($addedGroups, fn (GuestGroup $guestGroup) => $guest->addGroup($guestGroup));
-    array_walk($removedGroups, fn (GuestGroup $guestGroup) => $guest->removeGroup($guestGroup));
+    $this->guestRepository->save($guest);
+  }
+
+  public function updateGroup(int $id, ?int $groupId, int $userId): void {
+    $guest = $this->guestFetchService->fetchGuest($id, $userId);
+    $group =
+        $groupId !== null
+            ? $this->guestGroupFetchService->fetchGuestGroup($groupId, $userId)
+            : null;
+
+    $guest->setGroup($group);
+
+    $this->guestRepository->save($guest);
+  }
+
+  public function updateOrderNo(int $id, int $orderNo, int $userId): void {
+    $guest = $this->guestFetchService->fetchGuest($id, $userId);
+
+    $guest->setOrderNo($orderNo);
 
     $this->guestRepository->save($guest);
   }

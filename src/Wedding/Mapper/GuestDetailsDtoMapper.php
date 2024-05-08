@@ -27,16 +27,8 @@ class GuestDetailsDtoMapper {
         $guest->getTelephone(),
         $guest->getEmail(),
         $guest->getPayment(),
-        self::groupNames($guest->getGroups()->toArray()),
-        $guest->getTable()?->getName());
-  }
-
-  /**
-   * @param array<GuestGroup> $guestGroups
-   *
-   * @return array<string>
-   */
-  private static function groupNames(array $guestGroups): array {
-    return array_map(fn (GuestGroup $guestGroup) => $guestGroup->getName(), $guestGroups);
+        $guest->getGroup()?->getName(),
+        $guest->getTable()?->getName(),
+        $guest->getOrderNo());
   }
 }

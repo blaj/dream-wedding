@@ -147,15 +147,15 @@
 
       <tr>
         <td>
-          {{ 'guest-groups'|trans }}
+          {{ 'guest-group'|trans }}
         </td>
 
         <td>
-          {% for groupName in guestDetailsDto.groupNames %}
+          {% if guestDetailsDto.groupName is not null %}
             <span class="badge text-bg-primary">
-              {{ groupName }}
+              {{ guestDetailsDto.groupName }}
             </span>
-          {% endfor %}
+          {% endif %}
         </td>
       </tr>
 
@@ -165,7 +165,21 @@
         </td>
 
         <td>
-          {{ guestDetailsDto.tableName }}
+          {% if guestDetailsDto.tableName is not null %}
+            <span class="badge text-bg-primary">
+              {{ guestDetailsDto.tableName }}
+            </span>
+          {% endif %}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'order-no'|trans }}
+        </td>
+
+        <td>
+          {{ guestDetailsDto.orderNo }}
         </td>
       </tr>
     </tbody>

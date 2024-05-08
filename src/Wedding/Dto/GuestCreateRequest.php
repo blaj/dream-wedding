@@ -33,13 +33,6 @@ class GuestCreateRequest {
 
   private ?string $note = null;
 
-  /**
-   * @var array<int>
-   */
-  private array $groups = [];
-
-  private ?int $table = null;
-
   #[Length(min: 9, max: 9)]
   private ?string $telephone = null;
 
@@ -48,6 +41,12 @@ class GuestCreateRequest {
 
   #[Range(min: 0)]
   private int $payment = 100;
+
+  private ?int $group = null;
+
+  private ?int $table = null;
+
+  private int $orderNo = 0;
 
   public function getFirstName(): string {
     return $this->firstName;
@@ -169,18 +168,12 @@ class GuestCreateRequest {
     return $this;
   }
 
-  /**
-   * @return array<int>
-   */
-  public function getGroups(): array {
-    return $this->groups;
+  public function getGroup(): ?int {
+    return $this->group;
   }
 
-  /**
-   * @param array<int> $groups
-   */
-  public function setGroups(array $groups): self {
-    $this->groups = $groups;
+  public function setGroup(?int $group): self {
+    $this->group = $group;
 
     return $this;
   }
@@ -191,6 +184,16 @@ class GuestCreateRequest {
 
   public function setTable(?int $table): self {
     $this->table = $table;
+
+    return $this;
+  }
+
+  public function getOrderNo(): int {
+    return $this->orderNo;
+  }
+
+  public function setOrderNo(int $orderNo): self {
+    $this->orderNo = $orderNo;
 
     return $this;
   }

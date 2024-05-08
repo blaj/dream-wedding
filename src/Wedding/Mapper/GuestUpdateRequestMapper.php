@@ -26,16 +26,8 @@ class GuestUpdateRequestMapper {
         ->setTelephone($guest->getTelephone())
         ->setEmail($guest->getEmail())
         ->setPayment($guest->getPayment())
-        ->setGroups(self::groups($guest->getGroups()->toArray()))
-        ->setTable($guest->getTable()?->getId());
-  }
-
-  /**
-   * @param array<GuestGroup> $guestGroups
-   *
-   * @return array<int>
-   */
-  private static function groups(array $guestGroups): array {
-    return array_map(fn (GuestGroup $guestGroup) => $guestGroup->getId(), $guestGroups);
+        ->setGroup($guest->getGroup()?->getId())
+        ->setTable($guest->getTable()?->getId())
+        ->setOrderNo($guest->getOrderNo());
   }
 }

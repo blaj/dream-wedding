@@ -4,7 +4,7 @@ import axios from 'axios';
 import Routing from 'fos-router';
 import { TemplateUtils } from '@assets/common';
 
-export default class extends Controller<HTMLElement> {
+export abstract class DragAndDropController extends Controller<HTMLElement> {
   static values = { weddingId: Number };
 
   declare readonly weddingIdValue: number;
@@ -29,8 +29,8 @@ export default class extends Controller<HTMLElement> {
   private onAdd = (event: SortableEvent): void => {
     axios
       .put(
-        Routing.generate('wedding_task_ajax_update_group', {
-          id: parseInt(event.item.getAttribute('data-task-id')),
+        Routing.generate(this.updateGroupRoute, {
+          id: parseInt(event.item.getAttribute(this.idAttribute)),
           weddingId: this.weddingIdValue
         }),
         { groupId: parseInt(event.to.getAttribute('data-group-id')) }
@@ -54,14 +54,14 @@ export default class extends Controller<HTMLElement> {
       return;
     }
 
-    event.from.innerHTML = TemplateUtils.emptyListRow(5);
+    event.from.innerHTML = TemplateUtils.emptyListRow(this.emptyRowColspan);
   };
 
   private onUpdate = (event: SortableEvent): void => {
     axios
       .put(
-        Routing.generate('wedding_task_ajax_update_order_no', {
-          id: parseInt(event.item.getAttribute('data-task-id')),
+        Routing.generate(this.updateOrderNoRoute, {
+          id: parseInt(event.item.getAttribute(this.idAttribute)),
           weddingId: this.weddingIdValue
         }),
         { orderNo: event.newIndex }
@@ -70,4 +70,9 @@ export default class extends Controller<HTMLElement> {
         alert('Wystąpił błąd wewnętrzny serwera. Skontaktuj się z pomocą.');
       });
   };
+
+  abstract get updateGroupRoute(): string;
+  abstract get updateOrderNoRoute(): string;
+  abstract get idAttribute(): string;
+  abstract get emptyRowColspan(): number;
 }
