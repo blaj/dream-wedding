@@ -70,7 +70,7 @@ class Guest extends AuditingEntity implements WeddingContextInterface {
   #[Column(name: 'order_no', type: Types::SMALLINT, nullable: false, options: ['default' => 0])]
   private int $orderNo = 0;
 
-  #[ManyToOne(targetEntity: GuestGroup::class, fetch: 'LAZY', inversedBy: 'tasks')]
+  #[ManyToOne(targetEntity: GuestGroup::class, fetch: 'LAZY', inversedBy: 'guests')]
   #[JoinColumn(name: 'group_id', referencedColumnName: 'id', nullable: true, columnDefinition: 'BIGINT')]
   private ?GuestGroup $group;
 
