@@ -28,6 +28,6 @@ class GuestUpdateRequestMapper {
         ->setPayment($guest->getPayment())
         ->setGroup($guest->getGroup()?->getId())
         ->setTable($guest->getTable()?->getId())
-        ->setOrderNo($guest->getGroupOrderNo());
+        ->setGroupOrderNo($guest->getGroupOrderNo());
   }
 }

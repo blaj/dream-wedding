@@ -46,7 +46,9 @@ class GuestCreateRequest {
 
   private ?int $table = null;
 
-  private int $orderNo = 0;
+  private int $groupOrderNo = 0;
+
+  private int $tableOrderNo = 0;
 
   public function getFirstName(): string {
     return $this->firstName;
@@ -188,12 +190,22 @@ class GuestCreateRequest {
     return $this;
   }
 
-  public function getOrderNo(): int {
-    return $this->orderNo;
+  public function getGroupOrderNo(): int {
+    return $this->groupOrderNo;
   }
 
-  public function setOrderNo(int $orderNo): self {
-    $this->orderNo = $orderNo;
+  public function setGroupOrderNo(int $groupOrderNo): self {
+    $this->groupOrderNo = $groupOrderNo;
+
+    return $this;
+  }
+
+  public function getTableOrderNo(): int {
+    return $this->tableOrderNo;
+  }
+
+  public function setTableOrderNo(int $tableOrderNo): self {
+    $this->tableOrderNo = $tableOrderNo;
 
     return $this;
   }

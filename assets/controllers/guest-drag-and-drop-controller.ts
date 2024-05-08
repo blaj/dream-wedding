@@ -10,7 +10,7 @@ export default class extends DragAndDropController {
   }
 
   get updateOrderNoRoute(): string {
-    return 'wedding_guest_ajax_update_order_no';
+    return 'wedding_guest_ajax_update_group_order_no';
   }
 
   get emptyRowColspan(): number {
