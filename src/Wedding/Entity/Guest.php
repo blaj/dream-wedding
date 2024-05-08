@@ -67,12 +67,15 @@ class Guest extends AuditingEntity implements WeddingContextInterface {
   #[JoinColumn(name: 'tables_id', referencedColumnName: 'id', nullable: true, columnDefinition: 'BIGINT')]
   private ?Table $table = null;
 
-  #[Column(name: 'order_no', type: Types::SMALLINT, nullable: false, options: ['default' => 0])]
-  private int $orderNo = 0;
+  #[Column(name: 'group_order_no', type: Types::SMALLINT, nullable: false, options: ['default' => 0])]
+  private int $groupOrderNo = 0;
 
   #[ManyToOne(targetEntity: GuestGroup::class, fetch: 'LAZY', inversedBy: 'guests')]
   #[JoinColumn(name: 'group_id', referencedColumnName: 'id', nullable: true, columnDefinition: 'BIGINT')]
   private ?GuestGroup $group;
+
+  #[Column(name: 'table_order_no', type: Types::SMALLINT, nullable: false, options: ['default' => 0])]
+  private int $tableOrderNo = 0;
 
   /**
    * @var Collection<int, GuestContact>
@@ -224,12 +227,12 @@ class Guest extends AuditingEntity implements WeddingContextInterface {
     return $this;
   }
 
-  public function getOrderNo(): int {
-    return $this->orderNo;
+  public function getGroupOrderNo(): int {
+    return $this->groupOrderNo;
   }
 
-  public function setOrderNo(int $orderNo): self {
-    $this->orderNo = $orderNo;
+  public function setGroupOrderNo(int $groupOrderNo): self {
+    $this->groupOrderNo = $groupOrderNo;
 
     return $this;
   }
@@ -240,6 +243,16 @@ class Guest extends AuditingEntity implements WeddingContextInterface {
 
   public function setGroup(?GuestGroup $group): self {
     $this->group = $group;
+
+    return $this;
+  }
+
+  public function getTableOrderNo(): int {
+    return $this->tableOrderNo;
+  }
+
+  public function setTableOrderNo(int $tableOrderNo): self {
+    $this->tableOrderNo = $tableOrderNo;
 
     return $this;
   }

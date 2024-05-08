@@ -56,4 +56,42 @@ class GuestAjaxController extends AbstractController {
 
     return $this->json([]);
   }
+
+  #[Route(
+      path: '/{id}/update-table',
+      name: 'update_table',
+      requirements: ['id' => '\d+'],
+      options: ['expose' => true],
+      methods: ['PUT'])]
+  public function updateTable(
+      int $weddingId,
+      int $id,
+      #[MapRequestPayload] UpdateGroupRequest $updateGroupRequest,
+      UserData $userData): Response {
+    $this->guestService->updateTable(
+        $id,
+        $updateGroupRequest->groupId,
+        $userData->getUserId());
+
+    return $this->json([]);
+  }
+
+  #[Route(
+      path: '/{id}/update-table-order-no',
+      name: 'update_table_order_no',
+      requirements: ['id' => '\d+'],
+      options: ['expose' => true],
+      methods: ['PUT'])]
+  public function updateTableOrderNo(
+      int $weddingId,
+      int $id,
+      #[MapRequestPayload] UpdateOrderNoRequest $updateOrderNoRequest,
+      UserData $userData): Response {
+    $this->guestService->updateTableOrderNo(
+        $id,
+        $updateOrderNoRequest->orderNo,
+        $userData->getUserId());
+
+    return $this->json([]);
+  }
 }

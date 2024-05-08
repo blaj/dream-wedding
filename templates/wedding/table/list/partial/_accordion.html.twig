@@ -1,0 +1,95 @@
+<div class="accordion">
+  <div class="accordion-item mb-3">
+    <div class="d-flex justify-content-between">
+      <h2 class="accordion-header flex-fill">
+        <button
+            class="accordion-button fw-bold"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#task-group-{{ accordionItemId }}"
+            aria-expanded="true">
+          {{ accordionItemName }}
+        </button>
+      </h2>
+
+      <div class="dropdown align-self-center">
+        <button class="btn text-primary border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-gear"></i>
+        </button>
+
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="{{ path('wedding_table_details', { weddingId: weddingId, id: groupId }) }}">
+              {{ 'details'|trans }}
+            </a>
+          </li>
+
+          <li>
+            <a class="dropdown-item" href="{{ path('wedding_table_update', { weddingId: weddingId, id: groupId }) }}">
+              {{ 'edit'|trans }}
+            </a>
+          </li>
+
+          <li>
+            <form
+                action="{{ path('wedding_table_delete', { weddingId: weddingId, id: groupId }) }}"
+                method="post">
+              <button type="submit" class="dropdown-item">
+                {{ 'delete'|trans }}
+              </button>
+
+              <input type="hidden" name="_method" value="DELETE">
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="task-group-{{ accordionItemId }}" class="accordion-collapse collapse show">
+      <div class="accordion-body table-responsive">
+        <table class="table table-hove">
+          <thead>
+            <tr>
+              <th>
+                #
+              </th>
+
+              <th>
+                {{ 'first-name'|trans }}
+              </th>
+
+              <th>
+                {{ 'last-name'|trans }}
+              </th>
+            </tr>
+          </thead>
+
+          <tbody
+              data-controller="table-drag-and-drop"
+              data-task-drag-and-drop-wedding-id-value="{{ weddingId }}"
+              data-group-id="{{ groupId }}">
+            {% if guestsListItemDto|length == 0 %}
+              {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 3 } only %}
+            {% endif %}
+
+            {% for guestDto in guestsListItemDto %}
+              <tr data-guest-id="{{ guestDto.id }}">
+                <td>
+                  <i class="bi bi-list handle"></i>
+                </td>
+
+                <td>
+                  {{ guestDto.firstName }}
+                </td>
+
+                <td>
+                  {{ guestDto.lastName }}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

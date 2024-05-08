@@ -84,7 +84,7 @@ class GuestService {
         ->setPayment($guestCreateRequest->getPayment())
         ->setGroup($group)
         ->setTable($table)
-        ->setOrderNo($guestCreateRequest->getOrderNo());
+        ->setGroupOrderNo($guestCreateRequest->getOrderNo());
 
     $this->guestRepository->save($guest);
   }
@@ -116,7 +116,7 @@ class GuestService {
         ->setPayment($guestUpdateRequest->getPayment())
         ->setGroup($group)
         ->setTable($table)
-        ->setOrderNo($guestUpdateRequest->getOrderNo());
+        ->setGroupOrderNo($guestUpdateRequest->getOrderNo());
 
     $this->guestRepository->save($guest);
   }
@@ -136,7 +136,24 @@ class GuestService {
   public function updateOrderNo(int $id, int $orderNo, int $userId): void {
     $guest = $this->guestFetchService->fetchGuest($id, $userId);
 
-    $guest->setOrderNo($orderNo);
+    $guest->setGroupOrderNo($orderNo);
+
+    $this->guestRepository->save($guest);
+  }
+
+  public function updateTable(int $id, int $tableId, int $userId): void {
+    $guest = $this->guestFetchService->fetchGuest($id, $userId);
+    $table = $this->tableFetchService->fetchTable($tableId, $userId);
+
+    $guest->setTable($table);
+
+    $this->guestRepository->save($guest);
+  }
+
+  public function updateTableOrderNo(int $id, int $orderNo, int $userId): void {
+    $guest = $this->guestFetchService->fetchGuest($id, $userId);
+
+    $guest->setTableOrderNo($orderNo);
 
     $this->guestRepository->save($guest);
   }
