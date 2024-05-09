@@ -64,7 +64,8 @@ class TableController extends AbstractController {
     $form =
         $this->createForm(
             TableCreateFormType::class,
-            $tableCreateRequest = new TableCreateRequest());
+            $tableCreateRequest = new TableCreateRequest(),
+            ['weddingId' => $weddingId, 'userId' => $userData->getUserId()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -101,7 +102,7 @@ class TableController extends AbstractController {
         $this->createForm(
             TableUpdateFormType::class,
             $tableUpdateRequest,
-            ['method' => 'PUT']);
+            ['method' => 'PUT', 'weddingId' => $weddingId, 'userId' => $userData->getUserId()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

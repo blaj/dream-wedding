@@ -28,6 +28,11 @@ class TaskCreateRequest {
 
   private int $orderNo = 0;
 
+  /**
+   * @var array<int>
+   */
+  private array $guests = [];
+
   public function getName(): string {
     return $this->name;
   }
@@ -104,6 +109,22 @@ class TaskCreateRequest {
 
   public function setOrderNo(int $orderNo): self {
     $this->orderNo = $orderNo;
+
+    return $this;
+  }
+
+  /**
+   * @return array<int>
+   */
+  public function getGuests(): array {
+    return $this->guests;
+  }
+
+  /**
+   * @param array<int> $guests
+   */
+  public function setGuests(array $guests): self {
+    $this->guests = $guests;
 
     return $this;
   }

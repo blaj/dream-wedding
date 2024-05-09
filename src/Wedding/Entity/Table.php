@@ -111,6 +111,7 @@ class Table extends AuditingEntity implements WeddingContextInterface {
 
   public function addGuest(Guest $guest): self {
     if (!$this->guests->contains($guest)) {
+      $guest->setTable($this);
       $this->guests->add($guest);
     }
 
@@ -118,6 +119,7 @@ class Table extends AuditingEntity implements WeddingContextInterface {
   }
 
   public function removeGuest(Guest $guest): self {
+    $guest->setTable(null);
     $this->guests->removeElement($guest);
 
     return $this;
