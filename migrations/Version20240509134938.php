@@ -15,7 +15,6 @@ final class Version20240509134938 extends AbstractMigration {
 
   public function up(Schema $schema): void {
     $this->addSql('DROP TABLE wedding.guest_contact;');
-
   }
 
   public function down(Schema $schema): void {
