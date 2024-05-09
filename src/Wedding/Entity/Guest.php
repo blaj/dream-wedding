@@ -77,16 +77,6 @@ class Guest extends AuditingEntity implements WeddingContextInterface {
   #[Column(name: 'table_order_no', type: Types::SMALLINT, nullable: false, options: ['default' => 0])]
   private int $tableOrderNo = 0;
 
-  /**
-   * @var Collection<int, GuestContact>
-   */
-  #[OneToMany(targetEntity: GuestContact::class, mappedBy: 'guest', fetch: 'LAZY')]
-  private Collection $contacts;
-
-  public function __construct() {
-    $this->contacts = new ArrayCollection();
-  }
-
   public function getFirstName(): string {
     return $this->firstName;
   }
@@ -253,36 +243,6 @@ class Guest extends AuditingEntity implements WeddingContextInterface {
 
   public function setTableOrderNo(int $tableOrderNo): self {
     $this->tableOrderNo = $tableOrderNo;
-
-    return $this;
-  }
-
-  /**
-   * @return Collection<int, GuestContact>
-   */
-  public function getContacts(): Collection {
-    return $this->contacts;
-  }
-
-  /**
-   * @param Collection<int, GuestContact> $contacts
-   */
-  public function setContacts(Collection $contacts): self {
-    $this->contacts = $contacts;
-
-    return $this;
-  }
-
-  public function addContact(GuestContact $contact): self {
-    if (!$this->contacts->contains($contact)) {
-      $this->contacts->add($contact);
-    }
-
-    return $this;
-  }
-
-  public function removeContact(GuestContact $contact): self {
-    $this->contacts->removeElement($contact);
 
     return $this;
   }
