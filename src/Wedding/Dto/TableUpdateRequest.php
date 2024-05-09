@@ -20,6 +20,11 @@ class TableUpdateRequest {
   #[GreaterThanOrEqual(1)]
   private int $numberOfSeats = 1;
 
+  /**
+   * @var array<int>
+   */
+  private array $guests = [];
+
   public function getName(): string {
     return $this->name;
   }
@@ -56,6 +61,22 @@ class TableUpdateRequest {
 
   public function setNumberOfSeats(int $numberOfSeats): self {
     $this->numberOfSeats = $numberOfSeats;
+
+    return $this;
+  }
+
+  /**
+   * @return array<int>
+   */
+  public function getGuests(): array {
+    return $this->guests;
+  }
+
+  /**
+   * @param array<int> $guests
+   */
+  public function setGuests(array $guests): self {
+    $this->guests = $guests;
 
     return $this;
   }
