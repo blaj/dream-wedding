@@ -89,6 +89,13 @@ class TableService {
     array_walk($addedGuests, fn (Guest $guest) => $table->addGuest($guest));
     array_walk($removedGuests, fn (Guest $guest) => $table->removeGuest($guest));
 
+    $this->tableRepository->save($table);
+  }
+
+  public function updateName(int $id, string $name, int $userId): void {
+    $table = $this->tableFetchService->fetchTable($id, $userId);
+
+    $table->setName($name);
 
     $this->tableRepository->save($table);
   }

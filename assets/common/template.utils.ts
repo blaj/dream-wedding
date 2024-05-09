@@ -10,3 +10,13 @@ export const emptyListRow = (emptyRowColspan: number): string =>
   `    ${trans(EMPTY_LIST)}` +
   `  </td>` +
   `</tr>`;
+
+export const hide = (element: HTMLElement): void => {
+  element.classList.add('d-none');
+  element.classList.remove('d-block');
+};
+
+export const show = (element: HTMLElement): void => {
+  element.classList.add('d-block');
+  element.classList.remove('d-none');
+};
