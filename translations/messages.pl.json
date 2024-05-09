@@ -157,5 +157,7 @@
   "group": "Grupa",
   "order-no": "Kolejność na liście",
   "group-order-no": "Kolejność w grupie",
-  "table-order-no": "Kolejność w stole"
+  "table-order-no": "Kolejność w stole",
+  "rename": "Zmień nazwę",
+  "cancel": "Anuluj"
 }

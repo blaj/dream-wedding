@@ -157,5 +157,7 @@
   "group": "Group",
   "order-no": "List order",
   "group-order-no": "Group order",
-  "table-order-no": "Table order"
+  "table-order-no": "Table order",
+  "rename": "Rename",
+  "cancel": "Cancel"
 }
