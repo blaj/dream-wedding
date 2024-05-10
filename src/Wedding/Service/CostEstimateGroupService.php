@@ -7,7 +7,7 @@ use App\Wedding\Dto\CostEstimateGroupDetailsDto;
 use App\Wedding\Dto\CostEstimateGroupListItemDto;
 use App\Wedding\Dto\CostEstimateGroupUpdateRequest;
 use App\Wedding\Entity\CostEstimateGroup;
-use App\Wedding\Entity\WeddingCostEstimate;
+use App\Wedding\Entity\CostEstimate;
 use App\Wedding\Mapper\CostEstimateGroupDetailsDtoMapper;
 use App\Wedding\Mapper\CostEstimateGroupListItemDtoMapper;
 use App\Wedding\Mapper\CostEstimateGroupUpdateRequestMapper;
@@ -18,7 +18,7 @@ class CostEstimateGroupService {
   public function __construct(
       private readonly WeddingFetchService $weddingFetchService,
       private readonly CostEstimateGroupFetchService $costEstimateGroupFetchService,
-      private readonly WeddingCostEstimateFetchService $weddingCostEstimateFetchService,
+      private readonly CostEstimateFetchService $weddingCostEstimateFetchService,
       private readonly CostEstimateGroupRepository $costEstimateGroupRepository) {}
 
   /**
@@ -51,7 +51,7 @@ class CostEstimateGroupService {
     $costEstimates =
         array_map(
             fn (
-                int $costEstimateId) => $this->weddingCostEstimateFetchService->fetchWeddingCostEstimate(
+                int $costEstimateId) => $this->weddingCostEstimateFetchService->fetchCostEstimate(
                 $costEstimateId,
                 $userId),
             $costEstimateGroupCreateRequest->getCostEstimates());
@@ -63,7 +63,7 @@ class CostEstimateGroupService {
 
     array_walk(
         $costEstimates,
-        fn (WeddingCostEstimate $costEstimate) => $costEstimateGroup->addCostEstimate(
+        fn (CostEstimate $costEstimate) => $costEstimateGroup->addCostEstimate(
             $costEstimate));
 
     $this->costEstimateGroupRepository->save($costEstimateGroup);
@@ -77,7 +77,7 @@ class CostEstimateGroupService {
     $addedCostEstimates =
         array_map(
             fn (
-                int $costEstimateId) => $this->weddingCostEstimateFetchService->fetchWeddingCostEstimate(
+                int $costEstimateId) => $this->weddingCostEstimateFetchService->fetchCostEstimate(
                 $costEstimateId,
                 $userId),
             array_filter(
@@ -86,13 +86,13 @@ class CostEstimateGroupService {
                     $costEstimateId,
                     array_map(
                         fn (
-                            WeddingCostEstimate $weddingCostEstimate) => $weddingCostEstimate->getId(),
+                            CostEstimate $weddingCostEstimate) => $weddingCostEstimate->getId(),
                         $costEstimateGroup->getCostEstimates()->toArray()),
                     true)));
     $removedCostEstimates =
         array_filter(
             $costEstimateGroup->getCostEstimates()->toArray(),
-            fn (WeddingCostEstimate $costEstimate) => !in_array(
+            fn (CostEstimate $costEstimate) => !in_array(
                 $costEstimate->getId(),
                 $costEstimateGroupUpdateRequest->getCostEstimates(),
                 true));
@@ -103,11 +103,11 @@ class CostEstimateGroupService {
 
     array_walk(
         $addedCostEstimates,
-        fn (WeddingCostEstimate $costEstimate) => $costEstimateGroup->addCostEstimate(
+        fn (CostEstimate $costEstimate) => $costEstimateGroup->addCostEstimate(
             $costEstimate));
     array_walk(
         $removedCostEstimates,
-        fn (WeddingCostEstimate $costEstimate) => $costEstimateGroup->removeCostEstimate(
+        fn (CostEstimate $costEstimate) => $costEstimateGroup->removeCostEstimate(
             $costEstimate));
 
     $this->costEstimateGroupRepository->save($costEstimateGroup);

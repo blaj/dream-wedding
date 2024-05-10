@@ -64,13 +64,13 @@
   "invitation-to-wedding-management": "Zaproszenie do zarządzania weselem",
   "invitation-to-wedding-management-text": "Zostałeś/aś zaproszony/a do zarządzania weselem przez %fromEmail%. Twoja rola w tym weselu to %role%. Kliknij w przycisk poniżej aby zaakceptować zaproszenie.",
   "accept-the-invitation": "Zaackeptuj zaproszenie",
-  "wedding-cost-estimate-list": "Kosztorys",
-  "wedding-cost-estimate-details": "Szczegóły kosztu",
-  "wedding-cost-estimate-create": "Dodaj nowy koszt",
-  "wedding-cost-estimate-update": "Edycja kosztu",
-  "wedding-cost-estimate-created-successfully": "Koszt został dodany pomyślnie",
-  "wedding-cost-estimate-updated-successfully": "Koszt został zaktualizowany pomyślnie",
-  "wedding-cost-estimate-deleted-successfully": "Koszt został usunięty pomyślnie",
+  "cost-estimate-list": "Kosztorys",
+  "cost-estimate-details": "Szczegóły kosztu",
+  "cost-estimate-create": "Dodaj nowy koszt",
+  "cost-estimate-update": "Edycja kosztu",
+  "cost-estimate-created-successfully": "Koszt został dodany pomyślnie",
+  "cost-estimate-updated-successfully": "Koszt został zaktualizowany pomyślnie",
+  "cost-estimate-deleted-successfully": "Koszt został usunięty pomyślnie",
   "estimate-cost": "Zakładany koszt",
   "real-cost": "Realny koszt",
   "description": "Opis",
@@ -167,5 +167,5 @@
   "cost-estimate-group-created-successfully": "Grupa kosztów została dodana pomyślnie",
   "cost-estimate-group-updated-successfully": "Grupa kosztów została zaktualizowana pomyślnie",
   "cost-estimate-group-deleted-successfully": "Grupa kosztów została usunięta pomyślnie",
-  "wedding-cost-estimates": "Koszta"
+  "cost-estimates": "Koszta"
 }

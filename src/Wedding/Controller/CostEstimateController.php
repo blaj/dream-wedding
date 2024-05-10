@@ -5,11 +5,11 @@ namespace App\Wedding\Controller;
 use App\Common\Const\FlashMessageConst;
 use App\Common\Utils\FormUtils;
 use App\Security\Dto\UserData;
-use App\Wedding\Dto\WeddingCostEstimateCreateRequest;
-use App\Wedding\Form\Type\WeddingCostEstimateCreateFormType;
-use App\Wedding\Form\Type\WeddingCostEstimateUpdateFormType;
-use App\Wedding\Service\WeddingCostEstimateCalculationService;
-use App\Wedding\Service\WeddingCostEstimateService;
+use App\Wedding\Dto\CostEstimateCreateRequest;
+use App\Wedding\Form\Type\CostEstimateCreateFormType;
+use App\Wedding\Form\Type\CostEstimateUpdateFormType;
+use App\Wedding\Service\CostEstimateCalculationService;
+use App\Wedding\Service\CostEstimateService;
 use App\Wedding\Service\WeddingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
@@ -22,11 +22,11 @@ use Symfony\Component\Translation\TranslatableMessage;
 
 #[IsGranted(new Expression("is_authenticated()"))]
 #[Route(path: '/wedding/{weddingId}/cost-estimate', name: 'wedding_cost_estimate_', requirements: ['weddingId' => '\d+'])]
-class WeddingCostEstimateController extends AbstractController {
+class CostEstimateController extends AbstractController {
 
   public function __construct(
-      private readonly WeddingCostEstimateService $weddingCostEstimateService,
-      private readonly WeddingCostEstimateCalculationService $weddingCostEstimateCalculationService,
+      private readonly CostEstimateService $costEstimateService,
+      private readonly CostEstimateCalculationService $costEstimateCalculationService,
       private readonly WeddingService $weddingService) {}
 
   #[Route(path: '/', name: 'list', methods: ['GET'])]
@@ -38,30 +38,30 @@ class WeddingCostEstimateController extends AbstractController {
     }
 
     return $this->render(
-        'wedding/wedding-cost-estimate/list/list.html.twig',
+        'wedding/cost-estimate/list/list.html.twig',
         [
             'weddingDetailsDto' => $weddingDetailsDto,
-            'weddingCostEstimatesListItemDto' => $this->weddingCostEstimateService->getList(
+            'costEstimatesListItemDto' => $this->costEstimateService->getList(
                 $weddingId,
                 $userData->getUserId()),
-            'weddingCostEstimateCalculatedDto' => $this->weddingCostEstimateCalculationService->calculate(
+            'costEstimateCalculatedDto' => $this->costEstimateCalculationService->calculate(
                 $weddingId,
                 $userData->getUserId())]);
   }
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]
   public function details(int $weddingId, int $id, UserData $userData): Response {
-    $weddingCostEstimateDetailsDto =
-        $this->weddingCostEstimateService->getOne($id, $userData->getUserId());
+    $costEstimateDetailsDto =
+        $this->costEstimateService->getOne($id, $userData->getUserId());
 
-    if ($weddingCostEstimateDetailsDto === null) {
+    if ($costEstimateDetailsDto === null) {
       throw new NotFoundHttpException();
     }
 
     return $this->render(
-        'wedding/wedding-cost-estimate/details/details.html.twig',
+        'wedding/cost-estimate/details/details.html.twig',
         [
-            'weddingCostEstimateDetailsDto' => $weddingCostEstimateDetailsDto,
+            'costEstimateDetailsDto' => $costEstimateDetailsDto,
             'weddingId' => $weddingId]);
   }
 
@@ -69,20 +69,20 @@ class WeddingCostEstimateController extends AbstractController {
   public function create(int $weddingId, Request $request, UserData $userData): Response {
     $form =
         $this->createForm(
-            WeddingCostEstimateCreateFormType::class,
-            $weddingCostEstimateCreateRequest = new WeddingCostEstimateCreateRequest(),
+            CostEstimateCreateFormType::class,
+            $costEstimateCreateRequest = new CostEstimateCreateRequest(),
             ['weddingId' => $weddingId, 'userId' => $userData->getUserId()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->weddingCostEstimateService->create(
+      $this->costEstimateService->create(
           $weddingId,
-          $weddingCostEstimateCreateRequest,
+          $costEstimateCreateRequest,
           $userData->getUserId());
 
       $this->addFlash(
           FlashMessageConst::$success,
-          new TranslatableMessage('wedding-cost-estimate-created-successfully'));
+          new TranslatableMessage('cost-estimate-created-successfully'));
 
       return FormUtils::getRedirectResponse(
           $form,
@@ -91,7 +91,7 @@ class WeddingCostEstimateController extends AbstractController {
     }
 
     return $this->render(
-        'wedding/wedding-cost-estimate/create/create.html.twig',
+        'wedding/cost-estimate/create/create.html.twig',
         ['form' => $form, 'weddingId' => $weddingId]);
   }
 
@@ -101,29 +101,29 @@ class WeddingCostEstimateController extends AbstractController {
       requirements: ['id' => '\d+'],
       methods: ['GET', 'PUT'])]
   public function update(int $weddingId, int $id, UserData $userData, Request $request): Response {
-    $weddingCostEstimateUpdateRequest =
-        $this->weddingCostEstimateService->getUpdateRequest($id, $userData->getUserId());
+    $costEstimateUpdateRequest =
+        $this->costEstimateService->getUpdateRequest($id, $userData->getUserId());
 
-    if ($weddingCostEstimateUpdateRequest === null) {
+    if ($costEstimateUpdateRequest === null) {
       throw new NotFoundHttpException();
     }
 
     $form =
         $this->createForm(
-            WeddingCostEstimateUpdateFormType::class,
-            $weddingCostEstimateUpdateRequest,
+            CostEstimateUpdateFormType::class,
+            $costEstimateUpdateRequest,
             ['method' => 'PUT', 'weddingId' => $weddingId, 'userId' => $userData->getUserId()]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $this->weddingCostEstimateService->update(
+      $this->costEstimateService->update(
           $id,
-          $weddingCostEstimateUpdateRequest,
+          $costEstimateUpdateRequest,
           $userData->getUserId());
 
       $this->addFlash(
           FlashMessageConst::$success,
-          new TranslatableMessage('wedding-cost-estimate-updated-successfully'));
+          new TranslatableMessage('cost-estimate-updated-successfully'));
 
       return $this->redirectToRoute(
           'wedding_cost_estimate_details',
@@ -131,17 +131,17 @@ class WeddingCostEstimateController extends AbstractController {
     }
 
     return $this->render(
-        'wedding/wedding-cost-estimate/update/update.html.twig',
+        'wedding/cost-estimate/update/update.html.twig',
         ['form' => $form, 'weddingId' => $weddingId]);
   }
 
   #[Route(path: '/{id}/delete', name: 'delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
   public function delete(int $weddingId, int $id, UserData $userData): Response {
-    $this->weddingCostEstimateService->delete($id, $userData->getUserId());
+    $this->costEstimateService->delete($id, $userData->getUserId());
 
     $this->addFlash(
         FlashMessageConst::$success,
-        new TranslatableMessage('wedding-cost-estimate-deleted-successfully'));
+        new TranslatableMessage('cost-estimate-deleted-successfully'));
 
     return $this->redirectToRoute('wedding_cost_estimate_list', ['weddingId' => $weddingId]);
   }

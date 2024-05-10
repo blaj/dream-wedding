@@ -2,18 +2,18 @@
 
 namespace App\Wedding\Mapper;
 
-use App\Wedding\Dto\WeddingCostEstimateUpdateRequest;
-use App\Wedding\Entity\WeddingCostEstimate;
+use App\Wedding\Dto\CostEstimateUpdateRequest;
+use App\Wedding\Entity\CostEstimate;
 
-class WeddingCostEstimateUpdateRequestMapper {
+class CostEstimateUpdateRequestMapper {
 
   public static function map(
-      ?WeddingCostEstimate $weddingCostEstimate): ?WeddingCostEstimateUpdateRequest {
+      ?CostEstimate $weddingCostEstimate): ?CostEstimateUpdateRequest {
     if ($weddingCostEstimate === null) {
       return null;
     }
 
-    return (new WeddingCostEstimateUpdateRequest())
+    return (new CostEstimateUpdateRequest())
         ->setName($weddingCostEstimate->getName())
         ->setDescription($weddingCostEstimate->getDescription())
         ->setEstimate($weddingCostEstimate->getEstimate())

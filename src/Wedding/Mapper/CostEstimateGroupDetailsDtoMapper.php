@@ -4,7 +4,7 @@ namespace App\Wedding\Mapper;
 
 use App\Wedding\Dto\CostEstimateGroupDetailsDto;
 use App\Wedding\Entity\CostEstimateGroup;
-use App\Wedding\Entity\WeddingCostEstimate;
+use App\Wedding\Entity\CostEstimate;
 
 class CostEstimateGroupDetailsDtoMapper {
 
@@ -21,13 +21,13 @@ class CostEstimateGroupDetailsDtoMapper {
   }
 
   /**
-   * @param array<WeddingCostEstimate> $costEstimates
+   * @param array<CostEstimate> $costEstimates
    *
    * @return array<string>
    */
   private static function costEstimateNames(array $costEstimates): array {
     return array_map(
-        fn (WeddingCostEstimate $weddingCostEstimate) => $weddingCostEstimate->getName(),
+        fn (CostEstimate $weddingCostEstimate) => $weddingCostEstimate->getName(),
         $costEstimates);
   }
 }

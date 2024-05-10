@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class WeddingCostEstimateCreateRequest {
+class CostEstimateCreateRequest {
 
   #[NotBlank]
   #[Length(max: 200)]

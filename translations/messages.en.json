@@ -64,13 +64,13 @@
   "invitation-to-wedding-management": "Invitation to wedding management",
   "invitation-to-wedding-management-text": "You have been invited to manage a wedding by %fromEmail%. Your role in this wedding is %role%. Click the button below to accept the invitation.",
   "accept-the-invitation": "Accept the invitation",
-  "wedding-cost-estimate-list": "Estimate",
-  "wedding-cost-estimate-details": "Cost details",
-  "wedding-cost-estimate-create": "Add new cost",
-  "wedding-cost-estimate-update": "Editing cost",
-  "wedding-cost-estimate-created-successfully": "The cost has been added successfully",
-  "wedding-cost-estimate-updated-successfully": "The cost was updated successfully",
-  "wedding-cost-estimate-deleted-successfully": "The cost has deleted successfully",
+  "cost-estimate-list": "Estimate",
+  "cost-estimate-details": "Cost details",
+  "cost-estimate-create": "Add new cost",
+  "cost-estimate-update": "Editing cost",
+  "cost-estimate-created-successfully": "The cost has been added successfully",
+  "cost-estimate-updated-successfully": "The cost was updated successfully",
+  "cost-estimate-deleted-successfully": "The cost has deleted successfully",
   "estimate-cost": "Assumed cost",
   "real-cost": "Real cost",
   "description": "Description",
@@ -167,5 +167,5 @@
   "cost-estimate-group-created-successfully": "The cost group has been added successfully",
   "cost-estimate-group-updated-successfully": "The cost group was updated successfully",
   "cost-estimate-group-deleted-successfully": "The cost group has deleted successfully",
-  "wedding-cost-estimates": "Costs"
+  "cost-estimates": "Costs"
 }

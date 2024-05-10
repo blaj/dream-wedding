@@ -4,7 +4,7 @@ namespace App\Wedding\Dto;
 
 use Money\Money;
 
-readonly class WeddingCostEstimateCalculatedDto {
+readonly class CostEstimateCalculatedDto {
 
   public function __construct(
       public Money $estimateCost,

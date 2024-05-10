@@ -5,7 +5,7 @@ namespace App\Wedding\Dto;
 use App\Wedding\Entity\Enum\UnitType;
 use Money\Money;
 
-readonly class WeddingCostEstimateDetailsDto {
+readonly class CostEstimateDetailsDto {
 
   public function __construct(
       public int $id,

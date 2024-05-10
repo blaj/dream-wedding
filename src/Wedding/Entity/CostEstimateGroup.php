@@ -30,9 +30,9 @@ class CostEstimateGroup extends AuditingEntity implements WeddingContextInterfac
   private Wedding $wedding;
 
   /**
-   * @var Collection<int, WeddingCostEstimate>
+   * @var Collection<int, CostEstimate>
    */
-  #[OneToMany(targetEntity: WeddingCostEstimate::class, mappedBy: 'group', fetch: 'LAZY')]
+  #[OneToMany(targetEntity: CostEstimate::class, mappedBy: 'group', fetch: 'LAZY')]
   private Collection $costEstimates;
 
   public function __construct() {
@@ -70,14 +70,14 @@ class CostEstimateGroup extends AuditingEntity implements WeddingContextInterfac
   }
 
   /**
-   * @return Collection<int, WeddingCostEstimate>
+   * @return Collection<int, CostEstimate>
    */
   public function getCostEstimates(): Collection {
     return $this->costEstimates;
   }
 
   /**
-   * @param Collection<int, WeddingCostEstimate> $costEstimates
+   * @param Collection<int, CostEstimate> $costEstimates
    */
   public function setCostEstimates(Collection $costEstimates): self {
     $this->costEstimates = $costEstimates;
@@ -85,7 +85,7 @@ class CostEstimateGroup extends AuditingEntity implements WeddingContextInterfac
     return $this;
   }
 
-  public function addCostEstimate(WeddingCostEstimate $costEstimate): self {
+  public function addCostEstimate(CostEstimate $costEstimate): self {
     if (!$this->costEstimates->contains($costEstimate)) {
       $costEstimate->setGroup($this);
       $this->costEstimates->add($costEstimate);
@@ -94,7 +94,7 @@ class CostEstimateGroup extends AuditingEntity implements WeddingContextInterfac
     return $this;
   }
 
-  public function removeCostEstimate(WeddingCostEstimate $costEstimate): self {
+  public function removeCostEstimate(CostEstimate $costEstimate): self {
     $costEstimate->setGroup(null);
     $this->costEstimates->removeElement($costEstimate);
 
