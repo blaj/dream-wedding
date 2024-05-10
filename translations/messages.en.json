@@ -159,5 +159,13 @@
   "group-order-no": "Group order",
   "table-order-no": "Table order",
   "rename": "Rename",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "cost-estimate-group-list": "Cost groups",
+  "cost-estimate-group-details": "Cost group details",
+  "cost-estimate-group-create": "Add new cost group",
+  "cost-estimate-group-update": "Editing cost group",
+  "cost-estimate-group-created-successfully": "The cost group has been added successfully",
+  "cost-estimate-group-updated-successfully": "The cost group was updated successfully",
+  "cost-estimate-group-deleted-successfully": "The cost group has deleted successfully",
+  "wedding-cost-estimates": "Costs"
 }

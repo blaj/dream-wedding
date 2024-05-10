@@ -17,6 +17,7 @@ class WeddingCostEstimateService {
   public function __construct(
       private readonly WeddingFetchService $weddingFetchService,
       private readonly WeddingCostEstimateFetchService $weddingCostEstimateFetchService,
+      private readonly CostEstimateGroupFetchService $costEstimateGroupFetchService,
       private readonly WeddingCostEstimateRepository $weddingCostEstimateRepository) {}
 
   /**
@@ -47,6 +48,12 @@ class WeddingCostEstimateService {
       WeddingCostEstimateCreateRequest $weddingCostEstimateCreateRequest,
       int $userId): void {
     $wedding = $this->weddingFetchService->fetchWedding($weddingId, $userId);
+    $group =
+        $weddingCostEstimateCreateRequest->getGroup() !== null
+            ? $this->costEstimateGroupFetchService->fetchCostEstimateGroup(
+            $weddingCostEstimateCreateRequest->getGroup(),
+            $userId)
+            : null;
 
     $weddingCostEstimate = (new WeddingCostEstimate())
         ->setWedding($wedding)
@@ -57,7 +64,8 @@ class WeddingCostEstimateService {
         ->setCurrency($weddingCostEstimateCreateRequest->getReal()->getCurrency())
         ->setQuantity($weddingCostEstimateCreateRequest->getQuantity())
         ->setUnitType($weddingCostEstimateCreateRequest->getUnitType())
-        ->setDependsOnGuests($weddingCostEstimateCreateRequest->isDependsOnGuests());
+        ->setDependsOnGuests($weddingCostEstimateCreateRequest->isDependsOnGuests())
+        ->setGroup($group);
 
     $this->weddingCostEstimateRepository->save($weddingCostEstimate);
   }
@@ -68,6 +76,12 @@ class WeddingCostEstimateService {
       int $userId): void {
     $weddingCostEstimate =
         $this->weddingCostEstimateFetchService->fetchWeddingCostEstimate($id, $userId);
+    $group =
+        $weddingCostEstimateUpdateRequest->getGroup() !== null
+            ? $this->costEstimateGroupFetchService->fetchCostEstimateGroup(
+            $weddingCostEstimateUpdateRequest->getGroup(),
+            $userId)
+            : null;
 
     $weddingCostEstimate
         ->setName($weddingCostEstimateUpdateRequest->getName())
@@ -76,7 +90,8 @@ class WeddingCostEstimateService {
         ->setReal($weddingCostEstimateUpdateRequest->getReal())
         ->setQuantity($weddingCostEstimateUpdateRequest->getQuantity())
         ->setUnitType($weddingCostEstimateUpdateRequest->getUnitType())
-        ->setDependsOnGuests($weddingCostEstimateUpdateRequest->isDependsOnGuests());
+        ->setDependsOnGuests($weddingCostEstimateUpdateRequest->isDependsOnGuests())
+        ->setGroup($group);
 
     $this->weddingCostEstimateRepository->save($weddingCostEstimate);
   }

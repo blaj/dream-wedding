@@ -1,0 +1,65 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% block title %}
+  {{ 'cost-estimate-group-details'|trans }}
+{% endblock %}
+
+{% block page_heading %}
+  <h1 class="h2">
+    {{ 'cost-estimate-group-details'|trans }}
+
+    {{ costEstimateGroupDetailsDto.name }}
+  </h1>
+
+  <a
+      href="{{ path('wedding_cost_estimate_group_update', { weddingId: weddingId, id: costEstimateGroupDetailsDto.id }) }}"
+      class="btn btn-primary"
+      data-bs-toggle="tooltip"
+      data-bs-title="{{ 'edit'|trans }}">
+    <i class="bi bi-pencil"></i>
+  </a>
+{% endblock %}
+
+{% block page_content %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          {{ 'name'|trans }}
+        </td>
+
+        <td>
+          {{ costEstimateGroupDetailsDto.name }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'description'|trans }}
+        </td>
+
+        <td>
+          {{ costEstimateGroupDetailsDto.description }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'wedding-cost-estimates'|trans }}
+        </td>
+
+        <td>
+          {% for costEstimateName in costEstimateGroupDetailsDto.costEstimateNames %}
+            <span class="badge text-bg-primary">
+              {{ costEstimateName }}
+            </span>
+          {% endfor %}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="{{ path('wedding_cost_estimate_group_list', { weddingId: weddingId }) }}">
+    {{ 'back-to-list'|trans }}
+  </a>
+{% endblock %}
