@@ -1,18 +1,18 @@
 {% extends 'dashboard-base.html.twig' %}
 
 {% block title %}
-  {{ 'wedding-cost-estimate-details'|trans }}
+  {{ 'cost-estimate-details'|trans }}
 {% endblock %}
 
 {% block page_heading %}
   <h1 class="h2">
-    {{ 'wedding-cost-estimate-details'|trans }}
+    {{ 'cost-estimate-details'|trans }}
 
-    {{ weddingCostEstimateDetailsDto.name }}
+    {{ costEstimateDetailsDto.name }}
   </h1>
 
   <a
-      href="{{ path('wedding_cost_estimate_update', { weddingId: weddingId, id: weddingCostEstimateDetailsDto.id }) }}"
+      href="{{ path('wedding_cost_estimate_update', { weddingId: weddingId, id: costEstimateDetailsDto.id }) }}"
       class="btn btn-primary"
       data-bs-toggle="tooltip"
       data-bs-title="{{ 'edit'|trans }}">
@@ -29,7 +29,7 @@
         </td>
 
         <td>
-          {{ weddingCostEstimateDetailsDto.name }}
+          {{ costEstimateDetailsDto.name }}
         </td>
       </tr>
 
@@ -39,7 +39,7 @@
         </td>
 
         <td>
-          {{ weddingCostEstimateDetailsDto.description }}
+          {{ costEstimateDetailsDto.description }}
         </td>
       </tr>
 
@@ -49,7 +49,7 @@
         </td>
 
         <td>
-          {{ weddingCostEstimateDetailsDto.estimate|money_format }}
+          {{ costEstimateDetailsDto.estimate|money_format }}
         </td>
       </tr>
 
@@ -59,7 +59,7 @@
         </td>
 
         <td>
-          {{ weddingCostEstimateDetailsDto.real|money_format }}
+          {{ costEstimateDetailsDto.real|money_format }}
         </td>
       </tr>
 
@@ -69,7 +69,7 @@
         </td>
 
         <td>
-          {{ weddingCostEstimateDetailsDto.quantity }}
+          {{ costEstimateDetailsDto.quantity }}
         </td>
       </tr>
 
@@ -79,7 +79,7 @@
         </td>
 
         <td>
-          {{ weddingCostEstimateDetailsDto.unitType|trans }}
+          {{ costEstimateDetailsDto.unitType|trans }}
         </td>
       </tr>
 
@@ -89,7 +89,7 @@
         </td>
 
         <td>
-          {{ weddingCostEstimateDetailsDto.dependsOnGuests|yesOrNo }}
+          {{ costEstimateDetailsDto.dependsOnGuests|yesOrNo }}
         </td>
       </tr>
     </tbody>

@@ -26,9 +26,9 @@ class CostEstimateGroupCreateFormType extends AbstractType {
         ->add('description', TextareaType::class, ['label' => 'description', 'required' => false])
         ->add(
             'costEstimates',
-            WeddingCostEstimateChoiceFormType::class,
+            CostEstimateChoiceFormType::class,
             [
-                'label' => 'wedding-cost-estimates',
+                'label' => 'cost-estimates',
                 'required' => false,
                 'multiple' => true,
                 'weddingId' => $options['weddingId'],

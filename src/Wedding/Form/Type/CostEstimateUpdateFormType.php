@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Tbbc\MoneyBundle\Form\Type\MoneyType;
 
-class WeddingCostEstimateCreateFormType extends AbstractType {
+class CostEstimateUpdateFormType extends AbstractType {
 
   public function configureOptions(OptionsResolver $resolver): void {
     $resolver->setRequired(['weddingId', 'userId']);
@@ -26,7 +26,7 @@ class WeddingCostEstimateCreateFormType extends AbstractType {
 
   public function buildForm(FormBuilderInterface $builder, array $options): void {
     $builder
-        ->setMethod('POST')
+        ->setMethod('PUT')
         ->add('name', TextType::class, ['label' => 'name'])
         ->add('description', TextareaType::class, ['label' => 'description', 'required' => false])
         ->add('estimate', MoneyType::class, ['label' => 'estimate-cost'])
@@ -45,7 +45,6 @@ class WeddingCostEstimateCreateFormType extends AbstractType {
                 'required' => false,
                 'weddingId' => $options['weddingId'],
                 'userId' => $options['userId']])
-        ->add(FormConst::$save, SaveButtonType::class)
-        ->add(FormConst::$saveAndAdd, SaveAndAddButtonType::class);
+        ->add(FormConst::$save, SaveButtonType::class);
   }
 }

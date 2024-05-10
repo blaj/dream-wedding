@@ -5,7 +5,7 @@ namespace App\Wedding\Entity;
 use App\Common\Entity\AuditingEntity;
 use App\Common\Entity\WeddingContextInterface;
 use App\Wedding\Entity\Enum\UnitType;
-use App\Wedding\Repository\WeddingCostEstimateRepository;
+use App\Wedding\Repository\CostEstimateRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -15,9 +15,9 @@ use Doctrine\ORM\Mapping\Table;
 use Money\Currency;
 use Money\Money;
 
-#[Entity(repositoryClass: WeddingCostEstimateRepository::class)]
-#[Table(name: 'wedding_cost_estimate', schema: 'wedding')]
-class WeddingCostEstimate extends AuditingEntity implements WeddingContextInterface {
+#[Entity(repositoryClass: CostEstimateRepository::class)]
+#[Table(name: 'cost_estimate', schema: 'wedding')]
+class CostEstimate extends AuditingEntity implements WeddingContextInterface {
 
   #[ManyToOne(targetEntity: Wedding::class, fetch: 'LAZY', inversedBy: 'weddingCostEstimates')]
   #[JoinColumn(name: 'wedding_id', referencedColumnName: 'id', nullable: false, columnDefinition: 'BIGINT NOT NULL')]

@@ -60,9 +60,9 @@ class Wedding extends AuditingEntity {
   private Collection $weddingUserInvites;
 
   /**
-   * @var Collection<int, WeddingCostEstimate>
+   * @var Collection<int, CostEstimate>
    */
-  #[OneToMany(targetEntity: WeddingCostEstimate::class, mappedBy: 'wedding', fetch: 'LAZY')]
+  #[OneToMany(targetEntity: CostEstimate::class, mappedBy: 'wedding', fetch: 'LAZY')]
   private Collection $weddingCostEstimates;
 
   /**
@@ -260,14 +260,14 @@ class Wedding extends AuditingEntity {
   }
 
   /**
-   * @return Collection<int, WeddingCostEstimate>
+   * @return Collection<int, CostEstimate>
    */
   public function getWeddingCostEstimates(): Collection {
     return $this->weddingCostEstimates;
   }
 
   /**
-   * @param Collection<int, WeddingCostEstimate> $weddingCostEstimates
+   * @param Collection<int, CostEstimate> $weddingCostEstimates
    */
   public function setWeddingCostEstimates(Collection $weddingCostEstimates): self {
     $this->weddingCostEstimates = $weddingCostEstimates;
@@ -275,7 +275,7 @@ class Wedding extends AuditingEntity {
     return $this;
   }
 
-  public function addWeddingCostEstimate(WeddingCostEstimate $weddingCostEstimate): self {
+  public function addWeddingCostEstimate(CostEstimate $weddingCostEstimate): self {
     if (!$this->weddingCostEstimates->contains($weddingCostEstimate)) {
       $this->weddingCostEstimates->add($weddingCostEstimate);
     }
@@ -283,7 +283,7 @@ class Wedding extends AuditingEntity {
     return $this;
   }
 
-  public function removeWeddingCostEstimate(WeddingCostEstimate $weddingCostEstimate): self {
+  public function removeWeddingCostEstimate(CostEstimate $weddingCostEstimate): self {
     $this->weddingCostEstimates->removeElement($weddingCostEstimate);
 
     return $this;

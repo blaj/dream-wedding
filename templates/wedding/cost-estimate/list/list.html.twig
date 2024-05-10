@@ -56,43 +56,43 @@
       </thead>
 
       <tbody>
-        {% if weddingCostEstimatesListItemDto|length == 0 %}
+        {% if costEstimatesListItemDto|length == 0 %}
           {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 8 } only %}
         {% endif %}
 
-        {% for weddingCostEstimateDto in weddingCostEstimatesListItemDto %}
+        {% for costEstimateDto in costEstimatesListItemDto %}
           <tr>
             <td>
               {{ loop.index }}
             </td>
 
             <td>
-              {{ weddingCostEstimateDto.name }}
+              {{ costEstimateDto.name }}
             </td>
 
             <td>
-              {{ weddingCostEstimateDto.estimate|money_format }}
+              {{ costEstimateDto.estimate|money_format }}
             </td>
 
             <td>
-              {{ weddingCostEstimateDto.real|money_format }}
+              {{ costEstimateDto.real|money_format }}
             </td>
 
             <td>
-              {{ weddingCostEstimateDto.quantity }}
+              {{ costEstimateDto.quantity }}
             </td>
 
             <td>
-              {{ weddingCostEstimateDto.unitType|trans }}
+              {{ costEstimateDto.unitType|trans }}
             </td>
 
             <td>
-              {{ weddingCostEstimateDto.dependsOnGuests|yesOrNo }}
+              {{ costEstimateDto.dependsOnGuests|yesOrNo }}
             </td>
 
             <td class="d-flex">
               <a
-                  href="{{ path('wedding_cost_estimate_details', { weddingId: weddingDetailsDto.id, id: weddingCostEstimateDto.id }) }}"
+                  href="{{ path('wedding_cost_estimate_details', { weddingId: weddingDetailsDto.id, id: costEstimateDto.id }) }}"
                   class="btn btn-primary btn-sm me-1"
                   data-bs-toggle="tooltip"
                   data-bs-title="{{ 'details'|trans }}">
@@ -100,7 +100,7 @@
               </a>
 
               <a
-                  href="{{ path('wedding_cost_estimate_update', { weddingId: weddingDetailsDto.id, id: weddingCostEstimateDto.id }) }}"
+                  href="{{ path('wedding_cost_estimate_update', { weddingId: weddingDetailsDto.id, id: costEstimateDto.id }) }}"
                   class="btn btn-secondary btn-sm me-1"
                   data-bs-toggle="tooltip"
                   data-bs-title="{{ 'edit'|trans }}">
@@ -108,7 +108,7 @@
               </a>
 
               <form
-                  action="{{ path('wedding_cost_estimate_delete', { weddingId: weddingDetailsDto.id, id: weddingCostEstimateDto.id }) }}"
+                  action="{{ path('wedding_cost_estimate_delete', { weddingId: weddingDetailsDto.id, id: costEstimateDto.id }) }}"
                   method="post">
                 <button
                     type="submit" class="btn btn-danger btn-sm"
@@ -157,7 +157,7 @@
           </h6>
 
           <p class="card-text">
-            {{ weddingCostEstimateCalculatedDto.estimateCost|money_format }}
+            {{ costEstimateCalculatedDto.estimateCost|money_format }}
           </p>
         </div>
       </div>
@@ -175,7 +175,7 @@
           </h6>
 
           <p class="card-text">
-            {{ weddingCostEstimateCalculatedDto.realCost|money_format }}
+            {{ costEstimateCalculatedDto.realCost|money_format }}
           </p>
         </div>
       </div>
@@ -193,7 +193,7 @@
           </h6>
 
           <p class="card-text">
-            {{ weddingCostEstimateCalculatedDto.toPay|money_format }}
+            {{ costEstimateCalculatedDto.toPay|money_format }}
           </p>
         </div>
       </div>

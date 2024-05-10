@@ -2,18 +2,18 @@
 
 namespace App\Wedding\Mapper;
 
-use App\Wedding\Dto\WeddingCostEstimateListItemDto;
-use App\Wedding\Entity\WeddingCostEstimate;
+use App\Wedding\Dto\CostEstimateListItemDto;
+use App\Wedding\Entity\CostEstimate;
 
-class WeddingCostEstimateListItemDtoMapper {
+class CostEstimateListItemDtoMapper {
 
   public static function map(
-      ?WeddingCostEstimate $weddingCostEstimate): ?WeddingCostEstimateListItemDto {
+      ?CostEstimate $weddingCostEstimate): ?CostEstimateListItemDto {
     if ($weddingCostEstimate === null) {
       return null;
     }
 
-    return new WeddingCostEstimateListItemDto(
+    return new CostEstimateListItemDto(
         $weddingCostEstimate->getId(),
         $weddingCostEstimate->getName(),
         $weddingCostEstimate->getEstimate(),
