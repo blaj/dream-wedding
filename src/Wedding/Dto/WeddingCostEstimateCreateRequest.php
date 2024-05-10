@@ -27,6 +27,8 @@ class WeddingCostEstimateCreateRequest {
 
   private bool $dependsOnGuests = false;
 
+  private ?int $group = null;
+
   public function __construct() {
     $this->estimate = Money::PLN(0);
     $this->real = Money::PLN(0);
@@ -98,6 +100,16 @@ class WeddingCostEstimateCreateRequest {
 
   public function setDependsOnGuests(bool $dependsOnGuests): self {
     $this->dependsOnGuests = $dependsOnGuests;
+
+    return $this;
+  }
+
+  public function getGroup(): ?int {
+    return $this->group;
+  }
+
+  public function setGroup(?int $group): self {
+    $this->group = $group;
 
     return $this;
   }

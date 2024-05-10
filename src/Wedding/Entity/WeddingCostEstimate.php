@@ -47,6 +47,10 @@ class WeddingCostEstimate extends AuditingEntity implements WeddingContextInterf
   #[Column(name: 'depends_on_guests', type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
   private bool $dependsOnGuests = false;
 
+  #[ManyToOne(targetEntity: CostEstimateGroup::class, fetch: 'LAZY', inversedBy: 'costEstimates')]
+  #[JoinColumn(name: 'group_id', referencedColumnName: 'id', nullable: true, columnDefinition: 'BIGINT')]
+  private ?CostEstimateGroup $group;
+
   public function getWedding(): Wedding {
     return $this->wedding;
   }
@@ -134,6 +138,16 @@ class WeddingCostEstimate extends AuditingEntity implements WeddingContextInterf
 
   public function setDependsOnGuests(bool $dependsOnGuests): self {
     $this->dependsOnGuests = $dependsOnGuests;
+
+    return $this;
+  }
+
+  public function getGroup(): ?CostEstimateGroup {
+    return $this->group;
+  }
+
+  public function setGroup(?CostEstimateGroup $group): self {
+    $this->group = $group;
 
     return $this;
   }

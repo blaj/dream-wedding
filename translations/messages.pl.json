@@ -159,5 +159,13 @@
   "group-order-no": "Kolejność w grupie",
   "table-order-no": "Kolejność w stole",
   "rename": "Zmień nazwę",
-  "cancel": "Anuluj"
+  "cancel": "Anuluj",
+  "cost-estimate-group-list": "Grupy kosztów",
+  "cost-estimate-group-details": "Szczegóły grupy kosztów",
+  "cost-estimate-group-create": "Dodawanie grupy kosztów",
+  "cost-estimate-group-update": "Edycja grupy kosztów",
+  "cost-estimate-group-created-successfully": "Grupa kosztów została dodana pomyślnie",
+  "cost-estimate-group-updated-successfully": "Grupa kosztów została zaktualizowana pomyślnie",
+  "cost-estimate-group-deleted-successfully": "Grupa kosztów została usunięta pomyślnie",
+  "wedding-cost-estimates": "Koszta"
 }
