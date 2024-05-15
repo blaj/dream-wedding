@@ -23,10 +23,11 @@ class GuestGroupUpdateFormType extends AbstractType {
     $builder
         ->setMethod('PUT')
         ->add('name', TextType::class, ['label' => 'name'])
-        ->add('description', TextareaType::class, ['label' => 'description'])
+        ->add('description', TextareaType::class, ['label' => 'description', 'required' => false])
         ->add('guests', GuestChoiceFormType::class, [
             'label' => 'guests',
             'multiple' => true,
+            'required' => false,
             'weddingId' => $options['weddingId'],
             'userId' => $options['userId']])
         ->add(FormConst::$save, SaveButtonType::class);

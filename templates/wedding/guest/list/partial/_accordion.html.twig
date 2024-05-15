@@ -1,15 +1,109 @@
 <div class="accordion">
   <div class="accordion-item mb-3">
-    <h2 class="accordion-header">
-      <button
-          class="accordion-button fw-bold"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#task-group-{{ accordionItemId }}"
-          aria-expanded="true">
-        {{ accordionItemName }}
-      </button>
-    </h2>
+    <div class="d-flex justify-content-between">
+
+      <div class="accordion-header flex-fill">
+        <div
+            class="accordion-button fw-bold"
+            role="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#task-group-{{ accordionItemId }}"
+            aria-expanded="true"
+            data-controller="guest-group-rename"
+            data-guest-group-rename-id-value="{{ accordionItemId }}"
+            data-guest-group-rename-wedding-id-value="{{ weddingId }}">
+          <span data-guest-group-rename-target="text">
+            {{ accordionItemName }}
+          </span>
+
+          {% if accordionItemId != 'ungrouped' %}
+            <div
+                class="d-flex"
+                data-bs-toggle="collapse"
+                data-bs-target>
+              <button
+                  class="btn"
+                  data-action="click->guest-group-rename#clickRename"
+                  data-guest-group-rename-target="rename">
+                <i
+                    class="bi bi-input-cursor-text"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{{ 'rename'|trans }}"></i>
+              </button>
+
+              <label for="table-rename-{{ accordionItemId }}" class="visually-hidden form-label">
+                {{ 'rename'|trans }}
+              </label>
+
+              <input
+                  data-guest-group-rename-target="input"
+                  id="table-rename-{{ accordionItemId }}"
+                  class="d-none form-control"
+                  type="text"
+                  value="{{ accordionItemName }}">
+
+              <button
+                  class="btn d-none"
+                  data-action="click->guest-group-rename#clickSave"
+                  data-guest-group-rename-target="save">
+                <i
+                    class="bi bi-check-circle"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{{ 'save'|trans }}"></i>
+              </button>
+
+              <button
+                  class="btn d-none"
+                  data-action="click->guest-group-rename#clickCancel"
+                  data-guest-group-rename-target="cancel">
+                <i
+                    class="bi bi-x-circle"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{{ 'cancel'|trans }}"></i>
+              </button>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if accordionItemId != 'ungrouped' %}
+        <div class="dropdown align-self-center">
+          <button class="btn text-primary border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-gear"></i>
+          </button>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                  class="dropdown-item"
+                  href="{{ path('wedding_guest_group_details', { weddingId: weddingId, id: groupId }) }}">
+                {{ 'details'|trans }}
+              </a>
+            </li>
+
+            <li>
+              <a
+                  class="dropdown-item"
+                  href="{{ path('wedding_guest_group_update', { weddingId: weddingId, id: groupId }) }}">
+                {{ 'edit'|trans }}
+              </a>
+            </li>
+
+            <li>
+              <form
+                  action="{{ path('wedding_guest_group_delete', { weddingId: weddingId, id: groupId }) }}"
+                  method="post">
+                <button type="submit" class="dropdown-item">
+                  {{ 'delete'|trans }}
+                </button>
+
+                <input type="hidden" name="_method" value="DELETE">
+              </form>
+            </li>
+          </ul>
+        </div>
+      {% endif %}
+    </div>
 
     <div id="task-group-{{ accordionItemId }}" class="accordion-collapse collapse show">
       <div class="accordion-body table-responsive">
