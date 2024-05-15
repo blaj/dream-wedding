@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Service;
 
+use App\Common\Dto\GroupSimpleCreateRequest;
 use App\Wedding\Dto\GuestGroupCreateRequest;
 use App\Wedding\Dto\GuestGroupDetailsDto;
 use App\Wedding\Dto\GuestGroupListItemDto;
@@ -60,6 +61,21 @@ class GuestGroupService {
     $this->guestGroupRepository->save($guestGroup);
   }
 
+  public function simpleCreate(
+      int $weddingId,
+      GroupSimpleCreateRequest $groupSimpleCreateRequest,
+      int $userId): int {
+    $wedding = $this->weddingFetchService->fetchWedding($weddingId, $userId);
+
+    $guestGroup = (new GuestGroup())
+        ->setName($groupSimpleCreateRequest->getName())
+        ->setWedding($wedding);
+
+    $this->guestGroupRepository->save($guestGroup);
+
+    return $guestGroup->getId();
+  }
+
   public function update(
       int $id,
       GuestGroupUpdateRequest $guestGroupUpdateRequest,
@@ -88,7 +104,7 @@ class GuestGroupService {
 
     array_walk($addedGuests, fn (Guest $guest) => $guestGroup->addGuest($guest));
     array_walk($removedGuests, fn (Guest $guest) => $guestGroup->removeGuest($guest));
-    
+
     $this->guestGroupRepository->save($guestGroup);
   }
 

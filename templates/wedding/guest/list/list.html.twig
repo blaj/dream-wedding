@@ -10,7 +10,7 @@
   <a
       href="{{ path('wedding_guest_create', { weddingId: weddingDetailsDto.id }) }}"
       class="btn btn-primary"
-      data-bs-toggle="tooltip"
+      data-controller="tooltip"
       data-bs-title="{{ 'add'|trans }}">
     <i class="bi bi-plus-circle"></i>
   </a>
@@ -27,6 +27,8 @@
     } only %}
   {% endfor %}
 
+  <div id="created-groups-container"></div>
+
   {% include 'wedding/guest/list/partial/_accordion.html.twig' with {
     accordionItemId: 'ungrouped',
     accordionItemName: 'ungrouped'|trans,
@@ -34,6 +36,31 @@
     weddingId: weddingDetailsDto.id,
     groupId: null
   } only %}
+
+  <div class="row">
+    <div class="col-12 col-lg-4">
+      {% block groupSimpleCreateForm %}
+        {{ form_start(groupSimpleCreateForm) }}
+
+        <div class="input-group mb-3 {{ groupSimpleCreateForm.name.vars.valid ? '' : 'has-validation' }}">
+          {{ form_widget(groupSimpleCreateForm.name, {
+            attr: {
+              class: 'form-control' ~ groupSimpleCreateForm.name.vars.valid ? '' : ' is-invalid',
+              placeholder: 'new-group-name'|trans,
+              'aria-label': 'new-group-name'|trans,
+              'aria-describedby': 'group_simple_create_form_add'} }) }}
+
+          {{ form_widget(groupSimpleCreateForm.add, { attr: { class: 'btn btn-outline-primary' } }) }}
+
+          {{ form_errors(groupSimpleCreateForm.name) }}
+        </div>
+
+        {{ form_rest(groupSimpleCreateForm) }}
+
+        {{ form_end(groupSimpleCreateForm) }}
+      {% endblock %}
+    </div>
+  </div>
 
   <div class="row text-center">
     <div class="col-12 col-md-3 mb-3 mb-md-0">
@@ -152,4 +179,24 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block success_stream %}
+  <turbo-stream action="replace" targets="form[name=group_simple_create_form]">
+    <template>
+      {{ block('groupSimpleCreateForm') }}
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="append" targets="#created-groups-container">
+    <template>
+      {% include 'wedding/guest/list/partial/_accordion.html.twig' with {
+        accordionItemId: createdGuestGroupDetailsDto.id,
+        accordionItemName: createdGuestGroupDetailsDto.name,
+        guestsListItemDto: [],
+        weddingId: weddingId,
+        groupId: createdGuestGroupDetailsDto.id
+      } only %}
+    </template>
+  </turbo-stream>
 {% endblock %}
