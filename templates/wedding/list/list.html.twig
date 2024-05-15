@@ -12,7 +12,7 @@
   <a
       href="{{ path('wedding_create') }}"
       class="btn btn-primary"
-      data-bs-toggle="tooltip"
+      data-controller="tooltip"
       data-bs-title="{{ 'add'|trans }}">
     <i class="bi bi-plus-circle"></i>
   </a>
@@ -55,7 +55,7 @@
             <a
                 href="{{ path('wedding_details', { id: weddingDto.id }) }}"
                 class="btn btn-primary btn-sm me-1"
-                data-bs-toggle="tooltip"
+                data-controller="tooltip"
                 data-bs-title="{{ 'details'|trans }}">
               <i class="bi bi-eye"></i>
             </a>
@@ -63,7 +63,7 @@
             <a
                 href="{{ path('wedding_update', { id: weddingDto.id }) }}"
                 class="btn btn-secondary btn-sm me-1"
-                data-bs-toggle="tooltip"
+                data-controller="tooltip"
                 data-bs-title="{{ 'edit'|trans }}">
               <i class="bi bi-pencil"></i>
             </a>
@@ -71,7 +71,7 @@
             <form action="{{ path('wedding_delete', { id: weddingDto.id }) }}" method="post">
               <button
                   type="submit" class="btn btn-danger btn-sm"
-                  data-bs-toggle="tooltip"
+                  data-controller="tooltip"
                   data-bs-title="{{ 'delete'|trans }}">
                 <i class="bi bi-trash3"></i>
               </button>
