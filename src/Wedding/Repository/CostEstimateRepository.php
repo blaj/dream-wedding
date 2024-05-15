@@ -19,6 +19,31 @@ class CostEstimateRepository extends AbstractWeddingContextRepository {
   /**
    * @return array<CostEstimate>
    */
+  public function findAllByWeddingIdAndUserIdAndGroupIsNull(int $weddingId, int $userId): array {
+    return $this->getEntityManager()
+        ->createQuery(
+            '
+            SELECT 
+              costEstimate 
+            FROM 
+              App\Wedding\Entity\CostEstimate costEstimate 
+              INNER JOIN costEstimate.wedding wedding 
+              INNER JOIN wedding.weddingUsers weddingUsers 
+            WHERE 
+              costEstimate.deleted = false 
+              AND wedding.deleted = false 
+              AND weddingUsers.deleted = false 
+              AND costEstimate.wedding = :weddingId 
+              AND weddingUsers.user = :userId 
+              AND costEstimate.group IS NULL')
+        ->setParameter('weddingId', $weddingId, Types::INTEGER)
+        ->setParameter('userId', $userId, Types::INTEGER)
+        ->getResult();
+  }
+
+  /**
+   * @return array<CostEstimate>
+   */
   public function findAllDependsOnGuestsByWeddingIdAndUserId(int $weddingId, int $userId): array {
     return $this->getEntityManager()
         ->createQuery(

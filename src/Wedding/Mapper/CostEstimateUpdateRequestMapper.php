@@ -20,6 +20,8 @@ class CostEstimateUpdateRequestMapper {
         ->setReal($weddingCostEstimate->getReal())
         ->setQuantity($weddingCostEstimate->getQuantity())
         ->setUnitType($weddingCostEstimate->getUnitType())
-        ->setDependsOnGuests($weddingCostEstimate->isDependsOnGuests());
+        ->setDependsOnGuests($weddingCostEstimate->isDependsOnGuests())
+        ->setGroup($weddingCostEstimate->getGroup()?->getId())
+        ->setOrderNo($weddingCostEstimate->getOrderNo());
   }
 }

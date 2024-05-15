@@ -30,6 +30,8 @@ class CostEstimateUpdateRequest {
 
   private ?int $group = null;
 
+  private int $orderNo = 0;
+
   public function __construct() {
     $this->estimate = Money::PLN(0);
     $this->real = Money::PLN(0);
@@ -111,6 +113,16 @@ class CostEstimateUpdateRequest {
 
   public function setGroup(?int $group): self {
     $this->group = $group;
+
+    return $this;
+  }
+
+  public function getOrderNo(): int {
+    return $this->orderNo;
+  }
+
+  public function setOrderNo(int $orderNo): self {
+    $this->orderNo = $orderNo;
 
     return $this;
   }

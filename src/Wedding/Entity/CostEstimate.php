@@ -51,6 +51,10 @@ class CostEstimate extends AuditingEntity implements WeddingContextInterface {
   #[JoinColumn(name: 'group_id', referencedColumnName: 'id', nullable: true, columnDefinition: 'BIGINT')]
   private ?CostEstimateGroup $group;
 
+
+  #[Column(name: 'order_no', type: Types::SMALLINT, nullable: false, options: ['default' => 0])]
+  private int $orderNo = 0;
+
   public function getWedding(): Wedding {
     return $this->wedding;
   }
@@ -148,6 +152,16 @@ class CostEstimate extends AuditingEntity implements WeddingContextInterface {
 
   public function setGroup(?CostEstimateGroup $group): self {
     $this->group = $group;
+
+    return $this;
+  }
+
+  public function getOrderNo(): int {
+    return $this->orderNo;
+  }
+
+  public function setOrderNo(int $orderNo): self {
+    $this->orderNo = $orderNo;
 
     return $this;
   }
