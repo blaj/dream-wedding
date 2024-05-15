@@ -92,6 +92,14 @@ class GuestGroupService {
     $this->guestGroupRepository->save($guestGroup);
   }
 
+  public function updateName(int $id, string $name, int $userId): void {
+    $guestGroup = $this->guestGroupFetchService->fetchGuestGroup($id, $userId);
+
+    $guestGroup->setName($name);
+
+    $this->guestGroupRepository->save($guestGroup);
+  }
+
   public function delete(int $id, int $userId): void {
     $this->guestGroupRepository->softDeleteById(
         $this->guestGroupFetchService->fetchGuestGroup($id, $userId)->getId());
