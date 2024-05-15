@@ -92,6 +92,30 @@
           {{ costEstimateDetailsDto.dependsOnGuests|yesOrNo }}
         </td>
       </tr>
+
+      <tr>
+        <td>
+          {{ 'group'|trans }}
+        </td>
+
+        <td>
+          {% if costEstimateDetailsDto.groupName is not null %}
+            <span class="badge text-bg-primary">
+              {{ costEstimateDetailsDto.groupName }}
+            </span>
+          {% endif %}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'order-no'|trans }}
+        </td>
+
+        <td>
+          {{ costEstimateDetailsDto.orderNo }}
+        </td>
+      </tr>
     </tbody>
   </table>
 

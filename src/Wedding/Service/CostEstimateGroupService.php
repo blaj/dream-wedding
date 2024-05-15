@@ -113,6 +113,14 @@ class CostEstimateGroupService {
     $this->costEstimateGroupRepository->save($costEstimateGroup);
   }
 
+  public function updateName(int $id, string $name, int $userId): void {
+    $costEstimateGroup = $this->costEstimateGroupFetchService->fetchCostEstimateGroup($id, $userId);
+
+    $costEstimateGroup->setName($name);
+
+    $this->costEstimateGroupRepository->save($costEstimateGroup);
+  }
+
   public function delete(int $id, int $userId): void {
     $this->costEstimateGroupRepository->softDeleteById(
         $this->costEstimateGroupFetchService->fetchCostEstimateGroup($id, $userId)->getId());

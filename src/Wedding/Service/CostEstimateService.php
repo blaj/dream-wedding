@@ -33,6 +33,21 @@ class CostEstimateService {
         fn (?CostEstimateListItemDto $dto) => $dto !== null);
   }
 
+  /**
+   * @return array<CostEstimateListItemDto>
+   */
+  public function getUngroupedList(int $weddingId, int $userId): array {
+    return array_filter(
+        array_map(
+            fn (
+                CostEstimate $weddingCostEstimate) => CostEstimateListItemDtoMapper::map(
+                $weddingCostEstimate),
+            $this->costEstimateRepository->findAllByWeddingIdAndUserIdAndGroupIsNull(
+                $weddingId,
+                $userId)),
+        fn (?CostEstimateListItemDto $dto) => $dto !== null);
+  }
+
   public function getOne(int $id, int $userId): ?CostEstimateDetailsDto {
     return CostEstimateDetailsDtoMapper::map(
         $this->costEstimateRepository->findOneByIdAndUserId($id, $userId));
@@ -65,7 +80,8 @@ class CostEstimateService {
         ->setQuantity($costEstimateCreateRequest->getQuantity())
         ->setUnitType($costEstimateCreateRequest->getUnitType())
         ->setDependsOnGuests($costEstimateCreateRequest->isDependsOnGuests())
-        ->setGroup($group);
+        ->setGroup($group)
+        ->setOrderNo($costEstimateCreateRequest->getOrderNo());
 
     $this->costEstimateRepository->save($weddingCostEstimate);
   }
@@ -91,9 +107,30 @@ class CostEstimateService {
         ->setQuantity($costEstimateUpdateRequest->getQuantity())
         ->setUnitType($costEstimateUpdateRequest->getUnitType())
         ->setDependsOnGuests($costEstimateUpdateRequest->isDependsOnGuests())
-        ->setGroup($group);
+        ->setGroup($group)
+        ->setOrderNo($costEstimateUpdateRequest->getOrderNo());
 
     $this->costEstimateRepository->save($weddingCostEstimate);
+  }
+
+  public function updateGroup(int $id, ?int $groupId, int $userId): void {
+    $costEstimate = $this->costEstimateFetchService->fetchCostEstimate($id, $userId);
+    $group =
+        $groupId !== null
+            ? $this->costEstimateGroupFetchService->fetchCostEstimateGroup($groupId, $userId)
+            : null;
+
+    $costEstimate->setGroup($group);
+
+    $this->costEstimateRepository->save($costEstimate);
+  }
+
+  public function updateOrderNo(int $id, int $orderNo, int $userId): void {
+    $costEstimate = $this->costEstimateFetchService->fetchCostEstimate($id, $userId);
+
+    $costEstimate->setOrderNo($orderNo);
+
+    $this->costEstimateRepository->save($costEstimate);
   }
 
   public function delete(int $id, int $userId): void {

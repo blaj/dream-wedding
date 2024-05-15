@@ -8,10 +8,10 @@
             data-bs-toggle="collapse"
             data-bs-target="#task-group-{{ accordionItemId }}"
             aria-expanded="true"
-            data-controller="rename"
-            data-rename-id-value="{{ accordionItemId }}"
-            data-rename-wedding-id-value="{{ weddingId }}">
-          <span data-rename-target="text">
+            data-controller="table-rename"
+            data-table-rename-id-value="{{ accordionItemId }}"
+            data-table-rename-wedding-id-value="{{ weddingId }}">
+          <span data-table-rename-target="text">
             {{ accordionItemName }}
           </span>
 
@@ -21,8 +21,8 @@
               data-bs-target>
             <button
                 class="btn"
-                data-action="click->rename#clickRename"
-                data-rename-target="rename">
+                data-action="click->table-rename#clickRename"
+                data-table-rename-target="rename">
               <i
                   class="bi bi-input-cursor-text"
                   data-bs-toggle="tooltip"
@@ -34,7 +34,7 @@
             </label>
 
             <input
-                data-rename-target="input"
+                data-table-rename-target="input"
                 id="table-rename-{{ accordionItemId }}"
                 class="d-none form-control"
                 type="text"
@@ -42,8 +42,8 @@
 
             <button
                 class="btn d-none"
-                data-action="click->rename#clickSave"
-                data-rename-target="save">
+                data-action="click->table-rename#clickSave"
+                data-table-rename-target="save">
               <i
                   class="bi bi-check-circle"
                   data-bs-toggle="tooltip"
@@ -52,8 +52,8 @@
 
             <button
                 class="btn d-none"
-                data-action="click->rename#clickCancel"
-                data-rename-target="cancel">
+                data-action="click->table-rename#clickCancel"
+                data-table-rename-target="cancel">
               <i
                   class="bi bi-x-circle"
                   data-bs-toggle="tooltip"

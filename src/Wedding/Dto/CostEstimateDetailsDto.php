@@ -15,5 +15,7 @@ readonly class CostEstimateDetailsDto {
       public Money $real,
       public int $quantity,
       public UnitType $unitType,
-      public bool $dependsOnGuests) {}
+      public bool $dependsOnGuests,
+      public ?string $groupName,
+      public int $orderNo) {}
 }

@@ -9,6 +9,7 @@ use App\Wedding\Dto\CostEstimateCreateRequest;
 use App\Wedding\Form\Type\CostEstimateCreateFormType;
 use App\Wedding\Form\Type\CostEstimateUpdateFormType;
 use App\Wedding\Service\CostEstimateCalculationService;
+use App\Wedding\Service\CostEstimateGroupBuilderService;
 use App\Wedding\Service\CostEstimateService;
 use App\Wedding\Service\WeddingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,6 +28,7 @@ class CostEstimateController extends AbstractController {
   public function __construct(
       private readonly CostEstimateService $costEstimateService,
       private readonly CostEstimateCalculationService $costEstimateCalculationService,
+      private readonly CostEstimateGroupBuilderService $costEstimateGroupBuilderService,
       private readonly WeddingService $weddingService) {}
 
   #[Route(path: '/', name: 'list', methods: ['GET'])]
@@ -41,7 +43,10 @@ class CostEstimateController extends AbstractController {
         'wedding/cost-estimate/list/list.html.twig',
         [
             'weddingDetailsDto' => $weddingDetailsDto,
-            'costEstimatesListItemDto' => $this->costEstimateService->getList(
+            'ungroupedCostEstimatesListItemDto' => $this->costEstimateService->getUngroupedList(
+                $weddingId,
+                $userData->getUserId()),
+            'costEstimateGroupsBuildDto' => $this->costEstimateGroupBuilderService->build(
                 $weddingId,
                 $userData->getUserId()),
             'costEstimateCalculatedDto' => $this->costEstimateCalculationService->calculate(

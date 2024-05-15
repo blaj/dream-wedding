@@ -21,6 +21,8 @@ class CostEstimateDetailsDtoMapper {
         $weddingCostEstimate->getReal(),
         $weddingCostEstimate->getQuantity(),
         $weddingCostEstimate->getUnitType(),
-        $weddingCostEstimate->isDependsOnGuests());
+        $weddingCostEstimate->isDependsOnGuests(),
+        $weddingCostEstimate->getGroup()?->getName(),
+        $weddingCostEstimate->getOrderNo());
   }
 }

@@ -17,114 +17,23 @@
 {% endblock %}
 
 {% block tab_content %}
-  <div class="table-responsive mb-3">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>
-            #
-          </th>
+  {% for costEstimateGroupBuildDto in costEstimateGroupsBuildDto %}
+    {% include 'wedding/cost-estimate/list/partial/_accordion.html.twig' with {
+      accordionItemId: costEstimateGroupBuildDto.costEstimateGroupListItemDto.id,
+      accordionItemName: costEstimateGroupBuildDto.costEstimateGroupListItemDto.name,
+      costEstimatesListItemDto: costEstimateGroupBuildDto.costEstimatesListItemDto,
+      weddingId: weddingDetailsDto.id,
+      groupId: costEstimateGroupBuildDto.costEstimateGroupListItemDto.id
+    } only %}
+  {% endfor %}
 
-          <th>
-            {{ 'name'|trans }}
-          </th>
-
-          <th>
-            {{ 'estimate-cost'|trans }}
-          </th>
-
-          <th>
-            {{ 'real-cost'|trans }}
-          </th>
-
-          <th>
-            {{ 'quantity'|trans }}
-          </th>
-
-          <th>
-            {{ 'unit-type'|trans }}
-          </th>
-
-          <th>
-            {{ 'depends-on-guests'|trans }}
-          </th>
-
-          <th>
-            {{ 'actions'|trans }}
-          </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {% if costEstimatesListItemDto|length == 0 %}
-          {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 8 } only %}
-        {% endif %}
-
-        {% for costEstimateDto in costEstimatesListItemDto %}
-          <tr>
-            <td>
-              {{ loop.index }}
-            </td>
-
-            <td>
-              {{ costEstimateDto.name }}
-            </td>
-
-            <td>
-              {{ costEstimateDto.estimate|money_format }}
-            </td>
-
-            <td>
-              {{ costEstimateDto.real|money_format }}
-            </td>
-
-            <td>
-              {{ costEstimateDto.quantity }}
-            </td>
-
-            <td>
-              {{ costEstimateDto.unitType|trans }}
-            </td>
-
-            <td>
-              {{ costEstimateDto.dependsOnGuests|yesOrNo }}
-            </td>
-
-            <td class="d-flex">
-              <a
-                  href="{{ path('wedding_cost_estimate_details', { weddingId: weddingDetailsDto.id, id: costEstimateDto.id }) }}"
-                  class="btn btn-primary btn-sm me-1"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{{ 'details'|trans }}">
-                <i class="bi bi-eye"></i>
-              </a>
-
-              <a
-                  href="{{ path('wedding_cost_estimate_update', { weddingId: weddingDetailsDto.id, id: costEstimateDto.id }) }}"
-                  class="btn btn-secondary btn-sm me-1"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{{ 'edit'|trans }}">
-                <i class="bi bi-pencil"></i>
-              </a>
-
-              <form
-                  action="{{ path('wedding_cost_estimate_delete', { weddingId: weddingDetailsDto.id, id: costEstimateDto.id }) }}"
-                  method="post">
-                <button
-                    type="submit" class="btn btn-danger btn-sm"
-                    data-bs-toggle="tooltip"
-                    data-bs-title="{{ 'delete'|trans }}">
-                  <i class="bi bi-trash3"></i>
-                </button>
-
-                <input type="hidden" name="_method" value="DELETE">
-              </form>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+  {% include 'wedding/cost-estimate/list/partial/_accordion.html.twig' with {
+    accordionItemId: 'ungrouped',
+    accordionItemName: 'ungrouped'|trans,
+    costEstimatesListItemDto: ungroupedCostEstimatesListItemDto,
+    weddingId: weddingDetailsDto.id,
+    groupId: null
+  } only %}
 
   <div class="row text-center">
     <div class="col-12 col-md-3 mb-3 mb-md-0">

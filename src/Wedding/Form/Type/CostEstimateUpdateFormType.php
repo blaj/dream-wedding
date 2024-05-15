@@ -45,6 +45,7 @@ class CostEstimateUpdateFormType extends AbstractType {
                 'required' => false,
                 'weddingId' => $options['weddingId'],
                 'userId' => $options['userId']])
+        ->add('orderNo', IntegerType::class, ['label' => 'order-no'])
         ->add(FormConst::$save, SaveButtonType::class);
   }
 }

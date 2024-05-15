@@ -3,7 +3,7 @@ import { TemplateUtils } from '@assets/common';
 import axios from 'axios';
 import Routing from 'fos-router';
 
-export default class extends Controller<HTMLDivElement> {
+export abstract class RenameController extends Controller<HTMLDivElement> {
   static targets = ['text', 'input', 'rename', 'save', 'cancel'];
 
   static values = { id: Number, weddingId: Number };
@@ -28,7 +28,7 @@ export default class extends Controller<HTMLDivElement> {
   public clickSave = (): void => {
     axios
       .put(
-        Routing.generate('wedding_table_ajax_update_name', {
+        Routing.generate(this.updateNameRoute, {
           id: this.idValue,
           weddingId: this.weddingIdValue
         }),
@@ -57,4 +57,6 @@ export default class extends Controller<HTMLDivElement> {
 
     this.inputTarget.value = this.textTarget.innerText;
   };
+
+  abstract get updateNameRoute(): string;
 }
