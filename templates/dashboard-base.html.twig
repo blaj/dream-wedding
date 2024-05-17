@@ -45,9 +45,9 @@
 
           <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
             <ul class="nav flex-column">
-              {% include 'partial/_sidebar-item.html.twig' with { name: 'dashboard'|trans, iconClass: 'bi bi-house-fill', path: path('dashboard_index') } only %}
+              {% include 'partial/_sidebar-item.html.twig' with { name: 'dashboard'|trans, iconClass: 'bi bi-house-fill', routeName: 'dashboard_index', path: path('dashboard_index') } only %}
 
-              {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-list'|trans, iconClass: 'bi bi-list-task', path: path('wedding_list') } only %}
+              {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-list'|trans, iconClass: 'bi bi-list-task', routeName: 'wedding_list', path: path('wedding_list') } only %}
             </ul>
 
             <hr class="my-3">
@@ -60,28 +60,63 @@
               </h6>
 
               <ul class="nav flex-column">
-                {% include 'partial/_sidebar-item.html.twig' with { name: 'guest-list'|trans, iconClass: 'bi bi-people-fill', path: path('wedding_guest_list', { weddingId: weddingDto.id }) } only %}
+                {% include 'partial/_sidebar-item.html.twig' with { name: 'guest-list'|trans, iconClass: 'bi bi-people-fill', routeName: 'wedding_guest_list', path: path('wedding_guest_list', { weddingId: weddingDto.id }) } only %}
 
-                {% include 'partial/_sidebar-item.html.twig' with { name: 'guest-group-list'|trans, iconClass: 'bi bi-person-vcard', path: path('wedding_guest_group_list', { weddingId: weddingDto.id }) } only %}
+                {% include 'partial/_sidebar-item.html.twig' with { name: 'cost-estimate-list'|trans, iconClass: 'bi bi-cash', routeName: 'wedding_cost_estimate_list', path: path('wedding_cost_estimate_list', { weddingId: weddingDto.id }) } only %}
 
-                {% include 'partial/_sidebar-item.html.twig' with { name: 'cost-estimate-list'|trans, iconClass: 'bi bi-cash', path: path('wedding_cost_estimate_list', { weddingId: weddingDto.id }) } only %}
+                {% include 'partial/_sidebar-item.html.twig' with { name: 'table-list'|trans, iconClass: 'bi bi-tag', routeName: 'wedding_table_list', path: path('wedding_table_list', { weddingId: weddingDto.id }) } only %}
 
-                {% include 'partial/_sidebar-item.html.twig' with { name: 'table-list'|trans, iconClass: 'bi bi-tag', path: path('wedding_table_list', { weddingId: weddingDto.id }) } only %}
+                {% include 'partial/_sidebar-item.html.twig' with { name: 'task-list'|trans, iconClass: 'bi bi-list-task', routeName: 'wedding_task_list', path: path('wedding_task_list', { weddingId: weddingDto.id }) } only %}
 
-                {% include 'partial/_sidebar-item.html.twig' with { name: 'task-list'|trans, iconClass: 'bi bi-list-task', path: path('wedding_task_list', { weddingId: weddingDto.id }) } only %}
+                {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-user-list'|trans, iconClass: 'bi bi-universal-access-circle', routeName: 'wedding_user_list', path: path('wedding_user_list', { weddingId: weddingDto.id }) } only %}
 
-                {% include 'partial/_sidebar-item.html.twig' with { name: 'task-group-list'|trans, iconClass: 'bi bi-collection', path: path('wedding_task_group_list', { weddingId: weddingDto.id }) } only %}
+                <li class="nav-item dropdown">
+                  <a
+                      class="nav-link dropdown-toggle {{ getActualRouteName()|activeRouteNames(['wedding_guest_group_list', 'wedding_cost_estimate_group_list', 'wedding_task_group_list'], 'active') }}"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      role="button"
+                      aria-expanded="false">
+                    <i class="bi bi-collection"></i>
 
-                {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-user-list'|trans, iconClass: 'bi bi-universal-access-circle', path: path('wedding_user_list', { weddingId: weddingDto.id }) } only %}
+                    {{ 'groups'|trans }}
+                  </a>
+
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a
+                          class="dropdown-item {{ getActualRouteName()|activeRouteName('wedding_guest_group_list', 'active') }}"
+                          href="{{ path('wedding_guest_group_list', { weddingId: weddingDto.id }) }}">
+                        {{ 'guest-group-list'|trans }}
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                          class="dropdown-item {{ getActualRouteName()|activeRouteName('wedding_cost_estimate_group_list', 'active') }}"
+                          href="{{ path('wedding_cost_estimate_group_list', { weddingId: weddingDto.id }) }}">
+                        {{ 'cost-estimate-group-list'|trans }}
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                          class="dropdown-item {{ getActualRouteName()|activeRouteName('wedding_task_group_list', 'active') }}"
+                          href="{{ path('wedding_task_group_list', { weddingId: weddingDto.id }) }}">
+                        {{ 'task-group-list'|trans }}
+                      </a>
+                    </li>
+                  </ul>
+                </li>
               </ul>
             {% endfor %}
 
             <hr class="my-3">
 
             <ul class="nav flex-column">
-              {% include 'partial/_sidebar-item.html.twig' with { name: 'settings'|trans, iconClass: 'bi bi-gear-wide-connected', path: path('user_update_settings') } only %}
+              {% include 'partial/_sidebar-item.html.twig' with { name: 'settings'|trans, iconClass: 'bi bi-gear-wide-connected', routeName: 'user_update_settings', path: path('user_update_settings') } only %}
 
-              {% include 'partial/_sidebar-item.html.twig' with { name: 'sign-out'|trans, iconClass: 'bi bi-door-closed', path: path('security_logout') } only %}
+              {% include 'partial/_sidebar-item.html.twig' with { name: 'sign-out'|trans, iconClass: 'bi bi-door-closed', routeName: 'security_logout', path: path('security_logout') } only %}
             </ul>
           </div>
         </div>

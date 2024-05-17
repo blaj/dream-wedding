@@ -1,0 +1,24 @@
+<div class="row" id="simple-create-group-row">
+  <div class="col-12 col-lg-4">
+    {{ form_start(groupSimpleCreateForm) }}
+
+    <div class="input-group mb-3 {{ groupSimpleCreateForm.name.vars.valid ? '' : 'has-validation' }}">
+      {{ form_widget(groupSimpleCreateForm.name, {
+        attr: {
+          class: 'form-control' ~ groupSimpleCreateForm.name.vars.valid ? '' : ' is-invalid',
+          placeholder: 'new-group-name'|trans,
+          'aria-label': 'new-group-name'|trans,
+          'aria-describedby': 'group_simple_create_form_add'} }) }}
+
+      {{ form_widget(groupSimpleCreateForm.add, { attr: { class: 'btn btn-outline-primary' } }) }}
+
+      {{ form_errors(groupSimpleCreateForm.name) }}
+    </div>
+
+    {{ form_rest(groupSimpleCreateForm) }}
+
+    {{ form_end(groupSimpleCreateForm) }}
+  </div>
+</div>
+
+

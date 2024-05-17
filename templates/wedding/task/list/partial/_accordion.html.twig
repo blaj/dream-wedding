@@ -1,113 +1,206 @@
 <div class="accordion">
   <div class="accordion-item mb-3">
-    <h2 class="accordion-header">
-      <button
-          class="accordion-button fw-bold"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#task-group-{{ accordionItemId }}"
-          aria-expanded="true">
-        {{ accordionItemName }}
-      </button>
-    </h2>
+    <div class="d-flex justify-content-between">
+      <div class="accordion-header flex-fill">
+        <div
+            class="accordion-button fw-bold"
+            role="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#task-group-{{ accordionItemId }}"
+            aria-expanded="true"
+            data-controller="task-group-rename"
+            data-task-group-rename-id-value="{{ accordionItemId }}"
+            data-task-group-rename-wedding-id-value="{{ weddingId }}">
+          <span data-task-group-rename-target="text">
+            {{ accordionItemName }}
+          </span>
+
+          {% if accordionItemId != 'ungrouped' %}
+            <div
+                class="d-flex"
+                data-bs-toggle="collapse"
+                data-bs-target>
+              <button
+                  class="btn"
+                  data-action="click->task-group-rename#clickRename"
+                  data-task-group-rename-target="rename">
+                <i
+                    class="bi bi-input-cursor-text"
+                    data-controller="tooltip"
+                    data-bs-title="{{ 'rename'|trans }}"></i>
+              </button>
+
+              <label for="table-rename-{{ accordionItemId }}" class="visually-hidden form-label">
+                {{ 'rename'|trans }}
+              </label>
+
+              <input
+                  data-task-group-rename-target="input"
+                  id="table-rename-{{ accordionItemId }}"
+                  class="d-none form-control"
+                  type="text"
+                  value="{{ accordionItemName }}">
+
+              <button
+                  class="btn d-none"
+                  data-action="click->task-group-rename#clickSave"
+                  data-task-group-rename-target="save">
+                <i
+                    class="bi bi-check-circle"
+                    data-controller="tooltip"
+                    data-bs-title="{{ 'save'|trans }}"></i>
+              </button>
+
+              <button
+                  class="btn d-none"
+                  data-action="click->task-group-rename#clickCancel"
+                  data-task-group-rename-target="cancel">
+                <i
+                    class="bi bi-x-circle"
+                    data-controller="tooltip"
+                    data-bs-title="{{ 'cancel'|trans }}"></i>
+              </button>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if accordionItemId != 'ungrouped' %}
+        <div class="dropdown align-self-center">
+          <button class="btn text-primary border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-gear"></i>
+          </button>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                  class="dropdown-item"
+                  href="{{ path('wedding_task_group_details', { weddingId: weddingId, id: groupId }) }}">
+                {{ 'details'|trans }}
+              </a>
+            </li>
+
+            <li>
+              <a
+                  class="dropdown-item"
+                  href="{{ path('wedding_task_group_update', { weddingId: weddingId, id: groupId }) }}">
+                {{ 'edit'|trans }}
+              </a>
+            </li>
+
+            <li>
+              <form
+                  action="{{ path('wedding_task_group_delete', { weddingId: weddingId, id: groupId }) }}"
+                  method="post">
+                <button type="submit" class="dropdown-item">
+                  {{ 'delete'|trans }}
+                </button>
+
+                <input type="hidden" name="_method" value="DELETE">
+              </form>
+            </li>
+          </ul>
+        </div>
+      {% endif %}
+    </div>
 
     <div id="task-group-{{ accordionItemId }}" class="accordion-collapse collapse show">
       <div class="accordion-body table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th></th>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th></th>
 
-                <th>
-                  {{ 'name'|trans }}
-                </th>
+              <th>
+                {{ 'name'|trans }}
+              </th>
 
-                <th>
-                  {{ 'on-date'|trans }}
-                </th>
+              <th>
+                {{ 'on-date'|trans }}
+              </th>
 
-                <th>
-                  {{ 'completed'|trans }}
-                </th>
+              <th>
+                {{ 'completed'|trans }}
+              </th>
 
-                <th>
-                  {{ 'actions'|trans }}
-                </th>
+              <th>
+                {{ 'actions'|trans }}
+              </th>
+            </tr>
+          </thead>
+
+          <tbody
+              data-controller="task-drag-and-drop"
+              data-task-drag-and-drop-wedding-id-value="{{ weddingId }}"
+              data-group-id="{{ groupId }}">
+            {% if tasksListItemDto|length == 0 %}
+              {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 5 } only %}
+            {% endif %}
+
+            {% for taskDto in tasksListItemDto %}
+              <tr data-task-id="{{ taskDto.id }}">
+                <td>
+                  <i class="bi bi-list handle"></i>
+                </td>
+
+                <td>
+                  {{ taskDto.name }}
+                </td>
+
+                <td>
+                  {{ taskDto.onDate|dateFormat('Y-m-d H:i') }}
+                </td>
+
+                <td>
+                  <label for="task-update-completed-{{ taskDto.id }}" class="visually-hidden">
+                    {{ 'completed'|trans }}
+                  </label>
+
+                  <input
+                      data-controller="task-update-completed"
+                      data-action="task-update-completed#updateCompleted"
+                      data-task-update-completed-id-value="{{ taskDto.id }}"
+                      data-task-update-completed-wedding-id-value="{{ weddingId }}"
+                      id="task-update-completed-{{ taskDto.id }}"
+                      type="checkbox"
+                      value="1"
+                      name="updateCompleted" {{ taskDto.completed ? 'checked' : '' }}>
+                </td>
+
+                <td class="d-flex">
+                  <a
+                      href="{{ path('wedding_task_details', { weddingId: weddingId, id: taskDto.id }) }}"
+                      class="btn btn-primary btn-sm me-1"
+                      data-controller="tooltip"
+                      data-bs-title="{{ 'details'|trans }}">
+                    <i class="bi bi-eye"></i>
+                  </a>
+
+                  <a
+                      href="{{ path('wedding_task_update', { weddingId: weddingId, id: taskDto.id }) }}"
+                      class="btn btn-secondary btn-sm me-1"
+                      data-controller="tooltip"
+                      data-bs-title="{{ 'edit'|trans }}">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+
+                  <form
+                      action="{{ path('wedding_task_delete', { weddingId: weddingId, id: taskDto.id }) }}"
+                      method="post">
+                    <button
+                        type="submit" class="btn btn-danger btn-sm"
+                        data-controller="tooltip"
+                        data-bs-title="{{ 'delete'|trans }}">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+
+                    <input type="hidden" name="_method" value="DELETE">
+                  </form>
+                </td>
               </tr>
-            </thead>
-
-            <tbody
-                data-controller="task-drag-and-drop"
-                data-task-drag-and-drop-wedding-id-value="{{ weddingId }}"
-                data-group-id="{{ groupId }}">
-              {% if tasksListItemDto|length == 0 %}
-                {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 5 } only %}
-              {% endif %}
-
-              {% for taskDto in tasksListItemDto %}
-                <tr data-task-id="{{ taskDto.id }}">
-                  <td>
-                    <i class="bi bi-list handle"></i>
-                  </td>
-
-                  <td>
-                    {{ taskDto.name }}
-                  </td>
-
-                  <td>
-                    {{ taskDto.onDate|dateFormat('Y-m-d H:i') }}
-                  </td>
-
-                  <td>
-                    <label for="task-update-completed-{{ taskDto.id }}" class="visually-hidden">
-                      {{ 'completed'|trans }}
-                    </label>
-
-                    <input
-                        data-controller="task-update-completed"
-                        data-action="task-update-completed#updateCompleted"
-                        data-task-update-completed-id-value="{{ taskDto.id }}"
-                        data-task-update-completed-wedding-id-value="{{ weddingId }}"
-                        id="task-update-completed-{{ taskDto.id }}"
-                        type="checkbox"
-                        value="1"
-                        name="updateCompleted" {{ taskDto.completed ? 'checked' : '' }}>
-                  </td>
-
-                  <td class="d-flex">
-                    <a
-                        href="{{ path('wedding_task_details', { weddingId: weddingId, id: taskDto.id }) }}"
-                        class="btn btn-primary btn-sm me-1"
-                        data-controller="tooltip"
-                        data-bs-title="{{ 'details'|trans }}">
-                      <i class="bi bi-eye"></i>
-                    </a>
-
-                    <a
-                        href="{{ path('wedding_task_update', { weddingId: weddingId, id: taskDto.id }) }}"
-                        class="btn btn-secondary btn-sm me-1"
-                        data-controller="tooltip"
-                        data-bs-title="{{ 'edit'|trans }}">
-                      <i class="bi bi-pencil"></i>
-                    </a>
-
-                    <form
-                        action="{{ path('wedding_task_delete', { weddingId: weddingId, id: taskDto.id }) }}"
-                        method="post">
-                      <button
-                          type="submit" class="btn btn-danger btn-sm"
-                          data-controller="tooltip"
-                          data-bs-title="{{ 'delete'|trans }}">
-                        <i class="bi bi-trash3"></i>
-                      </button>
-
-                      <input type="hidden" name="_method" value="DELETE">
-                    </form>
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

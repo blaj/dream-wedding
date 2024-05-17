@@ -52,6 +52,32 @@
           {{ tableDetailsDto.numberOfSeats }}
         </td>
       </tr>
+
+      <tr>
+        <td>
+          {{ 'table-type'|trans }}
+        </td>
+
+        <td>
+          {{ tableDetailsDto.type|trans }}
+
+          <i class="{{ tableDetailsDto.type|tableTypeIcon }}"></i>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'guests'|trans }}
+        </td>
+
+        <td>
+          {% for guestName in tableDetailsDto.guestNames %}
+            <span class="badge text-bg-primary">
+              {{ guestName }}
+            </span>
+          {% endfor %}
+        </td>
+      </tr>
     </tbody>
   </table>
 

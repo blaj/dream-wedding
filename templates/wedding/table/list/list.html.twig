@@ -21,11 +21,58 @@
     {% include 'wedding/table/list/partial/_accordion.html.twig' with {
       accordionItemId: tableGuestBuildRowDto.tableListItemDto.id,
       accordionItemName: tableGuestBuildRowDto.tableListItemDto.name,
+      numberOfSeats: tableGuestBuildRowDto.tableListItemDto.numberOfSeats,
+      numberOfGuests: tableGuestBuildRowDto.tableListItemDto.numberOfGuests,
+      tableType: tableGuestBuildRowDto.tableListItemDto.type,
       guestsListItemDto: tableGuestBuildRowDto.guestsListItemDto,
       weddingId: weddingDetailsDto.id,
       groupId: tableGuestBuildRowDto.tableListItemDto.id
     } only %}
   {% endfor %}
+
+  <div id="created-tables-container"></div>
+
+  {% block tableSimpleCreateForm %}
+    <div class="row" id="simple-create-group-row">
+      <div class="col-12 col-lg-6">
+        {{ form_start(tableSimpleCreateForm) }}
+
+        <div class="input-group mb-3 {{ tableSimpleCreateForm.name.vars.valid ? '' : 'has-validation' }}">
+          {{ form_widget(tableSimpleCreateForm.name, {
+            attr: {
+              class: 'form-control' ~ tableSimpleCreateForm.name.vars.valid ? '' : ' is-invalid',
+              placeholder: 'new-table-name'|trans,
+              'aria-label': 'new-table-name'|trans,
+              'aria-describedby': 'group_simple_create_form_add'} }) }}
+
+          {{ form_widget(tableSimpleCreateForm.type, {
+            attr: {
+              class: 'form-control' ~ tableSimpleCreateForm.type.vars.valid ? '' : ' is-invalid',
+              'aria-label': 'table-type'|trans,
+              'aria-describedby': 'group_simple_create_form_add'} }) }}
+
+          {{ form_widget(tableSimpleCreateForm.numberOfSeats, {
+            attr: {
+              class: 'form-control' ~ tableSimpleCreateForm.numberOfSeats.vars.valid ? '' : ' is-invalid',
+              placeholder: 'number-of-seats'|trans,
+              'aria-label': 'number-of-seats'|trans,
+              'aria-describedby': 'group_simple_create_form_add'} }) }}
+
+          {{ form_widget(tableSimpleCreateForm.add, { attr: { class: 'btn btn-outline-primary' } }) }}
+
+          {{ form_errors(tableSimpleCreateForm.name) }}
+
+          {{ form_errors(tableSimpleCreateForm.type) }}
+
+          {{ form_errors(tableSimpleCreateForm.numberOfSeats) }}
+        </div>
+
+        {{ form_rest(tableSimpleCreateForm) }}
+
+        {{ form_end(tableSimpleCreateForm) }}
+      </div>
+    </div>
+  {% endblock %}
 
   <div class="row text-center">
     <div class="col-12 col-md-3 mb-3 mb-md-0">
@@ -52,4 +99,27 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block success_create_table_stream %}
+  <turbo-stream action="replace" targets="#simple-create-table-row">
+    <template>
+      {{ block('tableSimpleCreateForm') }}
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="append" targets="#created-tables-container">
+    <template>
+      {% include 'wedding/table/list/partial/_accordion.html.twig' with {
+        accordionItemId: createdTableDetailsDto.id,
+        accordionItemName: createdTableDetailsDto.name,
+        numberOfSeats: createdTableDetailsDto.numberOfSeats,
+        numberOfGuests: createdTableDetailsDto.numberOfGuests,
+        tableType: createdTableDetailsDto.type,
+        guestsListItemDto: [],
+        weddingId: weddingId,
+        groupId: createdTableDetailsDto.id
+      } only %}
+    </template>
+  </turbo-stream>
 {% endblock %}

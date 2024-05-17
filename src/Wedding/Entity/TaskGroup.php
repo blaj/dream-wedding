@@ -27,7 +27,7 @@ class TaskGroup extends AuditingEntity implements WeddingContextInterface {
   private string $name;
 
   #[Column(name: 'color', type: Types::STRING, length: 20, nullable: true)]
-  private ?string $color;
+  private ?string $color = null;
 
   /**
    * @var Collection<int, Task>

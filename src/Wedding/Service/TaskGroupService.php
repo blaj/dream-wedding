@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Service;
 
+use App\Common\Dto\GroupSimpleCreateRequest;
 use App\Wedding\Dto\TaskGroupCreateRequest;
 use App\Wedding\Dto\TaskGroupDetailsDto;
 use App\Wedding\Dto\TaskGroupListItemDto;
@@ -61,6 +62,21 @@ class TaskGroupService {
     $this->taskGroupRepository->save($taskGroup);
   }
 
+  public function simpleCreate(
+      int $weddingId,
+      GroupSimpleCreateRequest $groupSimpleCreateRequest,
+      int $userId): int {
+    $wedding = $this->weddingFetchService->fetchWedding($weddingId, $userId);
+
+    $taskGroup = (new TaskGroup())
+        ->setName($groupSimpleCreateRequest->getName())
+        ->setWedding($wedding);
+
+    $this->taskGroupRepository->save($taskGroup);
+
+    return $taskGroup->getId();
+  }
+
   public function update(
       int $id,
       TaskGroupUpdateRequest $taskGroupUpdateRequest,
@@ -90,6 +106,14 @@ class TaskGroupService {
 
     array_walk($addedTasks, fn (Task $task) => $taskGroup->addTask($task));
     array_walk($removedTasks, fn (Task $task) => $taskGroup->removeTask($task));
+
+    $this->taskGroupRepository->save($taskGroup);
+  }
+
+  public function updateName(int $id, string $name, int $userId): void {
+    $taskGroup = $this->taskGroupFetchService->fetchTaskGroup($id, $userId);
+
+    $taskGroup->setName($name);
 
     $this->taskGroupRepository->save($taskGroup);
   }

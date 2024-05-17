@@ -6,7 +6,9 @@ use App\Common\Const\FlashMessageConst;
 use App\Common\Utils\FormUtils;
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\TableCreateRequest;
+use App\Wedding\Dto\TableSimpleCreateRequest;
 use App\Wedding\Form\Type\TableCreateFormType;
+use App\Wedding\Form\Type\TableSimpleCreateFormType;
 use App\Wedding\Form\Type\TableUpdateFormType;
 use App\Wedding\Service\TableGuestBuilderService;
 use App\Wedding\Service\TableService;
@@ -19,6 +21,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[IsGranted(new Expression("is_authenticated()"))]
 #[Route(path: '/wedding/{weddingId}/table', name: 'wedding_table_', requirements: ['weddingId' => '\d+'])]
@@ -29,12 +32,46 @@ class TableController extends AbstractController {
       private readonly TableService $tableService,
       private readonly TableGuestBuilderService $tableGuestBuilderService) {}
 
-  #[Route(path: '/', name: 'list', methods: ['GET'])]
-  public function list(int $weddingId, UserData $userData): Response {
+  #[Route(path: '/', name: 'list', methods: ['GET', 'POST'])]
+  public function list(int $weddingId, Request $request, UserData $userData): Response {
     $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
 
     if ($weddingDetailsDto === null) {
       throw new NotFoundHttpException();
+    }
+
+    $tableSimpleCreateForm =
+        $this->createForm(
+            TableSimpleCreateFormType::class,
+            $tableSimpleCreateRequest = new TableSimpleCreateRequest());
+    $emptyTableSimpleCreateForm = clone $tableSimpleCreateForm;
+    $tableSimpleCreateForm->handleRequest($request);
+
+    if ($tableSimpleCreateForm->isSubmitted() && $tableSimpleCreateForm->isValid()) {
+      if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+        $createdTableId =
+            $this->tableService->simpleCreate(
+                $weddingId,
+                $tableSimpleCreateRequest,
+                $userData->getUserId());
+
+        return $this->renderBlock(
+            'wedding/table/list/list.html.twig',
+            'success_create_table_stream',
+            [
+                'weddingId' => $weddingId,
+                'tableSimpleCreateForm' => $emptyTableSimpleCreateForm,
+                'createdTableDetailsDto' => $this->tableService->getOne(
+                    $createdTableId,
+                    $userData->getUserId())]);
+      }
+
+      return $this->redirectToRoute(
+          'wedding_table_list',
+          ['weddingId' => $weddingId],
+          Response::HTTP_SEE_OTHER);
     }
 
     return $this->render(
@@ -43,7 +80,8 @@ class TableController extends AbstractController {
             'weddingDetailsDto' => $weddingDetailsDto,
             'tableGuestBuildDto' => $this->tableGuestBuilderService->build(
                 $weddingId,
-                $userData->getUserId())]);
+                $userData->getUserId()),
+            'tableSimpleCreateForm' => $tableSimpleCreateForm]);
   }
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]

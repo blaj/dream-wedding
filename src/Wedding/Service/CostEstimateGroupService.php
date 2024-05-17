@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Service;
 
+use App\Common\Dto\GroupSimpleCreateRequest;
 use App\Wedding\Dto\CostEstimateGroupCreateRequest;
 use App\Wedding\Dto\CostEstimateGroupDetailsDto;
 use App\Wedding\Dto\CostEstimateGroupListItemDto;
@@ -67,6 +68,21 @@ class CostEstimateGroupService {
             $costEstimate));
 
     $this->costEstimateGroupRepository->save($costEstimateGroup);
+  }
+
+  public function simpleCreate(
+      int $weddingId,
+      GroupSimpleCreateRequest $groupSimpleCreateRequest,
+      int $userId): int {
+    $wedding = $this->weddingFetchService->fetchWedding($weddingId, $userId);
+
+    $costEstimateGroup = (new CostEstimateGroup())
+        ->setName($groupSimpleCreateRequest->getName())
+        ->setWedding($wedding);
+
+    $this->costEstimateGroupRepository->save($costEstimateGroup);
+
+    return $costEstimateGroup->getId();
   }
 
   public function update(

@@ -4,7 +4,6 @@ namespace App\Wedding\Service;
 
 use App\Wedding\Dto\TableGuestBuildDto;
 use App\Wedding\Dto\TableGuestBuildRowDto;
-use App\Wedding\Dto\TableListItemDto;
 use App\Wedding\Mapper\GuestListItemDtoMapper;
 use App\Wedding\Mapper\TableListItemDtoMapper;
 use App\Wedding\Repository\TableRepository;

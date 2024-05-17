@@ -5,6 +5,7 @@ namespace App\Wedding\Service;
 use App\Wedding\Dto\TableCreateRequest;
 use App\Wedding\Dto\TableDetailsDto;
 use App\Wedding\Dto\TableListItemDto;
+use App\Wedding\Dto\TableSimpleCreateRequest;
 use App\Wedding\Dto\TableUpdateRequest;
 use App\Wedding\Entity\Guest;
 use App\Wedding\Entity\Table;
@@ -59,6 +60,23 @@ class TableService {
     array_walk($guests, fn (Guest $guest) => $table->addGuest($guest));
 
     $this->tableRepository->save($table);
+  }
+
+  public function simpleCreate(
+      int $weddingId,
+      TableSimpleCreateRequest $tableSimpleCreateRequest,
+      int $userId): int {
+    $wedding = $this->weddingFetchService->fetchWedding($weddingId, $userId);
+
+    $table = (new Table())
+        ->setName($tableSimpleCreateRequest->getName())
+        ->setType($tableSimpleCreateRequest->getType())
+        ->setNumberOfSeats($tableSimpleCreateRequest->getNumberOfSeats())
+        ->setWedding($wedding);
+
+    $this->tableRepository->save($table);
+
+    return $table->getId();
   }
 
   public function update(int $id, TableUpdateRequest $tableUpdateRequest, int $userId): void {

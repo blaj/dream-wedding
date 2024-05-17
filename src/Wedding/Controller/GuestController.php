@@ -61,7 +61,7 @@ class GuestController extends AbstractController {
 
         return $this->renderBlock(
             'wedding/guest/list/list.html.twig',
-            'success_stream',
+            'success_create_group_stream',
             [
                 'weddingId' => $weddingId,
                 'groupSimpleCreateForm' => $emptyGroupSimpleCreateForm,

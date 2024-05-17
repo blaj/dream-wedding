@@ -1,6 +1,6 @@
 <li class="nav-item">
   <a
-      class="nav-link d-flex align-items-center gap-2"
+      class="nav-link d-flex align-items-center gap-2 {{ getActualRouteName()|activeRouteName(routeName, 'active') }}"
       aria-current="page"
       href="{{ path }}">
     <i class="{{ iconClass }}"></i>

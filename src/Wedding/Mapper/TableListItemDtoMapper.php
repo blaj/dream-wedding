@@ -12,6 +12,11 @@ class TableListItemDtoMapper {
       return null;
     }
 
-    return new TableListItemDto($table->getId(), $table->getName(), $table->getNumberOfSeats());
+    return new TableListItemDto(
+        $table->getId(),
+        $table->getName(),
+        $table->getType(),
+        $table->getNumberOfSeats(),
+        $table->getGuests()->count());
   }
 }

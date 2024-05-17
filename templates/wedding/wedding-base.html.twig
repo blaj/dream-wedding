@@ -26,25 +26,9 @@
 
     <li class="nav-item">
       <a
-          class="nav-link {{ getActualRouteName()|activeRouteName('wedding_guest_group_list', 'active') }}"
-          href="{{ path('wedding_guest_group_list', { weddingId: weddingDetailsDto.id }) }}">
-        {{ 'guest-group-list'|trans }}
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a
           class="nav-link {{ getActualRouteName()|activeRouteName('wedding_cost_estimate_list', 'active') }}"
           href="{{ path('wedding_cost_estimate_list', { weddingId: weddingDetailsDto.id }) }}">
         {{ 'cost-estimate-list'|trans }}
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a
-          class="nav-link {{ getActualRouteName()|activeRouteName('wedding_cost_estimate_group_list', 'active') }}"
-          href="{{ path('wedding_cost_estimate_group_list', { weddingId: weddingDetailsDto.id }) }}">
-        {{ 'cost-estimate-group-list'|trans }}
       </a>
     </li>
 
@@ -66,18 +50,47 @@
 
     <li class="nav-item">
       <a
-          class="nav-link {{ getActualRouteName()|activeRouteName('wedding_task_group_list', 'active') }}"
-          href="{{ path('wedding_task_group_list', { weddingId: weddingDetailsDto.id }) }}">
-        {{ 'task-group-list'|trans }}
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a
           class="nav-link {{ getActualRouteName()|activeRouteName('wedding_user_list', 'active') }}"
           href="{{ path('wedding_user_list', { weddingId: weddingDetailsDto.id }) }}">
         {{ 'wedding-user-list'|trans }}
       </a>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a
+          class="nav-link dropdown-toggle {{ getActualRouteName()|activeRouteNames(['wedding_guest_group_list', 'wedding_cost_estimate_group_list', 'wedding_task_group_list'], 'active') }}"
+          data-bs-toggle="dropdown"
+          href="#"
+          role="button"
+          aria-expanded="false">
+        {{ 'groups'|trans }}
+      </a>
+
+      <ul class="dropdown-menu">
+        <li>
+          <a
+              class="dropdown-item {{ getActualRouteName()|activeRouteName('wedding_guest_group_list', 'active') }}"
+              href="{{ path('wedding_guest_group_list', { weddingId: weddingDetailsDto.id }) }}">
+            {{ 'guest-group-list'|trans }}
+          </a>
+        </li>
+
+        <li>
+          <a
+              class="dropdown-item {{ getActualRouteName()|activeRouteName('wedding_cost_estimate_group_list', 'active') }}"
+              href="{{ path('wedding_cost_estimate_group_list', { weddingId: weddingDetailsDto.id }) }}">
+            {{ 'cost-estimate-group-list'|trans }}
+          </a>
+        </li>
+
+        <li>
+          <a
+              class="dropdown-item {{ getActualRouteName()|activeRouteName('wedding_task_group_list', 'active') }}"
+              href="{{ path('wedding_task_group_list', { weddingId: weddingDetailsDto.id }) }}">
+            {{ 'task-group-list'|trans }}
+          </a>
+        </li>
+      </ul>
     </li>
   </ul>
 

@@ -27,6 +27,8 @@
     } only %}
   {% endfor %}
 
+  <div id="created-groups-container"></div>
+
   {% include 'wedding/cost-estimate/list/partial/_accordion.html.twig' with {
     accordionItemId: 'ungrouped',
     accordionItemName: 'ungrouped'|trans,
@@ -34,6 +36,10 @@
     weddingId: weddingDetailsDto.id,
     groupId: null
   } only %}
+
+  {% block groupSimpleCreateForm %}
+    {% include 'partial/_simple-create-group-form.html.twig' with { groupSimpleCreateForm: groupSimpleCreateForm } only %}
+  {% endblock %}
 
   <div class="row text-center">
     <div class="col-12 col-md-3 mb-3 mb-md-0">
@@ -108,4 +114,24 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block success_create_group_stream %}
+  <turbo-stream action="replace" targets="#simple-create-group-row">
+    <template>
+      {{ block('groupSimpleCreateForm') }}
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="append" targets="#created-groups-container">
+    <template>
+      {% include 'wedding/cost-estimate/list/partial/_accordion.html.twig' with {
+        accordionItemId: createdCostEstimateGroupDetailsDto.id,
+        accordionItemName: createdCostEstimateGroupDetailsDto.name,
+        costEstimatesListItemDto: [],
+        weddingId: weddingId,
+        groupId: createdCostEstimateGroupDetailsDto.id
+      } only %}
+    </template>
+  </turbo-stream>
 {% endblock %}
