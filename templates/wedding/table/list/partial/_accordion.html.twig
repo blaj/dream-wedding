@@ -11,6 +11,14 @@
             data-controller="table-rename"
             data-table-rename-id-value="{{ accordionItemId }}"
             data-table-rename-wedding-id-value="{{ weddingId }}">
+          <span class="me-1">
+            <i class="{{ tableType|tableTypeIcon }}"></i>
+          </span>
+
+          <span class="me-3">
+            {{ numberOfGuests ~ '/' ~ numberOfSeats }}
+          </span>
+
           <span data-table-rename-target="text">
             {{ accordionItemName }}
           </span>

@@ -3,6 +3,8 @@
 namespace App\Wedding\Controller;
 
 use App\Common\Const\FlashMessageConst;
+use App\Common\Dto\GroupSimpleCreateRequest;
+use App\Common\Form\Type\GroupSimpleCreateFormType;
 use App\Common\Utils\FormUtils;
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\CostEstimateCreateRequest;
@@ -10,6 +12,7 @@ use App\Wedding\Form\Type\CostEstimateCreateFormType;
 use App\Wedding\Form\Type\CostEstimateUpdateFormType;
 use App\Wedding\Service\CostEstimateCalculationService;
 use App\Wedding\Service\CostEstimateGroupBuilderService;
+use App\Wedding\Service\CostEstimateGroupService;
 use App\Wedding\Service\CostEstimateService;
 use App\Wedding\Service\WeddingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +23,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[IsGranted(new Expression("is_authenticated()"))]
 #[Route(path: '/wedding/{weddingId}/cost-estimate', name: 'wedding_cost_estimate_', requirements: ['weddingId' => '\d+'])]
@@ -29,14 +33,49 @@ class CostEstimateController extends AbstractController {
       private readonly CostEstimateService $costEstimateService,
       private readonly CostEstimateCalculationService $costEstimateCalculationService,
       private readonly CostEstimateGroupBuilderService $costEstimateGroupBuilderService,
+      private readonly CostEstimateGroupService $costEstimateGroupService,
       private readonly WeddingService $weddingService) {}
 
-  #[Route(path: '/', name: 'list', methods: ['GET'])]
-  public function list(int $weddingId, UserData $userData): Response {
+  #[Route(path: '/', name: 'list', methods: ['GET', 'POST'])]
+  public function list(int $weddingId, Request $request, UserData $userData): Response {
     $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
 
     if ($weddingDetailsDto === null) {
       throw new NotFoundHttpException();
+    }
+
+    $groupSimpleCreateForm =
+        $this->createForm(
+            GroupSimpleCreateFormType::class,
+            $groupSimpleCreateRequest = new GroupSimpleCreateRequest());
+    $emptyGroupSimpleCreateForm = clone $groupSimpleCreateForm;
+    $groupSimpleCreateForm->handleRequest($request);
+
+    if ($groupSimpleCreateForm->isSubmitted() && $groupSimpleCreateForm->isValid()) {
+      if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+        $createdGroupId =
+            $this->costEstimateGroupService->simpleCreate(
+                $weddingId,
+                $groupSimpleCreateRequest,
+                $userData->getUserId());
+
+        return $this->renderBlock(
+            'wedding/cost-estimate/list/list.html.twig',
+            'success_create_group_stream',
+            [
+                'weddingId' => $weddingId,
+                'groupSimpleCreateForm' => $emptyGroupSimpleCreateForm,
+                'createdCostEstimateGroupDetailsDto' => $this->costEstimateGroupService->getOne(
+                    $createdGroupId,
+                    $userData->getUserId())]);
+      }
+
+      return $this->redirectToRoute(
+          'wedding_cost_estimate_list',
+          ['weddingId' => $weddingId],
+          Response::HTTP_SEE_OTHER);
     }
 
     return $this->render(
@@ -51,7 +90,8 @@ class CostEstimateController extends AbstractController {
                 $userData->getUserId()),
             'costEstimateCalculatedDto' => $this->costEstimateCalculationService->calculate(
                 $weddingId,
-                $userData->getUserId())]);
+                $userData->getUserId()),
+            'groupSimpleCreateForm' => $groupSimpleCreateForm]);
   }
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]

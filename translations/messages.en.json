@@ -168,5 +168,7 @@
   "cost-estimate-group-updated-successfully": "The cost group was updated successfully",
   "cost-estimate-group-deleted-successfully": "The cost group has deleted successfully",
   "cost-estimates": "Costs",
-  "new-group-name": "Nazwa nowej grupy"
+  "new-group-name": "New group name",
+  "new-table-name": "New table name",
+  "groups": "Groups"
 }

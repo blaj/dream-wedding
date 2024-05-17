@@ -168,5 +168,7 @@
   "cost-estimate-group-updated-successfully": "Grupa kosztów została zaktualizowana pomyślnie",
   "cost-estimate-group-deleted-successfully": "Grupa kosztów została usunięta pomyślnie",
   "cost-estimates": "Koszta",
-  "new-group-name": "Nazwa nowej grupy"
+  "new-group-name": "Nazwa nowej grupy",
+  "new-table-name": "Nazwa nowego stołu",
+  "groups": "Grupy"
 }

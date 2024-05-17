@@ -37,30 +37,9 @@
     groupId: null
   } only %}
 
-  <div class="row">
-    <div class="col-12 col-lg-4">
-      {% block groupSimpleCreateForm %}
-        {{ form_start(groupSimpleCreateForm) }}
-
-        <div class="input-group mb-3 {{ groupSimpleCreateForm.name.vars.valid ? '' : 'has-validation' }}">
-          {{ form_widget(groupSimpleCreateForm.name, {
-            attr: {
-              class: 'form-control' ~ groupSimpleCreateForm.name.vars.valid ? '' : ' is-invalid',
-              placeholder: 'new-group-name'|trans,
-              'aria-label': 'new-group-name'|trans,
-              'aria-describedby': 'group_simple_create_form_add'} }) }}
-
-          {{ form_widget(groupSimpleCreateForm.add, { attr: { class: 'btn btn-outline-primary' } }) }}
-
-          {{ form_errors(groupSimpleCreateForm.name) }}
-        </div>
-
-        {{ form_rest(groupSimpleCreateForm) }}
-
-        {{ form_end(groupSimpleCreateForm) }}
-      {% endblock %}
-    </div>
-  </div>
+  {% block groupSimpleCreateForm %}
+    {% include 'partial/_simple-create-group-form.html.twig' with { groupSimpleCreateForm: groupSimpleCreateForm } only %}
+  {% endblock %}
 
   <div class="row text-center">
     <div class="col-12 col-md-3 mb-3 mb-md-0">
@@ -181,8 +160,8 @@
   </div>
 {% endblock %}
 
-{% block success_stream %}
-  <turbo-stream action="replace" targets="form[name=group_simple_create_form]">
+{% block success_create_group_stream %}
+  <turbo-stream action="replace" targets="#simple-create-group-row">
     <template>
       {{ block('groupSimpleCreateForm') }}
     </template>

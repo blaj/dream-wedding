@@ -3,6 +3,7 @@
 namespace App\Wedding\Mapper;
 
 use App\Wedding\Dto\TableDetailsDto;
+use App\Wedding\Entity\Guest;
 use App\Wedding\Entity\Table;
 
 class TableDetailsDtoMapper {
@@ -15,7 +16,20 @@ class TableDetailsDtoMapper {
     return new TableDetailsDto(
         $table->getId(),
         $table->getName(),
+        $table->getType(),
         $table->getDescription(),
-        $table->getNumberOfSeats());
+        $table->getNumberOfSeats(),
+        $table->getGuests()->count(),
+        self::guestNames($table->getGuests()->toArray()));
+  }
+
+  /**
+   * @param array<Guest> $guests
+   *
+   * @return array<string>
+   */
+  private static function guestNames(array $guests): array {
+    return array_map(fn (Guest $guest) => $guest->getFirstName() . ' ' . $guest->getLastName(),
+        $guests);
   }
 }

@@ -3,12 +3,15 @@
 namespace App\Wedding\Controller;
 
 use App\Common\Const\FlashMessageConst;
+use App\Common\Dto\GroupSimpleCreateRequest;
+use App\Common\Form\Type\GroupSimpleCreateFormType;
 use App\Common\Utils\FormUtils;
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\TaskCreateRequest;
 use App\Wedding\Form\Type\TaskCreateFormType;
 use App\Wedding\Form\Type\TaskUpdateFormType;
 use App\Wedding\Service\TaskGroupBuilderService;
+use App\Wedding\Service\TaskGroupService;
 use App\Wedding\Service\TaskService;
 use App\Wedding\Service\WeddingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[IsGranted(new Expression("is_authenticated()"))]
 #[Route(path: '/wedding/{weddingId}/task', name: 'wedding_task_', requirements: ['weddingId' => '\d+'])]
@@ -27,14 +31,49 @@ class TaskController extends AbstractController {
   public function __construct(
       private readonly WeddingService $weddingService,
       private readonly TaskService $taskService,
+      private readonly TaskGroupService $taskGroupService,
       private readonly TaskGroupBuilderService $taskGroupBuilderService) {}
 
-  #[Route(path: '/', name: 'list', methods: ['GET'])]
-  public function list(int $weddingId, UserData $userData): Response {
+  #[Route(path: '/', name: 'list', methods: ['GET', 'POST'])]
+  public function list(int $weddingId, Request $request, UserData $userData): Response {
     $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
 
     if ($weddingDetailsDto === null) {
       throw new NotFoundHttpException();
+    }
+
+    $groupSimpleCreateForm =
+        $this->createForm(
+            GroupSimpleCreateFormType::class,
+            $groupSimpleCreateRequest = new GroupSimpleCreateRequest());
+    $emptyGroupSimpleCreateForm = clone $groupSimpleCreateForm;
+    $groupSimpleCreateForm->handleRequest($request);
+
+    if ($groupSimpleCreateForm->isSubmitted() && $groupSimpleCreateForm->isValid()) {
+      if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+        $createdGroupId =
+            $this->taskGroupService->simpleCreate(
+                $weddingId,
+                $groupSimpleCreateRequest,
+                $userData->getUserId());
+
+        return $this->renderBlock(
+            'wedding/task/list/list.html.twig',
+            'success_create_group_stream',
+            [
+                'weddingId' => $weddingId,
+                'groupSimpleCreateForm' => $emptyGroupSimpleCreateForm,
+                'createdTaskGroupDetailsDto' => $this->taskGroupService->getOne(
+                    $createdGroupId,
+                    $userData->getUserId())]);
+      }
+
+      return $this->redirectToRoute(
+          'wedding_task_list',
+          ['weddingId' => $weddingId],
+          Response::HTTP_SEE_OTHER);
     }
 
     return $this->render(
@@ -46,7 +85,8 @@ class TaskController extends AbstractController {
                 $userData->getUserId()),
             'taskGroupBuildDto' => $this->taskGroupBuilderService->build(
                 $weddingId,
-                $userData->getUserId())]);
+                $userData->getUserId()),
+            'groupSimpleCreateForm' => $groupSimpleCreateForm]);
   }
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]

@@ -29,6 +29,8 @@
         } only %}
       {% endfor %}
 
+      <div id="created-groups-container"></div>
+
       {% include 'wedding/task/list/partial/_accordion.html.twig' with {
         accordionItemId: 'ungrouped',
         accordionItemName: 'ungrouped'|trans,
@@ -44,6 +46,12 @@
           data-task-calendar-wedding-id-value="{{ weddingDetailsDto.id }}"
           data-task-calendar-locale-value="{{ app.locale() }}"></div>
     </div>
+  </div>
+
+  <div class="row">
+    {% block groupSimpleCreateForm %}
+      {% include 'partial/_simple-create-group-form.html.twig' with { groupSimpleCreateForm: groupSimpleCreateForm } only %}
+    {% endblock %}
   </div>
 
   <div class="row text-center">
@@ -89,4 +97,24 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block success_create_group_stream %}
+  <turbo-stream action="replace" targets="#simple-create-group-row">
+    <template>
+      {{ block('groupSimpleCreateForm') }}
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="append" targets="#created-groups-container">
+    <template>
+      {% include 'wedding/task/list/partial/_accordion.html.twig' with {
+        accordionItemId: createdTaskGroupDetailsDto.id,
+        accordionItemName: createdTaskGroupDetailsDto.name,
+        tasksListItemDto: [],
+        weddingId: weddingId,
+        groupId: createdTaskGroupDetailsDto.id
+      } only %}
+    </template>
+  </turbo-stream>
 {% endblock %}
