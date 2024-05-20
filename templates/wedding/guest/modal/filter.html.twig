@@ -1,0 +1,27 @@
+<turbo-frame id="main-modal" target="_top">
+  {{ form_start(form) }}
+
+  {{ form_row(form.firstName) }}
+
+  {{ form_row(form.lastName) }}
+
+  {{ form_row(form.invited) }}
+
+  {{ form_row(form.confirmed) }}
+
+  {{ form_row(form.accommodation) }}
+
+  {{ form_row(form.transport) }}
+
+  {{ form_row(form.dietType) }}
+
+  <div class="modal-footer">
+    {{ form_widget(form.modalCancel) }}
+
+    {{ form_widget(form.filter) }}
+  </div>
+
+  {{ form_rest(form) }}
+
+  {{ form_end(form) }}
+</turbo-frame>

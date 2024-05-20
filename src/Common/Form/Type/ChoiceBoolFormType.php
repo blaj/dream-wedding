@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ChoiceBoolFormType extends AbstractType {
 
   public function configureOptions(OptionsResolver $resolver): void {
-    $resolver->setDefaults(['choices' => ['all' => null, 'yes' => true, 'no' => false]]);
+    $resolver->setDefaults(['choices' => ['yes' => true, 'no' => false]]);
   }
 
   public function getParent(): string {

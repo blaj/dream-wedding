@@ -13,6 +13,25 @@
           type="button"
           class="btn btn-sm btn-outline-primary"
           data-action="modal#openModal"
+          data-modal-src-param="{{ path('wedding_guest_modal_filter', { weddingId: weddingDetailsDto.id }) }}"
+          data-modal-title-param="{{ 'filtration'|trans }}">
+        {{ 'filtration'|trans }}
+      </button>
+
+      {% if isGuestListFilterActive %}
+        <a
+            href="{{ path('wedding_guest_list', { weddingId: weddingDetailsDto.id }) }}"
+            class="btn btn-sm btn-outline-danger">
+          {{ 'clear-filter'|trans }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="btn-group">
+      <button
+          type="button"
+          class="btn btn-sm btn-outline-primary"
+          data-action="modal#openModal"
           data-modal-src-param="{{ path('wedding_guest_modal_create_many', { weddingId: weddingDetailsDto.id }) }}"
           data-modal-title-param="{{ 'add-guests'|trans }}">
         {{ 'add-many'|trans }}
@@ -28,27 +47,29 @@
 {% endblock %}
 
 {% block tab_content %}
-  {{ form(guestListFilterForm) }}
-
   {% for guestGroupBuildRowDto in guestGroupBuildDto.guestsGroupsBuildRowDto %}
-    {% include 'wedding/guest/list/partial/_accordion.html.twig' with {
-      accordionItemId: guestGroupBuildRowDto.guestGroupListItemDto.id,
-      accordionItemName: guestGroupBuildRowDto.guestGroupListItemDto.name,
-      guestsListItemDto: guestGroupBuildRowDto.guestsListItemDto,
-      weddingId: weddingDetailsDto.id,
-      groupId: guestGroupBuildRowDto.guestGroupListItemDto.id
-    } only %}
+    {% if (not isGuestListFilterActive) or (isGuestListFilterActive and guestGroupBuildRowDto.guestsListItemDto|length > 0 ) %}
+      {% include 'wedding/guest/list/partial/_accordion.html.twig' with {
+        accordionItemId: guestGroupBuildRowDto.guestGroupListItemDto.id,
+        accordionItemName: guestGroupBuildRowDto.guestGroupListItemDto.name,
+        guestsListItemDto: guestGroupBuildRowDto.guestsListItemDto,
+        weddingId: weddingDetailsDto.id,
+        groupId: guestGroupBuildRowDto.guestGroupListItemDto.id
+      } only %}
+    {% endif %}
   {% endfor %}
 
   <div id="created-groups-container"></div>
 
-  {% include 'wedding/guest/list/partial/_accordion.html.twig' with {
-    accordionItemId: 'ungrouped',
-    accordionItemName: 'ungrouped'|trans,
-    guestsListItemDto: ungroupedGuestsListItemDto,
-    weddingId: weddingDetailsDto.id,
-    groupId: null
-  } only %}
+  {% if (not isGuestListFilterActive) or (isGuestListFilterActive and ungroupedGuestsListItemDto|length > 0 ) %}
+    {% include 'wedding/guest/list/partial/_accordion.html.twig' with {
+      accordionItemId: 'ungrouped',
+      accordionItemName: 'ungrouped'|trans,
+      guestsListItemDto: ungroupedGuestsListItemDto,
+      weddingId: weddingDetailsDto.id,
+      groupId: null
+    } only %}
+  {% endif %}
 
   {% block groupSimpleCreateForm %}
     {% include 'partial/_simple-create-group-form.html.twig' with { groupSimpleCreateForm: groupSimpleCreateForm } only %}

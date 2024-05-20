@@ -176,5 +176,7 @@
   "add-row": "Dodaj wiersz",
   "add-guests": "Dodaj gości",
   "filter": "Filtruj",
-  "all": "Wszystkio"
+  "all": "Wszystko",
+  "filtration": "Filtrowanie",
+  "clear-filter": "Wyczyść filtr"
 }

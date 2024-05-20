@@ -4,7 +4,9 @@ namespace App\Wedding\Controller;
 
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\GuestCreateManyRequest;
+use App\Wedding\Dto\GuestListFilterRequest;
 use App\Wedding\Form\Type\GuestCreateManyFormType;
+use App\Wedding\Form\Type\GuestListFilterFormType;
 use App\Wedding\Service\GuestService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
@@ -40,5 +42,28 @@ class GuestModalController extends AbstractController {
     return $this->render(
         'wedding/guest/modal/many-create.html.twig',
         ['form' => $form]);
+  }
+
+  #[Route(path: '/filter', name: 'filter', methods: ['GET'])]
+  public function filter(int $weddingId, Request $request): Response {
+    $form =
+        $this->createForm(
+            GuestListFilterFormType::class,
+            $guestListFilterRequest = new GuestListFilterRequest(),
+            [
+                'method' => 'GET',
+                'action' => $this->generateUrl(
+                    'wedding_guest_modal_filter',
+                    ['weddingId' => $weddingId])]);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      return $this->redirect(
+          $this->generateUrl('wedding_guest_list', ['weddingId' => $weddingId])
+          . '?'
+          . $request->getQueryString());
+    }
+
+    return $this->render('wedding/guest/modal/filter.html.twig', ['form' => $form]);
   }
 }

@@ -16,6 +16,7 @@ use App\Wedding\Service\GuestGroupBuilderService;
 use App\Wedding\Service\GuestGroupService;
 use App\Wedding\Service\GuestService;
 use App\Wedding\Service\WeddingService;
+use App\Wedding\Utils\GuestListFilterUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,12 +91,16 @@ class GuestController extends AbstractController {
             'weddingDetailsDto' => $weddingDetailsDto,
             'ungroupedGuestsListItemDto' => $this->guestService->getUngroupedList(
                 $weddingId,
+                $guestListFilterRequest,
                 $userData->getUserId()),
             'guestGroupBuildDto' => $this->guestGroupBuilderService->build(
                 $weddingId,
+                $guestListFilterRequest,
                 $userData->getUserId()),
             'groupSimpleCreateForm' => $groupSimpleCreateForm,
-            'guestListFilterForm' => $guestListFilterForm]);
+            'guestListFilterForm' => $guestListFilterForm,
+            'isGuestListFilterActive' => GuestListFilterUtils::isFilterActive(
+                $guestListFilterRequest)]);
   }
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]
