@@ -8,12 +8,15 @@ use App\Common\Form\Type\GroupSimpleCreateFormType;
 use App\Common\Utils\FormUtils;
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\GuestCreateRequest;
+use App\Wedding\Dto\GuestListFilterRequest;
 use App\Wedding\Form\Type\GuestCreateFormType;
+use App\Wedding\Form\Type\GuestListFilterFormType;
 use App\Wedding\Form\Type\GuestUpdateFormType;
 use App\Wedding\Service\GuestGroupBuilderService;
 use App\Wedding\Service\GuestGroupService;
 use App\Wedding\Service\GuestService;
 use App\Wedding\Service\WeddingService;
+use App\Wedding\Utils\GuestListFilterUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,17 +79,28 @@ class GuestController extends AbstractController {
           Response::HTTP_SEE_OTHER);
     }
 
+    $guestListFilterForm =
+        $this->createForm(
+            GuestListFilterFormType::class,
+            $guestListFilterRequest = new GuestListFilterRequest());
+    $guestListFilterForm->handleRequest($request);
+
     return $this->render(
         'wedding/guest/list/list.html.twig',
         [
             'weddingDetailsDto' => $weddingDetailsDto,
             'ungroupedGuestsListItemDto' => $this->guestService->getUngroupedList(
                 $weddingId,
+                $guestListFilterRequest,
                 $userData->getUserId()),
             'guestGroupBuildDto' => $this->guestGroupBuilderService->build(
                 $weddingId,
+                $guestListFilterRequest,
                 $userData->getUserId()),
-            'groupSimpleCreateForm' => $groupSimpleCreateForm]);
+            'groupSimpleCreateForm' => $groupSimpleCreateForm,
+            'guestListFilterForm' => $guestListFilterForm,
+            'isGuestListFilterActive' => GuestListFilterUtils::isFilterActive(
+                $guestListFilterRequest)]);
   }
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]

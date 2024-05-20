@@ -6,6 +6,7 @@ use App\Wedding\Dto\GuestCreateManyRequest;
 use App\Wedding\Dto\GuestCreateManyRowRequest;
 use App\Wedding\Dto\GuestCreateRequest;
 use App\Wedding\Dto\GuestDetailsDto;
+use App\Wedding\Dto\GuestListFilterRequest;
 use App\Wedding\Dto\GuestListItemDto;
 use App\Wedding\Dto\GuestUpdateRequest;
 use App\Wedding\Entity\Guest;
@@ -37,11 +38,12 @@ class GuestService {
   /**
    * @return array<GuestListItemDto>
    */
-  public function getUngroupedList(int $weddingId, int $userId): array {
+  public function getUngroupedList(int $weddingId, GuestListFilterRequest $guestListFilterRequest, int $userId): array {
     return array_filter(
         array_map(fn (Guest $guest) => GuestListItemDtoMapper::map($guest),
-            $this->guestRepository->findAllByWeddingIdAndUserIdAndGroupIsNull(
+            $this->guestRepository->findAllByWeddingIdAndFilterAndUserIdAndGroupIsNull(
                 $weddingId,
+                $guestListFilterRequest,
                 $userId)),
         fn (?GuestListItemDto $dto) => $dto !== null);
   }
