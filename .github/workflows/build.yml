@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   composer:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout
@@ -50,7 +50,7 @@ jobs:
 
   npm:
     needs: composer
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout
@@ -86,7 +86,7 @@ jobs:
     needs:
       - composer
       - npm
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout
