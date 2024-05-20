@@ -170,5 +170,9 @@
   "cost-estimates": "Koszta",
   "new-group-name": "Nazwa nowej grupy",
   "new-table-name": "Nazwa nowego stołu",
-  "groups": "Grupy"
+  "groups": "Grupy",
+  "add-many": "Dodaj kilka",
+  "loading": "Ładowanie",
+  "add-row": "Dodaj wiersz",
+  "add-guests": "Dodaj gości"
 }

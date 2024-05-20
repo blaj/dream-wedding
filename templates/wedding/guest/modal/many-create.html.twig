@@ -1,0 +1,65 @@
+<turbo-frame id="main-modal" target="_top">
+  {{ form_start(form) }}
+
+  <table class="table" data-controller="add-empty-table-row">
+    <thead>
+      <tr>
+        <th>
+          {{ 'first-name'|trans }}
+        </th>
+
+        <th>
+          {{ 'last-name'|trans }}
+        </th>
+
+        <th>
+          {{ 'guest-type'|trans }}
+        </th>
+
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody data-add-empty-table-row-target="tbodyContainer">
+      {% for row in form.rows %}
+        <tr data-add-empty-table-row-target="row">
+          <td>
+            {{ form_widget(row.firstName) }}
+          </td>
+
+          <td>
+            {{ form_widget(row.lastName) }}
+          </td>
+
+          <td>
+            {{ form_widget(row.type) }}
+          </td>
+
+          <td>
+            <button type="button" class="btn btn-outline-danger" data-action="add-empty-table-row#removeRow">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      {% endfor %}
+
+      <tr data-add-empty-table-row-target="buttonRow">
+        <td colspan="3">
+          <button type="button" class="btn btn-outline-primary" data-action="add-empty-table-row#addEmptyRow">
+            {{ 'add-row'|trans }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="modal-footer">
+    {{ form_widget(form.modalCancel) }}
+
+    {{ form_widget(form.save) }}
+  </div>
+
+  {{ form_rest(form) }}
+
+  {{ form_end(form) }}
+</turbo-frame>

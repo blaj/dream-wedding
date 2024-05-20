@@ -7,13 +7,15 @@
     {{ weddingDetailsDto.name }}
   </h1>
 
-  <a
-      href="{{ path('wedding_user_invite', { weddingId: weddingDetailsDto.id }) }}"
-      class="btn btn-primary"
-      data-controller="tooltip"
-      data-bs-title="{{ 'invite'|trans }}">
-    <i class="bi bi-envelope-arrow-up"></i>
-  </a>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group me-2">
+      <a
+          href="{{ path('wedding_user_invite', { weddingId: weddingDetailsDto.id }) }}"
+          class="btn btn-sm btn-outline-primary">
+        {{ 'invite'|trans }}
+      </a>
+    </div>
+  </div>
 {% endblock %}
 
 {% block tab_content %}

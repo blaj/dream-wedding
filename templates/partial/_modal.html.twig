@@ -1,0 +1,29 @@
+<div
+    class="modal modal-lg fade"
+    tabindex="-1"
+    aria-hidden="true"
+    data-modal-target="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" data-modal-target="title">
+          {{ modalTitle|default('loading'|trans ~ '...') }}
+        </h5>
+
+        <button
+            type="button"
+            class="btn-close"
+            data-action="modal#closeModal"
+            aria-label="Close">
+        </button>
+      </div>
+
+      <turbo-frame
+          class="modal-body"
+          id="main-modal"
+          data-modal-target="frame">
+        {{ modalContent|default('loading'|trans ~ '...') }}
+      </turbo-frame>
+    </div>
+  </div>
+</div>

@@ -60,6 +60,8 @@
               </h6>
 
               <ul class="nav flex-column">
+                {% include 'partial/_sidebar-item.html.twig' with { name: 'details'|trans, iconClass: 'bi bi-eye', routeName: 'wedding_details', path: path('wedding_details', { id: weddingDto.id }) } only %}
+
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'guest-list'|trans, iconClass: 'bi bi-people-fill', routeName: 'wedding_guest_list', path: path('wedding_guest_list', { weddingId: weddingDto.id }) } only %}
 
                 {% include 'partial/_sidebar-item.html.twig' with { name: 'cost-estimate-list'|trans, iconClass: 'bi bi-cash', routeName: 'wedding_cost_estimate_list', path: path('wedding_cost_estimate_list', { weddingId: weddingDto.id }) } only %}
@@ -127,7 +129,7 @@
           {% include 'partial/_flash-messages.html.twig' %}
         </div>
 
-        <div class="pt-3 pb-2 mb-3 border-bottom d-flex justify-content-between">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           {% block page_heading %}
             <h1 class="h2">
               {% block page_title %}{% endblock %}

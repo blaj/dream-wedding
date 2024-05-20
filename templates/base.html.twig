@@ -24,7 +24,9 @@
     {% endblock %}
   </head>
 
-  <body>
+  <body data-controller="modal">
     {% block body %}{% endblock %}
+
+    {% include 'partial/_modal.html.twig' %}
   </body>
 </html>
