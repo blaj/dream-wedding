@@ -10,7 +10,7 @@ permissions: write-all
 
 jobs:
   phpunit:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     services:
       postgres:
