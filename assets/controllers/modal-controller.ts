@@ -4,7 +4,7 @@ import { FrameElement, TurboBeforeFetchResponseEvent, visit } from '@hotwired/tu
 import { FileUtils } from '@assets/common';
 
 export default class extends Controller<HTMLElement> {
-  static targets = ['modal', 'frame'];
+  static targets = ['modal', 'frame', 'title'];
 
   static values = {
     formUrl: String
@@ -12,8 +12,9 @@ export default class extends Controller<HTMLElement> {
 
   declare readonly modalTarget: HTMLDivElement;
   declare readonly frameTarget: FrameElement;
+  declare readonly titleTarget: HTMLHeadingElement;
 
-  modal: Modal = null;
+  private modal: Modal = null;
 
   connect = (): void => {
     document.addEventListener('turbo:before-fetch-response', this.beforeFetchResponse);
@@ -23,18 +24,29 @@ export default class extends Controller<HTMLElement> {
     document.removeEventListener('turbo:before-fetch-response', this.beforeFetchResponse);
   };
 
-  openModal = async ({ params: { src } }: { params: { src?: string } }): Promise<void> => {
+  openModal = async ({
+    params: { src, title }
+  }: {
+    params: { src?: string; title?: string };
+  }): Promise<void> => {
     if (src !== null) {
       this.frameTarget.src = src;
     }
 
-    if (!this.modal) {
-      this.modal = new Modal(this.modalTarget);
-    } else {
-      await this.frameTarget.reload();
+    if (title !== null) {
+      this.titleTarget.innerText = title;
     }
 
+    if (!this.modal) {
+      this.modal = new Modal(this.modalTarget);
+    }
+
+    await this.frameTarget.reload();
     this.modal.show();
+  };
+
+  closeModal = (): void => {
+    this.modal.hide();
   };
 
   private beforeFetchResponse = (event: TurboBeforeFetchResponseEvent): void => {

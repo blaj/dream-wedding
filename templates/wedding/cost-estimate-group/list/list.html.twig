@@ -7,13 +7,15 @@
     {{ weddingDetailsDto.name }}
   </h1>
 
-  <a
-      href="{{ path('wedding_cost_estimate_group_create', { weddingId: weddingDetailsDto.id }) }}"
-      class="btn btn-primary"
-      data-controller="tooltip"
-      data-bs-title="{{ 'add'|trans }}">
-    <i class="bi bi-plus-circle"></i>
-  </a>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group me-2">
+      <a
+          href="{{ path('wedding_cost_estimate_group_create', { weddingId: weddingDetailsDto.id }) }}"
+          class="btn btn-sm btn-outline-primary">
+        {{ 'add'|trans }}
+      </a>
+    </div>
+  </div>
 {% endblock %}
 
 {% block tab_content %}

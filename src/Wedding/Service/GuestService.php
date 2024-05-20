@@ -2,6 +2,8 @@
 
 namespace App\Wedding\Service;
 
+use App\Wedding\Dto\GuestCreateManyRequest;
+use App\Wedding\Dto\GuestCreateManyRowRequest;
 use App\Wedding\Dto\GuestCreateRequest;
 use App\Wedding\Dto\GuestDetailsDto;
 use App\Wedding\Dto\GuestListItemDto;
@@ -88,6 +90,25 @@ class GuestService {
         ->setTableOrderNo($guestCreateRequest->getTableOrderNo());
 
     $this->guestRepository->save($guest);
+  }
+
+  public function createMany(
+      int $weddingId,
+      GuestCreateManyRequest $guestCreateManyRequest,
+      int $userId): void {
+    $wedding = $this->weddingFetchService->fetchWedding($weddingId, $userId);
+
+    $guests =
+        array_map(
+            fn (
+                GuestCreateManyRowRequest $guestCreateManyRowRequest) => (new Guest())
+                ->setFirstName($guestCreateManyRowRequest->getFirstName())
+                ->setLastName($guestCreateManyRowRequest->getLastName())
+                ->setType($guestCreateManyRowRequest->getType())
+                ->setWedding($wedding),
+            $guestCreateManyRequest->getRows());
+
+    array_walk($guests, fn (Guest $guest) => $this->guestRepository->save($guest));
   }
 
   public function update(int $id, GuestUpdateRequest $guestUpdateRequest, int $userId): void {

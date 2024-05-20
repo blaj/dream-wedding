@@ -170,5 +170,9 @@
   "cost-estimates": "Costs",
   "new-group-name": "New group name",
   "new-table-name": "New table name",
-  "groups": "Groups"
+  "groups": "Groups",
+  "add-many": "Add many",
+  "loading": "Loading",
+  "add-row": "Add row",
+  "add-guests": "Add guests"
 }
