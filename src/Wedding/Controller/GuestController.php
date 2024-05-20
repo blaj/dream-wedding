@@ -8,7 +8,9 @@ use App\Common\Form\Type\GroupSimpleCreateFormType;
 use App\Common\Utils\FormUtils;
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\GuestCreateRequest;
+use App\Wedding\Dto\GuestListFilterRequest;
 use App\Wedding\Form\Type\GuestCreateFormType;
+use App\Wedding\Form\Type\GuestListFilterFormType;
 use App\Wedding\Form\Type\GuestUpdateFormType;
 use App\Wedding\Service\GuestGroupBuilderService;
 use App\Wedding\Service\GuestGroupService;
@@ -76,6 +78,12 @@ class GuestController extends AbstractController {
           Response::HTTP_SEE_OTHER);
     }
 
+    $guestListFilterForm =
+        $this->createForm(
+            GuestListFilterFormType::class,
+            $guestListFilterRequest = new GuestListFilterRequest());
+    $guestListFilterForm->handleRequest($request);
+
     return $this->render(
         'wedding/guest/list/list.html.twig',
         [
@@ -86,7 +94,8 @@ class GuestController extends AbstractController {
             'guestGroupBuildDto' => $this->guestGroupBuilderService->build(
                 $weddingId,
                 $userData->getUserId()),
-            'groupSimpleCreateForm' => $groupSimpleCreateForm]);
+            'groupSimpleCreateForm' => $groupSimpleCreateForm,
+            'guestListFilterForm' => $guestListFilterForm]);
   }
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]

@@ -174,5 +174,7 @@
   "add-many": "Dodaj kilka",
   "loading": "Ładowanie",
   "add-row": "Dodaj wiersz",
-  "add-guests": "Dodaj gości"
+  "add-guests": "Dodaj gości",
+  "filter": "Filtruj",
+  "all": "Wszystkio"
 }

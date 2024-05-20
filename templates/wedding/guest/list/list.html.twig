@@ -28,6 +28,8 @@
 {% endblock %}
 
 {% block tab_content %}
+  {{ form(guestListFilterForm) }}
+
   {% for guestGroupBuildRowDto in guestGroupBuildDto.guestsGroupsBuildRowDto %}
     {% include 'wedding/guest/list/partial/_accordion.html.twig' with {
       accordionItemId: guestGroupBuildRowDto.guestGroupListItemDto.id,

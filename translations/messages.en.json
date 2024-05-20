@@ -174,5 +174,7 @@
   "add-many": "Add many",
   "loading": "Loading",
   "add-row": "Add row",
-  "add-guests": "Add guests"
+  "add-guests": "Add guests",
+  "filter": "Filter",
+  "all": "All"
 }
