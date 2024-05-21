@@ -66,14 +66,14 @@ class CostEstimateRepository extends AbstractWeddingContextRepository {
         ->getResult();
   }
 
-  public function findRealCostByWeddingIdAndUserIdExcludeDependsOnGuests(
+  public function countCostByWeddingIdAndUserIdExcludeDependsOnGuests(
       int $weddingId,
       int $userId): int {
     return (int) $this->getEntityManager()
         ->createQuery(
             '
             SELECT 
-              SUM(costEstimate.real * costEstimate.quantity) as _realCost
+              SUM(costEstimate.cost * costEstimate.quantity) as _cost
             FROM 
               App\Wedding\Entity\CostEstimate costEstimate 
               INNER JOIN costEstimate.wedding wedding 
@@ -90,14 +90,38 @@ class CostEstimateRepository extends AbstractWeddingContextRepository {
         ->getSingleScalarResult();
   }
 
-  public function findEstimateCostByWeddingIdAndUserIdExcludeDependsOnGuests(
+  public function countAdvancePaymentByWeddingIdAndUserIdExcludeDependsOnGuests(
       int $weddingId,
       int $userId): int {
     return (int) $this->getEntityManager()
         ->createQuery(
             '
             SELECT 
-              SUM(costEstimate.estimate * costEstimate.quantity) as _estimateCost
+              SUM(costEstimate.advancePayment * costEstimate.quantity) as _advancePayment
+            FROM 
+              App\Wedding\Entity\CostEstimate costEstimate 
+              INNER JOIN costEstimate.wedding wedding 
+              INNER JOIN wedding.weddingUsers weddingUsers 
+            WHERE 
+              costEstimate.deleted = false 
+              AND costEstimate.dependsOnGuests = false 
+              AND wedding.deleted = false 
+              AND weddingUsers.deleted = false 
+              AND costEstimate.wedding = :weddingId 
+              AND weddingUsers.user = :userId')
+        ->setParameter('weddingId', $weddingId, Types::INTEGER)
+        ->setParameter('userId', $userId, Types::INTEGER)
+        ->getSingleScalarResult();
+  }
+
+  public function countPaidByWeddingIdAndUserIdExcludeDependsOnGuests(
+      int $weddingId,
+      int $userId): int {
+    return (int) $this->getEntityManager()
+        ->createQuery(
+            '
+            SELECT 
+              SUM(costEstimate.paid * costEstimate.quantity) as _paid
             FROM 
               App\Wedding\Entity\CostEstimate costEstimate 
               INNER JOIN costEstimate.wedding wedding 

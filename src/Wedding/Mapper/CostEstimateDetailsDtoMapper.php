@@ -8,21 +8,22 @@ use App\Wedding\Entity\CostEstimate;
 class CostEstimateDetailsDtoMapper {
 
   public static function map(
-      ?CostEstimate $weddingCostEstimate): ?CostEstimateDetailsDto {
-    if ($weddingCostEstimate === null) {
+      ?CostEstimate $costEstimate): ?CostEstimateDetailsDto {
+    if ($costEstimate === null) {
       return null;
     }
 
     return new CostEstimateDetailsDto(
-        $weddingCostEstimate->getId(),
-        $weddingCostEstimate->getName(),
-        $weddingCostEstimate->getDescription(),
-        $weddingCostEstimate->getEstimate(),
-        $weddingCostEstimate->getReal(),
-        $weddingCostEstimate->getQuantity(),
-        $weddingCostEstimate->getUnitType(),
-        $weddingCostEstimate->isDependsOnGuests(),
-        $weddingCostEstimate->getGroup()?->getName(),
-        $weddingCostEstimate->getOrderNo());
+        $costEstimate->getId(),
+        $costEstimate->getName(),
+        $costEstimate->getDescription(),
+        $costEstimate->getCost(),
+        $costEstimate->getAdvancePayment(),
+        $costEstimate->getQuantity(),
+        $costEstimate->getUnitType(),
+        $costEstimate->isDependsOnGuests(),
+        $costEstimate->getGroup()?->getName(),
+        $costEstimate->getOrderNo(),
+        $costEstimate->getPaid());
   }
 }

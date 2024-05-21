@@ -29,11 +29,11 @@ class CostEstimate extends AuditingEntity implements WeddingContextInterface {
   #[Column(name: 'description', type: Types::STRING, nullable: true)]
   private ?string $description = null;
 
-  #[Column(name: 'estimate', type: Types::BIGINT, nullable: false)]
-  private int $estimate = 0;
+  #[Column(name: 'cost', type: Types::BIGINT, nullable: false)]
+  private int $cost = 0;
 
-  #[Column(name: 'real', type: Types::BIGINT, nullable: false)]
-  private int $real = 0;
+  #[Column(name: 'advance_payment', type: Types::BIGINT, nullable: false)]
+  private int $advancePayment = 0;
 
   #[Column(name: 'currency', type: Types::STRING, length: 3, nullable: false)]
   private string $currency = 'PLN';
@@ -51,9 +51,11 @@ class CostEstimate extends AuditingEntity implements WeddingContextInterface {
   #[JoinColumn(name: 'group_id', referencedColumnName: 'id', nullable: true, columnDefinition: 'BIGINT')]
   private ?CostEstimateGroup $group;
 
-
   #[Column(name: 'order_no', type: Types::SMALLINT, nullable: false, options: ['default' => 0])]
   private int $orderNo = 0;
+
+  #[Column(name: 'paid', type: Types::BIGINT, nullable: false)]
+  private int $paid = 0;
 
   public function getWedding(): Wedding {
     return $this->wedding;
@@ -85,22 +87,22 @@ class CostEstimate extends AuditingEntity implements WeddingContextInterface {
     return $this;
   }
 
-  public function getEstimate(): Money {
-    return new Money($this->estimate, $this->getCurrency());
+  public function getCost(): Money {
+    return new Money($this->cost, $this->getCurrency());
   }
 
-  public function setEstimate(Money $money): self {
-    $this->estimate = (int) $money->getAmount();
+  public function setCost(Money $money): self {
+    $this->cost = (int) $money->getAmount();
 
     return $this;
   }
 
-  public function getReal(): Money {
-    return new Money($this->real, $this->getCurrency());
+  public function getAdvancePayment(): Money {
+    return new Money($this->advancePayment, $this->getCurrency());
   }
 
-  public function setReal(Money $money): self {
-    $this->real = (int) $money->getAmount();
+  public function setAdvancePayment(Money $money): self {
+    $this->advancePayment = (int) $money->getAmount();
 
     return $this;
   }
@@ -162,6 +164,16 @@ class CostEstimate extends AuditingEntity implements WeddingContextInterface {
 
   public function setOrderNo(int $orderNo): self {
     $this->orderNo = $orderNo;
+
+    return $this;
+  }
+
+  public function getPaid(): Money {
+    return new Money($this->paid, $this->getCurrency());
+  }
+
+  public function setPaid(Money $money): self {
+    $this->paid = (int) $money->getAmount();
 
     return $this;
   }

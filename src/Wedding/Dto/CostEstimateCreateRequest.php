@@ -16,9 +16,9 @@ class CostEstimateCreateRequest {
 
   private ?string $description = null;
 
-  private Money $estimate;
+  private Money $cost;
 
-  private Money $real;
+  private Money $advancePayment;
 
   #[GreaterThanOrEqual(1)]
   private int $quantity = 1;
@@ -31,9 +31,12 @@ class CostEstimateCreateRequest {
 
   private int $orderNo = 0;
 
+  private Money $paid;
+
   public function __construct() {
-    $this->estimate = Money::PLN(0);
-    $this->real = Money::PLN(0);
+    $this->cost = Money::PLN(0);
+    $this->advancePayment = Money::PLN(0);
+    $this->paid = Money::PLN(0);
   }
 
   public function getName(): string {
@@ -56,22 +59,22 @@ class CostEstimateCreateRequest {
     return $this;
   }
 
-  public function getEstimate(): Money {
-    return $this->estimate;
+  public function getCost(): Money {
+    return $this->cost;
   }
 
-  public function setEstimate(Money $estimate): self {
-    $this->estimate = $estimate;
+  public function setCost(Money $cost): self {
+    $this->cost = $cost;
 
     return $this;
   }
 
-  public function getReal(): Money {
-    return $this->real;
+  public function getAdvancePayment(): Money {
+    return $this->advancePayment;
   }
 
-  public function setReal(Money $real): self {
-    $this->real = $real;
+  public function setAdvancePayment(Money $advancePayment): self {
+    $this->advancePayment = $advancePayment;
 
     return $this;
   }
@@ -122,6 +125,16 @@ class CostEstimateCreateRequest {
 
   public function setOrderNo(int $orderNo): self {
     $this->orderNo = $orderNo;
+
+    return $this;
+  }
+
+  public function getPaid(): Money {
+    return $this->paid;
+  }
+
+  public function setPaid(Money $paid): self {
+    $this->paid = $paid;
 
     return $this;
   }

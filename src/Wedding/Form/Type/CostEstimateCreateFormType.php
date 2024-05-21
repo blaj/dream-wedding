@@ -29,8 +29,9 @@ class CostEstimateCreateFormType extends AbstractType {
         ->setMethod('POST')
         ->add('name', TextType::class, ['label' => 'name'])
         ->add('description', TextareaType::class, ['label' => 'description', 'required' => false])
-        ->add('estimate', MoneyType::class, ['label' => 'estimate-cost'])
-        ->add('real', MoneyType::class, ['label' => 'real-cost'])
+        ->add('cost', MoneyType::class, ['label' => 'cost'])
+        ->add('advancePayment', MoneyType::class, ['label' => 'advance-payment'])
+        ->add('paid', MoneyType::class, ['label' => 'paid'])
         ->add('quantity', IntegerType::class, ['label' => 'quantity'])
         ->add('unitType', EnumType::class, ['class' => UnitType::class, 'label' => 'unit-type'])
         ->add(

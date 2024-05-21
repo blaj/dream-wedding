@@ -8,20 +8,21 @@ use App\Wedding\Entity\CostEstimate;
 class CostEstimateUpdateRequestMapper {
 
   public static function map(
-      ?CostEstimate $weddingCostEstimate): ?CostEstimateUpdateRequest {
-    if ($weddingCostEstimate === null) {
+      ?CostEstimate $costEstimate): ?CostEstimateUpdateRequest {
+    if ($costEstimate === null) {
       return null;
     }
 
     return (new CostEstimateUpdateRequest())
-        ->setName($weddingCostEstimate->getName())
-        ->setDescription($weddingCostEstimate->getDescription())
-        ->setEstimate($weddingCostEstimate->getEstimate())
-        ->setReal($weddingCostEstimate->getReal())
-        ->setQuantity($weddingCostEstimate->getQuantity())
-        ->setUnitType($weddingCostEstimate->getUnitType())
-        ->setDependsOnGuests($weddingCostEstimate->isDependsOnGuests())
-        ->setGroup($weddingCostEstimate->getGroup()?->getId())
-        ->setOrderNo($weddingCostEstimate->getOrderNo());
+        ->setName($costEstimate->getName())
+        ->setDescription($costEstimate->getDescription())
+        ->setCost($costEstimate->getCost())
+        ->setAdvancePayment($costEstimate->getAdvancePayment())
+        ->setQuantity($costEstimate->getQuantity())
+        ->setUnitType($costEstimate->getUnitType())
+        ->setDependsOnGuests($costEstimate->isDependsOnGuests())
+        ->setGroup($costEstimate->getGroup()?->getId())
+        ->setOrderNo($costEstimate->getOrderNo())
+        ->setPaid($costEstimate->getPaid());
   }
 }

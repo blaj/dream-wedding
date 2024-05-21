@@ -11,11 +11,12 @@ readonly class CostEstimateDetailsDto {
       public int $id,
       public string $name,
       public ?string $description,
-      public Money $estimate,
-      public Money $real,
+      public Money $cost,
+      public Money $advancePayment,
       public int $quantity,
       public UnitType $unitType,
       public bool $dependsOnGuests,
       public ?string $groupName,
-      public int $orderNo) {}
+      public int $orderNo,
+      public Money $paid) {}
 }

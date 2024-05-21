@@ -45,21 +45,31 @@
 
       <tr>
         <td>
-          {{ 'estimate-cost'|trans }}
+          {{ 'cost'|trans }}
         </td>
 
         <td>
-          {{ costEstimateDetailsDto.estimate|money_format }}
+          {{ costEstimateDetailsDto.cost|money_format }}
         </td>
       </tr>
 
       <tr>
         <td>
-          {{ 'real-cost'|trans }}
+          {{ 'advance-payment'|trans }}
         </td>
 
         <td>
-          {{ costEstimateDetailsDto.real|money_format }}
+          {{ costEstimateDetailsDto.advancePayment|money_format }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          {{ 'paid'|trans }}
+        </td>
+
+        <td>
+          {{ costEstimateDetailsDto.paid|money_format }}
         </td>
       </tr>
 
