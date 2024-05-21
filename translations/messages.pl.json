@@ -178,5 +178,8 @@
   "filter": "Filtruj",
   "all": "Wszystko",
   "filtration": "Filtrowanie",
-  "clear-filter": "Wyczyść filtr"
+  "clear-filter": "Wyczyść filtr",
+  "cost": "Koszt",
+  "advance-payment": "Zaliczka",
+  "paid": "Zapłacono"
 }

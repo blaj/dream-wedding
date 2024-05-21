@@ -7,7 +7,9 @@ use Money\Money;
 readonly class CostEstimateCalculatedDto {
 
   public function __construct(
-      public Money $estimateCost,
-      public Money $realCost,
-      public Money $toPay) {}
+      public Money $cost,
+      public Money $advancePayment,
+      public Money $paid,
+      public Money $toPay,
+      public int $budgetPercentage) {}
 }

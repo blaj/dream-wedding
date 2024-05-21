@@ -10,9 +10,10 @@ readonly class CostEstimateListItemDto {
   public function __construct(
       public int $id,
       public string $name,
-      public Money $estimate,
-      public Money $real,
+      public Money $cost,
+      public Money $advancePayment,
       public int $quantity,
       public UnitType $unitType,
-      public bool $dependsOnGuests) {}
+      public bool $dependsOnGuests,
+      public Money $paid) {}
 }

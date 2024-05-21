@@ -70,27 +70,28 @@ class CostEstimateService {
             $userId)
             : null;
 
-    $weddingCostEstimate = (new CostEstimate())
+    $costEstimate = (new CostEstimate())
         ->setWedding($wedding)
         ->setName($costEstimateCreateRequest->getName())
         ->setDescription($costEstimateCreateRequest->getDescription())
-        ->setEstimate($costEstimateCreateRequest->getEstimate())
-        ->setReal($costEstimateCreateRequest->getReal())
-        ->setCurrency($costEstimateCreateRequest->getReal()->getCurrency())
+        ->setCost($costEstimateCreateRequest->getCost())
+        ->setAdvancePayment($costEstimateCreateRequest->getAdvancePayment())
+        ->setCurrency($costEstimateCreateRequest->getAdvancePayment()->getCurrency())
         ->setQuantity($costEstimateCreateRequest->getQuantity())
         ->setUnitType($costEstimateCreateRequest->getUnitType())
         ->setDependsOnGuests($costEstimateCreateRequest->isDependsOnGuests())
         ->setGroup($group)
-        ->setOrderNo($costEstimateCreateRequest->getOrderNo());
+        ->setOrderNo($costEstimateCreateRequest->getOrderNo())
+        ->setPaid($costEstimateCreateRequest->getPaid());
 
-    $this->costEstimateRepository->save($weddingCostEstimate);
+    $this->costEstimateRepository->save($costEstimate);
   }
 
   public function update(
       int $id,
       CostEstimateUpdateRequest $costEstimateUpdateRequest,
       int $userId): void {
-    $weddingCostEstimate =
+    $costEstimate =
         $this->costEstimateFetchService->fetchCostEstimate($id, $userId);
     $group =
         $costEstimateUpdateRequest->getGroup() !== null
@@ -99,18 +100,19 @@ class CostEstimateService {
             $userId)
             : null;
 
-    $weddingCostEstimate
+    $costEstimate
         ->setName($costEstimateUpdateRequest->getName())
         ->setDescription($costEstimateUpdateRequest->getDescription())
-        ->setEstimate($costEstimateUpdateRequest->getEstimate())
-        ->setReal($costEstimateUpdateRequest->getReal())
+        ->setCost($costEstimateUpdateRequest->getCost())
+        ->setAdvancePayment($costEstimateUpdateRequest->getAdvancePayment())
         ->setQuantity($costEstimateUpdateRequest->getQuantity())
         ->setUnitType($costEstimateUpdateRequest->getUnitType())
         ->setDependsOnGuests($costEstimateUpdateRequest->isDependsOnGuests())
         ->setGroup($group)
-        ->setOrderNo($costEstimateUpdateRequest->getOrderNo());
+        ->setOrderNo($costEstimateUpdateRequest->getOrderNo())
+        ->setPaid($costEstimateUpdateRequest->getPaid());
 
-    $this->costEstimateRepository->save($weddingCostEstimate);
+    $this->costEstimateRepository->save($costEstimate);
   }
 
   public function updateGroup(int $id, ?int $groupId, int $userId): void {
