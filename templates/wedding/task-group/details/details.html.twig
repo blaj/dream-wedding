@@ -21,47 +21,51 @@
 {% endblock %}
 
 {% block page_content %}
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          {{ 'name'|trans }}
-        </td>
+  <div class="card shadow">
+    <div class="card-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              {{ 'name'|trans }}
+            </td>
 
-        <td>
-          {{ taskGroupDetailsDto.name }}
-        </td>
-      </tr>
+            <td>
+              {{ taskGroupDetailsDto.name }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'tasks'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'tasks'|trans }}
+            </td>
 
-        <td>
-          {% for taskName in taskGroupDetailsDto.taskNames %}
-            <span class="badge text-bg-primary">
+            <td>
+              {% for taskName in taskGroupDetailsDto.taskNames %}
+                <span class="badge text-bg-primary">
               {{ taskName }}
             </span>
-          {% endfor %}
-        </td>
-      </tr>
+              {% endfor %}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'color'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'color'|trans }}
+            </td>
 
-        <td>
-          {% if taskGroupDetailsDto.color is not null %}
-            <span class="badge d-block" style="background-color: {{ taskGroupDetailsDto.color }}"></span>
-          {% endif %}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <td>
+              {% if taskGroupDetailsDto.color is not null %}
+                <span class="badge d-block" style="background-color: {{ taskGroupDetailsDto.color }}"></span>
+              {% endif %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-  <a href="{{ path('wedding_task_group_list', { weddingId: weddingId }) }}">
-    {{ 'back-to-list'|trans }}
-  </a>
+      <a href="{{ path('wedding_task_group_list', { weddingId: weddingId }) }}">
+        {{ 'back-to-list'|trans }}
+      </a>
+    </div>
+  </div>
 {% endblock %}

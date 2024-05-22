@@ -21,45 +21,49 @@
 {% endblock %}
 
 {% block page_content %}
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          {{ 'name'|trans }}
-        </td>
+  <div class="card shadow">
+    <div class="card-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              {{ 'name'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateGroupDetailsDto.name }}
-        </td>
-      </tr>
+            <td>
+              {{ costEstimateGroupDetailsDto.name }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'description'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'description'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateGroupDetailsDto.description }}
-        </td>
-      </tr>
+            <td>
+              {{ costEstimateGroupDetailsDto.description }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'cost-estimates'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'cost-estimates'|trans }}
+            </td>
 
-        <td>
-          {% for costEstimateName in costEstimateGroupDetailsDto.costEstimateNames %}
-            <span class="badge text-bg-primary">
+            <td>
+              {% for costEstimateName in costEstimateGroupDetailsDto.costEstimateNames %}
+                <span class="badge text-bg-primary">
               {{ costEstimateName }}
             </span>
-          {% endfor %}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+              {% endfor %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-  <a href="{{ path('wedding_cost_estimate_group_list', { weddingId: weddingId }) }}">
-    {{ 'back-to-list'|trans }}
-  </a>
+      <a href="{{ path('wedding_cost_estimate_group_list', { weddingId: weddingId }) }}">
+        {{ 'back-to-list'|trans }}
+      </a>
+    </div>
+  </div>
 {% endblock %}

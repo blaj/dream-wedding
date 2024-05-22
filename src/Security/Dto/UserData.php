@@ -13,6 +13,10 @@ class UserData implements UserInterface, PasswordAuthenticatedUserInterface {
 
   private string $password;
 
+  private string $username;
+
+  private string $email;
+
   public function eraseCredentials(): void {}
 
   /**
@@ -48,6 +52,26 @@ class UserData implements UserInterface, PasswordAuthenticatedUserInterface {
 
   public function setPassword(string $password): self {
     $this->password = $password;
+
+    return $this;
+  }
+
+  public function getUsername(): string {
+    return $this->username;
+  }
+
+  public function setUsername(string $username): self {
+    $this->username = $username;
+
+    return $this;
+  }
+
+  public function getEmail(): string {
+    return $this->email;
+  }
+
+  public function setEmail(string $email): self {
+    $this->email = $email;
 
     return $this;
   }

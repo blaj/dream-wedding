@@ -57,6 +57,8 @@ class UserDataProviderService implements UserProviderInterface {
     return (new UserData())
         ->setUserId($user->getId())
         ->setUserIdentifier($user->getUsername())
-        ->setPassword($user->getPassword());
+        ->setPassword($user->getPassword())
+        ->setUsername($user->getUsername())
+        ->setEmail($user->getEmail());
   }
 }

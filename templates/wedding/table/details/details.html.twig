@@ -21,67 +21,71 @@
 {% endblock %}
 
 {% block page_content %}
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          {{ 'name'|trans }}
-        </td>
+  <div class="card shadow">
+    <div class="card-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              {{ 'name'|trans }}
+            </td>
 
-        <td>
-          {{ tableDetailsDto.name }}
-        </td>
-      </tr>
+            <td>
+              {{ tableDetailsDto.name }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'description'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'description'|trans }}
+            </td>
 
-        <td>
-          {{ tableDetailsDto.description }}
-        </td>
-      </tr>
+            <td>
+              {{ tableDetailsDto.description }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'number-of-seats'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'number-of-seats'|trans }}
+            </td>
 
-        <td>
-          {{ tableDetailsDto.numberOfSeats }}
-        </td>
-      </tr>
+            <td>
+              {{ tableDetailsDto.numberOfSeats }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'table-type'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'table-type'|trans }}
+            </td>
 
-        <td>
-          {{ tableDetailsDto.type|trans }}
+            <td>
+              {{ tableDetailsDto.type|trans }}
 
-          <i class="{{ tableDetailsDto.type|tableTypeIcon }}"></i>
-        </td>
-      </tr>
+              <i class="{{ tableDetailsDto.type|tableTypeIcon }}"></i>
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'guests'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'guests'|trans }}
+            </td>
 
-        <td>
-          {% for guestName in tableDetailsDto.guestNames %}
-            <span class="badge text-bg-primary">
+            <td>
+              {% for guestName in tableDetailsDto.guestNames %}
+                <span class="badge text-bg-primary">
               {{ guestName }}
             </span>
-          {% endfor %}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+              {% endfor %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-  <a href="{{ path('wedding_table_list', { weddingId: weddingId }) }}">
-    {{ 'back-to-list'|trans }}
-  </a>
+      <a href="{{ path('wedding_table_list', { weddingId: weddingId }) }}">
+        {{ 'back-to-list'|trans }}
+      </a>
+    </div>
+  </div>
 {% endblock %}

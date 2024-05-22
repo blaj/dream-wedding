@@ -23,179 +23,183 @@
 {% endblock %}
 
 {% block page_content %}
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          {{ 'first-name'|trans }}
-        </td>
+  <div class="card shadow">
+    <div class="card-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              {{ 'first-name'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.firstName }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.firstName }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'last-name'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'last-name'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.lastName }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.lastName }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'guest-type'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'guest-type'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.type|trans }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.type|trans }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'invited'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'invited'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.invited|yesOrNo }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.invited|yesOrNo }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'confirmed'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'confirmed'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.confirmed|yesOrNo }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.confirmed|yesOrNo }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'accommodation'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'accommodation'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.accommodation|yesOrNo }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.accommodation|yesOrNo }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'transport'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'transport'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.transport|yesOrNo }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.transport|yesOrNo }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'diet-type'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'diet-type'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.dietType|trans }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.dietType|trans }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'note'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'note'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.note }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.note }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'telephone'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'telephone'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.telephone }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.telephone }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'email'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'email'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.email }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.email }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'payment'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'payment'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.payment }}%
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.payment }}%
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'guest-group'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'guest-group'|trans }}
+            </td>
 
-        <td>
-          {% if guestDetailsDto.groupName is not null %}
-            <span class="badge text-bg-primary">
+            <td>
+              {% if guestDetailsDto.groupName is not null %}
+                <span class="badge text-bg-primary">
               {{ guestDetailsDto.groupName }}
             </span>
-          {% endif %}
-        </td>
-      </tr>
+              {% endif %}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'table'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'table'|trans }}
+            </td>
 
-        <td>
-          {% if guestDetailsDto.tableName is not null %}
-            <span class="badge text-bg-primary">
+            <td>
+              {% if guestDetailsDto.tableName is not null %}
+                <span class="badge text-bg-primary">
               {{ guestDetailsDto.tableName }}
             </span>
-          {% endif %}
-        </td>
-      </tr>
+              {% endif %}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'group-order-no'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'group-order-no'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.groupOrderNo }}
-        </td>
-      </tr>
+            <td>
+              {{ guestDetailsDto.groupOrderNo }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'table-order-no'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'table-order-no'|trans }}
+            </td>
 
-        <td>
-          {{ guestDetailsDto.tableOrderNo }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <td>
+              {{ guestDetailsDto.tableOrderNo }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-  <a href="{{ path('wedding_guest_list', { weddingId: weddingId }) }}">
-    {{ 'back-to-list'|trans }}
-  </a>
+      <a href="{{ path('wedding_guest_list', { weddingId: weddingId }) }}">
+        {{ 'back-to-list'|trans }}
+      </a>
+    </div>
+  </div>
 {% endblock %}

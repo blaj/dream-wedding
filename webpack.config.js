@@ -21,7 +21,7 @@ Encore
       from: './assets/images',
       to: 'images/[path][name].[ext]',
       includeSubdirectories: true,
-      pattern: /\.(png|jpg|jpeg|svg|ico)$/
+      pattern: /\.(png|jpg|jpeg|svg|ico|gif)$/
     }
   ])
 

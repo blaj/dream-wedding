@@ -21,68 +21,72 @@
 {% endblock %}
 
 {% block page_content %}
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>
-          {{ 'name'|trans }}
-        </th>
+  <div class="card shadow">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              {{ 'name'|trans }}
+            </th>
 
-        <th>
-          {{ 'on-date'|trans }}
-        </th>
+            <th>
+              {{ 'on-date'|trans }}
+            </th>
 
-        <th>
-          {{ 'actions'|trans }}
-        </th>
-      </tr>
-    </thead>
+            <th>
+              {{ 'actions'|trans }}
+            </th>
+          </tr>
+        </thead>
 
-    <tbody>
-      {% if weddingsListItemDto|length == 0 %}
-        {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 3 } only %}
-      {% endif %}
+        <tbody>
+          {% if weddingsListItemDto|length == 0 %}
+            {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 3 } only %}
+          {% endif %}
 
-      {% for weddingDto in weddingsListItemDto %}
-        <tr>
-          <td>
-            {{ weddingDto.name }}
-          </td>
+          {% for weddingDto in weddingsListItemDto %}
+            <tr>
+              <td>
+                {{ weddingDto.name }}
+              </td>
 
-          <td>
-            {{ weddingDto.onDate|dateFormat }}
-          </td>
+              <td>
+                {{ weddingDto.onDate|dateFormat }}
+              </td>
 
-          <td class="d-flex">
-            <a
-                href="{{ path('wedding_details', { id: weddingDto.id }) }}"
-                class="btn btn-primary btn-sm me-1"
-                data-controller="tooltip"
-                data-bs-title="{{ 'details'|trans }}">
-              <i class="bi bi-eye"></i>
-            </a>
+              <td class="d-flex">
+                <a
+                    href="{{ path('wedding_details', { id: weddingDto.id }) }}"
+                    class="btn btn-primary btn-sm me-1"
+                    data-controller="tooltip"
+                    data-bs-title="{{ 'details'|trans }}">
+                  <i class="bi bi-eye"></i>
+                </a>
 
-            <a
-                href="{{ path('wedding_update', { id: weddingDto.id }) }}"
-                class="btn btn-secondary btn-sm me-1"
-                data-controller="tooltip"
-                data-bs-title="{{ 'edit'|trans }}">
-              <i class="bi bi-pencil"></i>
-            </a>
+                <a
+                    href="{{ path('wedding_update', { id: weddingDto.id }) }}"
+                    class="btn btn-secondary btn-sm me-1"
+                    data-controller="tooltip"
+                    data-bs-title="{{ 'edit'|trans }}">
+                  <i class="bi bi-pencil"></i>
+                </a>
 
-            <form action="{{ path('wedding_delete', { id: weddingDto.id }) }}" method="post">
-              <button
-                  type="submit" class="btn btn-danger btn-sm"
-                  data-controller="tooltip"
-                  data-bs-title="{{ 'delete'|trans }}">
-                <i class="bi bi-trash3"></i>
-              </button>
+                <form action="{{ path('wedding_delete', { id: weddingDto.id }) }}" method="post">
+                  <button
+                      type="submit" class="btn btn-danger btn-sm"
+                      data-controller="tooltip"
+                      data-bs-title="{{ 'delete'|trans }}">
+                    <i class="bi bi-trash3"></i>
+                  </button>
 
-              <input type="hidden" name="_method" value="DELETE">
-            </form>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+                  <input type="hidden" name="_method" value="DELETE">
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 {% endblock %}

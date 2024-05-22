@@ -21,41 +21,45 @@
 {% endblock %}
 
 {% block page_content %}
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          {{ 'username'|trans }}
-        </td>
+  <div class="card shadow">
+    <div class="card-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              {{ 'username'|trans }}
+            </td>
 
-        <td>
-          {{ weddingUserDetailsDto.username }}
-        </td>
-      </tr>
+            <td>
+              {{ weddingUserDetailsDto.username }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'email'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'email'|trans }}
+            </td>
 
-        <td>
-          {{ weddingUserDetailsDto.email }}
-        </td>
-      </tr>
+            <td>
+              {{ weddingUserDetailsDto.email }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'role'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'role'|trans }}
+            </td>
 
-        <td>
-          {{ weddingUserDetailsDto.role|trans }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <td>
+              {{ weddingUserDetailsDto.role|trans }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-  <a href="{{ path('wedding_user_list', { weddingId: weddingId }) }}">
-    {{ 'back-to-list'|trans }}
-  </a>
+      <a href="{{ path('wedding_user_list', { weddingId: weddingId }) }}">
+        {{ 'back-to-list'|trans }}
+      </a>
+    </div>
+  </div>
 {% endblock %}

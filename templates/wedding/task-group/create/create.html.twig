@@ -9,9 +9,13 @@
 {% endblock %}
 
 {% block page_content %}
-  {{ form(form) }}
+  <div class="card shadow">
+    <div class="card-body">
+      {{ form(form) }}
 
-  <a href="{{ path('wedding_task_group_list', { weddingId: weddingId }) }}">
-    {{ 'back-to-list'|trans }}
-  </a>
+      <a href="{{ path('wedding_task_group_list', { weddingId: weddingId }) }}">
+        {{ 'back-to-list'|trans }}
+      </a>
+    </div>
+  </div>
 {% endblock %}
