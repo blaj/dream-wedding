@@ -5,65 +5,123 @@
 {% endblock %}
 
 {% block body %}
-  <main class="form-signin w-100 m-auto text-center">
-    <form action="{{ path('security_login') }}" method="post">
-      <input type="hidden" name="_target_path" value="/" />
+  <main>
+    <section class="vh-xxl-100">
+      <div class="container h-100 d-flex px-0 px-sm-4">
+        <div class="row justify-content-center align-items-center m-auto">
+          <div class="col-12">
+            <div class="bg-mode shadow rounded-3 overflow-hidden">
+              <div class="row g-0">
+                <div class="col-lg-6 d-flex align-items-center order-2 order-lg-1">
+                  <div class="p-3 p-lg-5">
+                    <img src="{{ asset('build/images/element/signin.svg') }}" alt="">
+                  </div>
 
-      <h1 class="mb-4">
-        Dream-Wedding
-      </h1>
+                  <div class="vr opacity-1 d-none d-lg-block"></div>
+                </div>
 
-      <h1 class="h3 mb-3 fw-normal">
-        {{ 'please-sign-in'|trans }}
-      </h1>
+                <div class="col-lg-6 order-1">
+                  <div class="p-4 p-sm-7">
+                    <h1 class="mb-2 h3">
+                      {{ 'welcome-back'|trans }}
+                    </h1>
 
-      {% if error %}
-        <div class="alert alert-danger">
-          {{ error.messageKey|trans(error.messageData, 'security') }}
+                    <p class="mb-0">
+                      {{ 'new-here'|trans ~ '?' }}
+
+                      <a href="{{ path('user_register') }}">
+                        {{ 'create-an-account'|trans }}
+                      </a>
+                    </p>
+
+                    {% if error %}
+                      <div class="alert alert-danger mt-3">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                      </div>
+                    {% endif %}
+
+                    <form class="mt-4 text-start" action="{{ path('security_login') }}" method="post">
+                      <input type="hidden" name="_target_path" value="{{ path('dashboard_index') }}" />
+
+                      <div class="mb-3">
+                        <label class="form-label" for="username">
+                          {{ 'username'|trans }}
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="username"
+                            name="_username"
+                            value="{{ lastUsername }}">
+                      </div>
+
+                      <div class="mb-3 position-relative">
+                        <label class="form-label" for="password">
+                          {{ 'password'|trans }}
+                        </label>
+
+                        <input type="password" class="form-control fakepassword" id="password" name="_password">
+
+                        <span class="position-absolute top-50 end-0 translate-middle-y p-0 mt-3">
+											    <i class="fakepasswordicon fas fa-eye-slash cursor-pointer p-2"></i>
+										    </span>
+                      </div>
+
+                      <div class="mb-3 d-sm-flex justify-content-between">
+                        <div>
+                          <input
+                              type="checkbox"
+                              class="form-check-input"
+                              id="remember-me"
+                              name="_remember_me"
+                              value="remember-me">
+
+                          <label class="form-check-label" for="remember-me">
+                            {{ 'remember-me'|trans ~ '?' }}
+                          </label>
+                        </div>
+
+                        <a href="{{ path('security_login') }}">
+                          {{ 'forgot-password'|trans ~ '?' }}
+                        </a>
+                      </div>
+
+                      <div>
+                        <button type="submit" class="btn btn-primary w-100 mb-0">
+                          {{ 'sign-in'|trans }}
+                        </button>
+                      </div>
+
+                      <div class="position-relative my-4">
+                        <hr>
+
+                        <p class="small position-absolute top-50 start-50 translate-middle bg-mode px-1 px-sm-2">
+                          {{ 'or'|trans }}
+                        </p>
+                      </div>
+
+                      <div class="vstack gap-3">
+                        <a href="{{ path('user_register') }}" class="btn btn-light mb-0">
+                          {{ 'sign-up'|trans }}
+                        </a>
+
+                        <a href="{{ path('home_index') }}" class="btn btn-light mb-0">
+                          {{ 'back-to-homepage'|trans }}
+                        </a>
+                      </div>
+
+                      <div class="text-primary-hover text-body mt-3 text-center">
+                        Copyrights ©2024 Wymarzone-Wesele.pl. Build by <a href="https://blaj.app/" class="text-body">BLAJ</a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      {% endif %}
-
-      <div class="form-floating">
-        <input
-            type="text"
-            class="form-control"
-            id="username"
-            placeholder="{{ 'username'|trans }}"
-            name="_username"
-            value="{{ lastUsername }}">
-
-        <label for="username">
-          {{ 'username'|trans }}
-        </label>
       </div>
-
-      <div class="form-floating">
-        <input type="password" class="form-control" id="password" placeholder="{{ 'password'|trans }}" name="_password">
-
-        <label for="password">
-          {{ 'password'|trans }}
-        </label>
-      </div>
-
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" name="_remember_me">
-
-          {{ 'remember-me'|trans }}
-        </label>
-      </div>
-
-      <button class="w-100 btn btn-lg btn-primary mb-1" type="submit">
-        {{ 'sign-in'|trans }}
-      </button>
-
-      <a href="{{ path('user_register') }}" class="w-100 btn btn-sm btn-secondary">
-        {{ 'sign-up'|trans }}
-      </a>
-
-      <p class="mt-5 mb-3 text-muted">
-        &copy; 2017–2022
-      </p>
-    </form>
+    </section>
   </main>
 {% endblock %}

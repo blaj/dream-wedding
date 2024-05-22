@@ -21,115 +21,119 @@
 {% endblock %}
 
 {% block page_content %}
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          {{ 'name'|trans }}
-        </td>
+  <div class="card shadow">
+    <div class="card-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              {{ 'name'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateDetailsDto.name }}
-        </td>
-      </tr>
+            <td>
+              {{ costEstimateDetailsDto.name }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'description'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'description'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateDetailsDto.description }}
-        </td>
-      </tr>
+            <td>
+              {{ costEstimateDetailsDto.description }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'cost'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'cost'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateDetailsDto.cost|money_format }}
-        </td>
-      </tr>
+            <td>
+              {{ costEstimateDetailsDto.cost|money_format }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'advance-payment'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'advance-payment'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateDetailsDto.advancePayment|money_format }}
-        </td>
-      </tr>
+            <td>
+              {{ costEstimateDetailsDto.advancePayment|money_format }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'paid'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'paid'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateDetailsDto.paid|money_format }}
-        </td>
-      </tr>
+            <td>
+              {{ costEstimateDetailsDto.paid|money_format }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'quantity'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'quantity'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateDetailsDto.quantity }}
-        </td>
-      </tr>
+            <td>
+              {{ costEstimateDetailsDto.quantity }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'unit-type'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'unit-type'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateDetailsDto.unitType|trans }}
-        </td>
-      </tr>
+            <td>
+              {{ costEstimateDetailsDto.unitType|trans }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'depends-on-guests'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'depends-on-guests'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateDetailsDto.dependsOnGuests|yesOrNo }}
-        </td>
-      </tr>
+            <td>
+              {{ costEstimateDetailsDto.dependsOnGuests|yesOrNo }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'group'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'group'|trans }}
+            </td>
 
-        <td>
-          {% if costEstimateDetailsDto.groupName is not null %}
-            <span class="badge text-bg-primary">
+            <td>
+              {% if costEstimateDetailsDto.groupName is not null %}
+                <span class="badge text-bg-primary">
               {{ costEstimateDetailsDto.groupName }}
             </span>
-          {% endif %}
-        </td>
-      </tr>
+              {% endif %}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'order-no'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'order-no'|trans }}
+            </td>
 
-        <td>
-          {{ costEstimateDetailsDto.orderNo }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <td>
+              {{ costEstimateDetailsDto.orderNo }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-  <a href="{{ path('wedding_cost_estimate_list', { weddingId: weddingId }) }}">
-    {{ 'back-to-list'|trans }}
-  </a>
+      <a href="{{ path('wedding_cost_estimate_list', { weddingId: weddingId }) }}">
+        {{ 'back-to-list'|trans }}
+      </a>
+    </div>
+  </div>
 {% endblock %}

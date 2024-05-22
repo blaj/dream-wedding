@@ -5,11 +5,81 @@
 {% endblock %}
 
 {% block body %}
-  <main class="form-signin w-100 m-auto text-center">
-    {{ form(form) }}
+  <section class="vh-xxl-100">
+    <div class="container h-100 d-flex px-0 px-sm-4">
+      <div class="row justify-content-center align-items-center m-auto">
+        <div class="col-12">
+          <div class="bg-mode shadow rounded-3 overflow-hidden">
+            <div class="row g-0">
+              <div class="col-lg-6 d-md-flex align-items-center order-2 order-lg-1">
+                <div class="p-3 p-lg-5">
+                  <img src="{{ asset('build/images/element/signin.svg') }}" alt="">
+                </div>
 
-    <a href="{{ path('security_login') }}" class="btn btn-sm btn-secondary">
-      {{ 'sign-in'|trans }}
-    </a>
-  </main>
+                <div class="vr opacity-1 d-none d-lg-block"></div>
+              </div>
+
+              <div class="col-lg-6 order-1">
+                <div class="p-4 p-sm-6">
+                  <h1 class="mb-2 h3">
+                    {{ 'create-new-account'|trans }}
+                  </h1>
+
+                  <p class="mb-0">
+                    {{ 'already-a-member'|trans ~ '?' }}
+
+                    <a href="{{ path('security_login') }}">
+                      {{ 'sign-in'|trans }}
+                    </a>
+                  </p>
+
+                  {{ form_start(form) }}
+
+                  {{ form_row(form.username) }}
+
+                  {{ form_row(form.email) }}
+
+                  {{ form_row(form.password) }}
+
+                  {{ form_row(form.submit, { attr: { class: 'btn btn-primary w-100 mb-0' } }) }}
+
+                  <div class="position-relative my-4">
+                    <hr>
+
+                    <p class="small position-absolute top-50 start-50 translate-middle bg-mode px-1 px-sm-2">
+                      {{ 'or'|trans }}
+                    </p>
+                  </div>
+
+                  <div class="vstack gap-3">
+                    <a href="{{ path('security_login') }}" class="btn btn-light mb-0">
+                      {{ 'sign-in'|trans }}
+                    </a>
+
+                    <a href="{{ path('home_index') }}" class="btn btn-light mb-0">
+                      {{ 'back-to-homepage'|trans }}
+                    </a>
+                  </div>
+
+                  <div class="text-primary-hover text-body mt-3 text-center">
+                    Copyrights ©2024 Wymarzone-Wesele.pl. Build by <a href="https://blaj.app/" class="text-body">BLAJ</a>
+                  </div>
+
+                  {{ form_end(form) }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{#  <main class="form-signin w-100 m-auto text-center">#}
+{#    {{ form(form) }}#}
+
+{#    <a href="{{ path('security_login') }}" class="btn btn-sm btn-secondary">#}
+{#      {{ 'sign-in'|trans }}#}
+{#    </a>#}
+{#  </main>#}
 {% endblock %}

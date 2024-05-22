@@ -21,45 +21,49 @@
 {% endblock %}
 
 {% block page_content %}
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          {{ 'name'|trans }}
-        </td>
+  <div class="card shadow">
+    <div class="card-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              {{ 'name'|trans }}
+            </td>
 
-        <td>
-          {{ guestGroupDetailsDto.name }}
-        </td>
-      </tr>
+            <td>
+              {{ guestGroupDetailsDto.name }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'description'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'description'|trans }}
+            </td>
 
-        <td>
-          {{ guestGroupDetailsDto.description }}
-        </td>
-      </tr>
+            <td>
+              {{ guestGroupDetailsDto.description }}
+            </td>
+          </tr>
 
-      <tr>
-        <td>
-          {{ 'guests'|trans }}
-        </td>
+          <tr>
+            <td>
+              {{ 'guests'|trans }}
+            </td>
 
-        <td>
-          {% for guestName in guestGroupDetailsDto.guestNames %}
-            <span class="badge text-bg-primary">
+            <td>
+              {% for guestName in guestGroupDetailsDto.guestNames %}
+                <span class="badge text-bg-primary">
               {{ guestName }}
             </span>
-          {% endfor %}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+              {% endfor %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-  <a href="{{ path('wedding_guest_group_list', { weddingId: weddingId }) }}">
-    {{ 'back-to-list'|trans }}
-  </a>
+      <a href="{{ path('wedding_guest_group_list', { weddingId: weddingId }) }}">
+        {{ 'back-to-list'|trans }}
+      </a>
+    </div>
+  </div>
 {% endblock %}
