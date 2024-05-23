@@ -40,81 +40,61 @@
                       </div>
                     {% endif %}
 
-                    <form class="mt-4 text-start" action="{{ path('security_login') }}" method="post">
-                      <input type="hidden" name="_target_path" value="{{ path('dashboard_index') }}" />
+                    {{ form_start(form) }}
 
-                      <div class="mb-3">
-                        <label class="form-label" for="username">
-                          {{ 'username'|trans }}
-                        </label>
+                    {{ form_row(form.username, { full_name: '_username' }) }}
 
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="username"
-                            name="_username"
-                            value="{{ lastUsername }}">
-                      </div>
+                    {{ form_row(form.password, { full_name: '_password' }) }}
 
-                      <div class="mb-3 position-relative">
-                        <label class="form-label" for="password">
-                          {{ 'password'|trans }}
-                        </label>
-
-                        <input type="password" class="form-control fakepassword" id="password" name="_password">
-
-                        <span class="position-absolute top-50 end-0 translate-middle-y p-0 mt-3">
-											    <i class="fakepasswordicon fas fa-eye-slash cursor-pointer p-2"></i>
-										    </span>
-                      </div>
-
-                      <div class="mb-3 d-sm-flex justify-content-between">
-                        <div>
-                          <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="remember-me"
-                              name="_remember_me"
-                              value="remember-me">
-
-                          <label class="form-check-label" for="remember-me">
-                            {{ 'remember-me'|trans ~ '?' }}
-                          </label>
-                        </div>
-
-                        <a href="{{ path('security_login') }}">
-                          {{ 'forgot-password'|trans ~ '?' }}
-                        </a>
-                      </div>
-
+                    <div class="mb-3 d-sm-flex justify-content-between">
                       <div>
-                        <button type="submit" class="btn btn-primary w-100 mb-0">
-                          {{ 'sign-in'|trans }}
-                        </button>
+                        {{ form_widget(form.rememberMe, { full_name:'_remember_me' }) }}
+
+                        {{ form_label(form.rememberMe) }}
                       </div>
 
-                      <div class="position-relative my-4">
-                        <hr>
+                      <a href="{{ path('security_login') }}">
+                        {{ 'forgot-password'|trans ~ '?' }}
+                      </a>
+                    </div>
 
-                        <p class="small position-absolute top-50 start-50 translate-middle bg-mode px-1 px-sm-2">
-                          {{ 'or'|trans }}
-                        </p>
-                      </div>
+                    <div>
+                      <button type="submit" class="btn btn-primary w-100 mb-0">
+                        {{ 'sign-in'|trans }}
+                      </button>
+                    </div>
 
-                      <div class="vstack gap-3">
-                        <a href="{{ path('user_register') }}" class="btn btn-light mb-0">
-                          {{ 'sign-up'|trans }}
-                        </a>
+                    <div class="position-relative my-4">
+                      <hr>
 
-                        <a href="{{ path('home_index') }}" class="btn btn-light mb-0">
-                          {{ 'back-to-homepage'|trans }}
-                        </a>
-                      </div>
+                      <p class="small position-absolute top-50 start-50 translate-middle bg-mode px-1 px-sm-2">
+                        {{ 'or'|trans }}
+                      </p>
+                    </div>
 
-                      <div class="text-primary-hover text-body mt-3 text-center">
-                        Copyrights ©2024 Wymarzone-Wesele.pl. Build by <a href="https://blaj.app/" class="text-body">BLAJ</a>
-                      </div>
-                    </form>
+                    <div class="vstack gap-3">
+                      <a href="{{ path('user_register') }}" class="btn btn-light mb-0">
+                        {{ 'sign-up'|trans }}
+                      </a>
+
+                      <a href="{{ path('home_index') }}" class="btn btn-light mb-0">
+                        {{ 'back-to-homepage'|trans }}
+                      </a>
+                    </div>
+
+                    <div class="text-primary-hover text-body mt-3 text-center">
+                      Copyrights ©2024 Wymarzone-Wesele.pl. Build by <a href="https://blaj.app/" class="text-body">BLAJ</a>
+                    </div>
+
+                    {{ form_row(form._token, {
+                      full_name:'_csrf_token',
+                    }) }}
+
+                    {{ form_row(form.targetPath, {
+                      full_name:'_target_path',
+                    }) }}
+
+                    {{ form_end(form) }}
                   </div>
                 </div>
               </div>

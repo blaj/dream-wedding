@@ -18,4 +18,5 @@ return [
     Tbbc\MoneyBundle\TbbcMoneyBundle::class => ['all' => true],
     FOS\JsRoutingBundle\FOSJsRoutingBundle::class => ['all' => true],
     Symfony\UX\Translator\UxTranslatorBundle::class => ['all' => true],
+    Karser\Recaptcha3Bundle\KarserRecaptcha3Bundle::class => ['all' => true],
 ];
