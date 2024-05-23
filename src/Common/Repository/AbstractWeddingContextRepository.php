@@ -5,6 +5,7 @@ namespace App\Common\Repository;
 use App\Common\Entity\AuditingEntity;
 use App\Common\Entity\WeddingContextInterface;
 use App\Wedding\Entity\Task;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\AbstractQuery;
 
@@ -62,5 +63,21 @@ abstract class AbstractWeddingContextRepository extends AbstractAuditingEntityRe
         ->setParameter('weddingId', $weddingId, Types::INTEGER)
         ->setParameter('userId', $userId, Types::INTEGER)
         ->getResult();
+  }
+
+  public function softDeleteByWeddingId(int $weddingId): void {
+    $this->getEntityManager()
+        ->createQuery(
+            '
+          UPDATE 
+            ' . $this->getClassName() . ' entity 
+          SET 
+            entity.deleted = true, 
+            entity.deletedAt = :deletedAt 
+          WHERE 
+            entity.wedding = :weddingId ')
+        ->setParameter('weddingId', $weddingId, Types::INTEGER)
+        ->setParameter('deletedAt', new DateTimeImmutable(), Types::DATETIME_IMMUTABLE)
+        ->execute();
   }
 }

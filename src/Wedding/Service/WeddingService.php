@@ -16,7 +16,15 @@ use App\Wedding\Mapper\WeddingDetailsDtoMapper;
 use App\Wedding\Mapper\WeddingListItemDtoMapper;
 use App\Wedding\Mapper\WeddingNearestDtoMapper;
 use App\Wedding\Mapper\WeddingUpdateRequestMapper;
+use App\Wedding\Repository\CostEstimateGroupRepository;
+use App\Wedding\Repository\CostEstimateRepository;
+use App\Wedding\Repository\GuestGroupRepository;
+use App\Wedding\Repository\GuestRepository;
+use App\Wedding\Repository\TableRepository;
+use App\Wedding\Repository\TaskGroupRepository;
+use App\Wedding\Repository\TaskRepository;
 use App\Wedding\Repository\WeddingRepository;
+use App\Wedding\Repository\WeddingUserInviteRepository;
 use App\Wedding\Repository\WeddingUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -27,6 +35,14 @@ class WeddingService {
       private readonly UserFetchService $userFetchService,
       private readonly WeddingRepository $weddingRepository,
       private readonly WeddingUserRepository $weddingUserRepository,
+      private readonly CostEstimateGroupRepository $costEstimateGroupRepository,
+      private readonly CostEstimateRepository $costEstimateRepository,
+      private readonly GuestGroupRepository $guestGroupRepository,
+      private readonly GuestRepository $guestRepository,
+      private readonly TableRepository $tableRepository,
+      private readonly TaskGroupRepository $taskGroupRepository,
+      private readonly TaskRepository $taskRepository,
+      private readonly WeddingUserInviteRepository $weddingUserInviteRepository,
       private readonly EntityManagerInterface $entityManager) {}
 
   /**
@@ -105,8 +121,22 @@ class WeddingService {
   }
 
   public function delete(int $id, int $userId): void {
-    // TODO: delete all relations
-    $this->weddingRepository->softDeleteById(
-        $this->weddingFetchService->fetchWedding($id, $userId)->getId());
+    $this->entityManager->beginTransaction();
+
+    $weddingId = $this->weddingFetchService->fetchWedding($id, $userId)->getId();
+
+    $this->weddingRepository->softDeleteById($weddingId);
+    $this->costEstimateGroupRepository->softDeleteByWeddingId($weddingId);
+    $this->costEstimateRepository->softDeleteByWeddingId($weddingId);
+    $this->guestGroupRepository->softDeleteByWeddingId($weddingId);
+    $this->guestRepository->softDeleteByWeddingId($weddingId);
+    $this->tableRepository->softDeleteByWeddingId($weddingId);
+    $this->taskGroupRepository->softDeleteByWeddingId($weddingId);
+    $this->taskRepository->softDeleteByWeddingId($weddingId);
+    $this->weddingUserInviteRepository->softDeleteByWeddingId($weddingId);
+    $this->weddingUserRepository->softDeleteByWeddingId($weddingId);
+
+    $this->entityManager->flush();
+    $this->entityManager->commit();
   }
 }

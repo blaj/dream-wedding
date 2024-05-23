@@ -2,9 +2,9 @@
 <html lang="pl">
   <head>
     <title>
-      {% block title %}
-        Welcome!
-      {% endblock %}
+      Wymarzone-Wesele.pl -
+
+      {% block title %}{% endblock %}
     </title>
 
     <meta charset="UTF-8" />
@@ -17,7 +17,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
 
     {% block stylesheets %}
       {{ encore_entry_link_tags('app') }}
@@ -28,7 +30,7 @@
     {% endblock %}
   </head>
 
-  <body data-controller="modal">
+  <body data-controller="modal select-theme">
     {% block body %}{% endblock %}
 
     {% include 'partial/_modal.html.twig' %}
