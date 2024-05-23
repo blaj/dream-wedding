@@ -2,6 +2,9 @@
 
 namespace App\User\Form\Type;
 
+use App\Common\Const\FormConst;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -24,6 +27,9 @@ class UserRegisterFormType extends AbstractType {
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'password'],
                 'second_options' => ['label' => 're-password']])
-        ->add('submit', SubmitType::class, ['label' => 'sign-up']);
+        ->add(FormConst::$captcha, Recaptcha3Type::class, [
+            'constraints' => new Recaptcha3(),
+            'action_name' => 'homepage'])
+        ->add(FormConst::$save, SubmitType::class, ['label' => 'sign-up']);
   }
 }

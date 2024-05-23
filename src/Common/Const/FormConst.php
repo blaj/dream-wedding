@@ -9,4 +9,5 @@ class FormConst {
   public static string $add = 'add';
   public static string $modalCancel = 'modalCancel';
   public static string $filter = 'filter';
+  public static string $captcha = 'captcha';
 }

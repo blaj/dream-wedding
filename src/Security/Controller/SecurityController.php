@@ -2,6 +2,7 @@
 
 namespace App\Security\Controller;
 
+use App\Security\Form\Type\LoginFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +17,18 @@ class SecurityController extends AbstractController {
   #[IsGranted(new Expression("!is_authenticated()"))]
   #[Route(path: '/login', name: 'login', methods: ['GET', 'POST'])]
   public function login(AuthenticationUtils $authenticationUtils): Response {
+    $form =
+        $this->createForm(
+            LoginFormType::class,
+            null,
+            ['lastUsername' => $authenticationUtils->getLastUsername()]);
+
     return $this->render(
         'security/login.html.twig',
         [
             'lastUsername' => $authenticationUtils->getLastUsername(),
-            'error' => $authenticationUtils->getLastAuthenticationError()]);
+            'error' => $authenticationUtils->getLastAuthenticationError(),
+            'form' => $form]);
   }
 
   #[IsGranted(new Expression("is_authenticated()"))]
