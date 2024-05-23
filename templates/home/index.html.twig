@@ -267,28 +267,36 @@
           </div>
 
           <div class="col-lg-10">
-            <div class="tiny-slider arrow-round arrow-xs arrow-dark">
-              <div
-                  class="tiny-slider-inner"
-                  data-controller="tiny-slider"
-                  data-tiny-slider-items-value="1"
-                  data-tiny-slider-items-xl-value="5"
-                  data-tiny-slider-items-lg-value="3"
-                  data-tiny-slider-items-md-value="3"
-                  data-tiny-slider-items-sm-value="2"
-                  data-tiny-slider-items-xs-value="1">
-                {% for i in 1..10 %}
-                  {% include 'home/partial/_service-category-item.html.twig' with { i: i } only %}
-                {% endfor %}
+            {% if randomOfferCategoriesListItemDto|length > 0 %}
+              <div class="tiny-slider arrow-round arrow-xs arrow-dark">
+                <div
+                    class="tiny-slider-inner"
+                    data-controller="tiny-slider"
+                    data-tiny-slider-items-value="1"
+                    data-tiny-slider-items-xl-value="5"
+                    data-tiny-slider-items-lg-value="3"
+                    data-tiny-slider-items-md-value="3"
+                    data-tiny-slider-items-sm-value="2"
+                    data-tiny-slider-items-xs-value="1">
+                  {% for offerCategoryDto in randomOfferCategoriesListItemDto %}
+                    {% include 'home/partial/_service-category-item.html.twig' with { offerCategoryDto: offerCategoryDto } only %}
+                  {% endfor %}
+                </div>
               </div>
-            </div>
+            {% else %}
+              Brak wpisów
+            {% endif %}
           </div>
         </div>
 
         <div class="row g-4">
-          {% for i in 1..10 %}
-            {% include 'home/partial/_service-card-item.html.twig' with { i: i } only %}
-          {% endfor %}
+          {% if latestOffersListItemDto|length > 0 %}
+            {% for offerDto in latestOffersListItemDto %}
+              {% include 'home/partial/_service-card-item.html.twig' with { offerDto: offerDto } only %}
+            {% endfor %}
+          {% else %}
+            Brak wpisów
+          {% endif %}
         </div>
       </div>
     </section>

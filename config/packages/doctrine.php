@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use App\Common\Doctrine\Filter\SoftDeleteFilter;
 use App\Common\Doctrine\Function\CastFunction;
+use App\Common\Doctrine\Function\RandomFunction;
 use App\Common\Doctrine\Function\ToCharFunction;
 use App\Common\Doctrine\Type\BigIntType;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -77,6 +78,13 @@ return static function(ContainerConfigurator $containerConfigurator): void {
                   'prefix' => 'App\Post\Entity',
                   'alias' => 'Post',
               ],
+              'Offer' => [
+                  'type' => 'attribute',
+                  'is_bundle' => false,
+                  'dir' => '%kernel.project_dir%/src/Offer/Entity',
+                  'prefix' => 'App\Offer\Entity',
+                  'alias' => 'Offer',
+              ],
           ],
           'controller_resolver' => [
               'auto_mapping' => false,
@@ -85,6 +93,9 @@ return static function(ContainerConfigurator $containerConfigurator): void {
               'string_functions' => [
                   'CAST' => CastFunction::class,
                   'TO_CHAR' => ToCharFunction::class
+              ],
+              'numeric_functions' => [
+                  'RANDOM' => RandomFunction::class
               ]
           ]
       ],
