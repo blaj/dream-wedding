@@ -139,13 +139,17 @@
           </div>
         </div>
 
-        <div class="tiny-slider arrow-round arrow-blur arrow-hover">
-          <div class="tiny-slider-inner" data-controller="tiny-slider">
-            {% for i in 1..10 %}
-              {% include 'home/partial/_latest-blog-item.html.twig' with { i: i } only %}
-            {% endfor %}
+        {% if latestPostsListItemDto|length > 0 %}
+          <div class="tiny-slider arrow-round arrow-blur arrow-hover">
+            <div class="tiny-slider-inner" data-controller="tiny-slider">
+              {% for postDto in latestPostsListItemDto %}
+                {% include 'home/partial/_latest-blog-item.html.twig' with { postDto: postDto } only %}
+              {% endfor %}
+            </div>
           </div>
-        </div>
+        {% else %}
+          Brak wpisów
+        {% endif %}
       </div>
     </section>
 

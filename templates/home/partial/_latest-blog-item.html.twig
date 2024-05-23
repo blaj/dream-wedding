@@ -9,12 +9,12 @@
         <div class="card-body px-3">
           <h6 class="card-title">
             <a href="{{ path('home_index') }}" class="stretched-link">
-              Lorem ipsum {{ i }}
+              {{ postDto.title }}
             </a>
           </h6>
 
           <p class="mb-0">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae, soluta.
+            {{ postDto.content|u.truncate(70, '...') }}
           </p>
         </div>
       </div>

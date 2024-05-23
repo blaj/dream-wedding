@@ -7,17 +7,11 @@ use App\Common\Entity\WeddingContextInterface;
 use App\Wedding\Entity\Enum\DietType;
 use App\Wedding\Entity\Enum\GuestType;
 use App\Wedding\Repository\GuestRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\InverseJoinColumn;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\OneToMany;
 
 #[Entity(repositoryClass: GuestRepository::class)]
 #[\Doctrine\ORM\Mapping\Table(name: 'guest', schema: 'wedding')]

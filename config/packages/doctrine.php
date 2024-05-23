@@ -70,6 +70,13 @@ return static function(ContainerConfigurator $containerConfigurator): void {
                   'prefix' => 'App\User\Entity',
                   'alias' => 'User',
               ],
+              'Post' => [
+                  'type' => 'attribute',
+                  'is_bundle' => false,
+                  'dir' => '%kernel.project_dir%/src/Post/Entity',
+                  'prefix' => 'App\Post\Entity',
+                  'alias' => 'Post',
+              ],
           ],
           'controller_resolver' => [
               'auto_mapping' => false,
