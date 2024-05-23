@@ -66,6 +66,9 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
+      - name: Warmup cache
+        run: php bin/console cache:clear
+
       - name: Yarn build
         run: yarn build
 
