@@ -80,7 +80,7 @@ Encore
 
   // uncomment if you're having problems with a jQuery plugin
   .autoProvidejQuery()
-  .addPlugin(new FosRouting());
+  .addPlugin(new FosRouting({ target: './assets/routes.json' }));
 
 const webpackConfig = Encore.getWebpackConfig();
 

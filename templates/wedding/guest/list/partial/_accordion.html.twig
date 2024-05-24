@@ -10,7 +10,8 @@
             aria-expanded="true"
             data-controller="guest-group-rename"
             data-guest-group-rename-id-value="{{ accordionItemId }}"
-            data-guest-group-rename-wedding-id-value="{{ weddingId }}">
+            data-guest-group-rename-wedding-id-value="{{ weddingId }}"
+            data-guest-group-rename-locale-value="{{ app.request.locale }}">
           <span data-guest-group-rename-target="text">
             {{ accordionItemName }}
           </span>
@@ -106,7 +107,7 @@
 
     <div id="task-group-{{ accordionItemId }}" class="accordion-collapse collapse show">
       <div class="accordion-body table-responsive">
-        <table class="table table-hover">
+        <table class="table table-sm table-hover">
           <thead>
             <tr>
               <th></th>
@@ -168,6 +169,7 @@
           <tbody
               data-controller="guest-drag-and-drop"
               data-guest-drag-and-drop-wedding-id-value="{{ weddingId }}"
+              data-guest-drag-and-drop-locale-value="{{ app.request.locale }}"
               data-group-id="{{ groupId }}">
             {% if guestsListItemDto|length == 0 %}
               {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 14 } only %}

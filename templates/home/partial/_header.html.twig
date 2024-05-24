@@ -47,10 +47,18 @@
                     class="dropdown-menu dropdown-animation dropdown-menu-end min-w-auto"
                     aria-labelledby="languageDropdown">
                   <li>
-                    <a class="dropdown-item me-4" href="{{ path('home_index') }}">
+                    <a class="dropdown-item me-4" href="{{ path('localization_change_locale', { locale: 'pl' }) }}">
+                      <img class="fa-fw me-2" src="{{ asset('build/images/flags/pl.svg') }}" alt="">
+
+                      {{ 'polish'|trans }}
+                    </a>
+                  </li>
+
+                  <li>
+                    <a class="dropdown-item me-4" href="{{ path('localization_change_locale', { locale: 'en' }) }}">
                       <img class="fa-fw me-2" src="{{ asset('build/images/flags/uk.svg') }}" alt="">
 
-                      English
+                      {{ 'english'|trans }}
                     </a>
                   </li>
                 </ul>
@@ -65,12 +73,41 @@
                   </a>
                 </li>
               {% else %}
-                <li class="nav-item">
-                  <a href="{{ path('user_update_settings') }}" class="nav-link small pb-2">
+                <li class="dropdown nav-item">
+                  <a
+                      class="nav-link small pb-2"
+                      href="#"
+                      role="button"
+                      id="userDropdown"
+                      data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
                     <i class="far fa-user me-2"></i>
 
                     {{ app.user.username }}
                   </a>
+
+                  <ul
+                      class="dropdown-menu dropdown-animation dropdown-menu-end min-w-auto"
+                      aria-labelledby="userDropdown">
+                    <li>
+                      <a class="dropdown-item me-4" href="{{ path('dashboard_index') }}">
+                        {{ 'dashboard'|trans }}
+                      </a>
+                    </li>
+
+                    <li>
+                      <a class="dropdown-item me-4" href="{{ path('user_update_settings') }}">
+                        {{ 'settings'|trans }}
+                      </a>
+                    </li>
+
+                    <li>
+                      <a class="dropdown-item me-4" href="{{ path('security_logout') }}" data-turbo-prefetch="false">
+                        {{ 'sign-out'|trans }}
+                      </a>
+                    </li>
+                  </ul>
                 </li>
               {% endif %}
 

@@ -3,6 +3,7 @@
 namespace App\Wedding\Controller;
 
 use App\Common\Const\FlashMessageConst;
+use App\Common\Const\TranslationConst;
 use App\Common\Utils\FormUtils;
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\CostEstimateGroupCreateRequest;
@@ -20,7 +21,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/wedding/{weddingId}/cost-estimate-group', name: 'wedding_cost_estimate_group_', requirements: ['weddingId' => '\d+'])]
+#[Route(path: '/{_locale}/wedding/{weddingId}/cost-estimate-group', name: 'wedding_cost_estimate_group_', requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
 class CostEstimateGroupController extends AbstractController {
 
   public function __construct(

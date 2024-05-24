@@ -167,6 +167,35 @@
                     aria-expanded="false"
                     data-bs-toggle="dropdown"
                     data-bs-display="static">
+                  <i class="fa-solid fa-language"></i>
+                </button>
+
+                <ul class="dropdown-menu min-w-auto dropdown-menu-end">
+                  <li class="mb-1">
+                    <a href="{{ path('localization_change_locale', { locale: 'pl' }) }}" class="dropdown-item d-flex align-items-center">
+                      <img class="fa-fw me-2" src="{{ asset('build/images/flags/pl.svg') }}" alt="">
+
+                      {{ 'polish'|trans }}
+                    </a>
+                  </li>
+
+                  <li class="mb-1">
+                    <a href="{{ path('localization_change_locale', { locale: 'en' }) }}" class="dropdown-item d-flex align-items-center">
+                      <img class="fa-fw me-2" src="{{ asset('build/images/flags/uk.svg') }}" alt="">
+
+                      {{ 'english'|trans }}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item dropdown ms-3">
+                <button
+                    class="nav-notification lh-0 btn btn-light p-0 mb-0" id="bd-theme"
+                    type="button"
+                    aria-expanded="false"
+                    data-bs-toggle="dropdown"
+                    data-bs-display="static">
                   <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"

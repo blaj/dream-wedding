@@ -10,7 +10,8 @@
             aria-expanded="true"
             data-controller="cost-estimate-group-rename"
             data-cost-estimate-group-rename-id-value="{{ accordionItemId }}"
-            data-cost-estimate-group-rename-wedding-id-value="{{ weddingId }}">
+            data-cost-estimate-group-rename-wedding-id-value="{{ weddingId }}"
+            data-cost-estimate-group-rename-locale-value="{{ app.request.locale }}">
           <span data-cost-estimate-group-rename-target="text">
             {{ accordionItemName }}
           </span>
@@ -106,7 +107,7 @@
 
     <div id="task-group-{{ accordionItemId }}" class="accordion-collapse collapse show">
       <div class="accordion-body table-responsive">
-        <table class="table table-hover">
+        <table class="table table-sm table-hover">
           <thead>
             <tr>
               <th></th>
@@ -148,6 +149,7 @@
           <tbody
               data-controller="cost-estimate-drag-and-drop"
               data-cost-estimate-drag-and-drop-wedding-id-value="{{ weddingId }}"
+              data-cost-estimate-drag-and-drop-locale-value="{{ app.request.locale }}"
               data-group-id="{{ groupId }}">
             {% if costEstimatesListItemDto|length == 0 %}
               {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 8 } only %}

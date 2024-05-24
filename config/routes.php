@@ -29,4 +29,14 @@ return static function(RoutingConfigurator $routingConfigurator): void {
       'path' => '../src/Security/Controller/',
       'namespace' => 'App\Security\Controller',
   ], 'attribute');
+
+  $routingConfigurator->import([
+      'path' => '../src/Meta/Controller/',
+      'namespace' => 'App\Meta\Controller',
+  ], 'attribute');
+
+  $routingConfigurator->import([
+      'path' => '../src/Localization/Controller/',
+      'namespace' => 'App\Localization\Controller',
+  ], 'attribute');
 };

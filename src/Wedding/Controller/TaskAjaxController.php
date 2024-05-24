@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Controller;
 
+use App\Common\Const\TranslationConst;
 use App\Common\Dto\FullCalendarQueryDto;
 use App\Common\Dto\UpdateGroupRequest;
 use App\Common\Dto\UpdateOrderNoRequest;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/wedding/{weddingId}/task-ajax', name: 'wedding_task_ajax_', requirements: ['weddingId' => '\d+'])]
+#[Route(path: '/{_locale}/wedding/{weddingId}/task-ajax', name: 'wedding_task_ajax_', requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
 class TaskAjaxController extends AbstractController {
 
   public function __construct(private readonly TaskService $taskService) {}

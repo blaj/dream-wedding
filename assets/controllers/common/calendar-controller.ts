@@ -39,7 +39,10 @@ export default class extends Controller<HTMLDivElement> {
       },
       events:
         this.weddingIdValue !== UrlConst.nullValue
-          ? Routing.generate('wedding_task_ajax_list', { weddingId: this.weddingIdValue })
+          ? Routing.generate('wedding_task_ajax_list', {
+              weddingId: this.weddingIdValue,
+              _locale: this.localeValue
+            })
           : [],
       eventDidMount: this.onEventDidMount
     });
