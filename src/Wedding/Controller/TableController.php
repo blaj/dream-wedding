@@ -3,6 +3,7 @@
 namespace App\Wedding\Controller;
 
 use App\Common\Const\FlashMessageConst;
+use App\Common\Const\TranslationConst;
 use App\Common\Utils\FormUtils;
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\TableCreateRequest;
@@ -24,7 +25,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\UX\Turbo\TurboBundle;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/wedding/{weddingId}/table', name: 'wedding_table_', requirements: ['weddingId' => '\d+'])]
+#[Route(path: '/{_locale}/wedding/{weddingId}/table', name: 'wedding_table_', requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
 class TableController extends AbstractController {
 
   public function __construct(

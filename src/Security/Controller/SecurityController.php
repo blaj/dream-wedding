@@ -2,6 +2,7 @@
 
 namespace App\Security\Controller;
 
+use App\Common\Const\TranslationConst;
 use App\Security\Form\Type\LoginFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
@@ -11,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-#[Route(path: '/', name: 'security_')]
+#[Route(path: '/{_locale}', name: 'security_', requirements: ['_locale' => TranslationConst::availableLocales])]
 class SecurityController extends AbstractController {
 
   #[IsGranted(new Expression("!is_authenticated()"))]

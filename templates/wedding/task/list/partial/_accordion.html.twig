@@ -10,7 +10,8 @@
             aria-expanded="true"
             data-controller="task-group-rename"
             data-task-group-rename-id-value="{{ accordionItemId }}"
-            data-task-group-rename-wedding-id-value="{{ weddingId }}">
+            data-task-group-rename-wedding-id-value="{{ weddingId }}"
+            data-task-group-rename-locale-value="{{ app.request.locale }}">
           <span data-task-group-rename-target="text">
             {{ accordionItemName }}
           </span>
@@ -106,7 +107,7 @@
 
     <div id="task-group-{{ accordionItemId }}" class="accordion-collapse collapse show">
       <div class="accordion-body table-responsive">
-        <table class="table table-hover">
+        <table class="table table-sm table-hover">
           <thead>
             <tr>
               <th></th>
@@ -132,6 +133,7 @@
           <tbody
               data-controller="task-drag-and-drop"
               data-task-drag-and-drop-wedding-id-value="{{ weddingId }}"
+              data-task-drag-and-drop-locale-value="{{ app.request.locale }}"
               data-group-id="{{ groupId }}">
             {% if tasksListItemDto|length == 0 %}
               {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 5 } only %}
@@ -161,6 +163,7 @@
                       data-action="task-update-completed#updateCompleted"
                       data-task-update-completed-id-value="{{ taskDto.id }}"
                       data-task-update-completed-wedding-id-value="{{ weddingId }}"
+                      data-task-update-completed-locale-value="{{ app.request.locale }}"
                       id="task-update-completed-{{ taskDto.id }}"
                       type="checkbox"
                       value="1"

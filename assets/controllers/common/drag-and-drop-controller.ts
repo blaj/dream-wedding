@@ -5,9 +5,10 @@ import Routing from 'fos-router';
 import { TemplateUtils } from '@assets/common';
 
 export abstract class DragAndDropController extends Controller<HTMLElement> {
-  static values = { weddingId: Number };
+  static values = { weddingId: Number, locale: String };
 
   declare readonly weddingIdValue: number;
+  declare readonly localeValue: number;
 
   private sortable: Sortable;
 
@@ -31,7 +32,8 @@ export abstract class DragAndDropController extends Controller<HTMLElement> {
       .put(
         Routing.generate(this.updateGroupRoute, {
           id: parseInt(event.item.getAttribute(this.idAttribute)),
-          weddingId: this.weddingIdValue
+          weddingId: this.weddingIdValue,
+          _locale: this.localeValue
         }),
         { groupId: parseInt(event.to.getAttribute('data-group-id')) }
       )
@@ -62,7 +64,8 @@ export abstract class DragAndDropController extends Controller<HTMLElement> {
       .put(
         Routing.generate(this.updateOrderNoRoute, {
           id: parseInt(event.item.getAttribute(this.idAttribute)),
-          weddingId: this.weddingIdValue
+          weddingId: this.weddingIdValue,
+          _locale: this.localeValue
         }),
         { orderNo: event.newIndex }
       )

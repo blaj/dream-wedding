@@ -3,6 +3,7 @@
 namespace App\Wedding\Controller;
 
 use App\Common\Const\FlashMessageConst;
+use App\Common\Const\TranslationConst;
 use App\Common\Utils\FormUtils;
 use App\Security\Dto\UserData;
 use App\Wedding\Dto\WeddingUserInviteRequest;
@@ -21,7 +22,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/wedding/{weddingId}/user', name: 'wedding_user_', requirements: ['weddingId' => '\d+'])]
+#[Route(path: '/{_locale}/wedding/{weddingId}/user', name: 'wedding_user_', requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
 class WeddingUserController extends AbstractController {
 
   public function __construct(

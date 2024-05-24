@@ -6,7 +6,7 @@ import Routing from 'fos-router';
 export abstract class RenameController extends Controller<HTMLDivElement> {
   static targets = ['text', 'input', 'rename', 'save', 'cancel'];
 
-  static values = { id: Number, weddingId: Number };
+  static values = { id: Number, weddingId: Number, locale: String };
 
   declare readonly textTarget: HTMLSpanElement;
   declare readonly inputTarget: HTMLInputElement;
@@ -16,6 +16,7 @@ export abstract class RenameController extends Controller<HTMLDivElement> {
 
   declare readonly idValue: number;
   declare readonly weddingIdValue: number;
+  declare readonly localeValue: string;
 
   public clickRename = (): void => {
     TemplateUtils.hide(this.renameTarget);
@@ -30,7 +31,8 @@ export abstract class RenameController extends Controller<HTMLDivElement> {
       .put(
         Routing.generate(this.updateNameRoute, {
           id: this.idValue,
-          weddingId: this.weddingIdValue
+          weddingId: this.weddingIdValue,
+          _locale: this.localeValue
         }),
         { name: this.inputTarget.value }
       )

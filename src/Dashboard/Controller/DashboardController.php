@@ -2,6 +2,7 @@
 
 namespace App\Dashboard\Controller;
 
+use App\Common\Const\TranslationConst;
 use App\Security\Dto\UserData;
 use App\Wedding\Service\WeddingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route(path: '/dashboard', name: 'dashboard_')]
+#[Route(path: '/{_locale}/dashboard', name: 'dashboard_', requirements: ['_locale' => TranslationConst::availableLocales])]
 class DashboardController extends AbstractController {
 
   public function __construct(private readonly WeddingService $weddingService) {}

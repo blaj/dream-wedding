@@ -3,6 +3,7 @@
 namespace App\User\Controller;
 
 use App\Common\Const\FlashMessageConst;
+use App\Common\Const\TranslationConst;
 use App\Security\Dto\UserData;
 use App\User\Dto\UserRegisterRequest;
 use App\User\Dto\UserSettingsRequest;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
 
-#[Route(path: '/user', name: 'user_')]
+#[Route(path: '/{_locale}/user', name: 'user_', requirements: ['_locale' => TranslationConst::availableLocales])]
 class UserController extends AbstractController {
 
   public function __construct(private readonly UserService $userService) {}

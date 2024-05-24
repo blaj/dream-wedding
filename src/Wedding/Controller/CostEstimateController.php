@@ -3,6 +3,7 @@
 namespace App\Wedding\Controller;
 
 use App\Common\Const\FlashMessageConst;
+use App\Common\Const\TranslationConst;
 use App\Common\Dto\GroupSimpleCreateRequest;
 use App\Common\Form\Type\GroupSimpleCreateFormType;
 use App\Common\Utils\FormUtils;
@@ -26,7 +27,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\UX\Turbo\TurboBundle;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/wedding/{weddingId}/cost-estimate', name: 'wedding_cost_estimate_', requirements: ['weddingId' => '\d+'])]
+#[Route(path: '/{_locale}/wedding/{weddingId}/cost-estimate', name: 'wedding_cost_estimate_', requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
 class CostEstimateController extends AbstractController {
 
   public function __construct(

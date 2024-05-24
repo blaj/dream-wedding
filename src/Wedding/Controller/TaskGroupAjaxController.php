@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Controller;
 
+use App\Common\Const\TranslationConst;
 use App\Common\Dto\UpdateNameRequest;
 use App\Security\Dto\UserData;
 use App\Wedding\Service\TaskGroupService;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/wedding/{weddingId}/task-group-ajax', name: 'wedding_task_group_ajax_', requirements: ['weddingId' => '\d+'])]
+#[Route(path: '/{_locale}/wedding/{weddingId}/task-group-ajax', name: 'wedding_task_group_ajax_', requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
 class TaskGroupAjaxController extends AbstractController {
 
   public function __construct(private readonly TaskGroupService $taskGroupService) {}

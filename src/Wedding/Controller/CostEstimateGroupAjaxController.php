@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Controller;
 
+use App\Common\Const\TranslationConst;
 use App\Common\Dto\UpdateNameRequest;
 use App\Security\Dto\UserData;
 use App\Wedding\Service\CostEstimateGroupService;
@@ -14,9 +15,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted(new Expression("is_authenticated()"))]
 #[Route(
-    path: '/wedding/{weddingId}/cost-estimate-group-ajax',
+    path: '/{_locale}/wedding/{weddingId}/cost-estimate-group-ajax',
     name: 'wedding_cost_estimate_group_ajax_',
-    requirements: ['weddingId' => '\d+'])]
+    requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
 class CostEstimateGroupAjaxController extends AbstractController {
 
   public function __construct(

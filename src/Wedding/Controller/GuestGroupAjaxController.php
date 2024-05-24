@@ -2,6 +2,7 @@
 
 namespace App\Wedding\Controller;
 
+use App\Common\Const\TranslationConst;
 use App\Common\Dto\UpdateNameRequest;
 use App\Security\Dto\UserData;
 use App\Wedding\Service\GuestGroupService;
@@ -14,9 +15,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted(new Expression("is_authenticated()"))]
 #[Route(
-    path: '/wedding/{weddingId}/guest-group-ajax',
+    path: '/{_locale}/wedding/{weddingId}/guest-group-ajax',
     name: 'wedding_guest_group_ajax_',
-    requirements: ['weddingId' => '\d+'])]
+    requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
 class GuestGroupAjaxController extends AbstractController {
 
   public function __construct(private readonly GuestGroupService $guestGroupService) {}

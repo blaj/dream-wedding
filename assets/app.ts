@@ -1,5 +1,8 @@
 import './scss/style.scss';
 import { startStimulusApp } from '@symfony/stimulus-bridge';
+import Routing from 'fos-router';
+
+Routing.setRoutingData(require('./routes.json'));
 
 export const app = startStimulusApp(
   require.context(
