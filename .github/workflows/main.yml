@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     services:
       postgres:
@@ -60,8 +60,8 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: Install Yarn
-        run: npm install -g yarn
+      # - name: Install Yarn
+      #   run: npm install -g yarn
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
@@ -72,9 +72,9 @@ jobs:
       - name: Yarn build
         run: yarn build
 
-      - name: Uninstall Yarn
-        if: always()
-        run: npm uninstall -g yarn
+      # - name: Uninstall Yarn
+      #   if: always()
+      #   run: npm uninstall -g yarn
 
 #        Tests
       - name: Create Database
@@ -100,12 +100,17 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push PHP
+      - name: Set branch names to var
+        shell: bash
+        run: |
+          echo "PREFIX_NAME=$(echo $github.ref_name | cut -d '/' -f 1)" >> $GITHUB_ENV
+          echo "SUFIX_NAME=$(echo $github.ref_name | cut -d '/' -f 2)" >> $GITHUB_ENV
+
+      - name: Build and push PHP [Main]
         uses: docker/build-push-action@v4
         if:
           contains('
-            refs/heads/develop
-            refs/heads/master
+            refs/heads/main
           ', github.ref)
         with:
           push: true
@@ -115,12 +120,11 @@ jobs:
             GID=${{ vars.GID }}
           tags: blaj/dream-wedding-php-fpm:latest
 
-      - name: Build and push Nginx
+      - name: Build and push Nginx [Main]
         uses: docker/build-push-action@v4
         if:
           contains('
-            refs/heads/develop
-            refs/heads/master
+            refs/heads/main
           ', github.ref)
         with:
           push: true
@@ -129,3 +133,31 @@ jobs:
             UID=${{ vars.UID }}
             GID=${{ vars.GID }}
           tags: blaj/dream-wedding-nginx:latest
+
+      - name: Build and push PHP [Develop]
+        uses: docker/build-push-action@v4
+        if:
+          contains('
+            refs/heads/develop
+          ', github.ref)
+        with:
+          push: true
+          target: php
+          build-args: |
+            UID=${{ vars.UID }}
+            GID=${{ vars.GID }}
+          tags: blaj/dream-wedding-php-fpm:develop
+
+      - name: Build and push Nginx [Develop]
+        uses: docker/build-push-action@v4
+        if:
+          contains('
+            refs/heads/develop
+          ', github.ref)
+        with:
+          push: true
+          target: nginx
+          build-args: |
+            UID=${{ vars.UID }}
+            GID=${{ vars.GID }}
+          tags: blaj/dream-wedding-nginx:develop
