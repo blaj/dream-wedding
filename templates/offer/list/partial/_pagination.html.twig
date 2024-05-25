@@ -1,0 +1,93 @@
+{% set pageNumberRaw = paginatedOffersListItemDto.page.totalItems / paginatedListCriteriaForm.vars.value.pageCriteria.size %}
+{% set pageNumberRound = pageNumberRaw|round(0, 'ceil') %}
+
+<nav class="d-flex justify-content-center" aria-label="navigation">
+  <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+    <li class="page-item mb-0">
+      <a
+          class="page-link"
+          href="{% include 'offer/list/partial/_pagination-link.html.twig' with {
+            form: paginatedListCriteriaForm,
+            no: paginatedListCriteriaForm.vars.value.pageCriteria.no != 0 ? paginatedListCriteriaForm.vars.value.pageCriteria.no - 1 : 0,
+            size: paginatedOffersListItemDto.page.size } only %}"
+          tabindex="-1">
+        <i class="fa-solid fa-angle-left"></i>
+      </a>
+    </li>
+
+    {% if paginatedListCriteriaForm.vars.value.pageCriteria.no != 0 %}
+      {% if paginatedListCriteriaForm.vars.value.pageCriteria.no != 1 %}
+        <li class="page-item mb-0">
+          <a class="page-link" href="{% include 'offer/list/partial/_pagination-link.html.twig' with {
+            form: paginatedListCriteriaForm,
+            no: 0,
+            size: paginatedOffersListItemDto.page.size } only %}">
+            1
+          </a>
+        </li>
+      {% endif %}
+
+      {% if paginatedListCriteriaForm.vars.value.pageCriteria.no > 2 %}
+        <li class="page-item disabled mb-0">
+          <a class="page-link" href="#">
+            ...
+          </a>
+        </li>
+      {% endif %}
+
+      <li class="page-item mb-0">
+        <a class="page-link" href="{% include 'offer/list/partial/_pagination-link.html.twig' with {
+          form: paginatedListCriteriaForm,
+          no: paginatedListCriteriaForm.vars.value.pageCriteria.no - 1,
+          size: paginatedOffersListItemDto.page.size } only %}">
+          {{ paginatedListCriteriaForm.vars.value.pageCriteria.no }}
+        </a>
+      </li>
+    {% endif %}
+
+    <li class="page-item active mb-0">
+      <a class="page-link" href="#">
+        {{ paginatedListCriteriaForm.vars.value.pageCriteria.no + 1 }}
+      </a>
+    </li>
+
+    {% if paginatedListCriteriaForm.vars.value.pageCriteria.no < pageNumberRound - 1 %}
+      <li class="page-item active mb-0">
+        <a class="page-link" href="{% include 'offer/list/partial/_pagination-link.html.twig' with {
+          form: paginatedListCriteriaForm,
+          no: paginatedListCriteriaForm.vars.value.pageCriteria.no + 1,
+          size: paginatedOffersListItemDto.page.size } only %}">
+          {{ paginatedListCriteriaForm.vars.value.pageCriteria.no + 2 }}
+        </a>
+      </li>
+
+      {% if paginatedListCriteriaForm.vars.value.pageCriteria.no < pageNumberRound - 3 %}
+        <li class="page-item disabled mb-0">
+          <a class="page-link" href="#">
+            ...
+          </a>
+        </li>
+      {% endif %}
+
+      {% if paginatedListCriteriaForm.vars.value.pageCriteria.no < pageNumberRound - 2 %}
+        <li class="page-item disabled mb-0">
+          <a class="page-link" href="{% include 'offer/list/partial/_pagination-link.html.twig' with {
+            form: paginatedListCriteriaForm,
+            no: pageNumberRound - 1,
+            size: paginatedOffersListItemDto.page.size } only %}">
+            {{ pageNumberRound }}
+          </a>
+        </li>
+      {% endif %}
+    {% endif %}
+
+    <li class="page-item mb-0">
+      <a class="page-link" href="{% include 'offer/list/partial/_pagination-link.html.twig' with {
+        form: paginatedListCriteriaForm,
+        no: paginatedListCriteriaForm.vars.value.pageCriteria.no + 1 <= pageNumberRound ? paginatedListCriteriaForm.vars.value.pageCriteria.no + 1 : pageNumberRound,
+        size: paginatedOffersListItemDto.page.size } only %}">
+        <i class="fa-solid fa-angle-right"></i>
+      </a>
+    </li>
+  </ul>
+</nav>

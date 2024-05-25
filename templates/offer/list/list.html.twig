@@ -1,0 +1,141 @@
+{% extends 'home-base.html.twig' %}
+
+{% block title %}
+  {{ 'home-page'|trans }}
+{% endblock %}
+
+{% block main %}
+  {{ form_start(paginatedListCriteriaForm) }}
+
+  <section class="pt-0">
+    <div class="container">
+      <div
+          class="rounded-3 p-3 p-sm-5"
+          style="background-image: url({{ asset('build/images/category/hotel/gallery/06.jpg') }}); background-position: center -150px; background-repeat: no-repeat; background-size: cover;">
+        <div class="row my-2 my-xl-5">
+          <div class="col-md-8 mx-auto">
+            <h1 class="text-center text-white">
+              {{ 'offers-count'|trans({ '%offersCount%': offersCount }) }}
+            </h1>
+          </div>
+        </div>
+
+        <div class="bg-mode shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4 mb-4">
+          <div class="row g-4 align-items-center">
+            <div class="col-12">
+              <div class="d-flex">
+                <i class="fas fa-quote-left fs-3 me-2 mt-2"></i>
+                <div class="form-control-border form-control-transparent form-fs-md">
+                  {{ form_widget(paginatedListCriteriaForm.filter.searchBy) }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-position-md-middle">
+            {{ form_widget(
+              paginatedListCriteriaForm.filterSubmit,
+              {
+                label: '<i class="bi bi-search fa-fw"></i>',
+                label_html: true,
+                attr: { class: 'icon-lg btn btn-round btn-primary mb-0' } }) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-0">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="hstack gap-3 justify-content-between justify-content-md-end">
+            <button
+                class="btn btn-primary-soft btn-primary-check mb-0 d-xl-none"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasSidebar"
+                aria-controls="offcanvasSidebar">
+              <i class="fa-solid fa-sliders-h me-1"></i>
+
+              {{ 'show-filters'|trans }}
+            </button>
+
+            <ul class="nav nav-pills nav-pills-dark" id="tour-pills-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link rounded mb-0 active" href="#">
+                  <i class="bi fa-fw bi-list-ul"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <aside class="col-xl-4 col-xxl-3">
+          <div
+              class="offcanvas-xl offcanvas-end"
+              tabindex="-1"
+              id="offcanvasSidebar"
+              aria-labelledby="offcanvasSidebarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasSidebarLabel">
+                Advance Filters
+              </h5>
+
+              <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="offcanvas"
+                  data-bs-target="#offcanvasSidebar"
+                  aria-label="Close"></button>
+            </div>
+
+            <div class="offcanvas-body flex-column p-3 p-xl-0">
+              <form class="rounded-3 shadow">
+                <div class="card card-body p-4">
+                  <h6 class="mb-2">
+                    Hotel Type
+                  </h6>
+
+                  <div class="col-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="hotelType1">
+
+                      <label class="form-check-label" for="hotelType1">
+                        All
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="d-flex justify-content-between p-2 p-xl-0 mt-xl-4">
+              <button class="btn btn-link p-0 mb-0">
+                Clear all
+              </button>
+
+              <button class="btn btn-primary mb-0">
+                Filter Result
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <div class="col-xl-8 col-xxl-9">
+          <div class="vstack gap-4">
+            {% for offerDto in paginatedOffersListItemDto.items %}
+              {% include 'offer/list/partial/_offer-item.html.twig' %}
+            {% endfor %}
+
+            {% include 'offer/list/partial/_pagination.html.twig' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{ form_end(paginatedListCriteriaForm, { render_rest: false }) }}
+{% endblock %}

@@ -1,310 +1,304 @@
-{% extends 'base.html.twig' %}
+{% extends 'home-base.html.twig' %}
 
 {% block title %}
   {{ 'home-page'|trans }}
 {% endblock %}
 
-{% block body %}
-  {% include 'home/partial/_header.html.twig' %}
+{% block main %}
+  <section class="pt-4 pt-md-5">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-7">
+          <h1 class="mb-4 display-5">
+            {{ 'plan-your-dream'|trans }}
 
-  <main>
-    <section class="pt-4 pt-md-5">
-      <div class="container">
-        <div class="row g-4 align-items-center">
-          <div class="col-lg-7">
-            <h1 class="mb-4 display-5">
-              {{ 'plan-your-dream'|trans }}
-
-              <span class="text-primary">
+            <span class="text-primary">
                 {{ 'wedding'|trans }}
               </span>
-            </h1>
+          </h1>
 
-            <p class="mb-4">
-              {{ 'plan-you-dream-wedding-description'|trans }}
-            </p>
+          <p class="mb-4">
+            {{ 'plan-you-dream-wedding-description'|trans }}
+          </p>
 
-            <a href="{{ path('dashboard_index') }}" class="btn btn-primary-soft mb-4">
-              {{ 'go-to-planner'|trans }}
+          <a href="{{ path('dashboard_index') }}" class="btn btn-primary-soft mb-4">
+            {{ 'go-to-planner'|trans }}
 
-              <i class="fa-solid fa-arrow-right-long fa-fw"></i>
-            </a>
-            <h6 class="fw-normal mb-1">
-              {{ 'why-worth-it'|trans }}
-            </h6>
+            <i class="fa-solid fa-arrow-right-long fa-fw"></i>
+          </a>
+          <h6 class="fw-normal mb-1">
+            {{ 'why-worth-it'|trans }}
+          </h6>
 
-            <ul class="list-group list-group-borderless mb-0 small">
-              <li class="list-group-item d-flex mb-0">
-                <i class="fa-solid fa-check-circle text-success me-2 mt-1"></i>
+          <ul class="list-group list-group-borderless mb-0 small">
+            <li class="list-group-item d-flex mb-0">
+              <i class="fa-solid fa-check-circle text-success me-2 mt-1"></i>
 
-                {{ 'why-worth-it-1'|trans }}
-              </li>
+              {{ 'why-worth-it-1'|trans }}
+            </li>
 
-              <li class="list-group-item d-flex mb-0">
-                <i class="fa-solid fa-check-circle text-success me-2 mt-1"></i>
+            <li class="list-group-item d-flex mb-0">
+              <i class="fa-solid fa-check-circle text-success me-2 mt-1"></i>
 
-                {{ 'why-worth-it-2'|trans }}
-              </li>
+              {{ 'why-worth-it-2'|trans }}
+            </li>
 
-              <li class="list-group-item d-flex mb-0">
-                <i class="fa-solid fa-check-circle text-success me-2 mt-1"></i>
+            <li class="list-group-item d-flex mb-0">
+              <i class="fa-solid fa-check-circle text-success me-2 mt-1"></i>
 
-                {{ 'why-worth-it-3'|trans }}
-              </li>
+              {{ 'why-worth-it-3'|trans }}
+            </li>
 
-              <li class="list-group-item d-flex mb-0">
-                <i class="fa-solid fa-check-circle text-success me-2 mt-1"></i>
+            <li class="list-group-item d-flex mb-0">
+              <i class="fa-solid fa-check-circle text-success me-2 mt-1"></i>
 
-                {{ 'why-worth-it-4'|trans }}
-              </li>
-            </ul>
-          </div>
+              {{ 'why-worth-it-4'|trans }}
+            </li>
+          </ul>
+        </div>
 
-          <div class="col-lg-5 text-center">
-            <img src="{{ asset('build/images/element/home.svg') }}" alt="">
-          </div>
+        <div class="col-lg-5 text-center">
+          <img src="{{ asset('build/images/element/home.svg') }}" alt="">
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="pt-0">
-      <div class="container">
-        <div class="row g-4 align-items-center">
-          <div class="col-sm-6 col-md-3">
-            <h4 class="mb-0">
-              {{ 'service-in-numbers'|trans }}
-            </h4>
-          </div>
+  <section class="pt-0">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-sm-6 col-md-3">
+          <h4 class="mb-0">
+            {{ 'service-in-numbers'|trans }}
+          </h4>
+        </div>
 
-          <div class="col-sm-6 col-md-3">
-            <div class="card card-body text-center bg-light">
-              <div class="d-flex justify-content-center">
-                <h3 class="text-orange mb-0" data-controller="count-up" data-count-up-end-value="100">
-                  0
-                </h3>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-body text-center bg-light">
+            <div class="d-flex justify-content-center">
+              <h3 class="text-orange mb-0" data-controller="count-up" data-count-up-end-value="100">
+                0
+              </h3>
 
-                <span class="h3 text-orange mb-0">
+              <span class="h3 text-orange mb-0">
                   M+
                 </span>
-              </div>
-
-              <h6 class="fw-normal mb-0">
-                {{ 'users'|trans }}
-              </h6>
             </div>
+
+            <h6 class="fw-normal mb-0">
+              {{ 'users'|trans }}
+            </h6>
           </div>
+        </div>
 
-          <div class="col-sm-6 col-md-3">
-            <div class="card card-body text-center bg-light">
-              <div class="d-flex justify-content-center">
-                <h3 class="text-info mb-0" data-controller="count-up" data-count-up-end-value="324">
-                  0
-                </h3>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-body text-center bg-light">
+            <div class="d-flex justify-content-center">
+              <h3 class="text-info mb-0" data-controller="count-up" data-count-up-end-value="324">
+                0
+              </h3>
 
-                <span class="h3 text-info mb-0">
+              <span class="h3 text-info mb-0">
                   M+
                 </span>
-              </div>
-
-              <h6 class="fw-normal mb-0">
-                {{ 'created-weddings'|trans }}
-              </h6>
             </div>
+
+            <h6 class="fw-normal mb-0">
+              {{ 'created-weddings'|trans }}
+            </h6>
           </div>
+        </div>
 
-          <div class="col-sm-6 col-md-3">
-            <div class="card card-body text-center bg-light">
-              <div class="d-flex justify-content-center">
-                <h3 class="text-primary mb-0" data-controller="count-up" data-count-up-end-value="1240">
-                  0
-                </h3>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-body text-center bg-light">
+            <div class="d-flex justify-content-center">
+              <h3 class="text-primary mb-0" data-controller="count-up" data-count-up-end-value="1240">
+                0
+              </h3>
 
-                <span class="h3 text-primary mb-0">
+              <span class="h3 text-primary mb-0">
                   +
                 </span>
-              </div>
-
-              <h6 class="fw-normal mb-0">
-                {{ 'service-providers'|trans }}
-              </h6>
             </div>
+
+            <h6 class="fw-normal mb-0">
+              {{ 'service-providers'|trans }}
+            </h6>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="pb-2 pb-lg-5">
-      <div class="container">
-        <div class="row mb-4">
-          <div class="col-12 text-center">
-            <h2 class="mb-0">
-              {{ 'latest-on-the-blog'|trans }}
-            </h2>
-          </div>
-        </div>
-
-        {% if latestPostsListItemDto|length > 0 %}
-          <div class="tiny-slider arrow-round arrow-blur arrow-hover">
-            <div class="tiny-slider-inner" data-controller="tiny-slider">
-              {% for postDto in latestPostsListItemDto %}
-                {% include 'home/partial/_latest-blog-item.html.twig' with { postDto: postDto } only %}
-              {% endfor %}
-            </div>
-          </div>
-        {% else %}
-          Brak wpisów
-        {% endif %}
-      </div>
-    </section>
-
-    <section class="pt-0 pt-md-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="bg-light p-4 p-sm-5 rounded-3">
-              <h2 class="fs-3 text-center mb-4 mb-sm-5">
-                {{ 'planner-functions'|trans }}
-              </h2>
-
-              <div class="row g-4">
-                <div class="col-md-6">
-                  <div class="card card-body p-4">
-                    <div>
-                      <img
-                          src="{{ asset('build/images/icons8/icons8-new-contact-96.png') }}"
-                          class="h-70px mb-3"
-                          alt="">
-                    </div>
-
-                    <h5>
-                      {{ 'guest-list'|trans }}
-                    </h5>
-
-                    <p class="mb-0">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, aut blanditiis ipsam maxime
-                      molestias optio quae quasi quo sint vero.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="card card-body p-4">
-                    <div>
-                      <img src="{{ asset('build/images/icons8/icons8-coins-96.png') }}" class="h-70px mb-3" alt="">
-                    </div>
-
-                    <h5>
-                      {{ 'cost-estimate-list'|trans }}
-                    </h5>
-
-                    <p class="mb-0">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aspernatur corporis deleniti
-                      neque nulla odit placeat quae, sunt voluptate voluptates!
-                    </p>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="card card-body p-4">
-                    <div>
-                      <img src="{{ asset('build/images/icons8/icons8-planner-96.png') }}" class="h-70px mb-3" alt="">
-                    </div>
-
-                    <h5>
-                      {{ 'task-list'|trans }}
-                    </h5>
-
-                    <p class="mb-0">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet deleniti incidunt molestias
-                      necessitatibus nisi quae quasi repellat repellendus soluta, tenetur.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="card card-body p-4">
-                    <div>
-                      <img
-                          src="{{ asset('build/images/icons8/icons8-table-top-view-96.png') }}"
-                          class="h-70px mb-3"
-                          alt="">
-                    </div>
-
-                    <h5>
-                      {{ 'setting-tables'|trans }}
-                    </h5>
-
-                    <p class="mb-0">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut dolor ducimus ea id impedit
-                      itaque iure molestias officia quae.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <section class="pb-2 pb-lg-5">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-12 text-center">
+          <h2 class="mb-0">
+            {{ 'latest-on-the-blog'|trans }}
+          </h2>
         </div>
       </div>
-    </section>
 
-    <section class="pt-0 pt-sm-5">
-      <div class="container">
-        <div class="row mb-4 mb-sm-5">
-          <div class="col-12 text-center">
-            <h2 class="mb-0">
-              {{ 'service-catalog'|trans }}
-            </h2>
-          </div>
-        </div>
-
-        <div class="row g-4  mb-4 mb-sm-5 align-items-center">
-          <div class="col-lg-2">
-            <h4>
-              {{ 'browse-by-category'|trans }}
-            </h4>
-
-            <a href="#" class="h6 fw-normal text-primary mb-0">
-              {{ 'view-all'|trans }}
-
-              <i class="bi bi-arrow-right"></i>
-            </a>
-          </div>
-
-          <div class="col-lg-10">
-            {% if randomOfferCategoriesListItemDto|length > 0 %}
-              <div class="tiny-slider arrow-round arrow-xs arrow-dark">
-                <div
-                    class="tiny-slider-inner"
-                    data-controller="tiny-slider"
-                    data-tiny-slider-items-value="1"
-                    data-tiny-slider-items-xl-value="5"
-                    data-tiny-slider-items-lg-value="3"
-                    data-tiny-slider-items-md-value="3"
-                    data-tiny-slider-items-sm-value="2"
-                    data-tiny-slider-items-xs-value="1">
-                  {% for offerCategoryDto in randomOfferCategoriesListItemDto %}
-                    {% include 'home/partial/_service-category-item.html.twig' with { offerCategoryDto: offerCategoryDto } only %}
-                  {% endfor %}
-                </div>
-              </div>
-            {% else %}
-              Brak wpisów
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="row g-4">
-          {% if latestOffersListItemDto|length > 0 %}
-            {% for offerDto in latestOffersListItemDto %}
-              {% include 'home/partial/_service-card-item.html.twig' with { offerDto: offerDto } only %}
+      {% if latestPostsListItemDto|length > 0 %}
+        <div class="tiny-slider arrow-round arrow-blur arrow-hover">
+          <div class="tiny-slider-inner" data-controller="tiny-slider">
+            {% for postDto in latestPostsListItemDto %}
+              {% include 'home/partial/_latest-blog-item.html.twig' with { postDto: postDto } only %}
             {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        Brak wpisów
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="pt-0 pt-md-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="bg-light p-4 p-sm-5 rounded-3">
+            <h2 class="fs-3 text-center mb-4 mb-sm-5">
+              {{ 'planner-functions'|trans }}
+            </h2>
+
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="card card-body p-4">
+                  <div>
+                    <img
+                        src="{{ asset('build/images/icons8/icons8-new-contact-96.png') }}"
+                        class="h-70px mb-3"
+                        alt="">
+                  </div>
+
+                  <h5>
+                    {{ 'guest-list'|trans }}
+                  </h5>
+
+                  <p class="mb-0">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, aut blanditiis ipsam maxime
+                    molestias optio quae quasi quo sint vero.
+                  </p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="card card-body p-4">
+                  <div>
+                    <img src="{{ asset('build/images/icons8/icons8-coins-96.png') }}" class="h-70px mb-3" alt="">
+                  </div>
+
+                  <h5>
+                    {{ 'cost-estimate-list'|trans }}
+                  </h5>
+
+                  <p class="mb-0">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aspernatur corporis deleniti
+                    neque nulla odit placeat quae, sunt voluptate voluptates!
+                  </p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="card card-body p-4">
+                  <div>
+                    <img src="{{ asset('build/images/icons8/icons8-planner-96.png') }}" class="h-70px mb-3" alt="">
+                  </div>
+
+                  <h5>
+                    {{ 'task-list'|trans }}
+                  </h5>
+
+                  <p class="mb-0">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet deleniti incidunt molestias
+                    necessitatibus nisi quae quasi repellat repellendus soluta, tenetur.
+                  </p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="card card-body p-4">
+                  <div>
+                    <img
+                        src="{{ asset('build/images/icons8/icons8-table-top-view-96.png') }}"
+                        class="h-70px mb-3"
+                        alt="">
+                  </div>
+
+                  <h5>
+                    {{ 'setting-tables'|trans }}
+                  </h5>
+
+                  <p class="mb-0">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut dolor ducimus ea id impedit
+                    itaque iure molestias officia quae.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-0 pt-sm-5">
+    <div class="container">
+      <div class="row mb-4 mb-sm-5">
+        <div class="col-12 text-center">
+          <h2 class="mb-0">
+            {{ 'service-catalog'|trans }}
+          </h2>
+        </div>
+      </div>
+
+      <div class="row g-4  mb-4 mb-sm-5 align-items-center">
+        <div class="col-lg-2">
+          <h4>
+            {{ 'browse-by-category'|trans }}
+          </h4>
+
+          <a href="#" class="h6 fw-normal text-primary mb-0">
+            {{ 'view-all'|trans }}
+
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="col-lg-10">
+          {% if randomOfferCategoriesListItemDto|length > 0 %}
+            <div class="tiny-slider arrow-round arrow-xs arrow-dark">
+              <div
+                  class="tiny-slider-inner"
+                  data-controller="tiny-slider"
+                  data-tiny-slider-items-value="1"
+                  data-tiny-slider-items-xl-value="5"
+                  data-tiny-slider-items-lg-value="3"
+                  data-tiny-slider-items-md-value="3"
+                  data-tiny-slider-items-sm-value="2"
+                  data-tiny-slider-items-xs-value="1">
+                {% for offerCategoryDto in randomOfferCategoriesListItemDto %}
+                  {% include 'home/partial/_service-category-item.html.twig' with { offerCategoryDto: offerCategoryDto } only %}
+                {% endfor %}
+              </div>
+            </div>
           {% else %}
             Brak wpisów
           {% endif %}
         </div>
       </div>
-    </section>
-  </main>
 
-  {% include 'home/partial/_footer.html.twig' %}
+      <div class="row g-4">
+        {% if latestOffersListItemDto|length > 0 %}
+          {% for offerDto in latestOffersListItemDto %}
+            {% include 'home/partial/_service-card-item.html.twig' with { offerDto: offerDto } only %}
+          {% endfor %}
+        {% else %}
+          Brak wpisów
+        {% endif %}
+      </div>
+    </div>
+  </section>
 {% endblock %}
