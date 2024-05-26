@@ -226,5 +226,8 @@
   "linkedin": "LinkedIn",
   "copy-link": "Copy link",
   "offers-count": "Choose from %offersCount% offers",
-  "show-filters": "Show filters"
+  "show-filters": "Show filters",
+  "copied": "Copied",
+  "categories": "Categories",
+  "no-entries": "No entries"
 }

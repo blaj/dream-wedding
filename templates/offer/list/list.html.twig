@@ -1,7 +1,7 @@
 {% extends 'home-base.html.twig' %}
 
 {% block title %}
-  {{ 'home-page'|trans }}
+  {{ 'service-catalog'|trans }}
 {% endblock %}
 
 {% block main %}
@@ -81,7 +81,7 @@
               aria-labelledby="offcanvasSidebarLabel">
             <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="offcanvasSidebarLabel">
-                Advance Filters
+                {{ 'filtration'|trans }}
               </h5>
 
               <button
@@ -93,32 +93,20 @@
             </div>
 
             <div class="offcanvas-body flex-column p-3 p-xl-0">
-              <form class="rounded-3 shadow">
+              <div class="rounded-3 shadow">
                 <div class="card card-body p-4">
                   <h6 class="mb-2">
-                    Hotel Type
+                    {{ 'categories'|trans }}
                   </h6>
 
-                  <div class="col-12">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="hotelType1">
-
-                      <label class="form-check-label" for="hotelType1">
-                        All
-                      </label>
-                    </div>
-                  </div>
+                  {{ form_widget(paginatedListCriteriaForm.filter.categories) }}
                 </div>
-              </form>
+              </div>
             </div>
 
             <div class="d-flex justify-content-between p-2 p-xl-0 mt-xl-4">
-              <button class="btn btn-link p-0 mb-0">
-                Clear all
-              </button>
-
-              <button class="btn btn-primary mb-0">
-                Filter Result
+              <button type="submit" class="btn btn-primary mb-0">
+                {{ 'filter'|trans }}
               </button>
             </div>
           </div>
@@ -126,16 +114,26 @@
 
         <div class="col-xl-8 col-xxl-9">
           <div class="vstack gap-4">
-            {% for offerDto in paginatedOffersListItemDto.items %}
-              {% include 'offer/list/partial/_offer-item.html.twig' %}
-            {% endfor %}
+            {% if paginatedOffersListItemDto.items|length > 0 %}
+              {% for offerDto in paginatedOffersListItemDto.items %}
+                {% include 'offer/list/partial/_offer-item.html.twig' %}
+              {% endfor %}
 
-            {% include 'offer/list/partial/_pagination.html.twig' %}
+              {% include 'offer/list/partial/_pagination.html.twig' %}
+            {% else %}
+              {{ 'empty-list'|trans }}
+            {% endif %}
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  {{ form_row(paginatedListCriteriaForm.pageCriteria.no) }}
+
+  {{ form_row(paginatedListCriteriaForm.pageCriteria.size) }}
+
+  {{ form_row(paginatedListCriteriaForm._token) }}
 
   {{ form_end(paginatedListCriteriaForm, { render_rest: false }) }}
 {% endblock %}

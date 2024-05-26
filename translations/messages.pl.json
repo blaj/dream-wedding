@@ -226,5 +226,8 @@
   "linkedin": "LinkedIn",
   "copy-link": "Kopiuj link",
   "offers-count": "Wybieraj spośród %offersCount% usług",
-  "show-filters": "Pokaż filtry"
+  "show-filters": "Pokaż filtry",
+  "copied": "Skopiowano",
+  "categories": "Kategorie",
+  "no-entries": "Brak wpisów"
 }

@@ -16,6 +16,10 @@ class OfferPaginatedListFilterFormType extends AbstractType {
 
   public function buildForm(FormBuilderInterface $builder, array $options): void {
     $builder
-        ->add('searchBy', TextType::class, ['label' => 'search-by', 'required' => false]);
+        ->add('searchBy', TextType::class, ['label' => 'search-by', 'required' => false])
+        ->add(
+            'categories',
+            OfferCategoryChoiceFormType::class,
+            ['label' => 'categories', 'required' => false, 'multiple' => true, 'expanded' => true]);
   }
 }

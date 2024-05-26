@@ -149,7 +149,7 @@
           </div>
         </div>
       {% else %}
-        Brak wpisów
+        {{ 'no-entries'|trans }}
       {% endif %}
     </div>
   </section>
@@ -285,7 +285,7 @@
               </div>
             </div>
           {% else %}
-            Brak wpisów
+            {{ 'no-entries'|trans }}
           {% endif %}
         </div>
       </div>
@@ -296,7 +296,7 @@
             {% include 'home/partial/_service-card-item.html.twig' with { offerDto: offerDto } only %}
           {% endfor %}
         {% else %}
-          Brak wpisów
+          {{ 'no-entries'|trans }}
         {% endif %}
       </div>
     </div>

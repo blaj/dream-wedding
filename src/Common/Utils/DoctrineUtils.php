@@ -11,7 +11,7 @@ class DoctrineUtils {
       string $dql,
       string $parameterKey,
       mixed $parameterValue,
-      string $parameterType): void {
+      ?string $parameterType): void {
     $query
         ->setDQL($query->getDQL() . ' ' . $dql . ' ')
         ->setParameter($parameterKey, $parameterValue, $parameterType);
