@@ -16,6 +16,18 @@ class OfferCategoryService {
   /**
    * @return array<OfferCategoryListItemDto>
    */
+  public function getList(): array {
+    return array_filter(
+        array_map(
+            fn (OfferCategory $offerCategory) => OfferCategoryListItemDtoMapper::map(
+                $offerCategory),
+            $this->offerCategoryRepository->findAll()),
+        fn (?OfferCategoryListItemDto $dto) => $dto !== null);
+  }
+
+  /**
+   * @return array<OfferCategoryListItemDto>
+   */
   public function getRandomList(): array {
     return array_filter(
         array_map(

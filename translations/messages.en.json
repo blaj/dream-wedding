@@ -220,5 +220,14 @@
   "back-to-homepage": "Back to homepage",
   "calendar": "Calendar",
   "polish": "Polish",
-  "english": "English"
+  "english": "English",
+  "twitter": "Twitter",
+  "facebook": "Facebook",
+  "linkedin": "LinkedIn",
+  "copy-link": "Copy link",
+  "offers-count": "Choose from %offersCount% offers",
+  "show-filters": "Show filters",
+  "copied": "Copied",
+  "categories": "Categories",
+  "no-entries": "No entries"
 }

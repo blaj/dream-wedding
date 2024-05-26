@@ -220,5 +220,14 @@
   "back-to-homepage": "Wróć na stronę główną",
   "calendar": "Kalendarz",
   "polish": "Polski",
-  "english": "Angielski"
+  "english": "Angielski",
+  "twitter": "Twitter",
+  "facebook": "Facebook",
+  "linkedin": "LinkedIn",
+  "copy-link": "Kopiuj link",
+  "offers-count": "Wybieraj spośród %offersCount% usług",
+  "show-filters": "Pokaż filtry",
+  "copied": "Skopiowano",
+  "categories": "Kategorie",
+  "no-entries": "Brak wpisów"
 }

@@ -30,7 +30,7 @@ class GuestListFilterFormType extends AbstractType {
             'dietType',
             EnumType::class,
             ['class' => DietType::class, 'label' => 'diet-type', 'required' => false])
-        ->add(FormConst::$filter, FilterButtonType::class)
+        ->add(FormConst::$filterSubmit, FilterButtonType::class)
         ->add(FormConst::$modalCancel, ModalCancelButtonType::class);
   }
 }

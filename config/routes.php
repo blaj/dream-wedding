@@ -39,4 +39,9 @@ return static function(RoutingConfigurator $routingConfigurator): void {
       'path' => '../src/Localization/Controller/',
       'namespace' => 'App\Localization\Controller',
   ], 'attribute');
+
+  $routingConfigurator->import([
+      'path' => '../src/Offer/Controller/',
+      'namespace' => 'App\Offer\Controller',
+  ], 'attribute');
 };
