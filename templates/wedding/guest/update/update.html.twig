@@ -1,5 +1,7 @@
 {% extends 'dashboard-base.html.twig' %}
 
+{% import 'macros/breadcrumbs.html.twig' as breadcrumbs %}
+
 {% block title %}
   {{ 'guest-update'|trans }}
 {% endblock %}
@@ -8,12 +10,23 @@
   {{ 'guest-update'|trans }}
 {% endblock %}
 
+{% block breadcrumbs %}
+  {{ breadcrumbs.render([
+    { text: 'wedding-planner'|trans },
+    { url: path('wedding_list'), text: 'wedding-list'|trans },
+    { url: path('wedding_details', { id: weddingDetailsDto.id }), text: weddingDetailsDto.name },
+    { url: path('wedding_guest_list', { weddingId: weddingDetailsDto.id }), text: 'guest-list'|trans },
+    { url: path('wedding_guest_details', { id: guestDetailsDto.id, weddingId: weddingDetailsDto.id }), text: guestDetailsDto.firstName ~ ' ' ~ guestDetailsDto.lastName },
+    { text: 'guest-update'|trans }
+  ]) }}
+{% endblock %}
+
 {% block page_content %}
   <div class="card shadow">
     <div class="card-body">
       {{ form(form) }}
 
-      <a href="{{ path('wedding_guest_list', { weddingId: weddingId }) }}">
+      <a href="{{ path('wedding_guest_list', { weddingId: weddingDetailsDto.id }) }}">
         {{ 'back-to-list'|trans }}
       </a>
     </div>

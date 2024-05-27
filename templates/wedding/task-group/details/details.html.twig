@@ -1,23 +1,35 @@
 {% extends 'dashboard-base.html.twig' %}
 
+{% import 'macros/breadcrumbs.html.twig' as breadcrumbs %}
+
 {% block title %}
   {{ 'task-group-details'|trans }}
 {% endblock %}
 
 {% block page_heading %}
-  <h1 class="h2">
+  <h1 class="h3 mb-2 mb-sm-0">
     {{ 'task-group-details'|trans }}
 
     {{ taskGroupDetailsDto.name }}
   </h1>
 
   <a
-      href="{{ path('wedding_task_group_update', { weddingId: weddingId, id: taskGroupDetailsDto.id }) }}"
+      href="{{ path('wedding_task_group_update', { weddingId: weddingDetailsDto.id, id: taskGroupDetailsDto.id }) }}"
       class="btn btn-primary"
       data-controller="tooltip"
       data-bs-title="{{ 'edit'|trans }}">
     <i class="bi bi-pencil"></i>
   </a>
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ breadcrumbs.render([
+    { text: 'wedding-planner'|trans },
+    { url: path('wedding_list'), text: 'wedding-list'|trans },
+    { url: path('wedding_details', { id: weddingDetailsDto.id }), text: weddingDetailsDto.name },
+    { url: path('wedding_task_group_list', { weddingId: weddingDetailsDto.id }), text: 'task-group-list'|trans },
+    { text: taskGroupDetailsDto.name }
+  ]) }}
 {% endblock %}
 
 {% block page_content %}
@@ -63,7 +75,7 @@
         </tbody>
       </table>
 
-      <a href="{{ path('wedding_task_group_list', { weddingId: weddingId }) }}">
+      <a href="{{ path('wedding_task_group_list', { weddingId: weddingDetailsDto.id }) }}">
         {{ 'back-to-list'|trans }}
       </a>
     </div>

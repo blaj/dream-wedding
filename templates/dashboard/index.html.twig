@@ -1,11 +1,20 @@
 {% extends 'dashboard-base.html.twig' %}
 
+{% import 'macros/breadcrumbs.html.twig' as breadcrumbs %}
+
 {% block title %}
   {{ 'dashboard'|trans }}
 {% endblock %}
 
 {% block page_title %}
   {{ 'dashboard'|trans }}
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ breadcrumbs.render([
+    { text: 'wedding-planner'|trans },
+    { url: path('dashboard_index'), text: 'dashboard'|trans }
+  ]) }}
 {% endblock %}
 
 {% block page_content %}

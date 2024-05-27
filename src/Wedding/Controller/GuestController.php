@@ -29,7 +29,9 @@ use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\UX\Turbo\TurboBundle;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/{_locale}/wedding/{weddingId}/guest', name: 'wedding_guest_', requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
+#[Route(path: '/{_locale}/wedding/{weddingId}/guest', name: 'wedding_guest_', requirements: [
+    'weddingId' => '\d+',
+    '_locale' => TranslationConst::availableLocales])]
 class GuestController extends AbstractController {
 
   public function __construct(
@@ -106,6 +108,12 @@ class GuestController extends AbstractController {
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]
   public function details(int $weddingId, int $id, UserData $userData): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $guestDetailsDto = $this->guestService->getOne($id, $userData->getUserId());
 
     if ($guestDetailsDto === null) {
@@ -114,11 +122,17 @@ class GuestController extends AbstractController {
 
     return $this->render(
         'wedding/guest/details/details.html.twig',
-        ['guestDetailsDto' => $guestDetailsDto, 'weddingId' => $weddingId]);
+        ['guestDetailsDto' => $guestDetailsDto, 'weddingDetailsDto' => $weddingDetailsDto]);
   }
 
   #[Route(path: '/create', name: 'create', methods: ['GET', 'POST'])]
   public function create(int $weddingId, Request $request, UserData $userData): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $form =
         $this->createForm(
             GuestCreateFormType::class,
@@ -141,7 +155,7 @@ class GuestController extends AbstractController {
 
     return $this->render(
         'wedding/guest/create/create.html.twig',
-        ['form' => $form, 'weddingId' => $weddingId]);
+        ['form' => $form, 'weddingDetailsDto' => $weddingDetailsDto]);
   }
 
   #[Route(
@@ -150,6 +164,18 @@ class GuestController extends AbstractController {
       requirements: ['id' => '\d+'],
       methods: ['GET', 'PUT'])]
   public function update(int $weddingId, int $id, UserData $userData, Request $request): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
+    $guestDetailsDto = $this->guestService->getOne($id, $userData->getUserId());
+
+    if ($guestDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $guestUpdateRequest = $this->guestService->getUpdateRequest($id, $userData->getUserId());
 
     if ($guestUpdateRequest === null) {
@@ -177,7 +203,10 @@ class GuestController extends AbstractController {
 
     return $this->render(
         'wedding/guest/update/update.html.twig',
-        ['form' => $form, 'weddingId' => $weddingId]);
+        [
+            'form' => $form,
+            'weddingDetailsDto' => $weddingDetailsDto,
+            'guestDetailsDto' => $guestDetailsDto]);
   }
 
   #[Route(path: '/{id}/delete', name: 'delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]

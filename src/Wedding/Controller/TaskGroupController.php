@@ -21,7 +21,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/{_locale}/wedding/{weddingId}/task-group', name: 'wedding_task_group_', requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
+#[Route(path: '/{_locale}/wedding/{weddingId}/task-group', name: 'wedding_task_group_', requirements: [
+    'weddingId' => '\d+',
+    '_locale' => TranslationConst::availableLocales])]
 class TaskGroupController extends AbstractController {
 
   public function __construct(
@@ -47,6 +49,12 @@ class TaskGroupController extends AbstractController {
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]
   public function details(int $weddingId, int $id, UserData $userData): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $taskGroupDetailsDto = $this->taskGroupService->getOne($id, $userData->getUserId());
 
     if ($taskGroupDetailsDto === null) {
@@ -55,11 +63,17 @@ class TaskGroupController extends AbstractController {
 
     return $this->render(
         'wedding/task-group/details/details.html.twig',
-        ['taskGroupDetailsDto' => $taskGroupDetailsDto, 'weddingId' => $weddingId]);
+        ['taskGroupDetailsDto' => $taskGroupDetailsDto, 'weddingDetailsDto' => $weddingDetailsDto]);
   }
 
   #[Route(path: '/create', name: 'create', methods: ['GET', 'POST'])]
   public function create(int $weddingId, Request $request, UserData $userData): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $form =
         $this->createForm(
             TaskGroupCreateFormType::class,
@@ -82,7 +96,7 @@ class TaskGroupController extends AbstractController {
 
     return $this->render(
         'wedding/task-group/create/create.html.twig',
-        ['form' => $form, 'weddingId' => $weddingId]);
+        ['form' => $form, 'weddingDetailsDto' => $weddingDetailsDto]);
   }
 
   #[Route(
@@ -91,6 +105,18 @@ class TaskGroupController extends AbstractController {
       requirements: ['id' => '\d+'],
       methods: ['GET', 'PUT'])]
   public function update(int $weddingId, int $id, UserData $userData, Request $request): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
+    $taskGroupDetailsDto = $this->taskGroupService->getOne($id, $userData->getUserId());
+
+    if ($taskGroupDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $taskUpdateRequest = $this->taskGroupService->getUpdateRequest($id, $userData->getUserId());
 
     if ($taskUpdateRequest === null) {
@@ -118,7 +144,10 @@ class TaskGroupController extends AbstractController {
 
     return $this->render(
         'wedding/task-group/update/update.html.twig',
-        ['form' => $form, 'weddingId' => $weddingId]);
+        [
+            'form' => $form,
+            'weddingDetailsDto' => $weddingDetailsDto,
+            'taskGroupDetailsDto' => $taskGroupDetailsDto]);
   }
 
   #[Route(path: '/{id}/delete', name: 'delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]

@@ -27,7 +27,9 @@ use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\UX\Turbo\TurboBundle;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/{_locale}/wedding/{weddingId}/cost-estimate', name: 'wedding_cost_estimate_', requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
+#[Route(path: '/{_locale}/wedding/{weddingId}/cost-estimate', name: 'wedding_cost_estimate_', requirements: [
+    'weddingId' => '\d+',
+    '_locale' => TranslationConst::availableLocales])]
 class CostEstimateController extends AbstractController {
 
   public function __construct(
@@ -97,6 +99,12 @@ class CostEstimateController extends AbstractController {
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]
   public function details(int $weddingId, int $id, UserData $userData): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $costEstimateDetailsDto =
         $this->costEstimateService->getOne($id, $userData->getUserId());
 
@@ -108,11 +116,17 @@ class CostEstimateController extends AbstractController {
         'wedding/cost-estimate/details/details.html.twig',
         [
             'costEstimateDetailsDto' => $costEstimateDetailsDto,
-            'weddingId' => $weddingId]);
+            'weddingDetailsDto' => $weddingDetailsDto]);
   }
 
   #[Route(path: '/create', name: 'create', methods: ['GET', 'POST'])]
   public function create(int $weddingId, Request $request, UserData $userData): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $form =
         $this->createForm(
             CostEstimateCreateFormType::class,
@@ -138,7 +152,7 @@ class CostEstimateController extends AbstractController {
 
     return $this->render(
         'wedding/cost-estimate/create/create.html.twig',
-        ['form' => $form, 'weddingId' => $weddingId]);
+        ['form' => $form, 'weddingDetailsDto' => $weddingDetailsDto]);
   }
 
   #[Route(
@@ -147,6 +161,19 @@ class CostEstimateController extends AbstractController {
       requirements: ['id' => '\d+'],
       methods: ['GET', 'PUT'])]
   public function update(int $weddingId, int $id, UserData $userData, Request $request): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
+    $costEstimateDetailsDto =
+        $this->costEstimateService->getOne($id, $userData->getUserId());
+
+    if ($costEstimateDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $costEstimateUpdateRequest =
         $this->costEstimateService->getUpdateRequest($id, $userData->getUserId());
 
@@ -178,7 +205,10 @@ class CostEstimateController extends AbstractController {
 
     return $this->render(
         'wedding/cost-estimate/update/update.html.twig',
-        ['form' => $form, 'weddingId' => $weddingId]);
+        [
+            'form' => $form,
+            'weddingDetailsDto' => $weddingDetailsDto,
+            'costEstimateDetailsDto' => $costEstimateDetailsDto]);
   }
 
   #[Route(path: '/{id}/delete', name: 'delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]

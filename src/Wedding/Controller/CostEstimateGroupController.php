@@ -21,7 +21,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
 
 #[IsGranted(new Expression("is_authenticated()"))]
-#[Route(path: '/{_locale}/wedding/{weddingId}/cost-estimate-group', name: 'wedding_cost_estimate_group_', requirements: ['weddingId' => '\d+', '_locale' => TranslationConst::availableLocales])]
+#[Route(path: '/{_locale}/wedding/{weddingId}/cost-estimate-group', name: 'wedding_cost_estimate_group_', requirements: [
+    'weddingId' => '\d+',
+    '_locale' => TranslationConst::availableLocales])]
 class CostEstimateGroupController extends AbstractController {
 
   public function __construct(
@@ -47,6 +49,12 @@ class CostEstimateGroupController extends AbstractController {
 
   #[Route(path: '/{id}', name: 'details', requirements: ['id' => '\d+'], methods: ['GET'])]
   public function details(int $weddingId, int $id, UserData $userData): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $costEstimateGroupDetailsDto =
         $this->costEstimateGroupService->getOne($id, $userData->getUserId());
 
@@ -56,11 +64,19 @@ class CostEstimateGroupController extends AbstractController {
 
     return $this->render(
         'wedding/cost-estimate-group/details/details.html.twig',
-        ['costEstimateGroupDetailsDto' => $costEstimateGroupDetailsDto, 'weddingId' => $weddingId]);
+        [
+            'costEstimateGroupDetailsDto' => $costEstimateGroupDetailsDto,
+            'weddingDetailsDto' => $weddingDetailsDto]);
   }
 
   #[Route(path: '/create', name: 'create', methods: ['GET', 'POST'])]
   public function create(int $weddingId, Request $request, UserData $userData): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $form =
         $this->createForm(
             CostEstimateGroupCreateFormType::class,
@@ -88,7 +104,7 @@ class CostEstimateGroupController extends AbstractController {
 
     return $this->render(
         'wedding/cost-estimate-group/create/create.html.twig',
-        ['form' => $form, 'weddingId' => $weddingId]);
+        ['form' => $form, 'weddingDetailsDto' => $weddingDetailsDto]);
   }
 
   #[Route(
@@ -97,6 +113,19 @@ class CostEstimateGroupController extends AbstractController {
       requirements: ['id' => '\d+'],
       methods: ['GET', 'PUT'])]
   public function update(int $weddingId, int $id, UserData $userData, Request $request): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($weddingId, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
+    $costEstimateGroupDetailsDto =
+        $this->costEstimateGroupService->getOne($id, $userData->getUserId());
+
+    if ($costEstimateGroupDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $costEstimateGroupUpdateRequest =
         $this->costEstimateGroupService->getUpdateRequest($id, $userData->getUserId());
 
@@ -128,7 +157,10 @@ class CostEstimateGroupController extends AbstractController {
 
     return $this->render(
         'wedding/cost-estimate-group/update/update.html.twig',
-        ['form' => $form, 'weddingId' => $weddingId]);
+        [
+            'form' => $form,
+            'weddingDetailsDto' => $weddingDetailsDto,
+            'costEstimateGroupDetailsDto' => $costEstimateGroupDetailsDto]);
   }
 
   #[Route(path: '/{id}/delete', name: 'delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
