@@ -1,0 +1,33 @@
+<div class="card bg-transparent">
+  <div class="row g-3 g-sm-4 align-items-sm-center">
+    <div class="col-4">
+      <img src="{{ asset('build/images/blog/05.jpg') }}" class="card-img" alt="">
+    </div>
+
+    <div class="col-8">
+      <div class="card-body p-0">
+        <h5 class="card-title mb-sm-3">
+          <a href="{{ path('post_details', { id: postDto.id }) }}" class="stretched-link">
+            {{ postDto.title }}
+          </a>
+        </h5>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="small"><i class="bi bi-calendar2-plus me-2"></i>
+            {{ postDto.createdAt|format_datetime('full', 'none', locale=app.request.locale) }}
+          </span>
+
+          <a href="{{ path('post_details', { id: postDto.id }) }}" class="btn btn-link p-0 mb-0">
+            {{ 'read-more'|trans }}
+
+            <i class="bi bi-arrow-up-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if hasDivider %}
+  <hr class="my-0">
+{% endif %}
