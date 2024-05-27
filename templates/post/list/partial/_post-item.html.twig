@@ -1,0 +1,41 @@
+<div class="col-md-6 col-lg-4">
+  <div class="card bg-transparent">
+    <div class="position-relative">
+      <img src="{{ asset('build/images/blog/07.jpg') }}" class="card-img" alt="">
+
+      <div class="card-img-overlay p-3">
+        {% if postDto.categoryNames|length > 0 %}
+          {% for categoryName in postDto.categoryNames %}
+            <a href="#" class="badge text-bg-warning mb-2">
+              {{ categoryName }}
+            </a>
+          {% endfor %}
+        {% else %}
+          <a href="#" class="badge bg-dark">
+            {{ 'no-category'|trans }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="card-body p-3 pb-0">
+      <h5 class="card-title mt-2">
+        <a href="{{ path('post_details', { id: postDto.id }) }}">
+          {{ postDto.title }}
+        </a>
+      </h5>
+
+      <p>
+        {{ postDto.content|u.truncate(100, '...') }}
+      </p>
+
+      <h6 class="fw-light mb-0">
+        {{ 'by'|trans }}
+
+        <a href="#">
+          {{ postDto.createdByName }}
+        </a>
+      </h6>
+    </div>
+  </div>
+</div>

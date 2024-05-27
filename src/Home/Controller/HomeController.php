@@ -23,7 +23,8 @@ class HomeController extends AbstractController {
     return $this->render(
         'home/index.html.twig',
         [
-            'latestPostsListItemDto' => $this->postService->getLatestList(),
+            'latestPostsListItemDto' => $this->postService->getLatestList(
+                PostService::$homeLatestListLimit),
             'latestOffersListItemDto' => $this->offerService->getLatestList(),
             'randomOfferCategoriesListItemDto' => $this->offerCategoryService->getRandomList()]);
   }

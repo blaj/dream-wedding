@@ -44,4 +44,9 @@ return static function(RoutingConfigurator $routingConfigurator): void {
       'path' => '../src/Offer/Controller/',
       'namespace' => 'App\Offer\Controller',
   ], 'attribute');
+
+  $routingConfigurator->import([
+      'path' => '../src/Post/Controller/',
+      'namespace' => 'App\Post\Controller',
+  ], 'attribute');
 };

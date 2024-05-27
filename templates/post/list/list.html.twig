@@ -1,0 +1,77 @@
+{% extends 'home-base.html.twig' %}
+
+{% block title %}
+  {{ 'blog'|trans }}
+{% endblock %}
+
+{% block main %}
+  <section class="pt-4 pt-md-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-12 text-center">
+          <h1 class="display-1 mb-0">
+            {{ 'blog'|trans }}
+          </h1>
+        </div>
+      </div>
+
+      {% include 'post/list/partial/_latest-posts.html.twig' %}
+    </div>
+  </section>
+
+  <section class="pt-0 pt-sm-5">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-12 text-center">
+          <h2 class="mb-0">
+            {{ 'latest-articles'|trans }}
+          </h2>
+        </div>
+      </div>
+
+      <div class="row g-4" id="post-container">
+        {% for postDto in postsListItemDto %}
+          {% include 'post/list/partial/_post-item.html.twig' with { postDto: postDto } only %}
+        {% endfor %}
+      </div>
+
+      <div class="text-center mt-4">
+        <a
+            href="{{ path('post_load_more', { no: 1 }) }}"
+            class="btn btn-primary-soft mb-0 {{ hasNextLoadMoreListPage ? '' : 'disabled' }}"
+            id="load-more-button"
+            data-turbo-prefetch="false">
+          {{ 'load-more'|trans }}
+
+          <i class="fas fa-sync ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {% include 'partial/_newsletter-bar.html.twig' %}
+{% endblock %}
+
+{% block success_load_more_stream %}
+  <turbo-stream action="append" targets="#post-container">
+    <template>
+      {% for postDto in postsListItemDto %}
+        {% include 'post/list/partial/_post-item.html.twig' with { postDto: postDto } only %}
+      {% endfor %}
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="replace" targets="#load-more-button">
+    <template>
+      <a
+          href="{{ path('post_load_more', { no: no + 1 }) }}"
+          class="btn btn-primary-soft mb-0 {{ hasNextLoadMoreListPage ? '' : 'disabled' }}"
+          id="load-more-button"
+          data-turbo-prefetch="false">
+        {{ 'load-more'|trans }}
+
+        <i class="fas fa-sync ms-2"></i>
+      </a>
+    </template>
+  </turbo-stream>
+{% endblock %}

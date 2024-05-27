@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\InverseJoinColumn;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\Table;
@@ -28,6 +30,8 @@ class Post extends AuditingEntity {
    */
   #[ManyToMany(targetEntity: PostCategory::class, inversedBy: 'posts')]
   #[JoinTable(name: 'posts_categories', schema: 'post')]
+  #[JoinColumn(name: 'post_id', referencedColumnName: 'id')]
+  #[InverseJoinColumn(name: 'category_id', referencedColumnName: 'id')]
   private Collection $categories;
 
   /**
@@ -35,6 +39,8 @@ class Post extends AuditingEntity {
    */
   #[ManyToMany(targetEntity: PostTag::class, inversedBy: 'posts')]
   #[JoinTable(name: 'posts_tags', schema: 'post')]
+  #[JoinColumn(name: 'post_id', referencedColumnName: 'id')]
+  #[InverseJoinColumn(name: 'tag_id', referencedColumnName: 'id')]
   private Collection $tags;
 
   public function __construct() {

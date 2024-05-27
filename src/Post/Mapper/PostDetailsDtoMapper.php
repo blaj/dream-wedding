@@ -2,22 +2,24 @@
 
 namespace App\Post\Mapper;
 
-use App\Post\Dto\PostListItemDto;
+use App\Post\Dto\PostDetailsDto;
 use App\Post\Entity\Post;
 use App\Post\Entity\PostCategory;
+use App\Post\Entity\PostTag;
 
-class PostListItemDtoMapper {
+class PostDetailsDtoMapper {
 
-  public static function map(?Post $post): ?PostListItemDto {
+  public static function map(?Post $post): ?PostDetailsDto {
     if ($post === null) {
       return null;
     }
 
-    return new PostListItemDto(
+    return new PostDetailsDto(
         $post->getId(),
         $post->getTitle(),
         $post->getContent(),
         self::categoryNames($post->getCategories()->toArray()),
+        self::tagNames($post->getTags()->toArray()),
         $post->getCreatedAt(),
         $post->getCreatedBy()?->getUsername());
   }
@@ -29,5 +31,14 @@ class PostListItemDtoMapper {
    */
   private static function categoryNames(array $categories): array {
     return array_map(fn (PostCategory $postCategory) => $postCategory->getName(), $categories);
+  }
+
+  /**
+   * @param array<PostTag> $tags
+   *
+   * @return array<string>
+   */
+  private static function tagNames(array $tags): array {
+    return array_map(fn (PostTag $postTag) => $postTag->getName(), $tags);
   }
 }
