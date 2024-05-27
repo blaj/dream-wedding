@@ -10,7 +10,8 @@ class ActiveRouteNameExtension extends AbstractExtension {
   public function getFilters(): array {
     return [
         new TwigFilter('activeRouteName', [$this, 'activeRouteName']),
-        new TwigFilter('activeRouteNames', [$this, 'activeRouteNames'])
+        new TwigFilter('activeRouteNames', [$this, 'activeRouteNames']),
+        new TwigFilter('activeRouteWithSubRoutesName', [$this, 'activeRouteWithSubRoutesName'])
     ];
   }
 
@@ -32,5 +33,12 @@ class ActiveRouteNameExtension extends AbstractExtension {
         strtoupper($actualRouteName),
         array_map(fn (string $routeName) => strtoupper($routeName), $routeNames),
         true) ? $class : '';
+  }
+
+  public function activeRouteWithSubRoutesName(
+      string $actualRouteName,
+      string $routeName,
+      string $class): string {
+    return str_starts_with($actualRouteName, $routeName) ? $class : '';
   }
 }
