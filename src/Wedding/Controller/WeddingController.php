@@ -75,6 +75,12 @@ class WeddingController extends AbstractController {
       requirements: ['id' => '\d+'],
       methods: ['GET', 'PUT'])]
   public function update(int $id, UserData $userData, Request $request): Response {
+    $weddingDetailsDto = $this->weddingService->getOne($id, $userData->getUserId());
+
+    if ($weddingDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $weddingUpdateRequest = $this->weddingService->getUpdateRequest($id, $userData->getUserId());
 
     if ($weddingUpdateRequest === null) {
@@ -95,7 +101,9 @@ class WeddingController extends AbstractController {
       return $this->redirectToRoute('wedding_details', ['id' => $id]);
     }
 
-    return $this->render('wedding/update/update.html.twig', ['form' => $form]);
+    return $this->render(
+        'wedding/update/update.html.twig',
+        ['form' => $form, 'id' => $id, 'weddingDetailsDto' => $weddingDetailsDto]);
   }
 
   #[Route(path: '/{id}/delete', name: 'delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]

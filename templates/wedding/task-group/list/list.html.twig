@@ -1,7 +1,9 @@
 {% extends 'wedding/wedding-base.html.twig' %}
 
+{% import 'macros/breadcrumbs.html.twig' as breadcrumbs %}
+
 {% block page_heading %}
-  <h1 class="h2">
+  <h1 class="h3 mb-2 mb-sm-0">
     {{ 'wedding-details'|trans }}
 
     {{ weddingDetailsDto.name }}
@@ -16,6 +18,15 @@
       </a>
     </div>
   </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ breadcrumbs.render([
+    { text: 'wedding-planner'|trans },
+    { url: path('wedding_list'), text: 'wedding-list'|trans },
+    { url: path('wedding_details', { id: weddingDetailsDto.id }), text: weddingDetailsDto.name },
+    { text: 'task-group-list'|trans }
+  ]) }}
 {% endblock %}
 
 {% block tab_content %}
