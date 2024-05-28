@@ -28,34 +28,74 @@
       </div>
 
       <div
-          class="offcanvas offcanvas-start flex-row custom-scrollbar h-100"
+          class="offcanvas offcanvas-start flex-row h-100"
           data-bs-backdrop="true"
           tabindex="-1"
-          id="offcanvasSidebar">
+          id="offcanvasSidebar"
+          data-controller="overlay-scrollbar">
         <div class="offcanvas-body sidebar-content d-flex flex-column pt-4">
           <ul class="navbar-nav flex-column" id="navbar-sidebar">
-            {% include 'partial/_sidebar-item.html.twig' with { name: 'home-page'|trans, routeName: 'home_index', path: path('home_index') } only %}
+            {% include 'partial/_sidebar-item.html.twig' with {
+              name: 'home-page'|trans,
+              routeName: 'home_index',
+              path: path('home_index') } only %}
 
-            {% include 'partial/_sidebar-item.html.twig' with { name: 'dashboard'|trans, routeName: 'dashboard_index', path: path('dashboard_index') } only %}
+            {% include 'partial/_sidebar-item.html.twig' with {
+              name: 'dashboard'|trans,
+              routeName: 'dashboard_index',
+              path: path('dashboard_index') } only %}
 
-            {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-list'|trans, routeName: 'wedding_list', path: path('wedding_list') } only %}
+            {% include 'partial/_sidebar-item.html.twig' with {
+              name: 'wedding-list'|trans,
+              routeName: 'wedding_list',
+              path: path('wedding_list') } only %}
 
             {% for weddingDto in getWeddings() %}
               <li class="nav-item ms-2 my-2">
                 {{ weddingDto.name }}
               </li>
 
-              {% include 'partial/_sidebar-item.html.twig' with { name: 'details'|trans, iconClass: 'bi bi-eye', routeName: 'wedding_details', path: path('wedding_details', { id: weddingDto.id }) } only %}
+              {% include 'partial/_sidebar-item.html.twig' with {
+                name: 'details'|trans,
+                routeName: 'wedding_details',
+                path: path('wedding_details', { id: weddingDto.id }),
+                parameterKey: 'id',
+                parameterValue: weddingDto.id } only %}
 
-              {% include 'partial/_sidebar-item.html.twig' with { name: 'guest-list'|trans, iconClass: 'bi bi-people-fill', routeName: 'wedding_guest_list', path: path('wedding_guest_list', { weddingId: weddingDto.id }) } only %}
+              {% include 'partial/_sidebar-item.html.twig' with {
+                name: 'guest-list'|trans,
+                routeName: 'wedding_guest_list',
+                path: path('wedding_guest_list', { weddingId: weddingDto.id }),
+                parameterKey: 'weddingId',
+                parameterValue: weddingDto.id } only %}
 
-              {% include 'partial/_sidebar-item.html.twig' with { name: 'cost-estimate-list'|trans, iconClass: 'bi bi-cash', routeName: 'wedding_cost_estimate_list', path: path('wedding_cost_estimate_list', { weddingId: weddingDto.id }) } only %}
+              {% include 'partial/_sidebar-item.html.twig' with {
+                name: 'cost-estimate-list'|trans,
+                routeName: 'wedding_cost_estimate_list',
+                path: path('wedding_cost_estimate_list', { weddingId: weddingDto.id }),
+                parameterKey: 'weddingId',
+                parameterValue: weddingDto.id } only %}
 
-              {% include 'partial/_sidebar-item.html.twig' with { name: 'table-list'|trans, iconClass: 'bi bi-tag', routeName: 'wedding_table_list', path: path('wedding_table_list', { weddingId: weddingDto.id }) } only %}
+              {% include 'partial/_sidebar-item.html.twig' with {
+                name: 'table-list'|trans,
+                routeName: 'wedding_table_list',
+                path: path('wedding_table_list', { weddingId: weddingDto.id }),
+                parameterKey: 'weddingId',
+                parameterValue: weddingDto.id } only %}
 
-              {% include 'partial/_sidebar-item.html.twig' with { name: 'task-list'|trans, iconClass: 'bi bi-list-task', routeName: 'wedding_task_list', path: path('wedding_task_list', { weddingId: weddingDto.id }) } only %}
+              {% include 'partial/_sidebar-item.html.twig' with {
+                name: 'task-list'|trans,
+                routeName: 'wedding_task_list',
+                path: path('wedding_task_list', { weddingId: weddingDto.id }),
+                parameterKey: 'weddingId',
+                parameterValue: weddingDto.id } only %}
 
-              {% include 'partial/_sidebar-item.html.twig' with { name: 'wedding-user-list'|trans, iconClass: 'bi bi-universal-access-circle', routeName: 'wedding_user_list', path: path('wedding_user_list', { weddingId: weddingDto.id }) } only %}
+              {% include 'partial/_sidebar-item.html.twig' with {
+                name: 'wedding-user-list'|trans,
+                routeName: 'wedding_user_list',
+                path: path('wedding_user_list', { weddingId: weddingDto.id }),
+                parameterKey: 'weddingId',
+                parameterValue: weddingDto.id } only %}
 
               <li class="nav-item">
                 <a
@@ -63,29 +103,35 @@
                     data-bs-toggle="collapse"
                     href="#collapse-group-{{ weddingDto.id }}"
                     role="button"
-                    aria-expanded="false"
+                    aria-expanded="{{ getActualRoute()|isActiveRouteNames(['wedding_guest_group_list', 'wedding_cost_estimate_group_list', 'wedding_task_group_list'], 'weddingId', weddingDto.id) ? 'true' : 'false' }}"
                     aria-controls="collapse-group-{{ weddingDto.id }}">
                   {{ 'groups'|trans }}
                 </a>
 
                 <ul
-                    class="nav collapse flex-column"
+                    class="nav collapse flex-column {{ getActualRoute()|isActiveRouteNames(['wedding_guest_group_list', 'wedding_cost_estimate_group_list', 'wedding_task_group_list'], 'weddingId', weddingDto.id) ? 'show' : '' }}"
                     id="collapse-group-{{ weddingDto.id }}"
                     data-bs-parent="#navbar-sidebar">
                   {% include 'partial/_sidebar-item.html.twig' with {
                     name: 'guest-group-list'|trans,
                     routeName: 'wedding_guest_group_list',
-                    path: path('wedding_guest_group_list', { weddingId: weddingDto.id }) } only %}
+                    path: path('wedding_guest_group_list', { weddingId: weddingDto.id }),
+                    parameterKey: 'weddingId',
+                    parameterValue: weddingDto.id } only %}
 
                   {% include 'partial/_sidebar-item.html.twig' with {
                     name: 'cost-estimate-group-list'|trans,
                     routeName: 'wedding_cost_estimate_group_list',
-                    path: path('wedding_cost_estimate_group_list', { weddingId: weddingDto.id }) } only %}
+                    path: path('wedding_cost_estimate_group_list', { weddingId: weddingDto.id }),
+                    parameterKey: 'weddingId',
+                    parameterValue: weddingDto.id } only %}
 
                   {% include 'partial/_sidebar-item.html.twig' with {
                     name: 'task-group-list'|trans,
                     routeName: 'wedding_task_group_list',
-                    path: path('wedding_task_group_list', { weddingId: weddingDto.id }) } only %}
+                    path: path('wedding_task_group_list', { weddingId: weddingDto.id }),
+                    parameterKey: 'weddingId',
+                    parameterValue: weddingDto.id } only %}
                 </ul>
               </li>
             {% endfor %}

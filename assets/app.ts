@@ -1,3 +1,4 @@
+import 'overlayscrollbars/styles/overlayscrollbars.css';
 import './scss/style.scss';
 import { startStimulusApp } from '@symfony/stimulus-bridge';
 import Routing from 'fos-router';

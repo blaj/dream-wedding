@@ -12,7 +12,7 @@
       <ul class="nav nav-tabs">
         <li class="nav-item">
           <a
-              class="nav-link {{ getActualRouteName()|activeRouteName('wedding_details', 'active') }}"
+              class="nav-link {{ getActualRoute()|activeRouteName('wedding_details', 'active') }}"
               href="{{ path('wedding_details', { id: weddingDetailsDto.id }) }}">
             {{ 'details'|trans }}
           </a>
@@ -20,7 +20,7 @@
 
         <li class="nav-item">
           <a
-              class="nav-link {{ getActualRouteName()|activeRouteName('wedding_guest_list', 'active') }}"
+              class="nav-link {{ getActualRoute()|activeRouteName('wedding_guest_list', 'active') }}"
               href="{{ path('wedding_guest_list', { weddingId: weddingDetailsDto.id }) }}">
             {{ 'guest-list'|trans }}
           </a>
@@ -28,7 +28,7 @@
 
         <li class="nav-item">
           <a
-              class="nav-link {{ getActualRouteName()|activeRouteName('wedding_cost_estimate_list', 'active') }}"
+              class="nav-link {{ getActualRoute()|activeRouteName('wedding_cost_estimate_list', 'active') }}"
               href="{{ path('wedding_cost_estimate_list', { weddingId: weddingDetailsDto.id }) }}">
             {{ 'cost-estimate-list'|trans }}
           </a>
@@ -36,7 +36,7 @@
 
         <li class="nav-item">
           <a
-              class="nav-link {{ getActualRouteName()|activeRouteName('wedding_table_list', 'active') }}"
+              class="nav-link {{ getActualRoute()|activeRouteName('wedding_table_list', 'active') }}"
               href="{{ path('wedding_table_list', { weddingId: weddingDetailsDto.id }) }}">
             {{ 'table-list'|trans }}
           </a>
@@ -44,7 +44,7 @@
 
         <li class="nav-item">
           <a
-              class="nav-link {{ getActualRouteName()|activeRouteName('wedding_task_list', 'active') }}"
+              class="nav-link {{ getActualRoute()|activeRouteName('wedding_task_list', 'active') }}"
               href="{{ path('wedding_task_list', { weddingId: weddingDetailsDto.id }) }}">
             {{ 'task-list'|trans }}
           </a>
@@ -52,7 +52,7 @@
 
         <li class="nav-item">
           <a
-              class="nav-link {{ getActualRouteName()|activeRouteName('wedding_user_list', 'active') }}"
+              class="nav-link {{ getActualRoute()|activeRouteName('wedding_user_list', 'active') }}"
               href="{{ path('wedding_user_list', { weddingId: weddingDetailsDto.id }) }}">
             {{ 'wedding-user-list'|trans }}
           </a>
@@ -60,7 +60,7 @@
 
         <li class="nav-item dropdown">
           <a
-              class="nav-link dropdown-toggle {{ getActualRouteName()|activeRouteNames(['wedding_guest_group_list', 'wedding_cost_estimate_group_list', 'wedding_task_group_list'], 'active') }}"
+              class="nav-link dropdown-toggle {{ getActualRoute()|activeRouteNames(['wedding_guest_group_list', 'wedding_cost_estimate_group_list', 'wedding_task_group_list'], 'active') }}"
               data-bs-toggle="dropdown"
               href="#"
               role="button"
@@ -71,7 +71,7 @@
           <ul class="dropdown-menu">
             <li>
               <a
-                  class="dropdown-item {{ getActualRouteName()|activeRouteName('wedding_guest_group_list', 'active') }}"
+                  class="dropdown-item {{ getActualRoute()|activeRouteName('wedding_guest_group_list', 'active') }}"
                   href="{{ path('wedding_guest_group_list', { weddingId: weddingDetailsDto.id }) }}">
                 {{ 'guest-group-list'|trans }}
               </a>
@@ -79,7 +79,7 @@
 
             <li>
               <a
-                  class="dropdown-item {{ getActualRouteName()|activeRouteName('wedding_cost_estimate_group_list', 'active') }}"
+                  class="dropdown-item {{ getActualRoute()|activeRouteName('wedding_cost_estimate_group_list', 'active') }}"
                   href="{{ path('wedding_cost_estimate_group_list', { weddingId: weddingDetailsDto.id }) }}">
                 {{ 'cost-estimate-group-list'|trans }}
               </a>
@@ -87,7 +87,7 @@
 
             <li>
               <a
-                  class="dropdown-item {{ getActualRouteName()|activeRouteName('wedding_task_group_list', 'active') }}"
+                  class="dropdown-item {{ getActualRoute()|activeRouteName('wedding_task_group_list', 'active') }}"
                   href="{{ path('wedding_task_group_list', { weddingId: weddingDetailsDto.id }) }}">
                 {{ 'task-group-list'|trans }}
               </a>
