@@ -1,5 +1,8 @@
+{% set key = parameterKey is defined ? parameterKey : null %}
+{% set value = parameterValue is defined ? parameterValue : null %}
+
 <li class="nav-item">
-  <a href="{{ path }}" class="nav-link {{ getActualRouteName()|activeRouteName(routeName, 'active') }}">
+  <a href="{{ path }}" class="nav-link {{ getActualRoute()|activeRouteName(routeName, 'active', key, value) }}">
     {{ name }}
   </a>
 </li>
