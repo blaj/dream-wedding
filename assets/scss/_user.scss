@@ -13,3 +13,14 @@
 //   --bs-link-color-rgb: 42, 197, 245 !important;
 //   --bs-link-hover-color-rgb: 6, 119, 153 !important;
 //   }
+
+.preview-image {
+  max-width: 100%;
+  height: auto;
+}
+
+@include media-breakpoint-up(md) {
+  .preview-image {
+    max-width: 300px;
+  }
+}

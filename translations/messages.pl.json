@@ -249,5 +249,12 @@
   "share-on": "Udostępnij na",
   "tags": "Tagi",
   "no-tags": "Brak tagów",
-  "weddings": "Śluby"
+  "weddings": "Śluby",
+  "post-list": "Lista postów",
+  "post-create": "Dodawanie postu",
+  "title": "Tytuł",
+  "content": "Treść",
+  "heading-image": "Obrazek nagłówkowy",
+  "select-image": "Wybierz obrazek",
+  "short-content": "Krótka treść"
 }

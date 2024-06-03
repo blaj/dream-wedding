@@ -85,6 +85,13 @@ return static function(ContainerConfigurator $containerConfigurator): void {
                   'prefix' => 'App\Offer\Entity',
                   'alias' => 'Offer',
               ],
+              'FileStorage' => [
+                  'type' => 'attribute',
+                  'is_bundle' => false,
+                  'dir' => '%kernel.project_dir%/src/FileStorage/Entity',
+                  'prefix' => 'App\FileStorage\Entity',
+                  'alias' => 'FileStorage',
+              ],
           ],
           'controller_resolver' => [
               'auto_mapping' => false,

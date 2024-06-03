@@ -8,11 +8,13 @@
   <section class="py-0">
     <div class="container">
       <div class="row g-4">
-        <div class="col-12">
-          <img src="{{ asset('build/images/blog/13.jpg') }}" class="rounded-3" alt="">
-        </div>
+        {% if postDetailsDto.headingImagePath is not null %}
+          <div class="col-12">
+            <img src="{{ asset(postDetailsDto.headingImagePath) }}" class="rounded-3" alt="">
+          </div>
+        {% endif %}
 
-        <div class="col-11 col-lg-10 mx-auto position-relative mt-n5 mt-sm-n7 mt-md-n8">
+        <div class="col-11 col-lg-10 mx-auto position-relative {{ postDetailsDto.headingImagePath is not null ? 'mt-n5 mt-sm-n7 mt-md-n8' : '' }}">
           <div class="bg-mode shadow rounded-3 p-4">
             {% if postDetailsDto.categoryNames|length > 0 %}
               {% for categoryName in postDetailsDto.categoryNames %}
@@ -31,7 +33,7 @@
             </h1>
 
             <p class="mb-2">
-              {{ postDetailsDto.content|u.truncate(100, '...') }}
+              {{ postDetailsDto.shortContent }}
             </p>
 
             <ul class="nav nav-divider align-items-center">
@@ -75,7 +77,7 @@
       <div class="row">
         <div class="col-lg-10 mx-auto">
           <p>
-            {{ postDetailsDto.content }}
+            {{ postDetailsDto.content|raw }}
           </p>
 
           <div class="bg-mode border rounded p-4">
@@ -100,7 +102,9 @@
             </div>
 
             <p class="my-3">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eligendi est facilis fugit labore officia optio, quae quidem quo recusandae sed sunt, ullam ut vitae voluptate. Aspernatur excepturi quod soluta!
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eligendi est facilis fugit labore
+              officia optio, quae quidem quo recusandae sed sunt, ullam ut vitae voluptate. Aspernatur excepturi quod
+              soluta!
             </p>
 
             <div class="d-flex align-items-center justify-content-between">

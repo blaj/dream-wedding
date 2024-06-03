@@ -50,6 +50,11 @@
               routeName: 'wedding_list',
               path: path('wedding_list') } only %}
 
+            {% include 'partial/_sidebar-item.html.twig' with {
+              name: 'post-list'|trans,
+              routeName: 'app_post_list',
+              path: path('app_post_list') } only %}
+
             {% for weddingDto in getWeddings() %}
               <li class="nav-item ms-2 my-2">
                 {{ weddingDto.name }}

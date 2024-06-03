@@ -249,5 +249,12 @@
   "share-on": "Share on",
   "tags": "Tags",
   "no-tags": "No tags",
-  "weddings": "Weddings"
+  "weddings": "Weddings",
+  "post-list": "Post list",
+  "post-create": "Add new post",
+  "title": "Title",
+  "content": "Content",
+  "heading-image": "Heading image",
+  "select-image": "Select image",
+  "short-content": "Short content"
 }
