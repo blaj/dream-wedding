@@ -249,5 +249,16 @@
   "share-on": "Share on",
   "tags": "Tags",
   "no-tags": "No tags",
-  "weddings": "Weddings"
+  "weddings": "Weddings",
+  "post-list": "Post list",
+  "post-create": "Add new post",
+  "post-update": "Edit post",
+  "post-created-successfully": "The post has been added successfully",
+  "post-updated-successfully": "The post was updated successfully",
+  "post-deleted-successfully": "The post has deleted successfully",
+  "title": "Title",
+  "content": "Content",
+  "heading-image": "Heading image",
+  "select-image": "Select image",
+  "short-content": "Short content"
 }

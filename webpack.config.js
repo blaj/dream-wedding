@@ -1,6 +1,7 @@
 const Encore = require('@symfony/webpack-encore');
 const path = require('path');
 const FosRouting = require('fos-router/webpack/FosRouting');
+const { styles } = require('@ckeditor/ckeditor5-dev-utils');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -80,7 +81,27 @@ Encore
 
   // uncomment if you're having problems with a jQuery plugin
   .autoProvidejQuery()
-  .addPlugin(new FosRouting({ target: './assets/routes.json' }));
+  .addPlugin(new FosRouting({ target: './assets/routes.json' }))
+
+  .addRule({
+    test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
+    loader: 'raw-loader'
+  })
+  .configureLoaderRule('images', loader => {
+    loader.exclude = /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/;
+  })
+  .addLoader({
+    test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+    loader: 'postcss-loader',
+    options: {
+      postcssOptions: styles.getPostCssConfig({
+        themeImporter: {
+          themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
+        },
+        minify: true
+      })
+    }
+  });
 
 const webpackConfig = Encore.getWebpackConfig();
 

@@ -1,0 +1,55 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% import 'macros/breadcrumbs.html.twig' as breadcrumbs %}
+
+{% block title %}
+  {{ 'post-create'|trans }}
+{% endblock %}
+
+{% block page_title %}
+  {{ 'post-create'|trans }}
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ breadcrumbs.render([
+    { text: 'wedding-planner'|trans },
+    { url: path('app_post_list'), text: 'post-list'|trans },
+    { text: 'post-create'|trans }
+  ]) }}
+{% endblock %}
+
+{% block page_content %}
+  <div class="card shadow">
+    <div class="card-body">
+      {{ form_start(form) }}
+
+      {{ form_row(form.title) }}
+
+      {{ form_row(form.shortContent) }}
+
+      {{ form_row(form.content) }}
+
+      <div class="mb-3" data-controller="preview-image">
+        {{ form_label(form.headingImage) }}
+
+        {{ form_widget(form.headingImage, {
+          attr: {
+            'class': 'mb-3',
+            'data-preview-image-target': 'input',
+            'data-action': 'preview-image#preview' } }) }}
+
+        <img
+            src=""
+            alt="{{ 'select-image'|trans }}"
+            class="img-thumbnail preview-image"
+            data-preview-image-target="output">
+      </div>
+
+      {{ form_end(form) }}
+
+      <a href="{{ path('app_post_list') }}">
+        {{ 'back-to-list'|trans }}
+      </a>
+    </div>
+  </div>
+{% endblock %}

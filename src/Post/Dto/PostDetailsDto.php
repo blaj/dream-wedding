@@ -14,8 +14,10 @@ readonly class PostDetailsDto {
       public int $id,
       public string $title,
       public string $content,
+      public string $shortContent,
       public array $categoryNames,
       public array $tagNames,
       public DateTimeImmutable $createdAt,
-      public ?string $createdByName) {}
+      public ?string $createdByName,
+      public ?string $headingImagePath) {}
 }

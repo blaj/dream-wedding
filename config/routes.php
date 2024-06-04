@@ -2,6 +2,7 @@
 
 declare(strict_types = 1);
 
+use App\Common\Const\TranslationConst;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function(RoutingConfigurator $routingConfigurator): void {
@@ -49,4 +50,10 @@ return static function(RoutingConfigurator $routingConfigurator): void {
       'path' => '../src/Post/Controller/',
       'namespace' => 'App\Post\Controller',
   ], 'attribute');
+
+  $routingConfigurator
+      ->import('../src/App/*/Controller/*', 'attribute')
+      ->prefix('/{_locale}/app')
+      ->namePrefix('app_')
+      ->requirements(['_locale' => TranslationConst::availableLocales]);
 };

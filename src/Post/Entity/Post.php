@@ -3,6 +3,7 @@
 namespace App\Post\Entity;
 
 use App\Common\Entity\AuditingEntity;
+use App\FileStorage\Entity\LocalFileResource;
 use App\Post\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,6 +14,7 @@ use Doctrine\ORM\Mapping\InverseJoinColumn;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: PostRepository::class)]
@@ -24,6 +26,13 @@ class Post extends AuditingEntity {
 
   #[Column(name: 'content', type: Types::TEXT, nullable: false)]
   private string $content;
+
+  #[JoinColumn(name: 'heading_image_id', referencedColumnName: 'id', nullable: true, columnDefinition: 'BIGINT')]
+  #[ManyToOne(targetEntity: LocalFileResource::class, fetch: 'LAZY')]
+  private ?LocalFileResource $headingImage = null;
+
+  #[Column(name: 'short_content', type: Types::TEXT, nullable: false)]
+  private string $shortContent;
 
   /**
    * @var Collection<int, PostCategory>
@@ -64,6 +73,26 @@ class Post extends AuditingEntity {
 
   public function setContent(string $content): self {
     $this->content = $content;
+
+    return $this;
+  }
+
+  public function getHeadingImage(): ?LocalFileResource {
+    return $this->headingImage;
+  }
+
+  public function setHeadingImage(?LocalFileResource $headingImage): self {
+    $this->headingImage = $headingImage;
+
+    return $this;
+  }
+
+  public function getShortContent(): string {
+    return $this->shortContent;
+  }
+
+  public function setShortContent(string $shortContent): self {
+    $this->shortContent = $shortContent;
 
     return $this;
   }

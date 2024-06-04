@@ -50,6 +50,11 @@
               routeName: 'wedding_list',
               path: path('wedding_list') } only %}
 
+            {% include 'partial/_sidebar-item.html.twig' with {
+              name: 'post-list'|trans,
+              routeName: 'app_post_list',
+              path: path('app_post_list') } only %}
+
             {% for weddingDto in getWeddings() %}
               <li class="nav-item ms-2 my-2">
                 {{ weddingDto.name }}
@@ -218,7 +223,9 @@
 
                 <ul class="dropdown-menu min-w-auto dropdown-menu-end">
                   <li class="mb-1">
-                    <a href="{{ path('localization_change_locale', { locale: 'pl' }) }}" class="dropdown-item d-flex align-items-center">
+                    <a
+                        href="{{ path('localization_change_locale', { locale: 'pl' }) }}"
+                        class="dropdown-item d-flex align-items-center">
                       <img class="fa-fw me-2" src="{{ asset('build/images/flags/pl.svg') }}" alt="">
 
                       {{ 'polish'|trans }}
@@ -226,7 +233,9 @@
                   </li>
 
                   <li class="mb-1">
-                    <a href="{{ path('localization_change_locale', { locale: 'en' }) }}" class="dropdown-item d-flex align-items-center">
+                    <a
+                        href="{{ path('localization_change_locale', { locale: 'en' }) }}"
+                        class="dropdown-item d-flex align-items-center">
                       <img class="fa-fw me-2" src="{{ asset('build/images/flags/uk.svg') }}" alt="">
 
                       {{ 'english'|trans }}
@@ -374,6 +383,26 @@
       </nav>
 
       <div class="page-content-wrapper">
+        {% for label, messages in app.flashes %}
+          {% for message in messages %}
+            <div
+                class="alert alert-{{ label }} alert-dismissible fade show d-flex align-items-center rounded-3 mb-3"
+                role="alert">
+              <h4 class="mb-0 alert-heading">
+                <i class="bi bi-check2-circle me-2"></i>
+              </h4>
+
+              <div class="ms-3">
+                <h6 class="mb-0 alert-heading">
+                  {{ message|trans }}
+                </h6>
+              </div>
+
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endfor %}
+
         <div class="row">
           <div class="col-12">
             {% block breadcrumbs %}{% endblock %}
