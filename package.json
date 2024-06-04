@@ -56,6 +56,7 @@
         "jquery": "^3.7.1",
         "overlayscrollbars": "^2.8.3",
         "sortablejs": "^1.15.2",
-        "tiny-slider": "^2.9.4"
+        "tiny-slider": "^2.9.4",
+        "tom-select": "^2.3.1"
     }
 }

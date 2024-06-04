@@ -11,12 +11,15 @@ use App\Post\Form\Type\PostCreateFormType;
 use App\Post\Form\Type\PostUpdateFormType;
 use App\Post\Service\PostService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
 
+#[IsGranted(new Expression("is_authenticated()"))]
 #[Route(path: '/post', name: 'post_')]
 class PostController extends AbstractController {
 
@@ -57,6 +60,12 @@ class PostController extends AbstractController {
       requirements: ['id' => '\d+'],
       methods: ['GET', 'PUT'])]
   public function update(int $id, Request $request): Response {
+    $postDetailsDto = $this->postService->getOne($id);
+
+    if ($postDetailsDto === null) {
+      throw new NotFoundHttpException();
+    }
+
     $postUpdateRequest = $this->postService->getUpdateRequest($id);
 
     if ($postUpdateRequest === null) {
@@ -71,14 +80,17 @@ class PostController extends AbstractController {
 
       $this->addFlash(
           FlashMessageConst::$success,
-          new TranslatableMessage('posr-updated-successfully'));
+          new TranslatableMessage('post-updated-successfully'));
 
       return $this->redirectToRoute('app_post_list');
     }
 
     return $this->render(
         'app/post/update/update.html.twig',
-        ['form' => $form, 'postUpdateRequest' => $postUpdateRequest]);
+        [
+            'form' => $form,
+            'postUpdateRequest' => $postUpdateRequest,
+            'postDetailsDto' => $postDetailsDto]);
   }
 
   #[Route(
@@ -86,7 +98,13 @@ class PostController extends AbstractController {
       name: 'delete',
       requirements: ['id' => '\d+'],
       methods: ['DELETE'])]
-  public function delete(): Response {
+  public function delete(int $id): Response {
+    $this->postService->delete($id);
+
+    $this->addFlash(
+        FlashMessageConst::$success,
+        new TranslatableMessage('post-deleted-successfully'));
+
     return $this->redirectToRoute('app_post_list');
   }
 

@@ -11,6 +11,9 @@ class PostCategoryService {
 
   public function __construct(private readonly PostCategoryRepository $postCategoryRepository) {}
 
+  /**
+   * @return array<PostCategoryListItemDto>
+   */
   public function getList(): array {
     return array_filter(
         array_map(

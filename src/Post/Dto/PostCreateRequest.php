@@ -22,6 +22,16 @@ class PostCreateRequest {
   #[NotBlank]
   private string $shortContent;
 
+  /**
+   * @var array<int>
+   */
+  private array $categories = [];
+
+  /**
+   * @var array<int>
+   */
+  private array $tags = [];
+
   public function getTitle(): string {
     return $this->title;
   }
@@ -58,6 +68,38 @@ class PostCreateRequest {
 
   public function setShortContent(string $shortContent): self {
     $this->shortContent = $shortContent;
+
+    return $this;
+  }
+
+  /**
+   * @return array<int>
+   */
+  public function getCategories(): array {
+    return $this->categories;
+  }
+
+  /**
+   * @param array<int> $categories
+   */
+  public function setCategories(array $categories): self {
+    $this->categories = $categories;
+
+    return $this;
+  }
+
+  /**
+   * @return array<int>
+   */
+  public function getTags(): array {
+    return $this->tags;
+  }
+
+  /**
+   * @param array<int> $tags
+   */
+  public function setTags(array $tags): self {
+    $this->tags = $tags;
 
     return $this;
   }

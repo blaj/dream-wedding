@@ -4,6 +4,12 @@
   {{ 'blog'|trans }}
 {% endblock %}
 
+{% block keywords %}
+  {{ postDetailsDto.tagNames|length > 0 ? ', ' : '' }}
+
+  {{ postDetailsDto.tagNames|join(', ') }}
+{% endblock %}
+
 {% block main %}
   <section class="py-0">
     <div class="container">

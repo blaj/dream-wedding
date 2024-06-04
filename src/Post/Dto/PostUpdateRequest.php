@@ -24,6 +24,16 @@ class PostUpdateRequest {
 
   private ?string $headingImagePath = null;
 
+  /**
+   * @var array<int>
+   */
+  private array $categories = [];
+
+  /**
+   * @var array<int>
+   */
+  private array $tags = [];
+
   public function getTitle(): string {
     return $this->title;
   }
@@ -70,6 +80,38 @@ class PostUpdateRequest {
 
   public function setHeadingImagePath(?string $headingImagePath): self {
     $this->headingImagePath = $headingImagePath;
+
+    return $this;
+  }
+
+  /**
+   * @return array<int>
+   */
+  public function getCategories(): array {
+    return $this->categories;
+  }
+
+  /**
+   * @param array<int> $categories
+   */
+  public function setCategories(array $categories): self {
+    $this->categories = $categories;
+
+    return $this;
+  }
+
+  /**
+   * @return array<int>
+   */
+  public function getTags(): array {
+    return $this->tags;
+  }
+
+  /**
+   * @param array<int> $tags
+   */
+  public function setTags(array $tags): self {
+    $this->tags = $tags;
 
     return $this;
   }

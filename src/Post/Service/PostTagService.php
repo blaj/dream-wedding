@@ -11,6 +11,9 @@ class PostTagService {
 
   public function __construct(private readonly PostTagRepository $postTagRepository) {}
 
+  /**
+   * @return array<PostTagListItemDto>
+   */
   public function getList(): array {
     return array_filter(
         array_map(fn (PostTag $postTag) => PostTagListItemDtoMapper::map($postTag),

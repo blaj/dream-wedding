@@ -21,6 +21,22 @@ class PostCreateFormType extends AbstractType {
         ->add('content', CKEditorType::class, ['label' => 'content', 'required' => false])
         ->add('headingImage', FileType::class, ['label' => 'heading-image', 'required' => false])
         ->add('shortContent', TextareaType::class, ['label' => 'short-content'])
+        ->add(
+            'categories',
+            PostCategoryChoiceFormType::class,
+            [
+                'label' => 'categories',
+                'multiple' => true,
+                'required' => false,
+                'attr' => ['data-controller' => 'tom-select']])
+        ->add(
+            'tags',
+            PostTagChoiceFormType::class,
+            [
+                'label' => 'tags',
+                'multiple' => true,
+                'required' => false,
+                'attr' => ['data-controller' => 'tom-select']])
         ->add(FormConst::$save, SaveButtonType::class)
         ->add(FormConst::$saveAndAdd, SaveAndAddButtonType::class);
   }

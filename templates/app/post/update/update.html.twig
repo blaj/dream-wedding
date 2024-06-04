@@ -14,7 +14,8 @@
   {{ breadcrumbs.render([
     { text: 'wedding-planner'|trans },
     { url: path('app_post_list'), text: 'post-list'|trans },
-    { text: 'post-create'|trans }
+    { url: path('post_details', { id: postDetailsDto.id }), text: postDetailsDto.title },
+    { text: 'post-update'|trans }
   ]) }}
 {% endblock %}
 
@@ -39,7 +40,7 @@
             'data-action': 'preview-image#preview' } }) }}
 
         <img
-            src="{{ asset(postUpdateRequest.headingImagePath) }}"
+            src="{{ postUpdateRequest.headingImagePath is not null ? asset(postUpdateRequest.headingImagePath) : '' }}"
             alt="{{ 'select-image'|trans }}"
             class="img-thumbnail preview-image"
             data-preview-image-target="output">

@@ -4,7 +4,7 @@ import { Tooltip } from 'bootstrap';
 export default class extends Controller<HTMLElement> {
   private tooltip: Tooltip;
 
-  initialize = (): void => {
+  connect = (): void => {
     this.tooltip = new Tooltip(this.element);
   };
 
