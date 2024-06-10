@@ -15,20 +15,22 @@ import {
   ImageUpload
 } from '@ckeditor/ckeditor5-image';
 import { Indent } from '@ckeditor/ckeditor5-indent';
-import { Link } from '@ckeditor/ckeditor5-link';
+import { Link, LinkImage } from '@ckeditor/ckeditor5-link';
 import { List } from '@ckeditor/ckeditor5-list';
 import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
 import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
+import { SymfonyDeleteImagePlugin, SymfonyUploadAdapterPlugin } from '@assets/common';
+import Routing from 'fos-router';
 
 export default class extends Controller<HTMLTextAreaElement> {
   static values = {
-    uploadUrl: String
+    locale: String
   };
 
-  declare readonly uploadUrlValue: string;
+  declare readonly localeValue: string;
 
   connect = (): void => {
     ClassicEditor.create(this.element, {
@@ -48,14 +50,17 @@ export default class extends Controller<HTMLTextAreaElement> {
         Indent,
         Italic,
         Link,
+        LinkImage,
         List,
         MediaEmbed,
         Paragraph,
         PasteFromOffice,
         Table,
         TableToolbar,
-        TextTransformation
+        TextTransformation,
+        SymfonyDeleteImagePlugin
       ],
+      extraPlugins: [SymfonyUploadAdapterPlugin],
       toolbar: {
         items: [
           'alignment',
@@ -72,6 +77,7 @@ export default class extends Controller<HTMLTextAreaElement> {
           '|',
           'blockQuote',
           'insertTable',
+          'insertImage',
           'mediaEmbed',
           'undo',
           'redo'
@@ -80,15 +86,23 @@ export default class extends Controller<HTMLTextAreaElement> {
       language: 'en',
       image: {
         toolbar: [
-          'imageTextAlternative',
-          'toggleImageCaption',
-          'imageStyle:inline',
           'imageStyle:block',
-          'imageStyle:side'
+          'imageStyle:side',
+          '|',
+          'toggleImageCaption',
+          'imageTextAlternative',
+          '|',
+          'linkImage'
         ]
       },
       table: {
         contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+      },
+      uploadImage: {
+        url: Routing.generate('app_post_ajax_upload_image', { _locale: this.localeValue })
+      },
+      deleteImage: {
+        url: Routing.generate('app_post_ajax_delete_image', { _locale: this.localeValue })
       }
     });
   };

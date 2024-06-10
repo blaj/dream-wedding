@@ -66,14 +66,18 @@ class FileStorageService {
     return $filePath;
   }
 
-  public function postPath(int $postId): string {
-    return self::$uploadsPath
-        . self::$postPath
-        . '/'
-        . $postId;
+  public function deleteFile(string $filePath): void {
+    if ($this->filesystem->exists($filePath)) {
+      $this->filesystem->remove($filePath);
+    }
   }
 
-  private function fullPath(string $path): string {
+  public function postPath(): string {
+    return self::$uploadsPath
+        . self::$postPath;
+  }
+
+  public function fullPath(string $path): string {
     return $this->kernelProjectDir() . self::$publicPath .  $path;
   }
 
