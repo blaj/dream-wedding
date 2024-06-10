@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
 
-#[IsGranted(new Expression("is_authenticated()"))]
+#[IsGranted('ROLE_MODERATOR')]
 #[Route(path: '/post', name: 'post_')]
 class PostController extends AbstractController {
 

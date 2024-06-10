@@ -4,6 +4,7 @@ namespace App\User\Entity;
 
 use App\Common\Entity\AuditingEntity;
 use App\Localization\Enum\Localization;
+use App\User\Entity\Enum\Role;
 use App\User\Repository\UserRepository;
 use App\Wedding\Entity\WeddingUser;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -30,6 +31,9 @@ class User extends AuditingEntity implements PasswordAuthenticatedUserInterface 
 
   #[Column(name: 'language', type: Types::STRING, length: 2, nullable: false, enumType: Localization::class)]
   private Localization $language = Localization::PL;
+
+  #[Column(name: 'role', type: Types::STRING, length: 20, nullable: false, enumType: Role::class)]
+  private Role $role = Role::USER;
 
   /**
    * @var Collection<int, WeddingUser>
@@ -77,6 +81,16 @@ class User extends AuditingEntity implements PasswordAuthenticatedUserInterface 
 
   public function setLanguage(Localization $language): self {
     $this->language = $language;
+
+    return $this;
+  }
+
+  public function getRole(): Role {
+    return $this->role;
+  }
+
+  public function setRole(Role $role): self {
+    $this->role = $role;
 
     return $this;
   }
