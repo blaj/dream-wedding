@@ -2,7 +2,7 @@
 
 namespace App\FileStorage\Entity;
 
-use App\Common\Entity\IdEntity;
+use App\Common\Entity\AuditingEntity;
 use App\FileStorage\Repository\LocalFileResourceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: LocalFileResourceRepository::class)]
 #[Table(name: 'local_file_resource', schema: 'file_resource')]
-class LocalFileResource extends IdEntity {
+class LocalFileResource extends AuditingEntity {
 
   #[Column(name: 'content_type', type: Types::STRING, nullable: false)]
   private string $contentType;

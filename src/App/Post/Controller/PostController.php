@@ -2,8 +2,6 @@
 
 namespace App\App\Post\Controller;
 
-use App\App\Post\Dto\UploadImageRequest;
-use App\App\Post\Form\Type\UploadImageFormType;
 use App\Common\Const\FlashMessageConst;
 use App\Common\Utils\FormUtils;
 use App\Post\Dto\PostCreateRequest;
@@ -106,16 +104,5 @@ class PostController extends AbstractController {
         new TranslatableMessage('post-deleted-successfully'));
 
     return $this->redirectToRoute('app_post_list');
-  }
-
-  #[Route(path: '/upload-image', name: 'upload_image', methods: ['POST'])]
-  public function uploadImage(Request $request): Response {
-    $form =
-        $this->createForm(
-            UploadImageFormType::class,
-            $uploadImageRequest = new UploadImageRequest());
-    $form->handleRequest($request);
-
-    return $this->json('');
   }
 }

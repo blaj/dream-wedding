@@ -17,7 +17,8 @@
       ]
     },
     "typeRoots": [
-      "./node_modules/@types/"
+      "./assets/types",
+      "./node_modules/@types"
     ]
   },
   "include": ["assets/**/*"],

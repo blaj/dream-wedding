@@ -16,6 +16,7 @@ use App\Post\Mapper\PostDetailsDtoMapper;
 use App\Post\Mapper\PostListItemDtoMapper;
 use App\Post\Mapper\PostUpdateRequestMapper;
 use App\Post\Repository\PostRepository;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostService {
@@ -142,8 +143,12 @@ class PostService {
         ->setContent($postUpdateRequest->getContent())
         ->setShortContent($postUpdateRequest->getShortContent());
 
-    array_walk($addedCategories, fn (PostCategory $postCategory) => $post->addCategory($postCategory));
-    array_walk($removedCategories, fn (PostCategory $postCategory) => $post->removeCategory($postCategory));
+    array_walk(
+        $addedCategories,
+        fn (PostCategory $postCategory) => $post->addCategory($postCategory));
+    array_walk(
+        $removedCategories,
+        fn (PostCategory $postCategory) => $post->removeCategory($postCategory));
 
     array_walk($addedTags, fn (PostTag $postTag) => $post->addTag($postTag));
     array_walk($removedTags, fn (PostTag $postTag) => $post->removeTag($postTag));
@@ -157,9 +162,35 @@ class PostService {
     $this->postRepository->softDeleteById($this->postFetchService->fetchPost($id)->getId());
   }
 
+  public function uploadImage(UploadedFile $uploadedFile): string {
+    $path = $this->fileStorageService->postPath();
+    $size = $uploadedFile->getSize();
+    $fullPath = $this->fileStorageService->uploadFile($uploadedFile, $path);
+
+    $image = (new LocalFileResource())
+        ->setContentType($uploadedFile->getClientMimeType())
+        ->setPath($fullPath)
+        ->setOriginalFileName($uploadedFile->getClientOriginalName())
+        ->setSize($size);
+    $this->localFileResourceRepository->save($image);
+
+    return $fullPath;
+  }
+
+  public function deleteImage(string $path, int $userId): void {
+    $localFileResource =
+        $this->localFileResourceRepository->findOneByPathAndCreatedById($path, $userId)
+        ??
+        throw new EntityNotFoundException('Local file resource not found');
+
+    $this->fileStorageService->deleteFile($this->fileStorageService->fullPath($path));
+
+    $this->localFileResourceRepository->softDeleteById($localFileResource->getId());
+  }
+
   private function addHeadingImage(?UploadedFile $uploadedFile, Post $post): void {
     if ($uploadedFile !== null) {
-      $path = $this->fileStorageService->postPath($post->getId());
+      $path = $this->fileStorageService->postPath();
       $size = $uploadedFile->getSize();
       $fullPath = $this->fileStorageService->uploadFile($uploadedFile, $path);
 
