@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted(new Expression("is_authenticated()"))]
+#[IsGranted('ROLE_MODERATOR')]
 #[Route(path: '/post-ajax', name: 'post_ajax_')]
 class PostAjaxController extends AbstractController {
 

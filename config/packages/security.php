@@ -10,6 +10,9 @@ use Symfony\Config\SecurityConfig;
 return static function(
     SecurityConfig $securityConfig,
     ContainerConfigurator $containerConfigurator): void {
+  $securityConfig->roleHierarchy('ROLE_MODERATOR', ['ROLE_USER']);
+  $securityConfig->roleHierarchy('ROLE_ADMIN', ['ROLE_MODERATOR']);
+
   $securityConfig
       ->passwordHasher(PasswordAuthenticatedUserInterface::class)
       ->algorithm('bcrypt');

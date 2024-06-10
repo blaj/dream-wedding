@@ -2,6 +2,7 @@
 
 namespace App\Security\Dto;
 
+use App\User\Entity\Enum\Role;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -17,13 +18,18 @@ class UserData implements UserInterface, PasswordAuthenticatedUserInterface {
 
   private string $email;
 
+  private Role $role;
+
   public function eraseCredentials(): void {}
 
   /**
    * @return array<string>
    */
   public function getRoles(): array {
-    return ['ROLE_USER'];
+    $roles = [$this->role];
+    $roles[] = Role::USER;
+
+    return array_unique(array_map(fn (Role $role) => sprintf('ROLE_%s', $role->value), $roles));
   }
 
   public function getUserId(): int {
@@ -72,6 +78,16 @@ class UserData implements UserInterface, PasswordAuthenticatedUserInterface {
 
   public function setEmail(string $email): self {
     $this->email = $email;
+
+    return $this;
+  }
+
+  public function getRole(): Role {
+    return $this->role;
+  }
+
+  public function setRole(Role $role): self {
+    $this->role = $role;
 
     return $this;
   }
