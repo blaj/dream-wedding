@@ -5,7 +5,7 @@ namespace App\Offer\Controller;
 use App\Common\Const\TranslationConst;
 use App\Offer\Dto\OfferPaginatedListCriteria;
 use App\Offer\Dto\OfferPaginatedListFilter;
-use App\Offer\FormType\OfferPaginatedListCriteriaFormType;
+use App\Offer\Form\Type\OfferPaginatedListCriteriaFormType;
 use App\Offer\Service\OfferService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

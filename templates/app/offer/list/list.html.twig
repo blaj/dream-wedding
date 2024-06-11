@@ -1,0 +1,94 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% import 'macros/breadcrumbs.html.twig' as breadcrumbs %}
+
+{% block title %}
+  {{ 'offer-list'|trans }}
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ breadcrumbs.render([
+    { text: 'wedding-planner'|trans },
+    { text: 'offer-list'|trans }
+  ]) }}
+{% endblock %}
+
+{% block page_heading %}
+  <h1 class="h3 mb-2 mb-sm-0">
+    {{ 'offer-list'|trans }}
+  </h1>
+
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group">
+      <a
+          href="{{ path('app_offer_create') }}"
+          class="btn btn-sm btn-outline-primary">
+        {{ 'add'|trans }}
+      </a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block page_content %}
+  <div class="card shadow">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              {{ 'title'|trans }}
+            </th>
+
+            <th>
+              {{ 'actions'|trans }}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% if paginatedOffersListItemDto.items|length == 0 %}
+            {% include 'partial/_empty-list-row.html.twig' with { emptyRowColspan: 2 } only %}
+          {% endif %}
+
+          {% for offerDto in paginatedOffersListItemDto.items %}
+            <tr>
+              <td>
+                {{ offerDto.title }}
+              </td>
+
+              <td class="d-flex">
+                <a
+                    href="{{ path('offer_details', { id: offerDto.id }) }}"
+                    class="btn btn-primary btn-sm me-1"
+                    target="_blank"
+                    data-controller="tooltip"
+                    data-bs-title="{{ 'details'|trans }}">
+                  <i class="bi bi-eye"></i>
+                </a>
+
+                <a
+                    href="{{ path('app_offer_update', { id: offerDto.id }) }}"
+                    class="btn btn-secondary btn-sm me-1"
+                    data-controller="tooltip"
+                    data-bs-title="{{ 'edit'|trans }}">
+                  <i class="bi bi-pencil"></i>
+                </a>
+
+                <form action="{{ path('app_offer_delete', { id: offerDto.id }) }}" method="post">
+                  <button
+                      type="submit" class="btn btn-danger btn-sm"
+                      data-controller="tooltip"
+                      data-bs-title="{{ 'delete'|trans }}">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+
+                  <input type="hidden" name="_method" value="DELETE">
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

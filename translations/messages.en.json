@@ -260,5 +260,11 @@
   "content": "Content",
   "heading-image": "Heading image",
   "select-image": "Select image",
-  "short-content": "Short content"
+  "short-content": "Short content",
+  "offer-list": "offer list",
+  "offer-create": "Add new offer",
+  "offer-update": "Edit offer",
+  "offer-created-successfully": "The offer has been added successfully",
+  "offer-updated-successfully": "The offer was updated successfully",
+  "offer-deleted-successfully": "The offer has deleted successfully"
 }

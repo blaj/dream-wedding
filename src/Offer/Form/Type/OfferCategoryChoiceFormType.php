@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Offer\FormType;
+namespace App\Offer\Form\Type;
 
 use App\Common\Utils\FormUtils;
 use App\Offer\Dto\OfferCategoryListItemDto;
@@ -9,7 +9,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OfferCategoryChoiceFormType extends AbstractType {
