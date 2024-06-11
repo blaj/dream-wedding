@@ -260,5 +260,11 @@
   "content": "Treść",
   "heading-image": "Obrazek nagłówkowy",
   "select-image": "Wybierz obrazek",
-  "short-content": "Krótka treść"
+  "short-content": "Krótka treść",
+  "offer-list": "Lista ofert",
+  "offer-create": "Dodawanie oferty",
+  "offer-update": "Edycja oferty",
+  "offer-created-successfully": "Oferta została dodana pomyślnie",
+  "offer-updated-successfully": "Oferta została zaktualizowana pomyślnie",
+  "offer-deleted-successfully": "Oferta została usunięta pomyślnie"
 }

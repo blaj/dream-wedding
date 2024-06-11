@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Offer\FormType;
+namespace App\Offer\Form\Type;
 
 use App\Common\Pagination\Form\Type\PaginatedListCriteriaFormType;
 use Symfony\Component\Form\AbstractType;

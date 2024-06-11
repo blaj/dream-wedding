@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Offer\FormType;
+namespace App\Offer\Form\Type;
 
 use App\Offer\Dto\OfferPaginatedListFilter;
 use Symfony\Component\Form\AbstractType;

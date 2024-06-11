@@ -55,6 +55,11 @@
                 name: 'post-list'|trans,
                 routeName: 'app_post_list',
                 path: path('app_post_list') } only %}
+
+              {% include 'partial/_sidebar-item.html.twig' with {
+                name: 'offer-list'|trans,
+                routeName: 'app_offer_list',
+                path: path('app_offer_list') } only %}
             {% endif %}
 
             {% for weddingDto in getWeddings() %}

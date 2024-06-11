@@ -60,10 +60,9 @@ class OfferRepository extends AbstractAuditingEntityRepository {
               offer 
             FROM 
               App\Offer\Entity\Offer offer 
-              INNER JOIN offer.categories categories 
+              LEFT JOIN offer.categories categories WITH categories.deleted = false 
             WHERE 
-              offer.deleted = false 
-              AND categories.deleted = false');
+              offer.deleted = false ');
   }
 
   public function getCountPaginationQuery(): Query {
@@ -74,10 +73,9 @@ class OfferRepository extends AbstractAuditingEntityRepository {
               COUNT(offer) as _count 
             FROM 
               App\Offer\Entity\Offer offer 
-              INNER JOIN offer.categories categories 
+              LEFT JOIN offer.categories categories WITH categories.deleted = false 
             WHERE 
-              offer.deleted = false 
-              AND categories.deleted = false');
+              offer.deleted = false');
   }
 
   public function appendPaginationFilter(

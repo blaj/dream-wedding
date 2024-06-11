@@ -1,0 +1,37 @@
+{% extends 'dashboard-base.html.twig' %}
+
+{% import 'macros/breadcrumbs.html.twig' as breadcrumbs %}
+
+{% block title %}
+  {{ 'offer-create'|trans }}
+{% endblock %}
+
+{% block page_title %}
+  {{ 'offer-create'|trans }}
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ breadcrumbs.render([
+    { text: 'wedding-planner'|trans },
+    { url: path('app_offer_list'), text: 'offer-list'|trans },
+    { text: 'offer-create'|trans }
+  ]) }}
+{% endblock %}
+
+{% block page_content %}
+  <div class="card shadow">
+    <div class="card-body">
+      {{ form_start(form) }}
+
+      {{ form_row(form.title) }}
+
+      {{ form_row(form.content) }}
+
+      {{ form_end(form) }}
+
+      <a href="{{ path('app_offer_list') }}">
+        {{ 'back-to-list'|trans }}
+      </a>
+    </div>
+  </div>
+{% endblock %}
