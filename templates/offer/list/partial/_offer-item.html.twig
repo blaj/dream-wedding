@@ -1,10 +1,12 @@
 <div class="card shadow p-2">
   <div class="row g-0">
-    <div class="col-md-5">
-      <img src="{{ asset('build/images/category/hotel/4by3/10.jpg') }}" class="card-img rounded-2" alt="Card image">
-    </div>
+    {% if offerDto.headingImagePath is not null %}
+      <div class="col-md-5">
+        <img src="{{ asset(offerDto.headingImagePath) }}" class="card-img rounded-2" alt="Card image">
+      </div>
+    {% endif %}
 
-    <div class="col-md-7">
+    <div class="{{ offerDto.headingImagePath is null ? 'col-md-12' : 'col-md-7' }}">
       <div class="card-body py-md-2 d-flex flex-column h-100">
         <div class="d-flex justify-content-between align-items-center">
           <ul class="list-inline mb-0">
@@ -36,10 +38,17 @@
               </a>
             </li>
 
-            <li class="list-inline-item dropdown"
+            <li
+                class="list-inline-item dropdown"
                 data-controller="copy-to-clipboard"
                 data-copy-to-clipboard-to-copy-value="{{ url('offer_details', { id: offerDto.id }) }}">
-              <a href="#" class="btn btn-sm btn-round btn-light" role="button" id="dropdownShare2" data-bs-toggle="dropdown" aria-expanded="false">
+              <a
+                  href="#"
+                  class="btn btn-sm btn-round btn-light"
+                  role="button"
+                  id="dropdownShare2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
                 <i class="fa-solid fa-fw fa-share-alt"></i>
               </a>
 

@@ -27,6 +27,22 @@
 
       {{ form_row(form.content) }}
 
+      <div class="mb-3" data-controller="preview-image">
+        {{ form_label(form.headingImage) }}
+
+        {{ form_widget(form.headingImage, {
+          attr: {
+            'class': 'mb-3',
+            'data-preview-image-target': 'input',
+            'data-action': 'preview-image#preview' } }) }}
+
+        <img
+            src=""
+            alt="{{ 'select-image'|trans }}"
+            class="img-thumbnail preview-image"
+            data-preview-image-target="output">
+      </div>
+
       {{ form_end(form) }}
 
       <a href="{{ path('app_offer_list') }}">

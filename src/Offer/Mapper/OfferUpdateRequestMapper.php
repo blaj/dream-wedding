@@ -16,6 +16,7 @@ class OfferUpdateRequestMapper {
     return (new OfferUpdateRequest())
         ->setTitle($offer->getTitle())
         ->setContent($offer->getContent())
+        ->setHeadingImagePath($offer->getHeadingImage()?->getPath())
         ->setCategories(self::categories($offer->getCategories()->toArray()));
   }
 

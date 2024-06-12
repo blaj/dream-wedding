@@ -7,6 +7,7 @@ use App\Common\Form\Type\CKEditorType;
 use App\Common\Form\Type\SaveAndAddButtonType;
 use App\Common\Form\Type\SaveButtonType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -17,6 +18,7 @@ class OfferUpdateFormType extends AbstractType {
         ->setMethod('PUT')
         ->add('title', TextType::class, ['label' => 'title'])
         ->add('content', CKEditorType::class, ['label' => 'content', 'required' => false])
+        ->add('headingImage', FileType::class, ['label' => 'heading-image', 'required' => false])
         ->add(
             'categories',
             OfferCategoryChoiceFormType::class,
