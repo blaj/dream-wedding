@@ -17,6 +17,7 @@ class OfferListItemDtoMapper {
         $offer->getId(),
         $offer->getTitle(),
         $offer->getContent(),
+        $offer->getHeadingImage()?->getPath(),
         self::categoryNames($offer->getCategories()->toArray()));
   }
 

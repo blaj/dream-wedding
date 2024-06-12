@@ -11,6 +11,7 @@ use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -23,7 +24,13 @@ class PostAjaxController extends AbstractController {
   #[Route(path: '/upload-image', name: 'upload_image', options: ['expose' => true], methods: ['POST'])]
   public function uploadImage(
       #[MapRequestPayload(resolver: FileRequestValueResolver::class)] UploadedFile $file): Response {
-    return $this->json(['url' => $this->postService->uploadImage($file)]);
+    $uploadedImagePath = $this->postService->uploadImage($file);
+
+    if ($uploadedImagePath === null) {
+      throw new NotFoundHttpException();
+    }
+
+    return $this->json(['url' => $uploadedImagePath]);
   }
 
   #[Route(path: '/delete-image', name: 'delete_image', options: ['expose' => true], methods: ['DELETE'])]

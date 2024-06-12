@@ -2,6 +2,8 @@
 
 namespace App\Offer\Dto;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -13,6 +15,9 @@ class OfferCreateRequest {
 
   #[NotBlank]
   private string $content;
+
+  #[Image]
+  private ?UploadedFile $headingImage = null;
 
   /**
    * @var array<int>
@@ -35,6 +40,16 @@ class OfferCreateRequest {
 
   public function setContent(string $content): self {
     $this->content = $content;
+
+    return $this;
+  }
+
+  public function getHeadingImage(): ?UploadedFile {
+    return $this->headingImage;
+  }
+
+  public function setHeadingImage(?UploadedFile $headingImage): self {
+    $this->headingImage = $headingImage;
 
     return $this;
   }

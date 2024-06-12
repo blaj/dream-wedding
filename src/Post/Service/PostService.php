@@ -2,9 +2,9 @@
 
 namespace App\Post\Service;
 
-use App\FileStorage\Entity\LocalFileResource;
 use App\FileStorage\Repository\LocalFileResourceRepository;
 use App\FileStorage\Service\FileStorageService;
+use App\FileStorage\Service\HeadingImageService;
 use App\Post\Dto\PostCreateRequest;
 use App\Post\Dto\PostDetailsDto;
 use App\Post\Dto\PostListItemDto;
@@ -31,6 +31,7 @@ class PostService {
       private readonly PostFetchService $postFetchService,
       private readonly PostCategoryFetchService $postCategoryFetchService,
       private readonly PostTagFetchService $postTagFetchService,
+      private readonly HeadingImageService $headingImageService,
       private readonly FileStorageService $fileStorageService) {}
 
   public function hasNextLoadMoreListPage(int $no): bool {
@@ -95,9 +96,14 @@ class PostService {
     array_walk($categories, fn (PostCategory $postCategory) => $post->addCategory($postCategory));
     array_walk($tags, fn (PostTag $postTag) => $post->addTag($postTag));
 
-    $this->postRepository->save($post);
+    $headingImage =
+        $this->headingImageService->addAndGetHeadingImage($postCreateRequest->getHeadingImage());
 
-    $this->addHeadingImage($postCreateRequest->getHeadingImage(), $post);
+    if ($headingImage !== null) {
+      $post->setHeadingImage($headingImage->localFileResource);
+    }
+
+    $this->postRepository->save($post);
   }
 
   public function update(int $id, PostUpdateRequest $postUpdateRequest): void {
@@ -153,28 +159,22 @@ class PostService {
     array_walk($addedTags, fn (PostTag $postTag) => $post->addTag($postTag));
     array_walk($removedTags, fn (PostTag $postTag) => $post->removeTag($postTag));
 
-    $this->postRepository->save($post);
+    $headingImage =
+        $this->headingImageService->addAndGetHeadingImage($postUpdateRequest->getHeadingImage());
 
-    $this->addHeadingImage($postUpdateRequest->getHeadingImage(), $post);
+    if ($headingImage !== null) {
+      $post->setHeadingImage($headingImage->localFileResource);
+    }
+
+    $this->postRepository->save($post);
   }
 
   public function delete(int $id): void {
     $this->postRepository->softDeleteById($this->postFetchService->fetchPost($id)->getId());
   }
 
-  public function uploadImage(UploadedFile $uploadedFile): string {
-    $path = $this->fileStorageService->postPath();
-    $size = $uploadedFile->getSize();
-    $fullPath = $this->fileStorageService->uploadFile($uploadedFile, $path);
-
-    $image = (new LocalFileResource())
-        ->setContentType($uploadedFile->getClientMimeType())
-        ->setPath($fullPath)
-        ->setOriginalFileName($uploadedFile->getClientOriginalName())
-        ->setSize($size);
-    $this->localFileResourceRepository->save($image);
-
-    return $fullPath;
+  public function uploadImage(UploadedFile $uploadedFile): ?string {
+    return $this->headingImageService->addAndGetHeadingImage($uploadedFile)?->fullPath;
   }
 
   public function deleteImage(string $path, int $userId): void {
@@ -186,23 +186,5 @@ class PostService {
     $this->fileStorageService->deleteFile($this->fileStorageService->fullPath($path));
 
     $this->localFileResourceRepository->softDeleteById($localFileResource->getId());
-  }
-
-  private function addHeadingImage(?UploadedFile $uploadedFile, Post $post): void {
-    if ($uploadedFile !== null) {
-      $path = $this->fileStorageService->postPath();
-      $size = $uploadedFile->getSize();
-      $fullPath = $this->fileStorageService->uploadFile($uploadedFile, $path);
-
-      $headingImage = (new LocalFileResource())
-          ->setContentType($uploadedFile->getClientMimeType())
-          ->setPath($fullPath)
-          ->setOriginalFileName($uploadedFile->getClientOriginalName())
-          ->setSize($size);
-      $this->localFileResourceRepository->save($headingImage);
-
-      $post->setHeadingImage($headingImage);
-      $this->postRepository->save($post);
-    }
   }
 }

@@ -4,6 +4,7 @@ namespace App\Offer\Service;
 
 use App\Common\Pagination\Dto\PaginatedList;
 use App\Common\Pagination\Service\PaginationService;
+use App\FileStorage\Service\HeadingImageService;
 use App\Offer\Dto\OfferCreateRequest;
 use App\Offer\Dto\OfferDetailsDto;
 use App\Offer\Dto\OfferListItemDto;
@@ -26,6 +27,7 @@ class OfferService {
       private readonly OfferRepository $offerRepository,
       private readonly OfferFetchService $offerFetchService,
       private readonly OfferCategoryFetchService $offerCategoryFetchService,
+      private readonly HeadingImageService $headingImageService,
       private readonly PaginationService $paginationService) {}
 
   public function getCount(): int {
@@ -83,6 +85,13 @@ class OfferService {
         $categories,
         fn (OfferCategory $offerCategory) => $offer->addCategory($offerCategory));
 
+    $headingImage =
+        $this->headingImageService->addAndGetHeadingImage($offerCreateRequest->getHeadingImage());
+
+    if ($headingImage !== null) {
+      $offer->setHeadingImage($headingImage->localFileResource);
+    }
+
     $this->offerRepository->save($offer);
   }
 
@@ -118,6 +127,13 @@ class OfferService {
     array_walk(
         $removedCategories,
         fn (OfferCategory $offerCategory) => $offer->removeCategory($offerCategory));
+
+    $headingImage =
+        $this->headingImageService->addAndGetHeadingImage($offerUpdateRequest->getHeadingImage());
+
+    if ($headingImage !== null) {
+      $offer->setHeadingImage($headingImage->localFileResource);
+    }
 
     $this->offerRepository->save($offer);
   }
