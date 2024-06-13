@@ -1,7 +1,10 @@
 <div class="card bg-transparent">
   <div class="row g-3 g-sm-4 align-items-sm-center">
     <div class="col-4">
-      <img src="{{ asset('build/images/blog/05.jpg') }}" class="card-img" alt="">
+      <img
+          src="{{ asset(postDto.headingImagePath is not null ? postDto.headingImagePath : 'build/images/element/no-image.svg') }}"
+          class="card-img"
+          alt="">
     </div>
 
     <div class="col-8">
