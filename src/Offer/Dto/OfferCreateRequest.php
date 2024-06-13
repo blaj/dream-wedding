@@ -19,6 +19,9 @@ class OfferCreateRequest {
   #[Image]
   private ?UploadedFile $headingImage = null;
 
+  #[NotBlank]
+  private string $shortContent;
+
   /**
    * @var array<int>
    */
@@ -50,6 +53,16 @@ class OfferCreateRequest {
 
   public function setHeadingImage(?UploadedFile $headingImage): self {
     $this->headingImage = $headingImage;
+
+    return $this;
+  }
+
+  public function getShortContent(): string {
+    return $this->shortContent;
+  }
+
+  public function setShortContent(string $shortContent): self {
+    $this->shortContent = $shortContent;
 
     return $this;
   }

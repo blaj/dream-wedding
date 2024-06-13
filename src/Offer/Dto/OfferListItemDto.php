@@ -11,6 +11,7 @@ readonly class OfferListItemDto {
       public int $id,
       public string $title,
       public string $content,
+      public string $shortContent,
       public ?string $headingImagePath,
       public array $categoryNames) {}
 }

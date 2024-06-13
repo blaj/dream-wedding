@@ -79,7 +79,8 @@ class OfferService {
 
     $offer = (new Offer())
         ->setTitle($offerCreateRequest->getTitle())
-        ->setContent($offerCreateRequest->getContent());
+        ->setContent($offerCreateRequest->getContent())
+        ->setShortContent($offerCreateRequest->getShortContent());
 
     array_walk(
         $categories,
@@ -119,7 +120,8 @@ class OfferService {
 
     $offer
         ->setTitle($offerUpdateRequest->getTitle())
-        ->setContent($offerUpdateRequest->getContent());
+        ->setContent($offerUpdateRequest->getContent())
+        ->setShortContent($offerUpdateRequest->getShortContent());
 
     array_walk(
         $addedCategories,
