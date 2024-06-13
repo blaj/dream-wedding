@@ -17,9 +17,11 @@ class PostListItemDtoMapper {
         $post->getId(),
         $post->getTitle(),
         $post->getContent(),
+        $post->getShortContent(),
         self::categoryNames($post->getCategories()->toArray()),
         $post->getCreatedAt(),
-        $post->getCreatedBy()?->getUsername());
+        $post->getCreatedBy()?->getUsername(),
+        $post->getHeadingImage()?->getPath());
   }
 
   /**

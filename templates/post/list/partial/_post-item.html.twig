@@ -1,7 +1,10 @@
 <div class="col-md-6 col-lg-4">
   <div class="card bg-transparent">
     <div class="position-relative">
-      <img src="{{ asset('build/images/blog/07.jpg') }}" class="card-img" alt="">
+      <img
+          src="{{ asset(postDto.headingImagePath is not null ? postDto.headingImagePath : 'build/images/element/no-image.svg') }}"
+          class="card-img"
+          alt="">
 
       <div class="card-img-overlay p-3">
         {% if postDto.categoryNames|length > 0 %}
@@ -26,7 +29,7 @@
       </h5>
 
       <p>
-        {{ postDto.content|u.truncate(100, '...') }}
+        {{ postDto.shortContent }}
       </p>
 
       <h6 class="fw-light mb-0">

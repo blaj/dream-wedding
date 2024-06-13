@@ -6,7 +6,10 @@
     <div class="col-lg-6">
       <div class="card bg-transparent mb-4 mb-sm-0">
         <div class="position-relative">
-          <img src="{{ asset('build/images/blog/10.jpg') }}" class="card-img" alt="">
+          <img
+              src="{{ asset(latestPostDto.headingImagePath is not null ? latestPostDto.headingImagePath : 'build/images/element/no-image.svg') }}"
+              class="card-img"
+              alt="">
 
           <div class="card-img-overlay d-flex align-items-start flex-column p-3">
             {% if latestPostDto.categoryNames|length > 0 %}
@@ -27,7 +30,7 @@
           <span>
             <i class="bi bi-calendar2-plus me-2"></i>
 
-            {{  latestPostDto.createdAt|format_datetime('full', 'none', locale=app.request.locale) }}
+            {{ latestPostDto.createdAt|format_datetime('full', 'none', locale=app.request.locale) }}
           </span>
 
           <h5 class="card-title">
@@ -37,7 +40,7 @@
           </h5>
 
           <p class="mb-0">
-            {{ latestPostDto.content|u.truncate(100, '...') }}
+            {{ latestPostDto.shortContent }}
           </p>
 
           <div class="d-flex justify-content-between align-items-center mt-2">
