@@ -19,7 +19,11 @@ class OfferUpdateRequest {
   #[Image]
   private ?UploadedFile $headingImage = null;
 
+  // TODO: not belong to request!
   private ?string $headingImagePath = null;
+
+  #[NotBlank]
+  private string $shortContent;
 
   /**
    * @var array<int>
@@ -62,6 +66,16 @@ class OfferUpdateRequest {
 
   public function setHeadingImagePath(?string $headingImagePath): self {
     $this->headingImagePath = $headingImagePath;
+
+    return $this;
+  }
+
+  public function getShortContent(): string {
+    return $this->shortContent;
+  }
+
+  public function setShortContent(string $shortContent): self {
+    $this->shortContent = $shortContent;
 
     return $this;
   }

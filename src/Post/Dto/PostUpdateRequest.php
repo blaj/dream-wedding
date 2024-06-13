@@ -22,6 +22,7 @@ class PostUpdateRequest {
   #[NotBlank]
   private string $shortContent;
 
+  // TODO: not belong to request!
   private ?string $headingImagePath = null;
 
   /**

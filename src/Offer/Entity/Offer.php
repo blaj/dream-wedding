@@ -31,6 +31,9 @@ class Offer extends AuditingEntity {
   #[ManyToOne(targetEntity: LocalFileResource::class, fetch: 'LAZY')]
   private ?LocalFileResource $headingImage = null;
 
+  #[Column(name: 'short_content', type: Types::TEXT, nullable: false)]
+  private string $shortContent;
+
   /**
    * @var Collection<int, OfferCategory>
    */
@@ -70,6 +73,16 @@ class Offer extends AuditingEntity {
 
   public function setHeadingImage(?LocalFileResource $headingImage): self {
     $this->headingImage = $headingImage;
+
+    return $this;
+  }
+
+  public function getShortContent(): string {
+    return $this->shortContent;
+  }
+
+  public function setShortContent(string $shortContent): self {
+    $this->shortContent = $shortContent;
 
     return $this;
   }
